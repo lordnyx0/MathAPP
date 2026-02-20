@@ -1,0 +1,188 @@
+{
+    "$schema": "./schemas/exercise.schema.json",
+    "topicId": "calc-ap1",
+    "title": "Cálculo I AP1: Limites I",
+    "exercises": [
+        {
+            "id": "c1-ap1-q1",
+            "topicId": "calc-ap1",
+            "category": "Limites com Raízes",
+            "title": "Q1: lim (⁵√x - 1)/(1 - x²) quando x→1",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→1) [⁵√x - 1] / [1 - x²]",
+            "finalAnswer": "-1/10",
+            "steps": [
+                {
+                    "title": "Passo 1: Verificar Indeterminação",
+                    "explanation": "Substituir x = 1 diretamente.",
+                    "content": "Substituindo x = 1:\nNumerador: ⁵√1 - 1 = 1 - 1 = 0\nDenominador: 1 - 1² = 1 - 1 = 0\n\nForma indeterminada: 0/0"
+                },
+                {
+                    "title": "Passo 2: Fatorar Denominador",
+                    "explanation": "Usar diferença de quadrados.",
+                    "content": "1 - x² = -(x² - 1) = -(x-1)(x+1)\n\nLimite = (⁵√x - 1) / [-(x-1)(x+1)]"
+                },
+                {
+                    "title": "Passo 3: Usar Fórmula de Potências",
+                    "explanation": "Usar xⁿ - aⁿ = (x-a)(xⁿ⁻¹ + xⁿ⁻²a + ... + aⁿ⁻¹)",
+                    "content": "Seja u = ⁵√x, então x = u⁵\n\nQuando x → 1, u → 1\n\nu⁵ - 1 = (u-1)(u⁴ + u³ + u² + u + 1)\n\nPortanto:\nx - 1 = (u-1)(u⁴ + u³ + u² + u + 1)\n\nIsolando (u - 1):\n⁵√x - 1 = u - 1 = (x - 1)/(u⁴ + u³ + u² + u + 1)"
+                },
+                {
+                    "title": "Passo 4: Simplificar e Calcular",
+                    "explanation": "Substituir e cancelar (x-1).",
+                    "content": "Limite = lim(x→1) (⁵√x - 1)/[-(x-1)(x+1)]\n\n= lim(x→1) (x-1)/[(u⁴+u³+u²+u+1)] × 1/[-(x-1)(x+1)]\n\n📌 JUSTIFICATIVA DO CANCELAMENTO:\nComo calculamos limite quando x → 1 (não EM x = 1),\ntemos x ≠ 1, logo (x-1) ≠ 0 na vizinhança perfurada.\nPortanto o cancelamento de (x-1) é válido.\n\n= lim(x→1) 1/[(u⁴+u³+u²+u+1)] × 1/[-(x+1)]\n\nQuando x → 1, u → 1:\n= 1/(1+1+1+1+1) × 1/(-(1+1))\n= 1/5 × (-1/2)\n= -1/10\n\n✓ Resposta: -1/10"
+                }
+            ],
+            "tips": [
+                "Para raízes n-ésimas, faça substituição u = ⁿ√x",
+                "Use a fórmula: uⁿ - 1 = (u-1)(uⁿ⁻¹ + ... + 1)",
+                "Cuidado com os sinais!"
+            ]
+        },
+        {
+            "id": "c1-ap1-q2",
+            "topicId": "calc-ap1",
+            "category": "Limites Laterais",
+            "title": "Q2: lim (x-6)/|x-6| quando x→6⁻",
+            "difficulty": "Intermediário",
+            "problem": "Calcule lim(x→6⁻) (x - 6) / |x - 6|",
+            "finalAnswer": "-1",
+            "steps": [
+                {
+                    "title": "Passo 1: Analisar o Módulo",
+                    "explanation": "Quando x → 6⁻, x < 6.",
+                    "content": "x → 6⁻ significa x se aproxima de 6 pela ESQUERDA\nOu seja: x < 6\n\nQuando x < 6:\nx - 6 < 0\n|x - 6| = -(x - 6) = 6 - x"
+                },
+                {
+                    "title": "Passo 2: Substituir e Simplificar",
+                    "explanation": "Usar a definição do módulo.",
+                    "content": "(x - 6) / |x - 6| = (x - 6) / (-(x - 6))\n                    = (x - 6) / (-x + 6)\n                    = (x - 6) / (-(x - 6))\n                    = -1\n\n✓ Resposta: -1"
+                }
+            ],
+            "tips": [
+                "x→a⁻ significa pela esquerda (x < a)",
+                "x→a⁺ significa pela direita (x > a)",
+                "|t| = t se t ≥ 0, |t| = -t se t < 0"
+            ]
+        },
+        {
+            "id": "c1-ap1-q3",
+            "topicId": "calc-ap1",
+            "category": "Limites Laterais",
+            "title": "Q3: lim (x+1)/(x²-3x+2) quando x→2⁺",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→2⁺) (x + 1) / (x² - 3x + 2)",
+            "finalAnswer": "+∞",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar o Denominador",
+                    "explanation": "x² - 3x + 2 = (x-1)(x-2)",
+                    "content": "(x + 1) / (x² - 3x + 2) = (x + 1) / [(x-1)(x-2)]"
+                },
+                {
+                    "title": "Passo 2: Analisar quando x → 2⁺",
+                    "explanation": "x se aproxima de 2 pela direita.",
+                    "content": "Quando x → 2⁺:\n• Numerador: x + 1 → 3 (positivo)\n• (x - 1) → 1 (positivo)\n• (x - 2) → 0⁺ (positivo pequeno, pois x > 2)"
+                },
+                {
+                    "title": "Passo 3: Determinar o Sinal",
+                    "explanation": "Sinal = (+)/(+)(+) = +",
+                    "content": "Limite = 3 / [(1)(0⁺)]\n        = 3 / 0⁺\n        = +∞\n\n✓ Resposta: +∞"
+                }
+            ],
+            "tips": [
+                "Fatore sempre o denominador",
+                "Analise o sinal de cada fator",
+                "Número/0⁺ = +∞ ou -∞ dependendo dos sinais"
+            ]
+        },
+        {
+            "id": "c1-ap1-q4",
+            "topicId": "calc-ap1",
+            "category": "Limites no Infinito",
+            "title": "Q4: lim (3x⁵-2x+2)/(6x⁵+x-4) quando x→-∞",
+            "difficulty": "Intermediário",
+            "problem": "Calcule lim(x→-∞) (3x⁵ - 2x + 2) / (6x⁵ + x - 4)",
+            "finalAnswer": "1/2",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar os Graus",
+                    "explanation": "Comparar o grau do numerador e denominador.",
+                    "content": "Numerador: grau 5 (termo líder: 3x⁵)\nDenominador: grau 5 (termo líder: 6x⁵)\n\nGraus iguais!"
+                },
+                {
+                    "title": "Passo 2: Aplicar a Regra",
+                    "explanation": "Quando graus são iguais, limite = razão dos coeficientes líderes.",
+                    "content": "lim(x→±∞) (ax^n + ...)/(bx^n + ...) = a/b\n\nAqui: a = 3, b = 6\n\nLimite = 3/6 = 1/2\n\n✓ Resposta: 1/2"
+                }
+            ],
+            "tips": [
+                "Graus iguais: limite = coef. líder / coef. líder",
+                "Grau numerador < denominador: limite = 0",
+                "Grau numerador > denominador: limite = ±∞"
+            ]
+        },
+        {
+            "id": "c1-ap1-q5",
+            "topicId": "calc-ap1",
+            "category": "Limites Trigonométricos",
+            "title": "Q5: lim sen(3x)/tg(12x) quando x→0",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→0) sen(3x) / tg(12x)",
+            "finalAnswer": "1/4",
+            "steps": [
+                {
+                    "title": "Passo 1: Reescrever tg",
+                    "explanation": "tg(12x) = sen(12x)/cos(12x)",
+                    "content": "sen(3x)/tg(12x) = sen(3x) / [sen(12x)/cos(12x)]\n                 = sen(3x) × cos(12x) / sen(12x)"
+                },
+                {
+                    "title": "Passo 2: Usar Limite Fundamental",
+                    "explanation": "lim(x→0) sen(kx)/(kx) = 1",
+                    "content": "Reescrevendo:\n= [sen(3x)/(3x)] × (3x) × cos(12x) / [sen(12x)/(12x) × 12x]\n= [sen(3x)/(3x)] × (3x/12x) × [12x/sen(12x)] × cos(12x)"
+                },
+                {
+                    "title": "Passo 3: Calcular os Limites",
+                    "explanation": "Aplicar limites conhecidos.",
+                    "content": "Quando x → 0:\n• sen(3x)/(3x) → 1\n• 12x/sen(12x) → 1\n• cos(12x) → 1\n• 3x/12x = 3/12 = 1/4\n\nLimite = 1 × (1/4) × 1 × 1 = 1/4\n\n✓ Resposta: 1/4"
+                }
+            ],
+            "tips": [
+                "lim sen(x)/x = 1 quando x→0",
+                "lim tg(x)/x = 1 quando x→0",
+                "Multiplique e divida para criar as formas padrão"
+            ]
+        },
+        {
+            "id": "c1-ap1-q6",
+            "topicId": "calc-ap1",
+            "category": "Assíntotas",
+            "title": "Q6: Assíntotas de f(x) = (6x³-5)/(3x³-9x)",
+            "difficulty": "Avançado",
+            "problem": "Encontre as assíntotas (vertical e horizontal) de f(x) = (6x³ - 5)/(3x³ - 9x)",
+            "finalAnswer": "AH: y = 2; AV: x = 0, x = ±√3",
+            "steps": [
+                {
+                    "title": "Passo 1: Assíntota Horizontal",
+                    "explanation": "Calcular lim(x→±∞).",
+                    "content": "Graus iguais (ambos grau 3)\n\nlim(x→±∞) (6x³-5)/(3x³-9x) = 6/3 = 2\n\n✓ Assíntota Horizontal: y = 2"
+                },
+                {
+                    "title": "Passo 2: Encontrar Assíntotas Verticais",
+                    "explanation": "Onde o denominador é zero.",
+                    "content": "3x³ - 9x = 0\n3x(x² - 3) = 0\nx = 0 ou x² = 3\nx = 0 ou x = ±√3"
+                },
+                {
+                    "title": "Passo 3: Verificar se são AV",
+                    "explanation": "O numerador não pode ser zero nesses pontos.",
+                    "content": "Em x = 0: 6(0)³ - 5 = -5 ≠ 0 ✓\nEm x = √3: 6(√3)³ - 5 = 6·3√3 - 5 ≠ 0 ✓\nEm x = -√3: similar ≠ 0 ✓\n\n✓ Assíntotas Verticais: x = 0, x = √3, x = -√3"
+                }
+            ],
+            "tips": [
+                "AH: limite no infinito",
+                "AV: onde denominador = 0 e numerador ≠ 0",
+                "Se ambos são zero, pode ser removível"
+            ]
+        }
+    ]
+}

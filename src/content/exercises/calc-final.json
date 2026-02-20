@@ -1,0 +1,205 @@
+{
+    "topicId": "calc-final",
+    "title": "Cálculo I - Avaliação Final",
+    "exercises": [
+        {
+            "id": "c1-final-q1",
+            "topicId": "calc-final",
+            "category": "Limites",
+            "title": "Q1: lim (x¹²-1)/(x²¹-1) quando x→1",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→1) (x¹² - 1)/(x²¹ - 1)",
+            "finalAnswer": "4/7",
+            "steps": [
+                {
+                    "title": "Passo 1: Forma Indeterminada",
+                    "explanation": "Verificar 0/0.",
+                    "content": "x = 1: (1-1)/(1-1) = 0/0 ✓"
+                },
+                {
+                    "title": "Passo 2: Usar L'Hôpital ou Fatoração",
+                    "explanation": "Aplicar regra de L'Hôpital.",
+                    "content": "Por L'Hôpital:\nlim = lim(x→1) (12x¹¹)/(21x²⁰)\n    = 12·1¹¹ / (21·1²⁰)\n    = 12/21\n    = 4/7 ✓"
+                }
+            ],
+            "tips": [
+                "L'Hôpital: se 0/0, derive em cima e embaixo",
+                "12/21 = 4/7 (divida por 3)"
+            ]
+        },
+        {
+            "id": "c1-final-q2",
+            "topicId": "calc-final",
+            "category": "Continuidade",
+            "title": "Q2: Verificar continuidade em x = 0",
+            "difficulty": "Intermediário",
+            "problem": "Verifique se f(x) = {sen(2x)/x se x>0; x² + 2eˣ se x≤0} é contínua em x = 0.",
+            "finalAnswer": "Sim, é contínua (ambos os limites = 2)",
+            "steps": [
+                {
+                    "title": "Passo 1: Calcular f(0)",
+                    "explanation": "Usar a definição para x ≤ 0.",
+                    "content": "f(0) = 0² + 2e⁰ = 0 + 2·1 = 2"
+                },
+                {
+                    "title": "Passo 2: Limite pela Esquerda",
+                    "explanation": "x → 0⁻, usar x² + 2eˣ.",
+                    "content": "lim(x→0⁻) (x² + 2eˣ)\n= 0 + 2·1 = 2"
+                },
+                {
+                    "title": "Passo 3: Limite pela Direita",
+                    "explanation": "x → 0⁺, usar sen(2x)/x.",
+                    "content": "lim(x→0⁺) sen(2x)/x\n= lim(x→0⁺) [sen(2x)/(2x)] × 2\n= 1 × 2 = 2"
+                },
+                {
+                    "title": "Passo 4: Conclusão",
+                    "explanation": "Verificar igualdade.",
+                    "content": "f(0) = 2\nlim(x→0⁻) = 2\nlim(x→0⁺) = 2\n\nTodos iguais!\n✓ A função É CONTÍNUA em x = 0"
+                }
+            ],
+            "tips": [
+                "Contínua se lim(x→a) f(x) = f(a)",
+                "lim sen(kx)/(kx) = 1"
+            ]
+        },
+        {
+            "id": "c1-final-q3",
+            "topicId": "calc-final",
+            "category": "Reta Tangente",
+            "title": "Q3: Reta tangente e normal a f(x) = x³ - 4/x + 3 em x = 1",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a equação da reta tangente e normal à curva f(x) = x³ - 4/x + 3 em x = 1.",
+            "finalAnswer": "Tangente: y = 7x - 7; Normal: y = (-x + 1)/7",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar o Ponto",
+                    "explanation": "Calcular f(1).",
+                    "content": "f(1) = 1³ - 4/1 + 3 = 1 - 4 + 3 = 0\nPonto: (1, 0)"
+                },
+                {
+                    "title": "Passo 2: Calcular Derivada",
+                    "explanation": "f'(x) = 3x² + 4/x²",
+                    "content": "f(x) = x³ - 4x⁻¹ + 3\nf'(x) = 3x² + 4x⁻² = 3x² + 4/x²\n\nf'(1) = 3 + 4 = 7"
+                },
+                {
+                    "title": "Passo 3: Reta Tangente",
+                    "explanation": "y - y₀ = m(x - x₀)",
+                    "content": "y - 0 = 7(x - 1)\ny = 7x - 7 ✓"
+                },
+                {
+                    "title": "Passo 4: Reta Normal",
+                    "explanation": "m_normal = -1/m_tangente",
+                    "content": "m_n = -1/7\n\ny - 0 = (-1/7)(x - 1)\ny = -x/7 + 1/7\ny = (-x + 1)/7 ✓"
+                }
+            ],
+            "tips": [
+                "d/dx[1/x] = -1/x²",
+                "Normal perpendicular: m₁·m₂ = -1"
+            ]
+        },
+        {
+            "id": "c1-final-q4a",
+            "topicId": "calc-final",
+            "category": "Derivadas",
+            "title": "Q4a: Derivada de cos x + sec x + 3tg x",
+            "difficulty": "Básico",
+            "problem": "Calcule f'(x) para f(x) = cos x + sec x + 3tg x",
+            "finalAnswer": "-sen x + sec x·tg x + 3sec² x",
+            "steps": [
+                {
+                    "title": "Passo 1: Derivar Cada Termo",
+                    "explanation": "Aplicar regras básicas.",
+                    "content": "d/dx[cos x] = -sen x\nd/dx[sec x] = sec x · tg x\nd/dx[3tg x] = 3sec² x"
+                },
+                {
+                    "title": "Passo 2: Somar",
+                    "explanation": "Juntar as derivadas.",
+                    "content": "f'(x) = -sen x + sec x·tg x + 3sec² x ✓"
+                }
+            ],
+            "tips": [
+                "Memorize as derivadas trigonométricas básicas"
+            ]
+        },
+        {
+            "id": "c1-final-q4b",
+            "topicId": "calc-final",
+            "category": "Derivadas",
+            "title": "Q4b: Derivada de 3ˣ·(x² - 2)",
+            "difficulty": "Intermediário",
+            "problem": "Calcule f'(x) para f(x) = 3ˣ·(x² - 2)",
+            "finalAnswer": "3ˣ[ln(3)(x² - 2) + 2x]",
+            "steps": [
+                {
+                    "title": "Passo 1: Regra do Produto",
+                    "explanation": "(uv)' = u'v + uv'",
+                    "content": "u = 3ˣ → u' = 3ˣ·ln(3)\nv = x² - 2 → v' = 2x"
+                },
+                {
+                    "title": "Passo 2: Aplicar",
+                    "explanation": "Substituir na regra.",
+                    "content": "f'(x) = 3ˣ·ln(3)·(x² - 2) + 3ˣ·(2x)\n      = 3ˣ[ln(3)(x² - 2) + 2x] ✓"
+                }
+            ],
+            "tips": [
+                "d/dx[aˣ] = aˣ·ln(a)"
+            ]
+        },
+        {
+            "id": "c1-final-q4c",
+            "topicId": "calc-final",
+            "category": "Derivadas",
+            "title": "Q4c: Derivada de y = ln(x)/x²",
+            "difficulty": "Intermediário",
+            "problem": "Calcule dy/dx para y = ln(x)/x²",
+            "finalAnswer": "(1 - 2ln x)/x³",
+            "steps": [
+                {
+                    "title": "Passo 1: Regra do Quociente",
+                    "explanation": "(u/v)' = (u'v - uv')/v²",
+                    "content": "u = ln x → u' = 1/x\nv = x² → v' = 2x"
+                },
+                {
+                    "title": "Passo 2: Aplicar",
+                    "explanation": "Substituir na regra.",
+                    "content": "dy/dx = [(1/x)·x² - ln(x)·2x] / x⁴\n      = [x - 2x·ln(x)] / x⁴\n      = x(1 - 2ln x) / x⁴\n      = (1 - 2ln x) / x³ ✓"
+                }
+            ],
+            "tips": [
+                "d/dx[ln x] = 1/x",
+                "Simplifique fatorando"
+            ]
+        },
+        {
+            "id": "c1-final-q4d",
+            "topicId": "calc-final",
+            "category": "Derivadas",
+            "title": "Q4d: Derivada de y = sen⁴(x² + cos x)³",
+            "difficulty": "Avançado",
+            "problem": "Calcule dy/dx para y = sen⁴(x² + cos x)³",
+            "finalAnswer": "Múltiplas regras da cadeia",
+            "steps": [
+                {
+                    "title": "Passo 1: Interpretar a Expressão",
+                    "explanation": "Identificar as camadas.",
+                    "content": "y = [sen(u)]⁴ onde u = (x² + cos x)³\nOu: y = sen⁴(v) onde v = (x² + cos x)³\n\nCamadas: (...)⁴ ← sen ← (...)³ ← (x² + cos x)"
+                },
+                {
+                    "title": "Passo 2: Aplicar Regra da Cadeia",
+                    "explanation": "Derivar de fora para dentro.",
+                    "content": "Seja w = x² + cos x\nv = w³\nu = sen(v)\ny = u⁴\n\ndy/dx = dy/du × du/dv × dv/dw × dw/dx\n\n= 4u³ × cos(v) × 3w² × (2x - sen x)"
+                },
+                {
+                    "title": "Passo 3: Substituir",
+                    "explanation": "Voltar às variáveis originais.",
+                    "content": "= 4sen³(v) × cos(v) × 3(x²+cos x)² × (2x - sen x)\n\n= 12·sen³[(x²+cos x)³]·cos[(x²+cos x)³]\n  ·(x²+cos x)²·(2x - sen x)"
+                }
+            ],
+            "tips": [
+                "Identifique cada função aninhada",
+                "Deriva de fora para dentro",
+                "d/dx[cos x] = -sen x"
+            ]
+        }
+    ]
+}

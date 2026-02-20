@@ -1,0 +1,254 @@
+{
+    "topicId": "mat-elem-ap2.1",
+    "title": "Mat. Elementar AP2.1: Funções",
+    "exercises": [
+        {
+            "id": "me-ap2.1-q1a",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Representação Gráfica",
+            "title": "Q1a: Gráfico de R = {(x,y); y = x}",
+            "difficulty": "Básico",
+            "problem": "Represente graficamente a relação R = {(x,y) ∈ ℝ²; y = x}",
+            "finalAnswer": "Reta diagonal passando pela origem com inclinação 45°",
+            "steps": [
+                {
+                    "title": "Passo 1: Interpretar a Relação",
+                    "explanation": "Entender o que significa y = x.",
+                    "content": "📌 A relação R = {(x,y) ∈ ℝ²; y = x} indica:\n\nTodos os pontos onde a coordenada y é IGUAL à coordenada x.\n\nExemplos de pontos:\n• (0, 0) ✓\n• (1, 1) ✓\n• (-2, -2) ✓\n• (3, 5) ✗ (pois 5 ≠ 3)"
+                },
+                {
+                    "title": "Passo 2: Identificar o Tipo de Curva",
+                    "explanation": "y = x é uma função linear.",
+                    "content": "📐 Forma geral: y = ax + b\n\nComparando y = x com y = ax + b:\n• a = 1 (coeficiente angular)\n• b = 0 (coeficiente linear)\n\n→ É uma RETA que passa pela origem!"
+                },
+                {
+                    "title": "Passo 3: Características do Gráfico",
+                    "explanation": "Descrever a reta bissetriz.",
+                    "content": "✓ A reta y = x é chamada BISSETRIZ dos quadrantes ímpares (1º e 3º)\n\n📊 Características:\n• Passa por (0,0)\n• Inclinação de 45°\n• Divide o plano em duas regiões:\n  - Acima: y > x\n  - Abaixo: y < x"
+                }
+            ],
+            "tips": [
+                "A reta y = x é a bissetriz do 1º e 3º quadrantes",
+                "Todo ponto (a, a) está nesta reta",
+                "É o lugar geométrico dos pontos equidistantes dos eixos"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q1b",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Representação Gráfica",
+            "title": "Q1b: Gráfico de Q = {(x,y); y = |x|/x}",
+            "difficulty": "Intermediário",
+            "problem": "Represente graficamente a relação Q = {(x,y) ∈ ℝ×ℝ; y = |x|/x}",
+            "finalAnswer": "Duas semirretas horizontais: y = 1 para x > 0 e y = -1 para x < 0",
+            "steps": [
+                {
+                    "title": "Passo 1: Analisar a Expressão |x|/x",
+                    "explanation": "Separar em casos conforme o sinal de x.",
+                    "content": "📌 Lembre: |x| = x se x ≥ 0, e |x| = -x se x < 0\n\n⚠️ ATENÇÃO: x = 0 não está no domínio!\n(divisão por zero é indefinida)"
+                },
+                {
+                    "title": "Passo 2: Caso x > 0",
+                    "explanation": "Quando x é positivo.",
+                    "content": "Se x > 0:\n|x| = x\n\ny = |x|/x = x/x = 1\n\n→ Para todo x > 0, y = 1"
+                },
+                {
+                    "title": "Passo 3: Caso x < 0",
+                    "explanation": "Quando x é negativo.",
+                    "content": "Se x < 0:\n|x| = -x\n\ny = |x|/x = (-x)/x = -1\n\n→ Para todo x < 0, y = -1"
+                },
+                {
+                    "title": "Passo 4: O Gráfico",
+                    "explanation": "Descrever a função sinal.",
+                    "content": "📊 O gráfico consiste em:\n\n• Semirreta horizontal y = 1 para x > 0\n• Semirreta horizontal y = -1 para x < 0\n• BURACO em x = 0 (não definido)\n\n💡 Esta é a FUNÇÃO SINAL: sgn(x) = |x|/x"
+                }
+            ],
+            "tips": [
+                "|x|/x é a função sinal (signum)",
+                "O domínio exclui x = 0",
+                "A imagem tem apenas dois valores: {-1, 1}"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q2a",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Monotonia de Funções",
+            "title": "Q2a: Verificar se f(x) = -2x + 1 é crescente ou decrescente",
+            "difficulty": "Básico",
+            "problem": "Verifique se a função f(x) = -2x + 1 é crescente ou decrescente.",
+            "finalAnswer": "Decrescente em todo ℝ",
+            "steps": [
+                {
+                    "title": "Passo 1: Definição de Monotonia",
+                    "explanation": "Recordar as definições.",
+                    "content": "📌 Definições:\n\n• f é CRESCENTE se:\n  x₁ < x₂ ⟹ f(x₁) < f(x₂)\n\n• f é DECRESCENTE se:\n  x₁ < x₂ ⟹ f(x₁) > f(x₂)"
+                },
+                {
+                    "title": "Passo 2: Método 1 - Pelo Coeficiente Angular",
+                    "explanation": "Para funções lineares, o sinal de 'a' determina.",
+                    "content": "f(x) = -2x + 1 é uma função afim (y = ax + b)\n\nCoeficiente angular: a = -2\n\n📐 Regra:\n• a > 0 → Crescente\n• a < 0 → Decrescente\n\nComo a = -2 < 0 → DECRESCENTE ✓"
+                },
+                {
+                    "title": "Passo 3: Método 2 - Pela Definição",
+                    "explanation": "Provar formalmente.",
+                    "content": "Sejam x₁ < x₂ (dois valores quaisquer)\n\nf(x₁) - f(x₂) = (-2x₁ + 1) - (-2x₂ + 1)\n              = -2x₁ + 2x₂\n              = -2(x₁ - x₂)\n              = 2(x₂ - x₁)\n\nComo x₂ > x₁ → (x₂ - x₁) > 0\nLogo f(x₁) - f(x₂) > 0\nPortanto f(x₁) > f(x₂)\n\n✓ f é DECRESCENTE"
+                }
+            ],
+            "tips": [
+                "Para função afim: basta olhar o sinal do coeficiente angular",
+                "a < 0 sempre indica função decrescente",
+                "O gráfico \"desce\" da esquerda para a direita"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q2b",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Monotonia de Funções",
+            "title": "Q2b: Verificar se f(x) = x³ é crescente ou decrescente",
+            "difficulty": "Intermediário",
+            "problem": "Verifique se a função f(x) = x³ é crescente ou decrescente.",
+            "finalAnswer": "Crescente em todo ℝ",
+            "steps": [
+                {
+                    "title": "Passo 1: Analisar pela Definição",
+                    "explanation": "Usar a definição formal de função crescente.",
+                    "content": "📌 DEFINIÇÃO:\nf é ESTRITAMENTE CRESCENTE em D se:\n∀ x₁, x₂ ∈ D: x₁ < x₂ ⟹ f(x₁) < f(x₂)\n\nQueremos mostrar que f(x) = x³ satisfaz:\nx₁ < x₂ ⟹ x₁³ < x₂³ para todo x₁, x₂ ∈ ℝ"
+                },
+                {
+                    "title": "Passo 2: Fatorar a Diferença",
+                    "explanation": "Usar a identidade da diferença de cubos.",
+                    "content": "Seja x₁ < x₂ (hipótese).\n\nQueremos mostrar que x₂³ - x₁³ > 0.\n\n📐 Identidade algébrica:\na³ - b³ = (a - b)(a² + ab + b²)\n\nAplicando com a = x₂, b = x₁:\nx₂³ - x₁³ = (x₂ - x₁)(x₂² + x₁x₂ + x₁²)"
+                },
+                {
+                    "title": "Passo 3: Analisar os Fatores",
+                    "explanation": "Mostrar que ambos os fatores são positivos.",
+                    "content": "📌 Fator 1: (x₂ - x₁)\nComo x₁ < x₂ por hipótese, temos:\nx₂ - x₁ > 0 ✓\n\n📌 Fator 2: (x₂² + x₁x₂ + x₁²)\nPrecisamos mostrar que > 0 quando x₁ ≠ x₂.\n\nCompletando quadrados:\nx₂² + x₁x₂ + x₁² = (x₂ + x₁/2)² + 3x₁²/4\n\n• (x₂ + x₁/2)² ≥ 0 sempre\n• 3x₁²/4 ≥ 0 sempre\n• Soma = 0 ⟺ x₂ + x₁/2 = 0 E x₁ = 0\n               ⟺ x₂ = 0 E x₁ = 0\n               ⟺ x₁ = x₂ = 0\n\nComo x₁ ≠ x₂ (pois x₁ < x₂), temos:\nx₂² + x₁x₂ + x₁² > 0 ✓"
+                },
+                {
+                    "title": "Passo 4: Conclusão Formal",
+                    "explanation": "Juntando os resultados.",
+                    "content": "De (x₁ < x₂):\n• (x₂ - x₁) > 0\n• (x₂² + x₁x₂ + x₁²) > 0\n\nLogo:\nx₂³ - x₁³ = (positivo) × (positivo) > 0\n\nPortanto: x₂³ > x₁³\n\nComo x₁ < x₂ foi arbitrário, provamos:\n∀ x₁, x₂ ∈ ℝ: x₁ < x₂ ⟹ x₁³ < x₂³\n\n✓ f(x) = x³ é ESTRITAMENTE CRESCENTE em ℝ ∎"
+                }
+            ],
+            "tips": [
+                "Funções de potência ímpar são sempre crescentes em ℝ",
+                "Pode usar fatoração: a³ - b³ = (a-b)(a² + ab + b²)",
+                "A derivada f'(x) = 3x² ≥ 0 também confirma (é ≥ 0 sempre)"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q3a",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Estudo de Sinal",
+            "title": "Q3a: Estudo de sinal de f(x) = (1-x²)x³",
+            "difficulty": "Avançado",
+            "problem": "Estude o sinal da função f(x) = (1 - x²)x³",
+            "finalAnswer": "f(x) > 0 em (-∞, -1) ∪ (0, 1); f(x) < 0 em (-1, 0) ∪ (1, +∞); f(x) = 0 em x ∈ {-1, 0, 1}",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar Completamente",
+                    "explanation": "Identificar todas as raízes.",
+                    "content": "f(x) = (1 - x²)x³\n\nFatorando (1 - x²) = (1-x)(1+x):\n\nf(x) = (1-x)(1+x) · x³\nf(x) = -1 · (x-1)(x+1) · x³\n\n📌 Raízes: x = -1, x = 0, x = 1\n⚠️ Importante: O fator -1 afeta o sinal final!"
+                },
+                {
+                    "title": "Passo 2: Analisar Multiplicidades",
+                    "explanation": "A multiplicidade afeta o comportamento no zero.",
+                    "content": "Fatores e multiplicidades:\n• (x + 1): multiplicidade 1 (ímpar → cruza, muda sinal)\n• x³: multiplicidade 3 (ímpar → cruza, muda sinal)\n• (x - 1): multiplicidade 1 (ímpar → cruza, muda sinal)\n\n⚠️ Atenção: f(x) = -1 · (x+1) · x³ · (x-1)\nO fator -1 SEMPRE negativo deve entrar na tabela!"
+                },
+                {
+                    "title": "Passo 3: Tabela de Sinais",
+                    "explanation": "Analisar cada intervalo, incluindo o fator -1.",
+                    "content": "Intervalos: (-∞,-1) | -1 | (-1,0) | 0 | (0,1) | 1 | (1,+∞)\n\n  -1    |   -   | -  |  -  | - |  -  | - |  -\n(x+1)   |   -   | 0  |  +  | + |  +  | + |  +\n  x³    |   -   | -  |  -  | 0 |  +  | + |  +\n(x-1)   |   -   | -  |  -  | - |  -  | 0 |  +\n--------|-------|----|----|---|-----|---|----\n f(x)   |   +   | 0  |  -  | 0 |  +  | 0 |  -\n\n📐 Contagem de sinais negativos:\n• (-∞,-1): 4 negativos → (+)\n• (-1,0): 3 negativos → (-)\n• (0,1): 2 negativos → (+)\n• (1,+∞): 1 negativo → (-)"
+                },
+                {
+                    "title": "Passo 4: Verificação Lógica",
+                    "explanation": "Testar valores para confirmar.",
+                    "content": "🔍 Verificação com valores:\n\n• x = -10:\n  f(-10) = (1-100)·(-1000) = -99·(-1000) = +99000 ✓ (positivo)\n\n• x = 10:\n  f(10) = (1-100)·1000 = -99·1000 = -99000 ✓ (negativo)\n\n• x = 0.5:\n  f(0.5) = (1-0.25)·0.125 = 0.75·0.125 = +0.09375 ✓ (positivo)"
+                },
+                {
+                    "title": "Passo 5: Conclusão",
+                    "explanation": "Resumir o estudo de sinal.",
+                    "content": "✓ f(x) > 0 para x ∈ (-∞, -1) ∪ (0, 1)\n\n✓ f(x) < 0 para x ∈ (-1, 0) ∪ (1, +∞)\n\n✓ f(x) = 0 para x ∈ {-1, 0, 1}\n\n💡 Obs: Em x = 0, o gráfico ATRAVESSA o eixo x fazendo uma curva suave (ponto de inflexão). Multiplicidade ímpar (3) significa mudança de sinal - diferente de multiplicidade par onde o gráfico apenas tangencia e volta."
+                }
+            ],
+            "tips": [
+                "Multiplicidade ímpar: o gráfico ATRAVESSA o eixo x (muda sinal)",
+                "Multiplicidade par: o gráfico TANGENCIA e volta (não muda sinal)",
+                "SEMPRE inclua o sinal do coeficiente líder (-1 neste caso) na tabela",
+                "Verifique com valores numéricos: teste x muito grande e muito pequeno"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q3b",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Estudo de Sinal",
+            "title": "Q3b: Estudo de sinal de f(x) = x⁴/(x-1)⁵",
+            "difficulty": "Avançado",
+            "problem": "Estude o sinal da função f(x) = x⁴/(x-1)⁵",
+            "finalAnswer": "f(x) > 0 para x > 1; f(x) < 0 para x < 1 (x ≠ 0); f(x) = 0 para x = 0; indefinida em x = 1",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar Domínio e Zeros",
+                    "explanation": "Encontrar onde f é zero, indefinida e definida.",
+                    "content": "f(x) = x⁴/(x-1)⁵\n\n📌 Domínio: x ≠ 1 (denominador não pode ser zero)\n\n📌 Zeros: x⁴ = 0 → x = 0\n\n📌 Assíntota vertical: x = 1"
+                },
+                {
+                    "title": "Passo 2: Analisar os Fatores",
+                    "explanation": "Estudar o sinal do numerador e denominador.",
+                    "content": "Numerador: x⁴\n• x⁴ ≥ 0 SEMPRE (potência par)\n• x⁴ = 0 apenas quando x = 0\n• x⁴ > 0 para todo x ≠ 0\n\nDenominador: (x-1)⁵\n• (x-1)⁵ > 0 quando x > 1\n• (x-1)⁵ < 0 quando x < 1\n• Potência ímpar mantém o sinal"
+                },
+                {
+                    "title": "Passo 3: Tabela de Sinais",
+                    "explanation": "Combinar os sinais.",
+                    "content": "         |  -∞  | 0 |   | 1 |  +∞\n---------|------|---|---|---|-----\n   x⁴    |  +   | 0 | + | + |  +\n (x-1)⁵  |  -   | - | - |und|  +\n---------|------|---|---|---|-----\n  f(x)   |  -   | 0 | - |und|  +\n\nund = indefinido (assíntota)"
+                },
+                {
+                    "title": "Passo 4: Conclusão",
+                    "explanation": "Resumir o resultado.",
+                    "content": "✓ f(x) > 0 para x ∈ (1, +∞)\n\n✓ f(x) < 0 para x ∈ (-∞, 0) ∪ (0, 1)\n\n✓ f(x) = 0 para x = 0\n\n✓ f(x) indefinida para x = 1\n\n💡 Note: x = 0 é zero de multiplicidade 4 (par), então f apenas toca o eixo x ali, sem mudar de sinal."
+                }
+            ],
+            "tips": [
+                "Potência par no numerador: sempre ≥ 0",
+                "Potência ímpar no denominador: muda sinal ao cruzar a raiz",
+                "Cuidado com o domínio em funções racionais"
+            ]
+        },
+        {
+            "id": "me-ap2.1-q4",
+            "topicId": "mat-elem-ap2.1",
+            "category": "Composição de Funções",
+            "title": "Q4: Decompor f(x) = 3^√(x³+x)",
+            "difficulty": "Avançado",
+            "problem": "Decomponha de duas formas distintas a função definida por f(x) = 3^√(x³+x)",
+            "finalAnswer": "Forma 1: h∘g onde g(x) = √(x³+x), h(x) = 3^x | Forma 2: p∘q∘r onde r(x)=x³+x, q(x)=√x, p(x)=3^x",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar as Camadas",
+                    "explanation": "Analisar a função de dentro para fora.",
+                    "content": "f(x) = 3^√(x³+x)\n\nCamadas (de dentro para fora):\n1. x³ + x (expressão polinomial)\n2. √(□) (raiz quadrada)\n3. 3^(□) (exponencial de base 3)"
+                },
+                {
+                    "title": "Passo 2: Decomposição em 2 Funções",
+                    "explanation": "Agrupar as operações internas.",
+                    "content": "🔹 FORMA 1: Duas funções\n\nDefinindo:\n• g(x) = √(x³ + x)\n• h(x) = 3^x\n\nVerificação:\n(h∘g)(x) = h(g(x)) = h(√(x³+x)) = 3^√(x³+x) ✓\n\nPortanto: f = h∘g"
+                },
+                {
+                    "title": "Passo 3: Decomposição em 3 Funções",
+                    "explanation": "Separar cada operação.",
+                    "content": "🔹 FORMA 2: Três funções\n\nDefinindo:\n• r(x) = x³ + x\n• q(x) = √x\n• p(x) = 3^x\n\nVerificação:\n(p∘q∘r)(x) = p(q(r(x)))\n           = p(q(x³+x))\n           = p(√(x³+x))\n           = 3^√(x³+x) ✓\n\nPortanto: f = p∘q∘r"
+                },
+                {
+                    "title": "Passo 4: Observação sobre o Domínio",
+                    "explanation": "Restrição importante.",
+                    "content": "⚠️ Para a função ser real:\n\nx³ + x ≥ 0\nx(x² + 1) ≥ 0\n\nComo x² + 1 > 0 sempre:\nx ≥ 0\n\n💡 Domínio: [0, +∞)"
+                }
+            ],
+            "tips": [
+                "De dentro para fora ajuda a identificar camadas",
+                "Sempre verifique substituindo",
+                "O domínio da composição depende de todas as funções"
+            ]
+        }
+    ]
+}

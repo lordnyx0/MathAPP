@@ -1,0 +1,247 @@
+{
+    "$schema": "./schemas/mcq.schema.json",
+    "topic": "logaritmos",
+    "title": "MCQ - Logaritmos",
+    "questions": [
+        {
+            "id": "mcq-log-1",
+            "question": "Calcule $\\log_2(8)$",
+            "topic": "logaritmos",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "2",
+                    "explanation": "Incorreto. $2^2 = 4$, não 8. Você calculou $\\log_2(4)$."
+                },
+                {
+                    "id": "B",
+                    "text": "3",
+                    "explanation": "Correto! $2^3 = 8$, portanto $\\log_2(8) = 3$."
+                },
+                {
+                    "id": "C",
+                    "text": "4",
+                    "explanation": "Incorreto. $2^4 = 16$. Você foi além."
+                },
+                {
+                    "id": "D",
+                    "text": "8",
+                    "explanation": "Incorreto. Você confundiu o logaritmando com a resposta. Lembre: log é o EXPOENTE."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Definição de logaritmo: $\\log_a(x) = b$ significa $a^b = x$"
+        },
+        {
+            "id": "mcq-log-2",
+            "question": "Calcule $\\log_3(27)$",
+            "topic": "logaritmos",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "2",
+                    "explanation": "Incorreto. $3^2 = 9$, não 27."
+                },
+                {
+                    "id": "B",
+                    "text": "3",
+                    "explanation": "Correto! $3^3 = 27$, portanto $\\log_3(27) = 3$."
+                },
+                {
+                    "id": "C",
+                    "text": "9",
+                    "explanation": "Incorreto. 9 é $3^2$. Você confundiu potência com logaritmo."
+                },
+                {
+                    "id": "D",
+                    "text": "27",
+                    "explanation": "Incorreto. Logaritmo é o expoente, não o número original."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Logaritmo responde: \"A que potência devo elevar a base para obter este número?\""
+        },
+        {
+            "id": "mcq-log-3",
+            "question": "Simplifique: $\\log_2(4) + \\log_2(8)$",
+            "topic": "logaritmos",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "5",
+                    "explanation": "Correto! $\\log_2(4) = 2$ e $\\log_2(8) = 3$. Soma: $2 + 3 = 5$."
+                },
+                {
+                    "id": "B",
+                    "text": "6",
+                    "explanation": "Incorreto. $\\log_2(4) = 2$ (não 3). Verifique: $2^2 = 4$."
+                },
+                {
+                    "id": "C",
+                    "text": "32",
+                    "explanation": "Incorreto. Você multiplicou os logaritmandos. A propriedade é $\\log(a \\cdot b) = \\log(a) + \\log(b)$, não o contrário."
+                },
+                {
+                    "id": "D",
+                    "text": "12",
+                    "explanation": "Incorreto. Você multiplicou $4 \\times 3 = 12$. Calcule cada log separadamente."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "Calcule cada logaritmo separadamente e some os resultados."
+        },
+        {
+            "id": "mcq-log-4",
+            "question": "Usando a propriedade do produto, $\\log_2(32)$ é igual a:",
+            "topic": "logaritmos",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "$\\log_2(16) + \\log_2(2)$",
+                    "explanation": "Correto! $16 \\times 2 = 32$, e pela propriedade $\\log(a \\cdot b) = \\log(a) + \\log(b)$."
+                },
+                {
+                    "id": "B",
+                    "text": "$\\log_2(16) \\times \\log_2(2)$",
+                    "explanation": "Incorreto. A propriedade do produto usa SOMA, não multiplicação."
+                },
+                {
+                    "id": "C",
+                    "text": "$\\log_2(16 + 2)$",
+                    "explanation": "Incorreto. $\\log_2(18) \\neq \\log_2(32)$. A propriedade é para PRODUTO, não soma."
+                },
+                {
+                    "id": "D",
+                    "text": "$2 \\times \\log_2(16)$",
+                    "explanation": "Incorreto. Isso seria $\\log_2(16^2) = \\log_2(256)$ pela propriedade da potência."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "$\\log_a(x \\cdot y) = \\log_a(x) + \\log_a(y)$"
+        },
+        {
+            "id": "mcq-log-5",
+            "question": "Se $\\log_{10}(x) = 2$, qual é o valor de $x$?",
+            "topic": "logaritmos",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "2",
+                    "explanation": "Incorreto. Se $\\log_{10}(x) = 2$, então $10^2 = x$. Você confundiu o expoente com a resposta."
+                },
+                {
+                    "id": "B",
+                    "text": "20",
+                    "explanation": "Incorreto. Você multiplicou $10 \\times 2$. Mas log é potenciação inversa."
+                },
+                {
+                    "id": "C",
+                    "text": "100",
+                    "explanation": "Correto! Se $\\log_{10}(x) = 2$, então $x = 10^2 = 100$."
+                },
+                {
+                    "id": "D",
+                    "text": "1000",
+                    "explanation": "Incorreto. $10^3 = 1000$, mas $\\log_{10}(1000) = 3$, não 2."
+                }
+            ],
+            "correctAnswer": "C",
+            "concept": "Se $\\log_a(x) = b$, então $x = a^b$"
+        },
+        {
+            "id": "mcq-log-6",
+            "question": "Calcule: $\\log_5(125)$",
+            "topic": "logaritmos",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "2",
+                    "explanation": "Incorreto. $5^2 = 25$, não 125."
+                },
+                {
+                    "id": "B",
+                    "text": "3",
+                    "explanation": "Correto! $5^3 = 125$, portanto $\\log_5(125) = 3$."
+                },
+                {
+                    "id": "C",
+                    "text": "25",
+                    "explanation": "Incorreto. $25 = 5^2$, você confundiu potência com logaritmo."
+                },
+                {
+                    "id": "D",
+                    "text": "5",
+                    "explanation": "Incorreto. Você dividiu $125/25=5$. Mas log é sobre expoentes."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Pergunte: 5 elevado a que potência dá 125?"
+        },
+        {
+            "id": "mcq-log-7",
+            "question": "Simplifique: $\\log_2(16) - \\log_2(4)$",
+            "topic": "logaritmos",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1",
+                    "explanation": "Incorreto. $\\log_2(16) = 4$ e $\\log_2(4) = 2$. Diferença: $4 - 2 = 2$."
+                },
+                {
+                    "id": "B",
+                    "text": "2",
+                    "explanation": "Correto! $\\log_2(16) = 4$, $\\log_2(4) = 2$. Subtração: $4 - 2 = 2$."
+                },
+                {
+                    "id": "C",
+                    "text": "4",
+                    "explanation": "Incorreto. Você calculou só $\\log_2(16)$ e esqueceu de subtrair."
+                },
+                {
+                    "id": "D",
+                    "text": "12",
+                    "explanation": "Incorreto. Você subtraiu os números originais: $16 - 4 = 12$. Calcule os logs primeiro!"
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "$\\log_a(x/y) = \\log_a(x) - \\log_a(y)$, mas também pode calcular cada um separado."
+        },
+        {
+            "id": "mcq-log-8",
+            "question": "Qual é o valor de $\\log_2(1)$?",
+            "topic": "logaritmos",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "0",
+                    "explanation": "Correto! $2^0 = 1$, portanto $\\log_2(1) = 0$. Qualquer número elevado a 0 é 1."
+                },
+                {
+                    "id": "B",
+                    "text": "1",
+                    "explanation": "Incorreto. $2^1 = 2$, não 1. $\\log_2(2) = 1$."
+                },
+                {
+                    "id": "C",
+                    "text": "2",
+                    "explanation": "Incorreto. $2^2 = 4$. Você confundiu com $\\log_2(4)$."
+                },
+                {
+                    "id": "D",
+                    "text": "Não existe",
+                    "explanation": "Incorreto. $\\log_a(1) = 0$ sempre existe para qualquer base $a > 0$."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "$\\log_a(1) = 0$ para qualquer base $a$, pois $a^0 = 1$."
+        }
+    ]
+}

@@ -1,0 +1,242 @@
+{
+    "topicId": "mat-elem-ap3",
+    "title": "Mat. Elementar AP3: Trigonometria",
+    "exercises": [
+        {
+            "id": "me-ap3-q1",
+            "topicId": "mat-elem-ap3",
+            "category": "Composição de Funções",
+            "title": "Q1: Decomposição de f(x) = cos(sen x²)",
+            "difficulty": "Avançado",
+            "problem": "Decomponha a função definida por f(x) = cos(sen x²) de duas formas.",
+            "finalAnswer": "Forma 1: h∘g∘f ou Forma 2: p∘q",
+            "steps": [
+                {
+                    "title": "Passo 1: O que é Composição de Funções?",
+                    "explanation": "Composição é aplicar uma função dentro da outra.",
+                    "content": "📌 Conceito:\nSe temos f(g(x)), significa:\n1. Primeiro aplica g em x\n2. Depois aplica f no resultado\n\nNotação: (f∘g)(x) = f(g(x))"
+                },
+                {
+                    "title": "Passo 2: Analisar f(x) = cos(sen x²)",
+                    "explanation": "Identifique as \"camadas\" de dentro para fora.",
+                    "content": "Olhando f(x) = cos(sen x²):\n\nDe dentro para fora:\n1. x² (mais interno)\n2. sen(□)\n3. cos(□) (mais externo)\n\nTemos 3 funções aninhadas!"
+                },
+                {
+                    "title": "Passo 3: Decomposição em 3 Funções",
+                    "explanation": "Separando cada camada.",
+                    "content": "🔹 FORMA 1: Três funções\n\nDefinindo:\n• h(x) = x²\n• g(x) = sen(x)\n• f(x) = cos(x)\n\nEntão: f(x) = (f∘g∘h)(x)"
+                },
+                {
+                    "title": "Passo 4: Decomposição em 2 Funções",
+                    "explanation": "Agrupando duas camadas.",
+                    "content": "🔹 FORMA 2: Duas funções\n\n• p(x) = sen(x²)\n• q(x) = cos(x)\n\nf(x) = (q∘p)(x)"
+                }
+            ],
+            "tips": [
+                "Sempre analise de dentro para fora",
+                "A ordem importa: f∘g ≠ g∘f geralmente",
+                "Verifique substituindo para ver se dá a função original"
+            ]
+        },
+        {
+            "id": "me-ap3-q2",
+            "topicId": "mat-elem-ap3",
+            "category": "Razões Trigonométricas",
+            "title": "Q2: Calcular razões dado cos θ = 1/2",
+            "difficulty": "Intermediário",
+            "problem": "Sendo cos θ = 1/2 e 0 ≤ θ ≤ π/2, calcule as demais razões trigonométricas.",
+            "finalAnswer": "sen θ = √3/2, tan θ = √3, sec θ = 2, csc θ = 2√3/3, cot θ = √3/3",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar o Quadrante",
+                    "explanation": "0 ≤ θ ≤ π/2 significa 1º quadrante.",
+                    "content": "📍 1º QUADRANTE: Todos positivos!\n\n\"Todo Sonho Tem Cura\"\nT = Todos (1º)\nS = Seno (2º)\nT = Tangente (3º)\nC = Cosseno (4º)"
+                },
+                {
+                    "title": "Passo 2: Encontrar sen θ",
+                    "explanation": "Usando sen²θ + cos²θ = 1.",
+                    "content": "sen²θ + (1/2)² = 1\nsen²θ = 1 - 1/4 = 3/4\nsen θ = √3/2 (positivo no 1º)"
+                },
+                {
+                    "title": "Passo 3: Calcular as outras razões",
+                    "explanation": "Usando as relações fundamentais.",
+                    "content": "tan θ = sen/cos = (√3/2)/(1/2) = √3\nsec θ = 1/cos = 2\ncsc θ = 1/sen = 2/√3 = 2√3/3\ncot θ = 1/tan = 1/√3 = √3/3"
+                }
+            ],
+            "tips": [
+                "Este é o ângulo θ = 60° = π/3",
+                "Racionalize sempre: 1/√3 = √3/3",
+                "Com sen e cos, você calcula todas as outras"
+            ]
+        },
+        {
+            "id": "me-ap3-q3a",
+            "topicId": "mat-elem-ap3",
+            "category": "Identidades",
+            "title": "Q3a: Mostrar cos(π/2 - β) = sen β",
+            "difficulty": "Intermediário",
+            "problem": "Mostre que cos(π/2 - β) = sen β",
+            "finalAnswer": "Demonstração usando fórmula do cosseno da diferença",
+            "steps": [
+                {
+                    "title": "Passo 1: Fórmula do Cosseno da Diferença",
+                    "explanation": "cos(a - b) = cos(a)cos(b) + sen(a)sen(b)",
+                    "content": "Com a = π/2, b = β:\ncos(π/2 - β) = cos(π/2)·cos(β) + sen(π/2)·sen(β)"
+                },
+                {
+                    "title": "Passo 2: Substituir Valores",
+                    "explanation": "cos(π/2) = 0, sen(π/2) = 1",
+                    "content": "= 0·cos(β) + 1·sen(β)\n= 0 + sen(β)\n= sen(β) ✓"
+                }
+            ],
+            "tips": [
+                "cos(90°) = 0, sen(90°) = 1",
+                "Esta é a identidade de ângulos complementares"
+            ]
+        },
+        {
+            "id": "me-ap3-q3b",
+            "topicId": "mat-elem-ap3",
+            "category": "Identidades",
+            "title": "Q3b: Mostrar sen(π - β) = sen β",
+            "difficulty": "Intermediário",
+            "problem": "Mostre que sen(π - β) = sen β",
+            "finalAnswer": "Demonstração usando fórmula do seno da diferença",
+            "steps": [
+                {
+                    "title": "Passo 1: Fórmula do Seno da Diferença",
+                    "explanation": "sen(a - b) = sen(a)cos(b) - cos(a)sen(b)",
+                    "content": "Com a = π, b = β:\nsen(π - β) = sen(π)·cos(β) - cos(π)·sen(β)"
+                },
+                {
+                    "title": "Passo 2: Substituir Valores",
+                    "explanation": "sen(π) = 0, cos(π) = -1",
+                    "content": "= 0·cos(β) - (-1)·sen(β)\n= 0 + sen(β)\n= sen(β) ✓"
+                }
+            ],
+            "tips": [
+                "sen(180°) = 0, cos(180°) = -1",
+                "Ângulos suplementares têm mesmo seno"
+            ]
+        },
+        {
+            "id": "me-ap3-q4a",
+            "topicId": "mat-elem-ap3",
+            "category": "Imagem de Funções",
+            "title": "Q4a: Imagem de f(x) = 2 - 3cos x",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a imagem de f(x) = 2 - 3cos x",
+            "finalAnswer": "Im(f) = [-1, 5]",
+            "steps": [
+                {
+                    "title": "Passo 1: Limite do Cosseno",
+                    "explanation": "-1 ≤ cos(x) ≤ 1",
+                    "content": "-1 ≤ cos(x) ≤ 1"
+                },
+                {
+                    "title": "Passo 2: Multiplicar por -3 (INVERTE!)",
+                    "explanation": "Multiplicar por negativo inverte a desigualdade.",
+                    "content": "-3 ≤ -3cos(x) ≤ 3"
+                },
+                {
+                    "title": "Passo 3: Somar 2",
+                    "explanation": "Adicionar 2 a todos os termos.",
+                    "content": "-3 + 2 ≤ 2 - 3cos(x) ≤ 3 + 2\n-1 ≤ f(x) ≤ 5\n\n✓ Im(f) = [-1, 5]"
+                }
+            ],
+            "tips": [
+                "Verificação: cos=1 → f=-1, cos=-1 → f=5"
+            ]
+        },
+        {
+            "id": "me-ap3-q4b",
+            "topicId": "mat-elem-ap3",
+            "category": "Imagem de Funções",
+            "title": "Q4b: Imagem de f(x) = 3 - csc x",
+            "difficulty": "Avançado",
+            "problem": "Encontre a imagem de f(x) = 3 - csc x",
+            "finalAnswer": "Im(f) = (-∞, 2] ∪ [4, +∞)",
+            "steps": [
+                {
+                    "title": "Passo 1: Domínio e Comportamento da Cossecante",
+                    "explanation": "csc(x) ≤ -1 ou csc(x) ≥ 1 (tem buraco)",
+                    "content": "📌 Domínio: x ≠ nπ (n ∈ ℤ), pois sen(x) ≠ 0\n\ncsc(x) = 1/sen(x)\n\nComo -1 ≤ sen(x) ≤ 1 e sen(x) ≠ 0:\ncsc(x) ≤ -1 OU csc(x) ≥ 1\n\n(Não existe csc entre -1 e 1)"
+                },
+                {
+                    "title": "Passo 2: Caso csc(x) ≥ 1",
+                    "explanation": "Quando cossecante é positiva.",
+                    "content": "Se csc(x) ≥ 1:\n-csc(x) ≤ -1\n3 - csc(x) ≤ 3 - 1 = 2\n\nLogo f(x) ≤ 2 neste caso"
+                },
+                {
+                    "title": "Passo 3: Caso csc(x) ≤ -1",
+                    "explanation": "Quando cossecante é negativa.",
+                    "content": "Se csc(x) ≤ -1:\n-csc(x) ≥ 1\n3 - csc(x) ≥ 3 + 1 = 4\n\nLogo f(x) ≥ 4 neste caso"
+                },
+                {
+                    "title": "Passo 4: Verificar Extremos Atingidos",
+                    "explanation": "Provar que os valores 2 e 4 são realmente obtidos.",
+                    "content": "📌 O valor 2 é atingido?\nf(x) = 2 ⟺ 3 - csc(x) = 2 ⟺ csc(x) = 1\n⟺ sen(x) = 1 ⟺ x = π/2 + 2nπ ✓\n\n📌 O valor 4 é atingido?\nf(x) = 4 ⟺ 3 - csc(x) = 4 ⟺ csc(x) = -1\n⟺ sen(x) = -1 ⟺ x = -π/2 + 2nπ ✓\n\n✓ Extremos 2 e 4 são atingidos!"
+                },
+                {
+                    "title": "Passo 5: Conclusão",
+                    "explanation": "Combinar os dois casos.",
+                    "content": "✓ Im(f) = (-∞, 2] ∪ [4, +∞)\n\nA função \"pula\" os valores no intervalo (2, 4).\n\n📊 Verificação adicional:\nPara qualquer y ≤ 2, podemos encontrar x tal que f(x) = y.\nPara qualquer y ≥ 4, podemos encontrar x tal que f(x) = y."
+                }
+            ],
+            "tips": [
+                "Cossecante tem \"buraco\" entre -1 e 1",
+                "Sempre verifique se os extremos são atingidos",
+                "Encontre x específico que gera cada valor extremo"
+            ]
+        },
+        {
+            "id": "me-ap3-q5a",
+            "topicId": "mat-elem-ap3",
+            "category": "Prostaférese",
+            "title": "Q5a: Transformar sen(x+y) + sen(x-y) em produto",
+            "difficulty": "Avançado",
+            "problem": "Transforme a expressão sen(x+y) + sen(x-y) em um produto.",
+            "finalAnswer": "2·sen(x)·cos(y)",
+            "steps": [
+                {
+                    "title": "Passo 1: Fórmula de Prostaférese",
+                    "explanation": "sen A + sen B = 2·sen((A+B)/2)·cos((A-B)/2)",
+                    "content": "Com A = x+y, B = x-y:\n(A+B)/2 = ((x+y)+(x-y))/2 = 2x/2 = x\n(A-B)/2 = ((x+y)-(x-y))/2 = 2y/2 = y"
+                },
+                {
+                    "title": "Passo 2: Aplicar",
+                    "explanation": "Substituir na fórmula.",
+                    "content": "sen(x+y) + sen(x-y) = 2·sen(x)·cos(y) ✓"
+                }
+            ],
+            "tips": [
+                "Macete: soma de senos = 2·sen·cos"
+            ]
+        },
+        {
+            "id": "me-ap3-q5b",
+            "topicId": "mat-elem-ap3",
+            "category": "Prostaférese",
+            "title": "Q5b: Transformar cos 2x - cos 3x em produto",
+            "difficulty": "Avançado",
+            "problem": "Transforme a expressão cos 2x - cos 3x em um produto.",
+            "finalAnswer": "2·sen(5x/2)·sen(x/2)",
+            "steps": [
+                {
+                    "title": "Passo 1: Fórmula de Prostaférese",
+                    "explanation": "cos A - cos B = -2·sen((A+B)/2)·sen((A-B)/2)",
+                    "content": "Com A = 2x, B = 3x:\n(A+B)/2 = 5x/2\n(A-B)/2 = -x/2"
+                },
+                {
+                    "title": "Passo 2: Aplicar",
+                    "explanation": "Substituir na fórmula.",
+                    "content": "cos 2x - cos 3x = -2·sen(5x/2)·sen(-x/2)\n= -2·sen(5x/2)·(-sen(x/2))\n= 2·sen(5x/2)·sen(x/2) ✓"
+                }
+            ],
+            "tips": [
+                "sen(-θ) = -sen(θ)",
+                "O sinal negativo pode ser absorvido"
+            ]
+        }
+    ]
+}

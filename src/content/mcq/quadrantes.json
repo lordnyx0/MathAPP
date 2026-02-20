@@ -1,0 +1,246 @@
+{
+    "topic": "quadrantes",
+    "title": "MCQ - Quadrantes",
+    "questions": [
+        {
+            "id": "mcq-quad-1",
+            "question": "Em qual quadrante está o ângulo $\\pi/4$?",
+            "topic": "quadrantes",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º Quadrante",
+                    "explanation": "Correto! $\\pi/4 \\approx 0.25\\pi$, que está entre 0 e $0.5\\pi$ (1º quadrante)."
+                },
+                {
+                    "id": "B",
+                    "text": "2º Quadrante",
+                    "explanation": "Incorreto. O 2º quadrante vai de $\\pi/2$ a $\\pi$ (0.5 a 1)."
+                },
+                {
+                    "id": "C",
+                    "text": "3º Quadrante",
+                    "explanation": "Incorreto. O 3º quadrante vai de $\\pi$ a $3\\pi/2$ (1 a 1.5)."
+                },
+                {
+                    "id": "D",
+                    "text": "4º Quadrante",
+                    "explanation": "Incorreto. O 4º quadrante vai de $3\\pi/2$ a $2\\pi$ (1.5 a 2)."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "Divida o coeficiente de $\\pi$: $1/4 = 0.25$. Como $0 < 0.25 < 0.5$, está no 1º quadrante."
+        },
+        {
+            "id": "mcq-quad-2",
+            "question": "Em qual quadrante está o ângulo $5\\pi/6$?",
+            "topic": "quadrantes",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º Quadrante",
+                    "explanation": "Incorreto. $5/6 \\approx 0.83$, que é maior que 0.5."
+                },
+                {
+                    "id": "B",
+                    "text": "2º Quadrante",
+                    "explanation": "Correto! $5/6 \\approx 0.83$, que está entre 0.5 e 1 (2º quadrante)."
+                },
+                {
+                    "id": "C",
+                    "text": "3º Quadrante",
+                    "explanation": "Incorreto. $0.83 < 1$, ainda não está no 3º quadrante."
+                },
+                {
+                    "id": "D",
+                    "text": "4º Quadrante",
+                    "explanation": "Incorreto. O 4º quadrante começa em 1.5."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Truque das metades: $0-0.5=Q1$, $0.5-1=Q2$, $1-1.5=Q3$, $1.5-2=Q4$"
+        },
+        {
+            "id": "mcq-quad-3",
+            "question": "O ângulo $7\\pi/4$ está em qual quadrante?",
+            "topic": "quadrantes",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º Quadrante",
+                    "explanation": "Incorreto. $7/4 = 1.75$, muito maior que 0.5."
+                },
+                {
+                    "id": "B",
+                    "text": "2º Quadrante",
+                    "explanation": "Incorreto. $1.75 > 1$, já passou do 2º."
+                },
+                {
+                    "id": "C",
+                    "text": "3º Quadrante",
+                    "explanation": "Incorreto. $1.75 > 1.5$, já passou do 3º também."
+                },
+                {
+                    "id": "D",
+                    "text": "4º Quadrante",
+                    "explanation": "Correto! $7/4 = 1.75$, que está entre 1.5 e 2 (4º quadrante)."
+                }
+            ],
+            "correctAnswer": "D",
+            "concept": "Calcule: $7/4 = 1.75$. Como $1.5 < 1.75 < 2$, está no 4º quadrante."
+        },
+        {
+            "id": "mcq-quad-4",
+            "question": "Onde está localizado o ângulo $4\\pi/3$?",
+            "topic": "quadrantes",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "2º Quadrante",
+                    "explanation": "Incorreto. $4/3 \\approx 1.33$, que é maior que 1."
+                },
+                {
+                    "id": "B",
+                    "text": "3º Quadrante",
+                    "explanation": "Correto! $4/3 \\approx 1.33$, que está entre 1 e 1.5 (3º quadrante)."
+                },
+                {
+                    "id": "C",
+                    "text": "4º Quadrante",
+                    "explanation": "Incorreto. $1.33 < 1.5$, ainda está no 3º."
+                },
+                {
+                    "id": "D",
+                    "text": "1º Quadrante",
+                    "explanation": "Incorreto. 1.33 é muito maior que 0.5."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Divida: $4/3 \\approx 1.33$. Entre 1 e 1.5 = 3º quadrante."
+        },
+        {
+            "id": "mcq-quad-5",
+            "question": "O cosseno é POSITIVO em quais quadrantes?",
+            "topic": "quadrantes",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º e 2º",
+                    "explanation": "Incorreto. No 2º quadrante, $\\cos$ é negativo ($x < 0$)."
+                },
+                {
+                    "id": "B",
+                    "text": "1º e 4º",
+                    "explanation": "Correto! $\\cos$ usa o eixo X. À direita (Q1 e Q4), $x > 0$."
+                },
+                {
+                    "id": "C",
+                    "text": "2º e 3º",
+                    "explanation": "Incorreto. Nesses quadrantes, $x < 0$."
+                },
+                {
+                    "id": "D",
+                    "text": "3º e 4º",
+                    "explanation": "Incorreto. No 3º quadrante, $\\cos$ é negativo."
+                }
+            ],
+            "correctAnswer": "B",
+            "concept": "Mnemônico: \"$\\cos$ = eixo X\". Onde $x > 0$? No 1º e 4º quadrantes."
+        },
+        {
+            "id": "mcq-quad-6",
+            "question": "O seno é POSITIVO em quais quadrantes?",
+            "topic": "quadrantes",
+            "difficulty": "intermediario",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º e 2º",
+                    "explanation": "Correto! $\\sin$ usa o eixo Y. Acima (Q1 e Q2), $y > 0$."
+                },
+                {
+                    "id": "B",
+                    "text": "1º e 4º",
+                    "explanation": "Incorreto. No 4º quadrante, $y < 0$, então $\\sin$ é negativo."
+                },
+                {
+                    "id": "C",
+                    "text": "3º e 4º",
+                    "explanation": "Incorreto. Nesses quadrantes, $y < 0$."
+                },
+                {
+                    "id": "D",
+                    "text": "2º e 4º",
+                    "explanation": "Incorreto. No 4º, $\\sin$ é negativo."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "Mnemônico: \"$\\sin$ = eixo Y\". Onde $y > 0$? No 1º e 2º quadrantes."
+        },
+        {
+            "id": "mcq-quad-7",
+            "question": "Em qual quadrante TODOS os sinais são positivos ($\\sin$, $\\cos$, $\\tan$)?",
+            "topic": "quadrantes",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "1º Quadrante",
+                    "explanation": "Correto! No Q1, $x > 0$ e $y > 0$, então $\\sin$, $\\cos$ e $\\tan$ são positivos."
+                },
+                {
+                    "id": "B",
+                    "text": "2º Quadrante",
+                    "explanation": "Incorreto. No Q2, $\\cos$ é negativo ($x < 0$)."
+                },
+                {
+                    "id": "C",
+                    "text": "3º Quadrante",
+                    "explanation": "Incorreto. No Q3, $\\sin$ e $\\cos$ são negativos."
+                },
+                {
+                    "id": "D",
+                    "text": "4º Quadrante",
+                    "explanation": "Incorreto. No Q4, $\\sin$ é negativo ($y < 0$)."
+                }
+            ],
+            "correctAnswer": "A",
+            "concept": "Mnemônico ASTC: All (Q1) - Sin (Q2) - Tan (Q3) - Cos (Q4)."
+        },
+        {
+            "id": "mcq-quad-8",
+            "question": "O ângulo $\\pi/2$ está localizado:",
+            "topic": "quadrantes",
+            "difficulty": "basico",
+            "options": [
+                {
+                    "id": "A",
+                    "text": "No 1º Quadrante",
+                    "explanation": "Incorreto. $\\pi/2$ é exatamente a fronteira, não dentro do Q1."
+                },
+                {
+                    "id": "B",
+                    "text": "No 2º Quadrante",
+                    "explanation": "Incorreto. Está na borda, não dentro de um quadrante."
+                },
+                {
+                    "id": "C",
+                    "text": "Sobre o eixo Y positivo",
+                    "explanation": "Correto! $\\pi/2 = 90°$ está exatamente no eixo Y+."
+                },
+                {
+                    "id": "D",
+                    "text": "Sobre o eixo X positivo",
+                    "explanation": "Incorreto. O eixo X+ é $0°$ ou $2\\pi$."
+                }
+            ],
+            "correctAnswer": "C",
+            "concept": "Ângulos múltiplos de $\\pi/2$ estão sobre os eixos, não dentro de quadrantes."
+        }
+    ]
+}

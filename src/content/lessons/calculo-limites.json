@@ -1,0 +1,91 @@
+{
+    "topic": "limites",
+    "title": "Cálculo: Limites",
+    "lessons": [
+        {
+            "id": "calc-lim-1",
+            "title": "1. O que são Limites?",
+            "level": "Básico",
+            "content": "📌 Definição Intuitiva\n\nO limite descreve o COMPORTAMENTO de uma função\nquando x se APROXIMA de um valor.\n\nNotação: lim(x→a) f(x) = L\n\nSignifica: \"quando x se aproxima de a,\nf(x) se aproxima de L\"\n\n🔹 Exemplo Visual:\nPara f(x) = x², quando x → 2:\nx = 1.9 → f = 3.61\nx = 1.99 → f = 3.9601\nx = 1.999 → f = 3.996001\n...\nx → 2 → f → 4\n\nlim(x→2) x² = 4\n\n⚠️ IMPORTANTE:\nO limite NÃO é o valor da função em a!\nÉ o valor para onde f(x) TENDE.",
+            "questions": [
+                {
+                    "q": "Qual é lim(x→3) x²?",
+                    "a": "9",
+                    "hint": "Substitua x = 3"
+                },
+                {
+                    "q": "Se f(x)→5 quando x→2, qual é lim(x→2) f(x)?",
+                    "a": "5",
+                    "hint": "O limite é o valor de tendência"
+                }
+            ]
+        },
+        {
+            "id": "calc-lim-2",
+            "title": "2. Limites Laterais",
+            "level": "Intermediário",
+            "content": "📌 Aproximando por Lados Diferentes\n\n🔹 Limite pela DIREITA (x→a⁺):\nx se aproxima de a por valores MAIORES que a\n\n🔹 Limite pela ESQUERDA (x→a⁻):\nx se aproxima de a por valores MENORES que a\n\n📝 Exemplo com |x|/x:\n\nx→0⁺: |x|/x = x/x = 1\nx→0⁻: |x|/x = (-x)/x = -1\n\nlim(x→0⁺) = 1\nlim(x→0⁻) = -1\n\nComo são diferentes, lim(x→0) NÃO EXISTE!\n\n⚠️ Regra:\nO limite existe SE E SOMENTE SE\nos limites laterais são IGUAIS.",
+            "questions": [
+                {
+                    "q": "Se lim(x→a⁺)=3 e lim(x→a⁻)=3, o limite existe?",
+                    "a": "sim",
+                    "hint": "Limites laterais iguais → limite existe"
+                },
+                {
+                    "q": "Qual é lim(x→2⁺) 1/(x-2)?",
+                    "a": "+∞",
+                    "hint": "x>2 → x-2>0 → positivo pequeno → +∞"
+                }
+            ]
+        },
+        {
+            "id": "calc-lim-3",
+            "title": "3. Limites no Infinito",
+            "level": "Intermediário",
+            "content": "📌 Comportamento no Infinito\n\nQuando x → ±∞, analisamos o CRESCIMENTO.\n\n🔹 Para polinômios e racionais:\nCompare o GRAU do numerador (n) e denominador (m):\n\n• n < m: limite = 0\n• n = m: limite = coef. líder / coef. líder\n• n > m: limite = ±∞\n\n📝 Exemplo:\nlim(x→∞) (3x² + x)/(6x² - 1)\n\nGraus iguais (n = m = 2)\n= 3/6 = 1/2\n\n📝 Exemplo 2:\nlim(x→∞) (x + 1)/x³\n\nn = 1 < m = 3\n= 0\n\n💡 Dica: Divida tudo pelo maior termo do denominador.",
+            "questions": [
+                {
+                    "q": "lim(x→∞) (5x³)/(10x³) = ?",
+                    "a": "1/2",
+                    "hint": "Graus iguais: 5/10"
+                },
+                {
+                    "q": "lim(x→∞) x/(x²+1) = ?",
+                    "a": "0",
+                    "hint": "Grau 1 < Grau 2"
+                }
+            ]
+        },
+        {
+            "id": "calc-lim-4",
+            "title": "4. Limites Trigonométricos",
+            "level": "Avançado",
+            "content": "📌 Limites Fundamentais\n\n🔹 Limite Fundamental do Seno:\nlim(x→0) sen(x)/x = 1\n\n🔹 Consequências:\nlim(x→0) tg(x)/x = 1\nlim(x→0) x/sen(x) = 1\nlim(x→0) (1 - cos x)/x² = 1/2\n\n📝 Como usar:\nPara lim(x→0) sen(3x)/(5x):\n\nMultiplique e divida por 3:\n= [sen(3x)/(3x)] × (3x)/(5x)\n= 1 × (3/5)\n= 3/5\n\n💡 Truque:\nSempre crie a forma sen(kx)/(kx) = 1",
+            "questions": [
+                {
+                    "q": "lim(x→0) sen(2x)/x = ?",
+                    "a": "2",
+                    "hint": "sen(2x)/(2x) × 2 = 1 × 2"
+                },
+                {
+                    "q": "lim(x→0) sen(x)/sen(2x) = ?",
+                    "a": "1/2",
+                    "hint": "(sen x/x) / (sen 2x/2x) × (x/2x)"
+                }
+            ]
+        },
+        {
+            "id": "calc-lim-5",
+            "title": "5. Indeterminações e L'Hôpital",
+            "level": "Avançado",
+            "content": "📌 Formas Indeterminadas\n\nQuando a substituição direta dá:\n0/0, ∞/∞, 0×∞, ∞-∞, 0⁰, 1^∞, ∞⁰\n\n🔹 Regra de L'Hôpital (para 0/0 ou ∞/∞):\n\nlim f(x)/g(x) = lim f'(x)/g'(x)\n\n📝 Exemplo:\nlim(x→0) sen(x)/x = 0/0\n\nAplicando L'Hôpital:\n= lim(x→0) cos(x)/1\n= cos(0)/1\n= 1\n\n📝 Exemplo 2:\nlim(x→1) (x² - 1)/(x - 1) = 0/0\n\n= lim(x→1) (2x)/(1)\n= 2\n\n⚠️ Só use L'Hôpital quando for 0/0 ou ∞/∞!",
+            "questions": [
+                {
+                    "q": "lim(x→0) x/sen(x) por L'Hôpital = ?",
+                    "a": "1",
+                    "hint": "Deriva: 1/cos(x) → 1/1 = 1"
+                }
+            ]
+        }
+    ]
+}

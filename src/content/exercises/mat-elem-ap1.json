@@ -1,0 +1,217 @@
+{
+    "topicId": "mat-elem-ap1",
+    "title": "Mat. Elementar AP1: Funções e Logaritmos",
+    "exercises": [
+        {
+            "id": "me-ap1-q1",
+            "topicId": "mat-elem-ap1",
+            "category": "Funções Crescentes/Decrescentes",
+            "title": "Q1: Mostrar f(x) = 3x - 2 é crescente",
+            "difficulty": "Intermediário",
+            "problem": "Mostre que f(x) = 3x - 2 é função crescente e f(x) = -x + 1 é função decrescente usando definição.",
+            "finalAnswer": "Demonstração por definição",
+            "steps": [
+                {
+                    "title": "Passo 1: Definição de Função Crescente",
+                    "explanation": "Uma função é crescente quando x₁ < x₂ implica f(x₁) < f(x₂).",
+                    "content": "📌 Definição:\nf é CRESCENTE se: x₁ < x₂ ⟹ f(x₁) < f(x₂)\nf é DECRESCENTE se: x₁ < x₂ ⟹ f(x₁) > f(x₂)"
+                },
+                {
+                    "title": "Passo 2: Provar f(x) = 3x - 2 é crescente",
+                    "explanation": "Tome x₁ < x₂ e mostre que f(x₁) < f(x₂).",
+                    "content": "Sejam x₁, x₂ ∈ ℝ com x₁ < x₂\n\nf(x₁) = 3x₁ - 2\nf(x₂) = 3x₂ - 2\n\nf(x₂) - f(x₁) = (3x₂ - 2) - (3x₁ - 2)\n             = 3x₂ - 2 - 3x₁ + 2\n             = 3x₂ - 3x₁\n             = 3(x₂ - x₁)\n\nComo x₁ < x₂, então x₂ - x₁ > 0\nLogo: 3(x₂ - x₁) > 0\nPortanto: f(x₂) - f(x₁) > 0 ⟹ f(x₂) > f(x₁)\n\n✓ f(x) = 3x - 2 é CRESCENTE"
+                },
+                {
+                    "title": "Passo 3: Provar f(x) = -x + 1 é decrescente",
+                    "explanation": "Mesmo processo para a segunda função.",
+                    "content": "Sejam x₁, x₂ ∈ ℝ com x₁ < x₂\n\nf(x₁) = -x₁ + 1\nf(x₂) = -x₂ + 1\n\nf(x₂) - f(x₁) = (-x₂ + 1) - (-x₁ + 1)\n             = -x₂ + 1 + x₁ - 1\n             = x₁ - x₂\n             = -(x₂ - x₁)\n\nComo x₁ < x₂, então x₂ - x₁ > 0\nLogo: -(x₂ - x₁) < 0\nPortanto: f(x₂) - f(x₁) < 0 ⟹ f(x₂) < f(x₁)\n\n✓ f(x) = -x + 1 é DECRESCENTE"
+                }
+            ],
+            "tips": [
+                "O coeficiente angular determina: a > 0 → crescente, a < 0 → decrescente",
+                "Sempre demonstre com x₁ < x₂ e analise f(x₂) - f(x₁)",
+                "Se a diferença é positiva → crescente, negativa → decrescente"
+            ]
+        },
+        {
+            "id": "me-ap1-q2a",
+            "topicId": "mat-elem-ap1",
+            "category": "Domínio de Funções",
+            "title": "Q2a: Domínio de f(x) = (x-2)/(x²-6x+5)",
+            "difficulty": "Intermediário",
+            "problem": "Encontre o maior domínio possível para f(x) = (x-2)/(x²-6x+5)",
+            "finalAnswer": "D(f) = ℝ - {1, 5}",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar Restrições",
+                    "explanation": "Em frações, o denominador não pode ser zero.",
+                    "content": "Para f(x) = (x-2)/(x²-6x+5)\n\nRestrição: x² - 6x + 5 ≠ 0"
+                },
+                {
+                    "title": "Passo 2: Resolver a Equação do Denominador",
+                    "explanation": "Encontrar os valores que zeram o denominador.",
+                    "content": "x² - 6x + 5 = 0\n\nFatorando (ou Bhaskara):\nΔ = 36 - 20 = 16\nx = (6 ± 4)/2\n\nx₁ = 10/2 = 5\nx₂ = 2/2 = 1\n\nOu fatorando: (x - 5)(x - 1) = 0"
+                },
+                {
+                    "title": "Passo 3: Definir o Domínio",
+                    "explanation": "Excluir os valores que zeram o denominador.",
+                    "content": "O denominador é zero quando x = 1 ou x = 5\n\n✓ D(f) = ℝ - {1, 5}\n\nOu em notação de intervalo:\nD(f) = (-∞, 1) ∪ (1, 5) ∪ (5, +∞)"
+                }
+            ],
+            "tips": [
+                "Em frações: denominador ≠ 0",
+                "Fatore sempre que possível",
+                "x² - 6x + 5 = (x-5)(x-1)"
+            ]
+        },
+        {
+            "id": "me-ap1-q2b",
+            "topicId": "mat-elem-ap1",
+            "category": "Domínio de Funções",
+            "title": "Q2b: Domínio de f(x) = √(x² - 4x)",
+            "difficulty": "Intermediário",
+            "problem": "Encontre o maior domínio possível para f(x) = √(x² - 4x)",
+            "finalAnswer": "D(f) = (-∞, 0] ∪ [4, +∞)",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar Restrições",
+                    "explanation": "A raiz quadrada exige radicando não-negativo.",
+                    "content": "Para f(x) = √(x² - 4x)\n\nRestrição: x² - 4x ≥ 0"
+                },
+                {
+                    "title": "Passo 2: Fatorar e Encontrar Raízes",
+                    "explanation": "Fatorar para analisar o sinal.",
+                    "content": "x² - 4x = 0\nx(x - 4) = 0\n\nRaízes: x = 0 ou x = 4"
+                },
+                {
+                    "title": "Passo 3: Estudo de Sinal",
+                    "explanation": "Analisar o sinal da expressão nos intervalos.",
+                    "content": "📊 Estudo de sinal de x(x - 4):\n\n     x  |  -∞ ... 0 ... 4 ... +∞\n   ────┼────────────────────────\n     x |    -    0  +     +\n  x-4  |    -    -  -   0   +\n───────┼────────────────────────\n x(x-4)|    +    0  -   0   +\n       |   ↑OK      ↑NÃO    ↑OK\n\nx(x-4) ≥ 0 quando x ≤ 0 OU x ≥ 4"
+                },
+                {
+                    "title": "Passo 4: Definir o Domínio",
+                    "explanation": "Unir os intervalos onde a expressão é ≥ 0.",
+                    "content": "✓ D(f) = (-∞, 0] ∪ [4, +∞)\n\nOs valores 0 e 4 são incluídos pois √0 = 0 existe."
+                }
+            ],
+            "tips": [
+                "Raiz quadrada: radicando ≥ 0",
+                "Faça estudo de sinal quando tiver produto de fatores",
+                "Parábola com a > 0: positiva \"fora\" das raízes"
+            ]
+        },
+        {
+            "id": "me-ap1-q3",
+            "topicId": "mat-elem-ap1",
+            "category": "Inequações",
+            "title": "Q3: Inequação (x-1)(x-2)/(x-3) ≥ 0",
+            "difficulty": "Avançado",
+            "problem": "Resolva a inequação (x-1)(x-2)/(x-3) ≥ 0 em ℝ.",
+            "finalAnswer": "S = [1, 2] ∪ (3, +∞)",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar Raízes e Restrições",
+                    "explanation": "Encontrar onde cada fator é zero.",
+                    "content": "Numerador: (x-1)(x-2) = 0\n→ x = 1 ou x = 2\n\nDenominador: x - 3 = 0\n→ x = 3 (restrição: x ≠ 3)"
+                },
+                {
+                    "title": "Passo 2: Dividir em Intervalos",
+                    "explanation": "Os pontos críticos são 1, 2, 3.",
+                    "content": "Intervalos: (-∞, 1), (1, 2), (2, 3), (3, +∞)"
+                },
+                {
+                    "title": "Passo 3: Estudo de Sinal",
+                    "explanation": "Analisar o sinal em cada intervalo.",
+                    "content": "Testando um ponto em cada intervalo:\n\nx = 0: (-1)(-2)/(-3) = 2/(-3) < 0\nx = 1.5: (0.5)(-0.5)/(-1.5) = (-0.25)/(-1.5) > 0\nx = 2.5: (1.5)(0.5)/(-0.5) = 0.75/(-0.5) < 0\nx = 4: (3)(2)/(1) = 6 > 0\n\n    x   | -∞ ... 1 ... 2 ... 3 ... +∞\n────────┼─────────────────────────────\n  (x-1) |   -    0   +     +     +\n  (x-2) |   -    -   -   0   +     +\n  (x-3) |   -    -   -   -   -   0   +\n────────┼─────────────────────────────\n Total  |   -    0   +   0   -   X   +"
+                },
+                {
+                    "title": "Passo 4: Determinar a Solução",
+                    "explanation": "Onde a expressão é ≥ 0, incluindo onde = 0.",
+                    "content": "A expressão é ≥ 0 nos intervalos:\n• x = 1 (= 0) ✓\n• (1, 2) (> 0) ✓\n• x = 2 (= 0) ✓\n• (3, +∞) (> 0) ✓\n\n❌ x = 3 é proibido (denominador zero)\n\n✓ S = [1, 2] ∪ (3, +∞)"
+                }
+            ],
+            "tips": [
+                "Denominador zero: exclua sempre!",
+                "Pontos onde = 0: incluir (numerador zero)",
+                "Use o estudo de sinal ou teste pontos"
+            ]
+        },
+        {
+            "id": "me-ap1-q4",
+            "topicId": "mat-elem-ap1",
+            "category": "Logaritmos",
+            "title": "Q4: Transformar em um só logaritmo",
+            "difficulty": "Avançado",
+            "problem": "Transforme em um só logaritmo: 1 + 2·log x - 4·log₁₀₀ y - 3·log₁₀₀₀ z",
+            "finalAnswer": "log(10x²/(y²·z))",
+            "steps": [
+                {
+                    "title": "Passo 1: Converter Bases para log₁₀",
+                    "explanation": "Usar a mudança de base para uniformizar.",
+                    "content": "log₁₀₀ y = log y / log 100 = log y / 2\nlog₁₀₀₀ z = log z / log 1000 = log z / 3\n\n1 + 2·log x - 4·(log y / 2) - 3·(log z / 3)\n= 1 + 2·log x - 2·log y - log z"
+                },
+                {
+                    "title": "Passo 2: Converter o Número 1",
+                    "explanation": "O número 1 pode ser escrito como log 10.",
+                    "content": "1 = log 10\n\nEntão:\nlog 10 + 2·log x - 2·log y - log z"
+                },
+                {
+                    "title": "Passo 3: Aplicar Propriedades",
+                    "explanation": "Mover coeficientes como expoentes.",
+                    "content": "2·log x = log x²\n2·log y = log y²\n\nlog 10 + log x² - log y² - log z"
+                },
+                {
+                    "title": "Passo 4: Agrupar Somas e Subtrações",
+                    "explanation": "Soma vira produto, subtração vira divisão.",
+                    "content": "log 10 + log x² = log(10x²)\nlog(10x²) - log y² = log(10x²/y²)\nlog(10x²/y²) - log z = log(10x²/(y²·z))\n\n✓ Resposta: log(10x²/(y²·z))"
+                }
+            ],
+            "tips": [
+                "log₁₀₀ = log base 100 = log/log100 = log/2",
+                "Lembre: 1 = log 10 (na base 10)",
+                "Agrupe produtos no numerador, divisões no denominador"
+            ]
+        },
+        {
+            "id": "me-ap1-q5",
+            "topicId": "mat-elem-ap1",
+            "category": "Equações Exponenciais",
+            "title": "Q5: Resolver x^√x = √(x^x)",
+            "difficulty": "Avançado",
+            "problem": "Resolva em ℝ a equação x^√x = √(x^x).",
+            "finalAnswer": "S = {1, 4}",
+            "steps": [
+                {
+                    "title": "Passo 1: Análise do Domínio",
+                    "explanation": "Determinar para quais valores de x a equação faz sentido.",
+                    "content": "📌 DOMÍNIO DA EQUAÇÃO:\n\nPara xᵃ estar definido em ℝ, precisamos x > 0.\n\n• √x exige x ≥ 0\n• xˣ exige x > 0 (para evitar 0⁰)\n• √(xˣ) exige x > 0\n\n✓ Domínio: x > 0\n\n⚠️ Caso especial: x = 1 deve ser tratado separadamente\n(pois 1ᵃ = 1 para qualquer a)"
+                },
+                {
+                    "title": "Passo 2: Caso Especial x = 1",
+                    "explanation": "Verificar se x = 1 é solução.",
+                    "content": "Para x = 1:\n\nLado esquerdo: 1^√1 = 1¹ = 1\nLado direito: √(1¹) = √1 = 1\n\n1 = 1 ✓\n\n✓ x = 1 é solução"
+                },
+                {
+                    "title": "Passo 3: Caso x > 0, x ≠ 1",
+                    "explanation": "Usar propriedade de igualdade de expoentes.",
+                    "content": "Reescrevendo a equação:\nx^√x = √(x^x) = (x^x)^(1/2) = x^(x/2)\n\n📌 Teorema: Se a > 0 e a ≠ 1, então:\naˣ = aʸ ⟺ x = y\n\nComo x > 0 e x ≠ 1, podemos igualar expoentes:\n√x = x/2"
+                },
+                {
+                    "title": "Passo 4: Resolver √x = x/2",
+                    "explanation": "Resolver a equação auxiliar.",
+                    "content": "√x = x/2\n\nCondição: x ≥ 0 (para √x existir)\n\nElevando ao quadrado (válido pois ambos ≥ 0):\n(√x)² = (x/2)²\nx = x²/4\n4x = x²\nx² - 4x = 0\nx(x - 4) = 0\n\nx = 0 ou x = 4\n\n⚠️ Verificando no domínio:\n• x = 0: fora do domínio (x > 0) ❌\n• x = 4: no domínio ✓"
+                },
+                {
+                    "title": "Passo 5: Verificação Final",
+                    "explanation": "Confirmar todas as soluções na equação original.",
+                    "content": "✓ x = 1 (caso especial): já verificado\n\n✓ x = 4:\nLado esquerdo: 4^√4 = 4² = 16\nLado direito: √(4⁴) = √256 = 16\n16 = 16 ✓\n\n📋 CONJUNTO SOLUÇÃO: S = {1, 4}"
+                }
+            ],
+            "tips": [
+                "Reescreva raízes como expoentes fracionários",
+                "Se aˣ = aʸ e a > 0, a ≠ 1, então x = y",
+                "Sempre verifique x = 1 como caso especial"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+{
+    "$schema": "./schemas/lesson.schema.json",
+    "topic": "logaritmos",
+    "title": "Logaritmos",
+    "lessons": [
+        {
+            "id": "log-1",
+            "title": "1. O que é Logaritmo?",
+            "level": "Básico",
+            "content": "📌 Conceito Fundamental\n\nLogaritmo é a operação inversa da potenciação!\n\nSe a^b = c, então log_a(c) = b\n\n📝 Exemplos:\n• 2³ = 8 → log₂(8) = 3\n• 10² = 100 → log₁₀(100) = 2\n• 5² = 25 → log₅(25) = 2\n\n💡 Pergunta Chave:\n\"A que potência devo elevar a base para obter este número?\"\n\nlog₂(16) = ? → \"2 elevado a que = 16?\" → Resposta: 4\n\n✓ Condições de Existência:\n• Base a > 0 e a ≠ 1\n• Logaritmando (número dentro do log) > 0",
+            "questions": [
+                {
+                    "q": "Calcule log₃(27)",
+                    "a": "3",
+                    "hint": "Pense: 3 elevado a que potência dá 27?"
+                },
+                {
+                    "q": "Calcule log₅(125)",
+                    "a": "3",
+                    "hint": "5 elevado a que potência resulta em 125?"
+                },
+                {
+                    "q": "Calcule log₂(32)",
+                    "a": "5",
+                    "hint": "Liste as potências de 2: 2¹, 2², 2³, 2⁴, 2⁵..."
+                }
+            ]
+        },
+        {
+            "id": "log-2",
+            "title": "2. Propriedades: Produto e Quociente",
+            "level": "Básico",
+            "content": "📌 Propriedades Fundamentais\n\n🔹 Logaritmo do Produto:\nlog_a(x·y) = log_a(x) + log_a(y)\n\n🔹 Logaritmo do Quociente:\nlog_a(x/y) = log_a(x) - log_a(y)\n\n📝 Exemplos:\n\nlog₂(8·4) = log₂(8) + log₂(4) = 3 + 2 = 5\nVerificando: 8×4 = 32 = 2⁵ ✓\n\nlog₃(81/3) = log₃(81) - log₃(3) = 4 - 1 = 3\nVerificando: 81÷3 = 27 = 3³ ✓\n\n💡 Macete: \nMultiplicação FORA → Soma DENTRO\nDivisão FORA → Subtração DENTRO",
+            "questions": [
+                {
+                    "q": "Se log₂(8) = 3 e log₂(4) = 2, quanto é log₂(32)?",
+                    "a": "5",
+                    "hint": "32 = 8×4, use a propriedade do produto"
+                },
+                {
+                    "q": "Calcule log₅(125/5)",
+                    "a": "2",
+                    "hint": "log₅(125) - log₅(5) = 3 - 1 = 2"
+                }
+            ]
+        },
+        {
+            "id": "log-3",
+            "title": "3. Propriedade da Potência",
+            "level": "Intermediário",
+            "content": "📌 O Expoente \"Desce\"\n\n🔹 Logaritmo da Potência:\nlog_a(x^n) = n·log_a(x)\n\nO expoente vira multiplicador na frente!\n\n📝 Exemplos:\n\nlog₂(8³) = 3·log₂(8) = 3×3 = 9\nVerificando: 8³ = 512 = 2⁹ ✓\n\nlog₃(27²) = 2·log₃(27) = 2×3 = 6\n\n🔹 Com frações:\nlog₄(√x) = log₄(x^(1/2)) = (1/2)·log₄(x)\n\n💡 A raiz quadrada é x^(1/2)!\n💡 A raiz cúbia é x^(1/3)!",
+            "questions": [
+                {
+                    "q": "Simplifique: log₂(4³)",
+                    "a": "6",
+                    "hint": "3 × log₂(4) = 3 × 2 = 6"
+                },
+                {
+                    "q": "Se log₃(x) = 4, quanto é log₃(x²)?",
+                    "a": "8",
+                    "hint": "2 × log₃(x) = 2 × 4 = 8"
+                }
+            ]
+        },
+        {
+            "id": "log-4",
+            "title": "4. Mudança de Base",
+            "level": "Intermediário",
+            "content": "📌 Convertendo Bases\n\n🔹 Fórmula de Mudança de Base:\nlog_a(x) = log_b(x) / log_b(a)\n\nPodemos usar QUALQUER base b!\n\n📝 Comum usar base 10 ou base e:\n\nlog₃(7) = log₁₀(7) / log₁₀(3)\n        = log(7) / log(3)\n        ≈ 0.845 / 0.477\n        ≈ 1.77\n\n🔹 Caso Especial:\nlog_a(b) = 1 / log_b(a)\n\nExemplo: log₂(8) × log₈(2) = 3 × (1/3) = 1\n\n💡 Por quê funciona?\nlog_a(b) × log_b(a) = SEMPRE 1",
+            "questions": [
+                {
+                    "q": "Se log₂(3) = 1.58, quanto é log₃(2) aproximadamente?",
+                    "a": "0.63",
+                    "hint": "log₃(2) = 1/log₂(3) = 1/1.58"
+                },
+                {
+                    "q": "log₅(25) × log₂₅(5) = ?",
+                    "a": "1",
+                    "hint": "Sempre que temos log_a(b) × log_b(a) = 1"
+                }
+            ]
+        },
+        {
+            "id": "log-5",
+            "title": "5. Equações Logarítmicas",
+            "level": "Avançado",
+            "content": "📌 Resolvendo Equações\n\n🔹 Método 1: Igualar Logaritmandos\nSe log_a(x) = log_a(y), então x = y\n\n🔹 Método 2: Passar para Exponencial\nSe log_a(x) = n, então x = aⁿ\n\n📝 Exemplo 1:\nlog₂(x) = 5\nx = 2⁵ = 32\n\n📝 Exemplo 2:\nlog₃(x+1) = 2\nx + 1 = 3² = 9\nx = 8\n\n📝 Exemplo 3 (mais difícil):\nlog₂(x) + log₂(x-2) = 3\nlog₂(x(x-2)) = 3\nx(x-2) = 2³ = 8\nx² - 2x - 8 = 0\n(x-4)(x+2) = 0\nx = 4 (x = -2 não serve, pois x > 0)\n\n✓ SEMPRE verifique no domínio!",
+            "questions": [
+                {
+                    "q": "Resolva: log₃(x) = 4",
+                    "a": "81",
+                    "hint": "x = 3⁴ = 81"
+                },
+                {
+                    "q": "Resolva: log₂(x-1) = 3",
+                    "a": "9",
+                    "hint": "x - 1 = 2³ = 8, então x = 9"
+                }
+            ]
+        }
+    ]
+}

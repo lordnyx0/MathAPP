@@ -1,0 +1,238 @@
+{
+    "topicId": "calc-ap4",
+    "title": "Cálculo I AP4: Derivadas",
+    "exercises": [
+        {
+            "id": "c1-ap4-q1",
+            "topicId": "calc-ap4",
+            "category": "Continuidade",
+            "title": "Q1: Mostrar descontinuidade em x = 0",
+            "difficulty": "Avançado",
+            "problem": "Mostre que f(x) = {4+4x-x² se x>0; 5 se x=0; sen(4x)/x se x<0} é descontínua em x = 0.",
+            "finalAnswer": "f(0) = 5 ≠ 4 = lim f(x), logo descontínua",
+            "steps": [
+                {
+                    "title": "Passo 1: Calcular f(0)",
+                    "explanation": "Valor da função no ponto.",
+                    "content": "f(0) = 5 (dado pela definição)"
+                },
+                {
+                    "title": "Passo 2: Limite pela Direita",
+                    "explanation": "Quando x → 0⁺, usar 4+4x-x².",
+                    "content": "lim(x→0⁺) (4 + 4x - x²)\n= 4 + 0 - 0 = 4"
+                },
+                {
+                    "title": "Passo 3: Limite pela Esquerda",
+                    "explanation": "Quando x → 0⁻, usar sen(4x)/x.",
+                    "content": "lim(x→0⁻) sen(4x)/x\n= lim(x→0⁻) [sen(4x)/(4x)] × 4\n= 1 × 4 = 4"
+                },
+                {
+                    "title": "Passo 4: Verificar Continuidade",
+                    "explanation": "Para ser contínua: f(0) = lim f(x).",
+                    "content": "lim(x→0⁺) = 4\nlim(x→0⁻) = 4\nLogo: lim(x→0) = 4\n\nMas f(0) = 5 ≠ 4\n\n✓ A função é DESCONTÍNUA em x = 0"
+                }
+            ],
+            "tips": [
+                "Continuidade: lim f(x) = f(a)",
+                "Verifique limites laterais e o valor no ponto",
+                "Use lim sen(kx)/(kx) = 1"
+            ]
+        },
+        {
+            "id": "c1-ap4-q2a",
+            "topicId": "calc-ap4",
+            "category": "Derivadas",
+            "title": "Q2.1: Derivada de y = sen²(cos ³√(x³-3ˣ))",
+            "difficulty": "Avançado",
+            "problem": "Calcule dy/dx para y = sen²(cos ³√(x³ - 3ˣ))",
+            "finalAnswer": "Aplicação múltipla da regra da cadeia",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar as Camadas",
+                    "explanation": "Função composta com várias camadas.",
+                    "content": "y = [sen(u)]² onde u = cos(v)\nv = ³√(w) = w^(1/3) onde w = x³ - 3ˣ\n\nCamadas: sen² ← cos ← ³√ ← (x³ - 3ˣ)"
+                },
+                {
+                    "title": "Passo 2: Aplicar Regra da Cadeia",
+                    "explanation": "dy/dx = dy/du × du/dv × dv/dw × dw/dx",
+                    "content": "dy/du = 2·sen(u)·cos(u) = 2·sen(cos v)·cos(cos v)\ndu/dv = -sen(v) = -sen(³√w)\ndv/dw = (1/3)w^(-2/3) = 1/(3·³√w²)\ndw/dx = 3x² - 3ˣ·ln(3)"
+                },
+                {
+                    "title": "Passo 3: Multiplicar Tudo",
+                    "explanation": "Combinar as derivadas.",
+                    "content": "dy/dx = 2·sen(cos(³√w))·cos(cos(³√w))\n       × (-sen(³√w))\n       × 1/(3·³√w²)\n       × (3x² - 3ˣ·ln(3))\n\nOnde w = x³ - 3ˣ"
+                }
+            ],
+            "tips": [
+                "Identifique todas as funções aninhadas",
+                "d/dx[3ˣ] = 3ˣ·ln(3)",
+                "Regra da cadeia: derive de fora para dentro"
+            ]
+        },
+        {
+            "id": "c1-ap4-q2b",
+            "topicId": "calc-ap4",
+            "category": "Derivadas",
+            "title": "Q2.2: Derivada de φ = sec(6θ)/θ³",
+            "difficulty": "Intermediário",
+            "problem": "Calcule dφ/dθ para φ = sec(6θ)/θ³",
+            "finalAnswer": "[6θ·sec(6θ)·tg(6θ) - 3·sec(6θ)] / θ⁴",
+            "steps": [
+                {
+                    "title": "Passo 1: Regra do Quociente",
+                    "explanation": "(u/v)' = (u'v - uv')/v²",
+                    "content": "φ = sec(6θ)/θ³\n\nu = sec(6θ) → u' = 6·sec(6θ)·tg(6θ)\nv = θ³ → v' = 3θ²"
+                },
+                {
+                    "title": "Passo 2: Aplicar a Fórmula",
+                    "explanation": "Substituir na regra do quociente.",
+                    "content": "dφ/dθ = [6·sec(6θ)·tg(6θ)·θ³ - sec(6θ)·3θ²] / θ⁶\n\n= [θ²·sec(6θ)(6θ·tg(6θ) - 3)] / θ⁶\n\n= sec(6θ)(6θ·tg(6θ) - 3) / θ⁴"
+                }
+            ],
+            "tips": [
+                "d/dx[sec(x)] = sec(x)·tg(x)",
+                "Fatore o numerador quando possível",
+                "Use regra da cadeia para sec(6θ)"
+            ]
+        },
+        {
+            "id": "c1-ap4-q2c",
+            "topicId": "calc-ap4",
+            "category": "Derivação Implícita",
+            "title": "Q2.3: Derivação implícita xy - eʸ + eˣ = 0",
+            "difficulty": "Avançado",
+            "problem": "Dada xy - eʸ + eˣ = 0, encontre dx/dy e dy/dx.",
+            "finalAnswer": "dy/dx = -(y + eˣ)/(x - eʸ); dx/dy = (eʸ - x)/(y + eˣ)",
+            "steps": [
+                {
+                    "title": "Passo 1: Derivar em relação a x",
+                    "explanation": "Para encontrar dy/dx.",
+                    "content": "d/dx[xy - eʸ + eˣ] = 0\n\ny + x·(dy/dx) - eʸ·(dy/dx) + eˣ = 0"
+                },
+                {
+                    "title": "Passo 2: Isolar dy/dx",
+                    "explanation": "Agrupar termos com dy/dx.",
+                    "content": "(dy/dx)(x - eʸ) = -y - eˣ\n\ndy/dx = -(y + eˣ)/(x - eʸ)"
+                },
+                {
+                    "title": "Passo 3: Derivar em relação a y",
+                    "explanation": "Para encontrar dx/dy.",
+                    "content": "d/dy[xy - eʸ + eˣ] = 0\n\nx·(dx/dy) + y - eʸ + eˣ·(dx/dy) = 0\n\nOu simplesmente: dx/dy = 1/(dy/dx)\n= (x - eʸ)/(-(y + eˣ))\n= (eʸ - x)/(y + eˣ)"
+                }
+            ],
+            "tips": [
+                "Produto: d/dx[xy] = y + x·(dy/dx)",
+                "d/dx[eʸ] = eʸ·(dy/dx)",
+                "dx/dy = 1/(dy/dx)"
+            ]
+        },
+        {
+            "id": "c1-ap4-q3",
+            "topicId": "calc-ap4",
+            "category": "Reta Tangente",
+            "title": "Q3: Reta tangente e normal a f(x) = x² - x³ em x = 2",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a equação da reta tangente e normal à curva f(x) = x² - x³ no ponto x = 2.",
+            "finalAnswer": "Tangente: y = -8x + 12; Normal: y = x/8 - 17/4",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar o Ponto",
+                    "explanation": "Calcular f(2).",
+                    "content": "f(2) = 2² - 2³ = 4 - 8 = -4\nPonto: (2, -4)"
+                },
+                {
+                    "title": "Passo 2: Encontrar a Derivada",
+                    "explanation": "f'(x) é o coeficiente angular da tangente.",
+                    "content": "f'(x) = 2x - 3x²\nf'(2) = 4 - 12 = -8\n\nCoef. angular tangente: m_t = -8"
+                },
+                {
+                    "title": "Passo 3: Reta Tangente",
+                    "explanation": "y - y₀ = m(x - x₀)",
+                    "content": "y - (-4) = -8(x - 2)\ny + 4 = -8x + 16\ny = -8x + 12 ✓"
+                },
+                {
+                    "title": "Passo 4: Reta Normal",
+                    "explanation": "Normal é perpendicular: m_n = -1/m_t",
+                    "content": "m_n = -1/(-8) = 1/8\n\ny - (-4) = (1/8)(x - 2)\ny + 4 = x/8 - 1/4\ny = x/8 - 1/4 - 4\ny = x/8 - 17/4 ✓"
+                }
+            ],
+            "tips": [
+                "Tangente: usa f'(a) como coef. angular",
+                "Normal: coef. angular = -1/f'(a)",
+                "Perpendiculares: m₁·m₂ = -1"
+            ]
+        },
+        {
+            "id": "c1-ap4-q4",
+            "topicId": "calc-ap4",
+            "category": "Otimização",
+            "title": "Q4: Retângulo de maior área com perímetro fixo",
+            "difficulty": "Avançado",
+            "problem": "Mostre que, dentre todos os retângulos de perímetro 2k, o de maior área é o quadrado.",
+            "finalAnswer": "O quadrado (lado = k/2) tem área máxima",
+            "steps": [
+                {
+                    "title": "Passo 1: Definir as Variáveis",
+                    "explanation": "Sejam x e y os lados.",
+                    "content": "Perímetro: 2x + 2y = 2k\nLogo: x + y = k → y = k - x\n\nÁrea: A = x·y = x(k - x) = kx - x²"
+                },
+                {
+                    "title": "Passo 2: Encontrar Ponto Crítico",
+                    "explanation": "Derivar A e igualar a zero.",
+                    "content": "A(x) = kx - x²\nA'(x) = k - 2x\n\nA'(x) = 0 → k - 2x = 0 → x = k/2"
+                },
+                {
+                    "title": "Passo 3: Verificar Máximo",
+                    "explanation": "Usar segunda derivada.",
+                    "content": "A''(x) = -2 < 0\n\nComo A'' < 0, x = k/2 é ponto de MÁXIMO."
+                },
+                {
+                    "title": "Passo 4: Encontrar y",
+                    "explanation": "Verificar que é quadrado.",
+                    "content": "y = k - x = k - k/2 = k/2\n\nx = y = k/2\n\n✓ É um QUADRADO!\nÁrea máxima = (k/2)² = k²/4"
+                }
+            ],
+            "tips": [
+                "Use a restrição para eliminar uma variável",
+                "Derive e iguale a zero",
+                "Verifique se é máximo com a 2ª derivada"
+            ]
+        },
+        {
+            "id": "c1-ap4-q5",
+            "topicId": "calc-ap4",
+            "category": "Análise de Função",
+            "title": "Q5: Análise completa de f(x) = 4x - x⁴",
+            "difficulty": "Avançado",
+            "problem": "Analise f(x) = 4x - x⁴: pontos críticos, crescimento/decaimento, concavidade e inflexão.",
+            "finalAnswer": "Máximo global em x = 1, f(1) = 3; Não há ponto de inflexão; Concavidade para baixo em todo ℝ",
+            "steps": [
+                {
+                    "title": "Passo 1: Pontos Críticos",
+                    "explanation": "Onde f'(x) = 0.",
+                    "content": "f(x) = 4x - x⁴\nf'(x) = 4 - 4x³\n\n4 - 4x³ = 0\nx³ = 1\nx = 1\n\nPonto crítico: x = 1"
+                },
+                {
+                    "title": "Passo 2: Crescimento/Decaimento",
+                    "explanation": "Analisar sinal de f'(x).",
+                    "content": "f'(x) = 4(1 - x³)\n\nx < 1: 1 - x³ > 0 → f' > 0 (crescente)\nx > 1: 1 - x³ < 0 → f' < 0 (decrescente)\n\n✓ Crescente em (-∞, 1)\n✓ Decrescente em (1, +∞)\n✓ Máximo em x = 1"
+                },
+                {
+                    "title": "Passo 3: Concavidade",
+                    "explanation": "Analisar sinal de f''(x).",
+                    "content": "f''(x) = -12x²\n\nf''(x) = 0 → x = 0\n\nAnálise de sinal de f''(x):\n• x < 0: f''(x) = -12x² < 0\n• x = 0: f''(x) = 0\n• x > 0: f''(x) = -12x² < 0\n\n✓ f'' ≤ 0 para todo x ∈ ℝ\n✓ Concavidade para baixo em TODO o domínio"
+                },
+                {
+                    "title": "Passo 4: Ponto de Inflexão",
+                    "explanation": "Verificar se há mudança de concavidade.",
+                    "content": "⚠️ ATENÇÃO: Para x = 0 ser ponto de inflexão,\nf'' precisa MUDAR DE SINAL em x = 0.\n\nVerificando:\n• x < 0: f''(x) < 0 (côncava para baixo)\n• x > 0: f''(x) < 0 (côncava para baixo)\n\nNÃO há mudança de sinal!\n\n✓ x = 0 NÃO é ponto de inflexão\n  (f''(0) = 0 não é condição suficiente)\n\nf(0) = 0, f(1) = 4 - 1 = 3 (máximo global)"
+                }
+            ],
+            "tips": [
+                "f' = 0 → candidatos a extremo (verificar mudança de sinal)",
+                "f'' > 0 → côncava para cima; f'' < 0 → côncava para baixo",
+                "f''(a) = 0 NÃO é suficiente para inflexão: f'' deve MUDAR DE SINAL"
+            ]
+        }
+    ]
+}

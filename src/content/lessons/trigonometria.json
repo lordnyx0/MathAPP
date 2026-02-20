@@ -1,0 +1,101 @@
+{
+    "topic": "trigonometria",
+    "title": "Trigonometria",
+    "lessons": [
+        {
+            "id": "trig-1",
+            "title": "1. O Círculo Trigonométrico",
+            "level": "Básico",
+            "content": "📌 Conceito Fundamental\n\nO círculo trigonométrico tem raio = 1 e centro na origem.\n\n🔹 Eixos:\n• Eixo X (horizontal) = cosseno\n• Eixo Y (vertical) = seno\n\nUm ponto P no círculo de ângulo θ:\nP = (cos θ, sen θ)\n\n🔹 Os 4 Quadrantes:\n• 1º (0° a 90°): sen + , cos +\n• 2º (90° a 180°): sen + , cos -\n• 3º (180° a 270°): sen - , cos -\n• 4º (270° a 360°): sen - , cos +\n\n💡 Macete: \"Todo Sonho Tem Cura\"\n1º: Todos positivos\n2º: Seno positivo\n3º: Tangente positiva\n4º: Cosseno positivo",
+            "questions": [
+                {
+                    "q": "No 2º quadrante, o seno é positivo ou negativo?",
+                    "a": "positivo",
+                    "hint": "TSCX - S = Seno no 2º"
+                },
+                {
+                    "q": "Qual é o sinal do cos(150°)?",
+                    "a": "negativo",
+                    "hint": "150° está no 2º quadrante"
+                }
+            ]
+        },
+        {
+            "id": "trig-2",
+            "title": "2. Ângulos Notáveis",
+            "level": "Básico",
+            "content": "📌 Os Valores que Você DEVE Decorar\n\n🔹 Tabela Completa:\n\nθ     | 0°  | 30° | 45°  | 60°  | 90°\n─────────────────────────────────────\nsen   | 0   | 1/2 | √2/2 | √3/2 | 1\ncos   | 1   | √3/2| √2/2 | 1/2  | 0\ntan   | 0   | √3/3| 1    | √3   | ∞\n\n💡 Macetes:\n• sen cresce de 0 a 1 (0 → 90°)\n• cos decresce de 1 a 0 (0 → 90°)\n• sen(30°) = cos(60°) = 1/2\n• sen(60°) = cos(30°) = √3/2\n• sen(45°) = cos(45°) = √2/2\n\n⚡ Super dica:\nsen²θ + cos²θ = 1 (SEMPRE!)",
+            "questions": [
+                {
+                    "q": "Quanto é sen(30°)?",
+                    "a": "1/2",
+                    "hint": "É o menor valor diferente de zero"
+                },
+                {
+                    "q": "Quanto é cos(60°)?",
+                    "a": "1/2",
+                    "hint": "cos(60°) = sen(30°)"
+                },
+                {
+                    "q": "Quanto é tan(45°)?",
+                    "a": "1",
+                    "hint": "sen(45°)/cos(45°) = 1"
+                }
+            ]
+        },
+        {
+            "id": "trig-3",
+            "title": "3. Redução ao 1º Quadrante",
+            "level": "Intermediário",
+            "content": "📌 Como Calcular Ângulos Maiores\n\n🔹 Regra Geral:\nEncontre o ângulo de referência (entre 0° e 90°)\ne ajuste o sinal conforme o quadrante!\n\n📝 Exemplos:\n\nsen(150°) = sen(180° - 150°) = sen(30°) = 1/2\n(2º quad: sen +)\n\ncos(150°) = -cos(30°) = -√3/2\n(2º quad: cos -)\n\nsen(240°) = -sen(60°) = -√3/2\n(3º quad: sen -)\n\ncos(315°) = cos(45°) = √2/2\n(4º quad: cos +)\n\n💡 Ângulo de referência:\n2º quad: 180° - θ\n3º quad: θ - 180°\n4º quad: 360° - θ",
+            "questions": [
+                {
+                    "q": "Qual é o ângulo de referência de 120°?",
+                    "a": "60",
+                    "hint": "180° - 120° = 60°"
+                },
+                {
+                    "q": "sen(120°) é positivo ou negativo?",
+                    "a": "positivo",
+                    "hint": "120° está no 2º quadrante"
+                }
+            ]
+        },
+        {
+            "id": "trig-4",
+            "title": "4. Identidades Trigonométricas",
+            "level": "Intermediário",
+            "content": "📌 Fórmulas Essenciais\n\n🔹 Identidade Pitagórica:\nsen²θ + cos²θ = 1\n\nDividindo por cos²θ:\ntan²θ + 1 = sec²θ\n\nDividindo por sen²θ:\n1 + cot²θ = csc²θ\n\n🔹 Relações entre as 6 funções:\ntan θ = sen θ / cos θ\ncot θ = cos θ / sen θ = 1/tan θ\nsec θ = 1 / cos θ\ncsc θ = 1 / sen θ\n\n📝 Exemplo Prático:\nSe sen θ = 3/5 (1º quad), ache cos θ:\n\nsen²θ + cos²θ = 1\n(3/5)² + cos²θ = 1\n9/25 + cos²θ = 1\ncos²θ = 16/25\ncos θ = 4/5 (positivo no 1º quad)",
+            "questions": [
+                {
+                    "q": "Se sen θ = 0.6 no 1º quadrante, quanto é cos θ?",
+                    "a": "0.8",
+                    "hint": "Use: cos² = 1 - sen² = 1 - 0.36 = 0.64"
+                },
+                {
+                    "q": "Quanto é tan θ se sen θ = 3/5 e cos θ = 4/5?",
+                    "a": "3/4",
+                    "hint": "tan = sen/cos = (3/5)/(4/5)"
+                }
+            ]
+        },
+        {
+            "id": "trig-5",
+            "title": "5. Fórmulas de Adição",
+            "level": "Avançado",
+            "content": "📌 Somando e Subtraindo Ângulos\n\n🔹 Seno da Soma/Diferença:\nsen(a+b) = sen a·cos b + cos a·sen b\nsen(a-b) = sen a·cos b - cos a·sen b\n\n🔹 Cosseno da Soma/Diferença:\ncos(a+b) = cos a·cos b - sen a·sen b\ncos(a-b) = cos a·cos b + sen a·sen b\n\n🔹 Tangente:\ntan(a+b) = (tan a + tan b)/(1 - tan a·tan b)\ntan(a-b) = (tan a - tan b)/(1 + tan a·tan b)\n\n📝 Exemplo: sen(75°)\nsen(75°) = sen(45° + 30°)\n= sen 45°·cos 30° + cos 45°·sen 30°\n= (√2/2)(√3/2) + (√2/2)(1/2)\n= √6/4 + √2/4\n= (√6 + √2)/4\n\n💡 Macete: Seno SOMA sinais, Cosseno TROCA!",
+            "questions": [
+                {
+                    "q": "Na fórmula sen(a+b), qual é o sinal entre os termos?",
+                    "a": "+",
+                    "hint": "sen(a+b) = sen a·cos b + cos a·sen b"
+                },
+                {
+                    "q": "Na fórmula cos(a+b), o sinal entre os termos é + ou -?",
+                    "a": "-",
+                    "hint": "cos(a+b) = cos a·cos b - sen a·sen b"
+                }
+            ]
+        }
+    ]
+}

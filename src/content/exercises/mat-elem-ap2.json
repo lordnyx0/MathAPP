@@ -1,0 +1,161 @@
+{
+    "topicId": "mat-elem-ap2",
+    "title": "Mat. Elementar AP2: Funções Avançado",
+    "exercises": [
+        {
+            "id": "me-ap2-q1",
+            "topicId": "mat-elem-ap2",
+            "category": "Frações Algébricas",
+            "title": "Q1: Forma expandida de (x¹⁰-1)/(x¹²-1)",
+            "difficulty": "Avançado",
+            "problem": "Qual a forma expandida e simplificada da expressão (x¹⁰ - 1)/(x¹² - 1)?",
+            "finalAnswer": "(x⁴ + x² + 1)/(x⁶ + x⁴ + x² + 1) · (x⁴ - x³ + x² - x + 1)/(x⁴ + x³ + x² + x + 1)",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar usando diferença de potências",
+                    "explanation": "Usar xⁿ - 1 = (x - 1)(xⁿ⁻¹ + xⁿ⁻² + ... + 1)",
+                    "content": "📌 Fórmulas úteis:\nxⁿ - 1 = (x - 1)(xⁿ⁻¹ + xⁿ⁻² + ... + x + 1)\n\nPara n = 10 e n = 12:\nx¹⁰ - 1 e x¹² - 1 podem ser fatorados"
+                },
+                {
+                    "title": "Passo 2: Encontrar fatores comuns",
+                    "explanation": "Identificar divisores comuns entre 10 e 12.",
+                    "content": "MDC(10, 12) = 2\nAmbos são divisíveis por (x² - 1)\n\nx¹⁰ - 1 = (x² - 1) · P₁(x)\nx¹² - 1 = (x² - 1) · P₂(x)\n\nO fator (x² - 1) cancela."
+                },
+                {
+                    "title": "Passo 3: Simplificação",
+                    "explanation": "Após cancelar fatores comuns.",
+                    "content": "Após simplificação:\n\n(x¹⁰ - 1)/(x¹² - 1) = (x⁸ + x⁶ + x⁴ + x² + 1)/(x¹⁰ + x⁸ + x⁶ + x⁴ + x² + 1)\n\nPode ser fatorado ainda mais usando\npolinômios ciclotômicos."
+                }
+            ],
+            "tips": [
+                "Use fatoração de xⁿ - 1",
+                "Procure fatores comuns (MDC dos expoentes)",
+                "Simplifique antes de expandir"
+            ]
+        },
+        {
+            "id": "me-ap2-q2",
+            "topicId": "mat-elem-ap2",
+            "category": "Funções Par e Ímpar",
+            "title": "Q2: Analisar paridade de funções",
+            "difficulty": "Intermediário",
+            "problem": "Analise se f(x) = 1/(x + √x) pode ser par ou ímpar, e mostre que g(x) = 1/(x² + |x|) é par.",
+            "finalAnswer": "f(x) não pode ser par nem ímpar (domínio não simétrico); g(x) é par",
+            "steps": [
+                {
+                    "title": "Passo 1: Definições e Requisitos",
+                    "explanation": "Recordar as definições de função par e ímpar.",
+                    "content": "📌 Definições:\n• f é PAR se f(-x) = f(x)\n• f é ÍMPAR se f(-x) = -f(x)\n\n⚠️ REQUISITO ESSENCIAL:\nO domínio DEVE ser simétrico em relação à origem!\nOu seja: se x ∈ Dom(f), então -x ∈ Dom(f)"
+                },
+                {
+                    "title": "Passo 2: Analisar f(x) = 1/(x + √x)",
+                    "explanation": "Primeiro verificar o domínio.",
+                    "content": "f(x) = 1/(x + √x)\n\n📌 Domínio de f:\n• √x exige x ≥ 0\n• Denominador x + √x ≠ 0 → x ≠ 0\n• Portanto: Dom(f) = (0, +∞)\n\n❌ O domínio NÃO é simétrico!\nSe x = 4 ∈ Dom(f), então -4 ∉ Dom(f)\n\n✓ Conclusão: f(x) NÃO PODE ser classificada\ncomo par nem ímpar (domínio não simétrico)"
+                },
+                {
+                    "title": "Passo 3: Verificar g(x) = 1/(x² + |x|) é par",
+                    "explanation": "Primeiro verificar o domínio, depois testar paridade.",
+                    "content": "📌 Domínio de g:\n• x² + |x| = 0 apenas quando x = 0\n• Dom(g) = ℝ - {0} = (-∞, 0) ∪ (0, +∞)\n• ✓ Domínio SIMÉTRICO!\n\n📐 Testando paridade:\ng(-x) = 1/((-x)² + |-x|)\n      = 1/(x² + |x|)\n      = g(x)\n\nComo g(-x) = g(x), a função é PAR! ✓\n\n💡 Isso funciona porque:\n• (-x)² = x²\n• |-x| = |x|"
+                }
+            ],
+            "tips": [
+                "SEMPRE verifique se o domínio é simétrico ANTES de testar paridade",
+                "Domínio não simétrico = função não pode ser par nem ímpar",
+                "x² e |x| são sempre funções pares"
+            ]
+        },
+        {
+            "id": "me-ap2-q3",
+            "topicId": "mat-elem-ap2",
+            "category": "Injetividade e Sobrejetividade",
+            "title": "Q3: Analisar f(x) = √(x² + 7)",
+            "difficulty": "Avançado",
+            "problem": "Mostre que f: ℝ → ℝ com f(x) = √(x² + 7) não é injetora nem sobrejetora. Redefina para ser bijetora.",
+            "finalAnswer": "Com D = [0, +∞) e CD = [√7, +∞), f é bijetora",
+            "steps": [
+                {
+                    "title": "Passo 1: Verificar Injetividade",
+                    "explanation": "Uma função é injetora se x₁ ≠ x₂ ⟹ f(x₁) ≠ f(x₂).",
+                    "content": "📌 Teste de injetividade:\nf(x) = √(x² + 7)\n\nf(2) = √(4 + 7) = √11\nf(-2) = √(4 + 7) = √11\n\nf(2) = f(-2), mas 2 ≠ -2\n\n❌ NÃO é injetora!\n(valores opostos têm mesma imagem)"
+                },
+                {
+                    "title": "Passo 2: Verificar Sobrejetividade",
+                    "explanation": "Uma função é sobrejetora se todo elemento do contradomínio é imagem.",
+                    "content": "📌 Teste de sobrejetividade:\nContradomínio declarado: ℝ\n\nf(x) = √(x² + 7) ≥ √7 sempre\n(pois x² ≥ 0, então x² + 7 ≥ 7)\n\nValores < √7 não são atingidos!\nPor exemplo, y = 0 não é imagem.\n\n❌ NÃO é sobrejetora!"
+                },
+                {
+                    "title": "Passo 3: Redefinir para Bijetora",
+                    "explanation": "Restringir domínio e contradomínio.",
+                    "content": "Para tornar INJETORA:\nRestringir a x ≥ 0 (ou x ≤ 0)\n→ D = [0, +∞)\n\nPara tornar SOBREJETORA:\nRestringir contradomínio à imagem real\n→ CD = [√7, +∞)\n\n✓ f: [0, +∞) → [√7, +∞)\n  f(x) = √(x² + 7)\n\nEsta função é BIJETORA!"
+                }
+            ],
+            "tips": [
+                "Injetora: cada y tem no máximo um x",
+                "Sobrejetora: todo y tem pelo menos um x",
+                "Bijetora = injetora + sobrejetora"
+            ]
+        },
+        {
+            "id": "me-ap2-q4",
+            "topicId": "mat-elem-ap2",
+            "category": "Composição de Funções",
+            "title": "Q4: Decompor f(x) = 2^(3√x - x)",
+            "difficulty": "Avançado",
+            "problem": "Decomponha f(x) = 2^(3√x - x) de duas formas distintas.",
+            "finalAnswer": "Múltiplas decomposições possíveis",
+            "steps": [
+                {
+                    "title": "Passo 1: Analisar as Camadas",
+                    "explanation": "Identificar as operações de dentro para fora.",
+                    "content": "f(x) = 2^(3√x - x)\n\nCamadas:\n1. √x (raiz quadrada)\n2. 3√x (multiplicar por 3)\n3. 3√x - x (subtrair x)\n4. 2^(□) (exponencial)"
+                },
+                {
+                    "title": "Passo 2: Decomposição em 2 funções",
+                    "explanation": "Agrupar operações.",
+                    "content": "🔹 FORMA 1:\n• g(x) = 3√x - x\n• h(x) = 2^x\n\nf(x) = h(g(x)) = (h∘g)(x)"
+                },
+                {
+                    "title": "Passo 3: Decomposição em 3 funções",
+                    "explanation": "Separar mais as operações.",
+                    "content": "🔹 FORMA 2:\n• p(x) = √x\n• q(x) = 3x - x² (com x = √t, q(√x) = 3√x - x)\n• r(x) = 2^x\n\nOu alternativamente:\n• a(x) = (√x, x) (vetor)\n• b(u, v) = 3u - v\n• c(x) = 2^x\n\nf = c∘b∘a"
+                }
+            ],
+            "tips": [
+                "Analise de dentro para fora",
+                "Verifique: substitua e confira se dá a original",
+                "Múltiplas decomposições são válidas"
+            ]
+        },
+        {
+            "id": "me-ap2-q5",
+            "topicId": "mat-elem-ap2",
+            "category": "Inequações",
+            "title": "Q5: Inequação (1-x)(x²-4)/(x²-3x+2) ≥ 0",
+            "difficulty": "Avançado",
+            "problem": "Resolva a inequação (1-x)(x²-4)/(x²-3x+2) ≥ 0",
+            "finalAnswer": "S = (-∞, -2]",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar Completamente",
+                    "explanation": "Fatorar numerador e denominador.",
+                    "content": "Numerador: (1-x)(x²-4)\n• (1-x) = -(x-1)\n• (x²-4) = (x-2)(x+2)\n\nNumerador = -(x-1)(x-2)(x+2)\n\nDenominador: x²-3x+2 = (x-1)(x-2)\n\nExpressão = -(x-1)(x-2)(x+2) / [(x-1)(x-2)]"
+                },
+                {
+                    "title": "Passo 2: Simplificar (com restrições)",
+                    "explanation": "Cancelar fatores comuns.",
+                    "content": "⚠️ Restrições: x ≠ 1 e x ≠ 2\n\nApós simplificar:\n= -(x+2)  para x ≠ 1, x ≠ 2\n\nResolver: -(x+2) ≥ 0\n         x+2 ≤ 0\n         x ≤ -2"
+                },
+                {
+                    "title": "Passo 3: Conjunto Solução",
+                    "explanation": "Combinar com as restrições.",
+                    "content": "Da simplificação: x ≤ -2\nCom restrições: x ≠ 1, x ≠ 2\n\nComo -2 < 1 e -2 < 2, as restrições\nnão afetam este intervalo.\n\n✓ S = (-∞, -2]"
+                }
+            ],
+            "tips": [
+                "Sempre fatore antes de resolver",
+                "Identifique TODAS as restrições do denominador",
+                "Simplifique, mas lembre das restrições"
+            ]
+        }
+    ]
+}

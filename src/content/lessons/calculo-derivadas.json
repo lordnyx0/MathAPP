@@ -1,0 +1,91 @@
+{
+    "topic": "derivadas",
+    "title": "Cálculo: Derivadas",
+    "lessons": [
+        {
+            "id": "calc-der-1",
+            "title": "1. O que é Derivada?",
+            "level": "Básico",
+            "content": "📌 Taxa de Variação Instantânea\n\nA derivada mede a TAXA DE VARIAÇÃO de uma função.\n\n🔹 Definição:\nf'(x) = lim(h→0) [f(x+h) - f(x)] / h\n\n🔹 Interpretação Geométrica:\nf'(a) = coeficiente angular da tangente em x = a\n\n📝 Exemplo:\nf(x) = x²\n\nf'(x) = lim(h→0) [(x+h)² - x²] / h\n      = lim(h→0) [x² + 2xh + h² - x²] / h\n      = lim(h→0) [2xh + h²] / h\n      = lim(h→0) (2x + h)\n      = 2x\n\nEntão: (x²)' = 2x",
+            "questions": [
+                {
+                    "q": "Qual é a derivada de x³?",
+                    "a": "3x²",
+                    "hint": "Use a regra: (xⁿ)' = nxⁿ⁻¹"
+                },
+                {
+                    "q": "f'(2) representa o quê geometricamente?",
+                    "a": "inclinação da tangente",
+                    "hint": "É o coef. angular da reta tangente no ponto x=2"
+                }
+            ]
+        },
+        {
+            "id": "calc-der-2",
+            "title": "2. Regras de Derivação",
+            "level": "Intermediário",
+            "content": "📌 Regras Básicas\n\n🔹 Constante: (c)' = 0\n🔹 Potência: (xⁿ)' = nxⁿ⁻¹\n🔹 Soma: (f + g)' = f' + g'\n🔹 Produto: (f·g)' = f'·g + f·g'\n🔹 Quociente: (f/g)' = (f'·g - f·g') / g²\n\n📝 Exemplos:\n\n(x² + 3x)' = 2x + 3\n\n(x·eˣ)' = 1·eˣ + x·eˣ = eˣ(1 + x)\n\n(x/eˣ)' = (1·eˣ - x·eˣ) / e²ˣ\n        = eˣ(1 - x) / e²ˣ\n        = (1 - x) / eˣ\n\n💡 Memorize: produto → + | quociente → −",
+            "questions": [
+                {
+                    "q": "(x² · x³)' = ?",
+                    "a": "5x⁴",
+                    "hint": "x² · x³ = x⁵, então (x⁵)' = 5x⁴"
+                },
+                {
+                    "q": "(x + 1/x)' = ?",
+                    "a": "1 - 1/x²",
+                    "hint": "(x)' = 1, (x⁻¹)' = -x⁻²"
+                }
+            ]
+        },
+        {
+            "id": "calc-der-3",
+            "title": "3. Regra da Cadeia",
+            "level": "Avançado",
+            "content": "📌 Funções Compostas\n\nPara f(g(x)), a derivada é:\n[f(g(x))]' = f'(g(x)) · g'(x)\n\n🔹 \"Deriva fora, mantém dentro, vezes deriva dentro\"\n\n📝 Exemplo 1:\ny = (x² + 1)³\n\nExterna: u³ → 3u²\nInterna: x² + 1 → 2x\n\ny' = 3(x² + 1)² · 2x = 6x(x² + 1)²\n\n📝 Exemplo 2:\ny = sen(x²)\n\nExterna: sen(u) → cos(u)\nInterna: x² → 2x\n\ny' = cos(x²) · 2x = 2x·cos(x²)\n\n💡 Identifique: qual é a função \"de fora\"?",
+            "questions": [
+                {
+                    "q": "[cos(3x)]' = ?",
+                    "a": "-3sen(3x)",
+                    "hint": "Deriva cos → -sen, vezes deriva 3x → 3"
+                },
+                {
+                    "q": "[eˣ²]' = ?",
+                    "a": "2xeˣ²",
+                    "hint": "Deriva eˣ → eˣ, vezes deriva x² → 2x"
+                }
+            ]
+        },
+        {
+            "id": "calc-der-4",
+            "title": "4. Derivadas Trigonométricas",
+            "level": "Intermediário",
+            "content": "📌 Tabela de Derivadas\n\n🔹 Básicas:\n(sen x)' = cos x\n(cos x)' = -sen x\n(tg x)' = sec² x\n\n🔹 Inversas:\n(sec x)' = sec x · tg x\n(csc x)' = -csc x · cot x\n(cot x)' = -csc² x\n\n📝 Exemplo:\ny = tg x + sec x\n\ny' = sec² x + sec x · tg x\n\n📝 Exemplo 2:\ny = x · sen x\n\ny' = 1·sen x + x·cos x\n   = sen x + x·cos x\n\n💡 Dica: cos tem sinal negativo na derivada!",
+            "questions": [
+                {
+                    "q": "(sen x · cos x)' = ?",
+                    "a": "cos²x - sen²x",
+                    "hint": "Regra do produto: cos·cos + sen·(-sen)"
+                },
+                {
+                    "q": "(tg x)' = ?",
+                    "a": "sec²x",
+                    "hint": "É uma fórmula para memorizar"
+                }
+            ]
+        },
+        {
+            "id": "calc-der-5",
+            "title": "5. Aplicações: Reta Tangente",
+            "level": "Intermediário",
+            "content": "📌 Equação da Reta Tangente\n\nEm x = a, a reta tangente tem:\n• Ponto: (a, f(a))\n• Inclinação: m = f'(a)\n\nEquação: y - f(a) = f'(a)(x - a)\n\n📝 Exemplo:\nf(x) = x², tangente em x = 2\n\nf(2) = 4 → ponto (2, 4)\nf'(x) = 2x\nf'(2) = 4 → inclinação\n\ny - 4 = 4(x - 2)\ny = 4x - 8 + 4\ny = 4x - 4\n\n🔹 Reta Normal:\nInclinação = -1/f'(a) (perpendicular)\n\ny - 4 = (-1/4)(x - 2)",
+            "questions": [
+                {
+                    "q": "Inclinação da tangente de f(x)=x³ em x=1?",
+                    "a": "3",
+                    "hint": "f'(x) = 3x², f'(1) = 3"
+                }
+            ]
+        }
+    ]
+}

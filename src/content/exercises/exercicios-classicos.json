@@ -1,0 +1,273 @@
+{
+    "title": "Exercícios Clássicos",
+    "description": "Resolução Guiada Original para Mat. Elementar",
+    "exercises": [
+        {
+            "id": "classico-log-simplificacao",
+            "topicId": "mat-elem-r1",
+            "category": "Logaritmos",
+            "title": "Simplificação de Expressões Logarítmicas",
+            "difficulty": "Básico",
+            "problem": "Transforme em um só logaritmo: E = 3·log₃(x) + log₃(y)/3 - (1/2)·log₃(z²)",
+            "finalAnswer": "log₃(x³·³√y / z)",
+            "steps": [
+                {
+                    "title": "Passo 1: Aplicar a Propriedade da Potência",
+                    "explanation": "Quando temos um número multiplicando o log, podemos \"subir\" esse número como expoente do argumento.",
+                    "content": "📌 Propriedade Geral: k · log_a(x) = log_a(x^k)\n(Notação: 'a' é a base genérica)\n\nAplicando à base 3:\n• 3·log₃(x) = log₃(x³)\n• log₃(y)/3 = (1/3)·log₃(y) = log₃(y^(1/3))\n• (1/2)·log₃(z²) = log₃((z²)^(1/2)) = log₃(z)\n\n💡 Note que (z²)^(1/2) = z^(2·1/2) = z¹ = z"
+                },
+                {
+                    "title": "Passo 2: Reescrever a Expressão",
+                    "explanation": "Agora que todos os coeficientes viraram expoentes, temos tudo em formato de logaritmo puro.",
+                    "content": "E = log₃(x³) + log₃(y^(1/3)) - log₃(z)"
+                },
+                {
+                    "title": "Passo 3: Aplicar Propriedades de Soma e Subtração",
+                    "explanation": "Soma de logs vira produto, subtração vira divisão.",
+                    "content": "Propriedades:\n• log(a) + log(b) = log(a·b)\n• log(a) - log(b) = log(a/b)\n\nlog₃(x³) + log₃(y^(1/3)) = log₃(x³ · y^(1/3))\nlog₃(x³ · y^(1/3)) - log₃(z) = log₃((x³ · y^(1/3)) / z)"
+                },
+                {
+                    "title": "Passo 4: Converter Expoente Fracionário para Raiz",
+                    "explanation": "y^(1/3) é a mesma coisa que ³√y (raiz cúbica de y).",
+                    "content": "Lembre: x^(1/n) = ⁿ√x\n\n✓ Resposta Final: E = log₃(x³·³√y / z)"
+                }
+            ],
+            "tips": [
+                "Sempre comece movendo coeficientes para dentro como expoentes",
+                "Agrupe as somas antes das subtrações",
+                "Deixe a resposta final da forma mais simplificada possível"
+            ]
+        },
+        {
+            "id": "classico-log-equacao-base3",
+            "topicId": "mat-elem-r1",
+            "category": "Logaritmos",
+            "title": "Equação Logarítmica (Base 3)",
+            "difficulty": "Avançado",
+            "problem": "(log₃ x)² - 8·log₃(x) + 7 = 0",
+            "finalAnswer": "S = {3, 3⁷} = {3, 2187}",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar o Tipo de Equação",
+                    "explanation": "Esta é uma equação do 2º grau em log₃(x). Usaremos o método da substituição.",
+                    "content": "Observe a estrutura:\n(log₃ x)² - 8·log₃(x) + 7 = 0\nParece com: y² - 8y + 7 = 0\n\n💡 Quando ver (log x)², pense em substituição!"
+                },
+                {
+                    "title": "Passo 2: Fazer a Substituição",
+                    "explanation": "Vamos chamar log₃(x) de y para simplificar.",
+                    "content": "Seja y = log₃(x)\n\nA equação vira:\ny² - 8y + 7 = 0"
+                },
+                {
+                    "title": "Passo 3: Resolver a Equação do 2º Grau",
+                    "explanation": "Use Bhaskara ou tente fatorar.",
+                    "content": "Fatorando: y² - 8y + 7 = 0\n\nProcuramos dois números que:\n• Multiplicados dão 7\n• Somados dão -8\n\nNúmeros: -7 e -1\n(y - 7)(y - 1) = 0\n\nRaízes: y = 7 ou y = 1"
+                },
+                {
+                    "title": "Passo 4: Voltar para x",
+                    "explanation": "Agora voltamos à variável original usando x = 3^y.",
+                    "content": "Lembre: y = log₃(x) → x = 3^y\n\nPara y = 7:\nlog₃(x) = 7 → x = 3⁷ = 2187\n\nPara y = 1:\nlog₃(x) = 1 → x = 3¹ = 3"
+                },
+                {
+                    "title": "Passo 5: Verificar e Formar o Conjunto Solução",
+                    "explanation": "Sempre verifique se as soluções são válidas (x > 0).",
+                    "content": "Verificação:\n• x = 3 > 0 ✓\n• x = 2187 > 0 ✓\n\nAmbas são válidas!\n\nS = {3, 2187} ou S = {3, 3⁷}"
+                }
+            ],
+            "tips": [
+                "Sempre faça y = log(x) quando ver (log x)²",
+                "Não esqueça de voltar para x no final",
+                "Verifique se x > 0 (domínio do logaritmo)"
+            ]
+        },
+        {
+            "id": "classico-log-equacao-base2",
+            "topicId": "mat-elem-r1",
+            "category": "Logaritmos",
+            "title": "Equação Logarítmica (Base 2)",
+            "difficulty": "Avançado",
+            "problem": "(log₂ x)² - 2·log₂(x) - 3 = 0",
+            "finalAnswer": "S = {1/2, 8}",
+            "steps": [
+                {
+                    "title": "Passo 1: Substituição",
+                    "explanation": "Mesmo método do exercício anterior.",
+                    "content": "Seja y = log₂(x)\n\nA equação fica:\ny² - 2y - 3 = 0"
+                },
+                {
+                    "title": "Passo 2: Resolver a Equação",
+                    "explanation": "Fatorar ou usar Bhaskara.",
+                    "content": "Fatorando:\nDois números que multiplicados dão -3 e somados dão -2:\nNúmeros: -3 e +1\n\n(y - 3)(y + 1) = 0\n\nRaízes: y = 3 ou y = -1"
+                },
+                {
+                    "title": "Passo 3: Voltar para x",
+                    "explanation": "Cuidado com expoente negativo!",
+                    "content": "Para y = 3:\nlog₂(x) = 3 → x = 2³ = 8\n\nPara y = -1:\nlog₂(x) = -1 → x = 2⁻¹ = 1/2\n\n⚠️ Atenção: 2⁻¹ = 1/2 (não é negativo!)"
+                },
+                {
+                    "title": "Passo 4: Formar o Conjunto Solução",
+                    "explanation": "Ambas as soluções são positivas, portanto válidas.",
+                    "content": "• x = 1/2 > 0 ✓\n• x = 8 > 0 ✓\n\nS = {1/2, 8}"
+                }
+            ],
+            "tips": [
+                "Expoente negativo: a⁻ⁿ = 1/aⁿ (fica fração, não negativo!)",
+                "Sempre verifique se as soluções são positivas",
+                "Ordenar do menor para o maior: {1/2, 8}"
+            ]
+        },
+        {
+            "id": "classico-trig-relacoes",
+            "topicId": "mat-elem-r1",
+            "category": "Trigonometria",
+            "title": "Relações Trigonométricas no 4º Quadrante",
+            "difficulty": "Intermediário",
+            "problem": "Se cos(θ) = a e 3π/2 ≤ θ ≤ 2π (4º Quadrante), encontre sen(θ), tan(θ), sec(θ), cot(θ) e csc(θ)",
+            "finalAnswer": "Todas as funções em termos de \"a\"",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar sen(θ) usando a Identidade Fundamental",
+                    "explanation": "Use sen²(θ) + cos²(θ) = 1. ATENÇÃO ao sinal do quadrante!",
+                    "content": "Identidade: sen²(θ) + cos²(θ) = 1\n\nsen²(θ) = 1 - cos²(θ)\nsen²(θ) = 1 - a²\nsen(θ) = ±√(1 - a²)\n\n⚠️ Atenção ao Quadrante!\n4º Quadrante: sen < 0\n\nsen(θ) = -√(1 - a²)\n\n💡 Macete: \"Todo Sonho Tem Cura\"\n4º quadrante = Cosseno positivo"
+                },
+                {
+                    "title": "Passo 2: Calcular tan(θ)",
+                    "explanation": "Tangente é a razão entre seno e cosseno.",
+                    "content": "tan(θ) = sen(θ) / cos(θ)\ntan(θ) = -√(1 - a²) / a"
+                },
+                {
+                    "title": "Passo 3: Calcular sec(θ)",
+                    "explanation": "Secante é o inverso do cosseno.",
+                    "content": "sec(θ) = 1 / cos(θ)\nsec(θ) = 1/a"
+                },
+                {
+                    "title": "Passo 4: Calcular cot(θ)",
+                    "explanation": "Cotangente é o inverso da tangente.",
+                    "content": "cot(θ) = 1 / tan(θ)\ncot(θ) = 1 / [-√(1 - a²) / a]\ncot(θ) = a / [-√(1 - a²)]\ncot(θ) = -a / √(1 - a²)"
+                },
+                {
+                    "title": "Passo 5: Calcular csc(θ)",
+                    "explanation": "Cossecante é o inverso do seno.",
+                    "content": "csc(θ) = 1 / sen(θ)\ncsc(θ) = 1 / [-√(1 - a²)]\ncsc(θ) = -1 / √(1 - a²)"
+                },
+                {
+                    "title": "Resumo Final",
+                    "explanation": "Todas as 6 funções trigonométricas em termos de \"a\".",
+                    "content": "📋 Resumo Completo:\n• cos(θ) = a (dado)\n• sen(θ) = -√(1 - a²)\n• tan(θ) = -√(1 - a²) / a\n• sec(θ) = 1/a\n• cot(θ) = -a / √(1 - a²)\n• csc(θ) = -1 / √(1 - a²)"
+                }
+            ],
+            "tips": [
+                "SEMPRE identifique o quadrante antes de tirar a raiz",
+                "No 4º quadrante: cos > 0, sen < 0",
+                "Com sen e cos, você consegue todas as outras!"
+            ]
+        },
+        {
+            "id": "classico-trig-imagem-cos",
+            "topicId": "mat-elem-r1",
+            "category": "Trigonometria",
+            "title": "Imagem de y = 2 - 3·cos(x)",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a imagem (conjunto de valores possíveis) de y = 2 - 3·cos(x)",
+            "finalAnswer": "Im = [-1, 5]",
+            "steps": [
+                {
+                    "title": "Passo 1: Lembrar o Limite do Cosseno",
+                    "explanation": "O cosseno varia entre -1 e 1.",
+                    "content": "Propriedade básica:\n-1 ≤ cos(x) ≤ 1"
+                },
+                {
+                    "title": "Passo 2: Multiplicar por -3",
+                    "explanation": "CUIDADO: multiplicar por negativo INVERTE a desigualdade!",
+                    "content": "⚠️ ATENÇÃO: Inverte o sinal!\n\n-1 ≤ cos(x) ≤ 1\nMultiplicando por -3:\n3 ≥ -3·cos(x) ≥ -3\n\n💡 Por quê?\nSe -1 ≤ x ≤ 1, multiplicando por -3:\n(-1)×(-3) = 3 e (1)×(-3) = -3\nComo -3 < 3, invertemos: 3 ≥ ... ≥ -3"
+                },
+                {
+                    "title": "Passo 3: Somar 2 a Todos os Termos",
+                    "explanation": "Agora somamos 2 para completar a função y = 2 - 3·cos(x).",
+                    "content": "Temos: 3 ≥ -3·cos(x) ≥ -3\n\nSomando 2 a todos:\n3 + 2 ≥ 2 - 3·cos(x) ≥ -3 + 2\n5 ≥ y ≥ -1"
+                },
+                {
+                    "title": "Passo 4: Escrever em Notação de Intervalo",
+                    "explanation": "Reordene para forma crescente.",
+                    "content": "5 ≥ y ≥ -1 é o mesmo que:\n-1 ≤ y ≤ 5\n\nImagem: [-1, 5]\n\nInterpretação:\n• Valor mínimo: y = -1 (quando cos(x) = 1)\n• Valor máximo: y = 5 (quando cos(x) = -1)"
+                }
+            ],
+            "tips": [
+                "SEMPRE inverta a desigualdade ao multiplicar/dividir por negativo",
+                "Verifique: quando cos = 1, y = 2 - 3(1) = -1 ✓",
+                "Quando cos = -1, y = 2 - 3(-1) = 5 ✓"
+            ]
+        },
+        {
+            "id": "classico-trig-imagem-sec",
+            "topicId": "mat-elem-r1",
+            "category": "Trigonometria",
+            "title": "Imagem de y = 4 + sec(x)",
+            "difficulty": "Avançado",
+            "problem": "Encontre a imagem de y = 4 + sec(x)",
+            "finalAnswer": "Im = (-∞, 3] ∪ [5, +∞)",
+            "steps": [
+                {
+                    "title": "Passo 1: Lembrar o Comportamento da Secante",
+                    "explanation": "Secante NÃO varia entre -1 e 1. Ela tem um \"buraco\"!",
+                    "content": "Propriedade da secante:\nsec(x) ≥ 1 OU sec(x) ≤ -1\n(Não existe sec entre -1 e 1)\n\n💡 Por quê?\nsec(x) = 1/cos(x)\nComo -1 ≤ cos ≤ 1, dividir 1 por valores pequenos dá valores grandes!"
+                },
+                {
+                    "title": "Passo 2: Caso 1 - sec(x) ≥ 1",
+                    "explanation": "Quando secante é maior ou igual a 1.",
+                    "content": "Se sec(x) ≥ 1:\ny = 4 + sec(x)\ny ≥ 4 + 1\ny ≥ 5"
+                },
+                {
+                    "title": "Passo 3: Caso 2 - sec(x) ≤ -1",
+                    "explanation": "Quando secante é menor ou igual a -1.",
+                    "content": "Se sec(x) ≤ -1:\ny = 4 + sec(x)\ny ≤ 4 + (-1)\ny ≤ 3"
+                },
+                {
+                    "title": "Passo 4: Unir os Dois Casos",
+                    "explanation": "A imagem é a união dos dois conjuntos.",
+                    "content": "Reunindo os casos:\n• Caso 1: y ≥ 5\n• Caso 2: y ≤ 3\n\nIm = (-∞, 3] ∪ [5, +∞)\n\n📊 Interpretação:\nA função \"pula\" os valores entre 3 e 5!\nNão existe y = 4, por exemplo."
+                }
+            ],
+            "tips": [
+                "Secante e cossecante TÊM BURACOS na imagem",
+                "Sempre analise os dois casos separadamente",
+                "Use o símbolo ∪ (união) para juntar os intervalos"
+            ]
+        },
+        {
+            "id": "classico-trig-identidade",
+            "topicId": "mat-elem-r1",
+            "category": "Trigonometria",
+            "title": "Identidade cos(π/2 - x) = sen(x)",
+            "difficulty": "Avançado",
+            "problem": "Demonstre que cos(π/2 - x) = sen(x)",
+            "finalAnswer": "Demonstração completa usando fórmula do cosseno da diferença",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar a Fórmula a Usar",
+                    "explanation": "Usaremos a fórmula do cosseno da diferença.",
+                    "content": "Fórmula do Cosseno da Diferença:\ncos(a - b) = cos(a)·cos(b) + sen(a)·sen(b)\n\n💡 Neste caso:\na = π/2\nb = x"
+                },
+                {
+                    "title": "Passo 2: Aplicar a Fórmula",
+                    "explanation": "Substitua a e b na fórmula.",
+                    "content": "cos(π/2 - x) = cos(π/2)·cos(x) + sen(π/2)·sen(x)"
+                },
+                {
+                    "title": "Passo 3: Substituir os Valores Conhecidos",
+                    "explanation": "Precisamos saber cos(π/2) e sen(π/2).",
+                    "content": "Valores fundamentais (DECORE!):\n• cos(π/2) = cos(90°) = 0\n• sen(π/2) = sen(90°) = 1\n\nSubstituindo:\ncos(π/2 - x) = 0·cos(x) + 1·sen(x)"
+                },
+                {
+                    "title": "Passo 4: Simplificar",
+                    "explanation": "Multiplique e simplifique.",
+                    "content": "Simplificando:\ncos(π/2 - x) = 0·cos(x) + 1·sen(x)\ncos(π/2 - x) = 0 + sen(x)\ncos(π/2 - x) = sen(x) ✓\n\n✓ Demonstração completa!"
+                }
+            ],
+            "tips": [
+                "Decore: cos(90°) = 0 e sen(90°) = 1",
+                "Esta fórmula mostra que seno e cosseno são \"complementares\"",
+                "Use sempre as fórmulas de soma/diferença para provas"
+            ]
+        }
+    ]
+}

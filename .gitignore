@@ -26,16 +26,31 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+# Windows
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
 # macOS
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
+# Local env files
+.env
+.env.local
+.env.*.local
 
-# typescript
+# Testing
+coverage/
+
+# TypeScript
 *.tsbuildinfo
 
-# generated native folders
+# Generated native folders
 /ios
 /android

@@ -1,0 +1,212 @@
+{
+    "$schema": "./schemas/exercise.schema.json",
+    "topicId": "calc-revisao",
+    "title": "Cálculo I: Revisão Geral",
+    "exercises": [
+        {
+            "id": "c1-rev-q1",
+            "topicId": "calc-revisao",
+            "category": "Continuidade",
+            "title": "Q1: Estudo de Continuidade de Função por Partes",
+            "difficulty": "Intermediário",
+            "problem": "Estude a continuidade de f(x) = { x³ - 3x² + x, se x ≤ 1 | x² + 2x - 4, se x > 1 }",
+            "finalAnswer": "f é contínua ∀x ∈ ℝ",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar o Ponto Crítico",
+                    "explanation": "O ponto onde a definição muda é x = 1.",
+                    "content": "A função muda de definição em x = 1.\n\nPara x ≤ 1: f₁(x) = x³ - 3x² + x\nPara x > 1: f₂(x) = x² + 2x - 4\n\nAmbas são polinomiais → contínuas em seus domínios.\nPrecisamos verificar a continuidade apenas em x = 1."
+                },
+                {
+                    "title": "Passo 2: Calcular f(1)",
+                    "explanation": "Usar a definição para x ≤ 1.",
+                    "content": "f(1) = 1³ - 3(1)² + 1\n     = 1 - 3 + 1\n     = -1\n\n✓ f(1) = -1 (existe)"
+                },
+                {
+                    "title": "Passo 3: Calcular Limite à Esquerda",
+                    "explanation": "Quando x → 1⁻, usar f₁(x).",
+                    "content": "lim(x→1⁻) f(x) = lim(x→1⁻) (x³ - 3x² + x)\n                = 1³ - 3(1)² + 1\n                = 1 - 3 + 1\n                = -1"
+                },
+                {
+                    "title": "Passo 4: Calcular Limite à Direita",
+                    "explanation": "Quando x → 1⁺, usar f₂(x).",
+                    "content": "lim(x→1⁺) f(x) = lim(x→1⁺) (x² + 2x - 4)\n                = 1² + 2(1) - 4\n                = 1 + 2 - 4\n                = -1"
+                },
+                {
+                    "title": "Passo 5: Conclusão",
+                    "explanation": "Verificar as 3 condições de continuidade.",
+                    "content": "✓ f(1) = -1 (existe)\n✓ lim(x→1⁻) = lim(x→1⁺) = -1 (limite existe)\n✓ lim(x→1) f(x) = f(1) = -1\n\nComo f₁ e f₂ são polinomiais (contínuas em todo ℝ),\ne f é contínua no ponto de junção x = 1:\n\n✓ Resposta: f é contínua ∀x ∈ ℝ"
+                }
+            ],
+            "tips": [
+                "Funções por partes: verifique continuidade nos pontos de transição",
+                "Condições: f(a) existe, lim existe, lim = f(a)",
+                "Polinômios são sempre contínuos"
+            ]
+        },
+        {
+            "id": "c1-rev-q2",
+            "topicId": "calc-revisao",
+            "category": "Derivadas",
+            "title": "Q2: Derivada de log(x) · 2ˣ",
+            "difficulty": "Avançado",
+            "problem": "Calcule f'(x) onde f(x) = log(x) · 2ˣ (log na base 10)",
+            "finalAnswer": "f'(x) = 2ˣ/(x·ln10) + 2ˣ·ln2·log(x)",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar a Regra",
+                    "explanation": "Produto de duas funções → regra do produto.",
+                    "content": "f(x) = log(x) · 2ˣ = u · v\n\nOnde:\n• u = log₁₀(x)\n• v = 2ˣ\n\nRegra do Produto:\nf' = u'·v + u·v'"
+                },
+                {
+                    "title": "Passo 2: Derivar u = log₁₀(x)",
+                    "explanation": "Derivada do logaritmo decimal.",
+                    "content": "u = log₁₀(x)\n\nFórmula: (log_a x)' = 1/(x·ln a)\n\nu' = 1/(x·ln 10)"
+                },
+                {
+                    "title": "Passo 3: Derivar v = 2ˣ",
+                    "explanation": "Derivada de exponencial com base diferente de e.",
+                    "content": "v = 2ˣ\n\nFórmula: (aˣ)' = aˣ · ln a\n\nv' = 2ˣ · ln 2"
+                },
+                {
+                    "title": "Passo 4: Aplicar Regra do Produto",
+                    "explanation": "f' = u'v + uv'",
+                    "content": "f'(x) = u'·v + u·v'\n\n= [1/(x·ln10)] · 2ˣ + log(x) · [2ˣ·ln2]\n\n= 2ˣ/(x·ln10) + 2ˣ·ln2·log(x)\n\n✓ Resposta: f'(x) = 2ˣ/(x·ln10) + 2ˣ·ln2·log(x)"
+                }
+            ],
+            "tips": [
+                "(log_a x)' = 1/(x·ln a)",
+                "(aˣ)' = aˣ·ln a (exponencial com base a)",
+                "Regra do produto: (uv)' = u'v + uv'"
+            ]
+        },
+        {
+            "id": "c1-rev-q3",
+            "topicId": "calc-revisao",
+            "category": "Derivadas de Ordem Superior",
+            "title": "Q3: Calcular a 46ª Derivada",
+            "difficulty": "Avançado",
+            "problem": "Calcule d⁴⁶y/dx⁴⁶ onde y = x⁴⁷ + 7ˣ - sen(x)",
+            "finalAnswer": "47!·x + 7ˣ·(ln7)⁴⁶ + sen(x)",
+            "steps": [
+                {
+                    "title": "Passo 1: Separar os Termos",
+                    "explanation": "Derivar cada termo separadamente.",
+                    "content": "y = x⁴⁷ + 7ˣ - sen(x)\n\nPodemos derivar termo a termo:\nd⁴⁶y/dx⁴⁶ = d⁴⁶(x⁴⁷)/dx⁴⁶ + d⁴⁶(7ˣ)/dx⁴⁶ - d⁴⁶(sen x)/dx⁴⁶"
+                },
+                {
+                    "title": "Passo 2: Derivar x⁴⁷ (46 vezes)",
+                    "explanation": "A cada derivada, o expoente diminui 1.",
+                    "content": "y₁ = x⁴⁷\n\ny₁' = 47x⁴⁶\ny₁'' = 47·46·x⁴⁵\ny₁''' = 47·46·45·x⁴⁴\n...\n\nd⁴⁶(x⁴⁷)/dx⁴⁶ = 47·46·45·...·2·x¹\n               = 47!/1! · x\n               = 47! · x"
+                },
+                {
+                    "title": "Passo 3: Derivar 7ˣ (46 vezes)",
+                    "explanation": "Cada derivada multiplica por ln(7).",
+                    "content": "y₂ = 7ˣ\n\ny₂' = 7ˣ·ln7\ny₂'' = 7ˣ·(ln7)²\ny₂''' = 7ˣ·(ln7)³\n...\n\nd⁴⁶(7ˣ)/dx⁴⁶ = 7ˣ·(ln7)⁴⁶"
+                },
+                {
+                    "title": "Passo 4: Derivar sen(x) (46 vezes)",
+                    "explanation": "Ciclo de período 4.",
+                    "content": "Ciclo das derivadas de sen(x):\n1ª: cos(x)\n2ª: -sen(x)\n3ª: -cos(x)\n4ª: sen(x) ← volta ao início!\n\n46 ÷ 4 = 11 resto 2\n\nA 46ª derivada = 2ª do ciclo = -sen(x)\n\nMas o termo é -sen(x), então:\nd⁴⁶(-sen x)/dx⁴⁶ = -(-sen x) = sen(x)"
+                },
+                {
+                    "title": "Passo 5: Resultado Final",
+                    "explanation": "Somar todos os termos.",
+                    "content": "d⁴⁶y/dx⁴⁶ = 47!·x + 7ˣ·(ln7)⁴⁶ + sen(x)\n\n✓ Resposta: 47!·x + 7ˣ·(ln7)⁴⁶ + sen(x)"
+                }
+            ],
+            "tips": [
+                "d^n(x^m)/dx^n = m!/(m-n)! · x^(m-n) se m ≥ n",
+                "d^n(aˣ)/dx^n = aˣ·(ln a)^n",
+                "sen/cos: ciclo de período 4"
+            ]
+        },
+        {
+            "id": "c1-rev-q4",
+            "topicId": "calc-revisao",
+            "category": "Otimização",
+            "title": "Q4: Maior Retângulo Inscrito em Circunferência",
+            "difficulty": "Avançado",
+            "problem": "Encontre a maior área de um retângulo inscrito numa circunferência de raio r",
+            "finalAnswer": "A_max = 2r² (quadrado de lado r√2)",
+            "steps": [
+                {
+                    "title": "Passo 1: Modelar o Problema",
+                    "explanation": "Relacionar os lados do retângulo com o raio.",
+                    "content": "Seja x e y os lados do retângulo inscrito.\n\nO diâmetro da circunferência (2r) é a diagonal do retângulo.\n\nPelo Teorema de Pitágoras:\nx² + y² = (2r)² = 4r²\n\nIsolando y:\ny = √(4r² - x²)"
+                },
+                {
+                    "title": "Passo 2: Função Área",
+                    "explanation": "Expressar A em função de x apenas.",
+                    "content": "A = x · y\nA(x) = x · √(4r² - x²)\n\n📌 Domínio: 0 < x < 2r\n(estritamente, pois x = 0 ou x = 2r daria área zero)"
+                },
+                {
+                    "title": "Passo 3: Calcular A'(x)",
+                    "explanation": "Usar regra do produto e da cadeia.",
+                    "content": "A(x) = x · (4r² - x²)^(1/2)\n\nA'(x) = 1·√(4r² - x²) + x · (1/2)(4r² - x²)^(-1/2)·(-2x)\n\n= √(4r² - x²) - x²/√(4r² - x²)\n\n= (4r² - x² - x²)/√(4r² - x²)\n\n= (4r² - 2x²)/√(4r² - x²)"
+                },
+                {
+                    "title": "Passo 4: Encontrar Ponto Crítico",
+                    "explanation": "Fazer A'(x) = 0.",
+                    "content": "A'(x) = 0\n4r² - 2x² = 0\n2x² = 4r²\nx² = 2r²\nx = r√2 (tomamos x > 0)\n\nEntão:\ny = √(4r² - 2r²) = √(2r²) = r√2\n\nx = y = r√2 → é um quadrado!"
+                },
+                {
+                    "title": "Passo 5: Verificar que é Máximo",
+                    "explanation": "Usar segunda derivada ou análise de fronteira.",
+                    "content": "📐 MÉTODO 1: Segunda Derivada\nA''(x) em x = r√2 (cálculo trabalhoso)\n\n📐 MÉTODO 2: Análise de Fronteira (mais simples)\nA(x) é contínua em [0, 2r]\n\nNas fronteiras:\n• A(0) = 0 · √(4r²) = 0\n• A(2r) = 2r · √(4r² - 4r²) = 2r · 0 = 0\n\nNo ponto crítico:\n• A(r√2) = r√2 · r√2 = 2r² > 0\n\nComo A(r√2) > A(0) = A(2r) = 0,\no ponto crítico x = r√2 é MÁXIMO GLOBAL ✓"
+                },
+                {
+                    "title": "Passo 6: Calcular Área Máxima",
+                    "explanation": "Substituir x = r√2.",
+                    "content": "A_max = x · y = r√2 · r√2 = r² · 2 = 2r²\n\n✓ Resposta: A_max = 2r²\n(Retângulo de maior área é um quadrado de lado r√2)"
+                }
+            ],
+            "tips": [
+                "Otimização: 1) modelar, 2) derivar, 3) igualar a zero, 4) VERIFICAR máximo/mínimo",
+                "Retângulo inscrito → diagonal = diâmetro",
+                "Sempre verifique se é máximo ou mínimo (2ª derivada ou fronteira)"
+            ]
+        },
+        {
+            "id": "c1-rev-q5",
+            "topicId": "calc-revisao",
+            "category": "Análise de Função",
+            "title": "Q5: Análise Completa de Função",
+            "difficulty": "Avançado",
+            "problem": "Analise f(x) = (1/3)x³ - (5/2)x² + 6x + 1: extremos, intervalos de crescimento/decrescimento, concavidade e pontos de inflexão",
+            "finalAnswer": "Máx em x=2, Mín em x=3, Cresc: (-∞,2]∪[3,+∞), Decresc: [2,3], Inflexão em x=5/2",
+            "steps": [
+                {
+                    "title": "Passo 1: Primeira Derivada",
+                    "explanation": "Encontrar f'(x) para pontos críticos.",
+                    "content": "f(x) = (1/3)x³ - (5/2)x² + 6x + 1\n\nf'(x) = x² - 5x + 6\n\nFazendo f'(x) = 0:\nx² - 5x + 6 = 0\n(x - 2)(x - 3) = 0\n\nPontos críticos: x = 2 e x = 3"
+                },
+                {
+                    "title": "Passo 2: Sinal de f'(x)",
+                    "explanation": "Determinar crescimento/decrescimento.",
+                    "content": "f'(x) = (x-2)(x-3)\n\n• x < 2: (+)(+) ou (-)(-) → f' > 0 → cresc.\n• 2 < x < 3: (+)(-) → f' < 0 → decresc.\n• x > 3: (+)(+) → f' > 0 → cresc.\n\nCrescimento: (-∞, 2] ∪ [3, +∞)\nDecrescimento: [2, 3]"
+                },
+                {
+                    "title": "Passo 3: Classificar Extremos",
+                    "explanation": "Usar teste da primeira derivada.",
+                    "content": "Em x = 2:\nf' passa de + para - → MÁXIMO local\n\nEm x = 3:\nf' passa de - para + → MÍNIMO local\n\nf(2) = (1/3)(8) - (5/2)(4) + 6(2) + 1\n     = 8/3 - 10 + 12 + 1 = 8/3 + 3 = 17/3\n\nf(3) = (1/3)(27) - (5/2)(9) + 6(3) + 1\n     = 9 - 22.5 + 18 + 1 = 5.5"
+                },
+                {
+                    "title": "Passo 4: Segunda Derivada",
+                    "explanation": "Encontrar f''(x) para concavidade.",
+                    "content": "f''(x) = (x² - 5x + 6)' = 2x - 5\n\nf''(x) = 0:\n2x - 5 = 0\nx = 5/2\n\nSinal de f''(x):\n• x < 5/2: f'' < 0 → côncava para baixo\n• x > 5/2: f'' > 0 → côncava para cima"
+                },
+                {
+                    "title": "Passo 5: Conclusão",
+                    "explanation": "Resumir a análise completa.",
+                    "content": "✓ Máximo local: x = 2, f(2) = 17/3\n✓ Mínimo local: x = 3, f(3) = 5.5\n✓ Crescimento: (-∞, 2] ∪ [3, +∞)\n✓ Decrescimento: [2, 3]\n✓ Côncava para baixo: (-∞, 5/2)\n✓ Côncava para cima: (5/2, +∞)\n✓ Ponto de inflexão: x = 5/2\n✓ Assíntotas: nenhuma (f é polinomial)"
+                }
+            ],
+            "tips": [
+                "f' = 0 → pontos críticos (extremos)",
+                "f'' = 0 → candidatos a inflexão",
+                "Inflexão: onde f'' muda de sinal"
+            ]
+        }
+    ]
+}

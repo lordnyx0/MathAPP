@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "math-app",
-    "slug": "math-app",
+    "name": "Matemática Pro",
+    "slug": "matematica-pro",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,20 +10,38 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#6366F1"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lordnyx.matematicapro"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#6366F1"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.lordnyx.matematicapro",
+      "versionCode": 3,
+      "permissions": [],
+      "softwareKeyboardLayoutMode": "pan"
+    },
+    "androidStatusBar": {
+      "hidden": true,
+      "translucent": true,
+      "barStyle": "light-content"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "owner": "lordnyx11",
+    "extra": {
+      "eas": {
+        "projectId": "f7d55e4e-2c3b-4f2b-9e9a-1cfd61129925"
+      }
+    },
+    "plugins": [
+      "expo-audio"
+    ]
   }
 }

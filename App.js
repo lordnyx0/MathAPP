@@ -1,20 +1,35 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import TabNavigator from './src/navigation/TabNavigator';
+import { ToastProvider } from './src/components/Toast';
+import ErrorBoundary from './src/components/ErrorBoundary';
+import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+
+// Inner component to access theme context
+const AppContent = () => {
+  const { isDark } = useTheme();
+
+  return (
+    <NavigationContainer>
+      <StatusBar style={isDark ? 'light' : 'dark'} hidden={true} />
+      <TabNavigator />
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <ToastProvider>
+            <AppContent />
+          </ToastProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

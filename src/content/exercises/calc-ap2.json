@@ -1,0 +1,177 @@
+{
+    "topicId": "calc-ap2",
+    "title": "Cálculo I AP2: Limites II",
+    "exercises": [
+        {
+            "id": "c1-ap2-q1",
+            "topicId": "calc-ap2",
+            "category": "Limites Algébricos",
+            "title": "Q1: lim (x⁴-1)/(1-x¹⁶) quando x→1",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→1) (x⁴ - 1)/(1 - x¹⁶)",
+            "finalAnswer": "-1/4",
+            "steps": [
+                {
+                    "title": "Passo 1: Verificar Indeterminação",
+                    "explanation": "Substituir x = 1.",
+                    "content": "x = 1: (1⁴-1)/(1-1¹⁶) = (1-1)/(1-1) = 0/0\n\n✓ Forma indeterminada 0/0 → precisamos simplificar"
+                },
+                {
+                    "title": "Passo 2: Fatorar Numerador",
+                    "explanation": "Usar diferença de quadrados.",
+                    "content": "x⁴ - 1 = (x² - 1)(x² + 1)\n        = (x - 1)(x + 1)(x² + 1)"
+                },
+                {
+                    "title": "Passo 3: Fatorar Denominador",
+                    "explanation": "Fatorar 1 - x¹⁶ cuidadosamente.",
+                    "content": "1 - x¹⁶ = -(x¹⁶ - 1)\n\nFatorando x¹⁶ - 1 em etapas:\nx¹⁶ - 1 = (x⁸ - 1)(x⁸ + 1)\nx⁸ - 1 = (x⁴ - 1)(x⁴ + 1)\n\nPortanto:\nx¹⁶ - 1 = (x⁴ - 1)(x⁴ + 1)(x⁸ + 1)\n\nLogo:\n1 - x¹⁶ = -(x⁴ - 1)(x⁴ + 1)(x⁸ + 1)"
+                },
+                {
+                    "title": "Passo 4: Simplificar",
+                    "explanation": "Cancelar (x⁴ - 1).",
+                    "content": "(x⁴-1) / [-(x⁴-1)(x⁴+1)(x⁸+1)]\n\n📌 JUSTIFICATIVA DO CANCELAMENTO:\nComo calculamos limite quando x → 1 (não EM x = 1),\ntemos x ≠ 1, logo (x⁴ - 1) ≠ 0 na vizinhança perfurada.\n\n= 1 / [-(x⁴+1)(x⁸+1)]"
+                },
+                {
+                    "title": "Passo 5: Calcular o Limite",
+                    "explanation": "Substituir x = 1.",
+                    "content": "lim(x→1) 1 / [-(x⁴+1)(x⁸+1)]\n\n= 1 / [-(1+1)(1+1)]\n= 1 / [-(2)(2)]\n= 1 / (-4)\n= -1/4\n\n✓ Resposta: -1/4"
+                }
+            ],
+            "tips": [
+                "Fatore usando xⁿ - 1 = (x^(n/2) - 1)(x^(n/2) + 1) repetidamente",
+                "Sempre justifique cancelamentos em limites",
+                "1 - xⁿ = -(xⁿ - 1)"
+            ]
+        },
+        {
+            "id": "c1-ap2-q2",
+            "topicId": "calc-ap2",
+            "category": "Limites com Módulo",
+            "title": "Q2: lim (11-x)/|x-11| quando x→11",
+            "difficulty": "Intermediário",
+            "problem": "Calcule lim(x→11) (11 - x)/|x - 11|",
+            "finalAnswer": "Não existe",
+            "steps": [
+                {
+                    "title": "Passo 1: Limite pela Direita",
+                    "explanation": "x → 11⁺ significa x > 11.",
+                    "content": "Se x > 11: |x-11| = x-11\n(11-x)/|x-11| = (11-x)/(x-11) = -1\n\nlim(x→11⁺) = -1"
+                },
+                {
+                    "title": "Passo 2: Limite pela Esquerda",
+                    "explanation": "x → 11⁻ significa x < 11.",
+                    "content": "Se x < 11: |x-11| = -(x-11) = 11-x\n(11-x)/|x-11| = (11-x)/(11-x) = 1\n\nlim(x→11⁻) = 1"
+                },
+                {
+                    "title": "Passo 3: Conclusão",
+                    "explanation": "Limites laterais diferentes.",
+                    "content": "lim(x→11⁺) = -1 ≠ 1 = lim(x→11⁻)\n\n✓ O limite NÃO EXISTE"
+                }
+            ],
+            "tips": [
+                "Sempre verifique os limites laterais com módulo"
+            ]
+        },
+        {
+            "id": "c1-ap2-q3",
+            "topicId": "calc-ap2",
+            "category": "Limites Laterais",
+            "title": "Q3: lim (3-x)/(x²-6x+5) quando x→1⁺",
+            "difficulty": "Avançado",
+            "problem": "Calcule lim(x→1⁺) (3 - x)/(x² - 6x + 5)",
+            "finalAnswer": "-∞",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar",
+                    "explanation": "x² - 6x + 5 = (x-1)(x-5)",
+                    "content": "(3-x)/[(x-1)(x-5)]"
+                },
+                {
+                    "title": "Passo 2: Analisar em x→1⁺",
+                    "explanation": "x > 1, muito próximo de 1.",
+                    "content": "Numerador: 3 - 1 = 2 (positivo)\n(x-1) → 0⁺ (positivo pequeno)\n(x-5) → -4 (negativo)\n\nSinal: (+)/(+)(−) = −"
+                },
+                {
+                    "title": "Passo 3: Resultado",
+                    "explanation": "Número ÷ 0 = infinito.",
+                    "content": "= (+)/(0⁺)(−) = (+)/(0⁻) = -∞ ✓"
+                }
+            ],
+            "tips": [
+                "Sempre determine o sinal de 0⁺ ou 0⁻"
+            ]
+        },
+        {
+            "id": "c1-ap2-q4",
+            "topicId": "calc-ap2",
+            "category": "Limites no Infinito",
+            "title": "Q4: lim (2x⁶-x+3)/(10x⁶+x-5) quando x→+∞",
+            "difficulty": "Básico",
+            "problem": "Calcule lim(x→+∞) (2x⁶ - x + 3)/(10x⁶ + x - 5)",
+            "finalAnswer": "1/5",
+            "steps": [
+                {
+                    "title": "Passo 1: Comparar Graus",
+                    "explanation": "Ambos têm grau 6.",
+                    "content": "Grau do numerador = 6\nGrau do denominador = 6\n\nGraus iguais!"
+                },
+                {
+                    "title": "Passo 2: Razão dos Coeficientes",
+                    "explanation": "Limite = a/b dos termos líderes.",
+                    "content": "= 2/10 = 1/5 ✓"
+                }
+            ],
+            "tips": [
+                "Mesma regra para +∞ ou -∞ quando graus são iguais"
+            ]
+        },
+        {
+            "id": "c1-ap2-q5",
+            "topicId": "calc-ap2",
+            "category": "Limites Trigonométricos",
+            "title": "Q5: lim tg(4x)/sen(20x) quando x→0",
+            "difficulty": "Intermediário",
+            "problem": "Calcule lim(x→0) tg(4x)/sen(20x)",
+            "finalAnswer": "1/5",
+            "steps": [
+                {
+                    "title": "Passo 1: Usar Limites Fundamentais",
+                    "explanation": "lim sen(kx)/(kx) = 1 e lim tg(kx)/(kx) = 1",
+                    "content": "tg(4x)/sen(20x) = [tg(4x)/(4x)] × (4x) / [sen(20x)/(20x)] × (20x)"
+                },
+                {
+                    "title": "Passo 2: Simplificar",
+                    "explanation": "Os limites vão para 1.",
+                    "content": "= [tg(4x)/(4x)] × (4x/20x) × [20x/sen(20x)]\n→ 1 × (4/20) × 1\n= 4/20 = 1/5 ✓"
+                }
+            ],
+            "tips": [
+                "Multiplique e divida para criar as formas fundamentais"
+            ]
+        },
+        {
+            "id": "c1-ap2-q6",
+            "topicId": "calc-ap2",
+            "category": "Assíntotas",
+            "title": "Q6: Assíntotas de f(x) = (7x⁴+x-10)/(35x⁴-35)",
+            "difficulty": "Avançado",
+            "problem": "Encontre as assíntotas de f(x) = (7x⁴ + x - 10)/(35x⁴ - 35)",
+            "finalAnswer": "AH: y = 1/5; AV: x = ±1",
+            "steps": [
+                {
+                    "title": "Passo 1: Assíntota Horizontal",
+                    "explanation": "Graus iguais → razão dos coeficientes.",
+                    "content": "lim(x→±∞) = 7/35 = 1/5\n\n✓ AH: y = 1/5"
+                },
+                {
+                    "title": "Passo 2: Assíntotas Verticais",
+                    "explanation": "Onde denominador = 0.",
+                    "content": "35x⁴ - 35 = 0\n35(x⁴ - 1) = 0\nx⁴ = 1\nx = ±1\n\n✓ AV: x = 1 e x = -1"
+                }
+            ],
+            "tips": [
+                "Verifique sempre se o numerador não se anula nos mesmos pontos"
+            ]
+        }
+    ]
+}

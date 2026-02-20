@@ -1,0 +1,227 @@
+{
+    "topicId": "mat-elem-ap3.1",
+    "title": "Mat. Elementar AP3.1: Logaritmos e Trigonometria",
+    "exercises": [
+        {
+            "id": "me-ap3.1-q1",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Propriedades de Logaritmos",
+            "title": "Q1: Transformar em um só logaritmo",
+            "difficulty": "Avançado",
+            "problem": "Transforme a expressão 2log₄x + (1/3)log₄y - log₁₆z + 1 em um só logaritmo.",
+            "finalAnswer": "log₄(4x²∛y/√z)",
+            "steps": [
+                {
+                    "title": "Passo 0: Condição de Existência",
+                    "explanation": "Verificar quando a expressão faz sentido.",
+                    "content": "⚠️ CONDIÇÃO PRÉVIA:\n\nPara os logaritmos existirem, os argumentos devem ser positivos:\n• log₄(x) existe ⟺ x > 0\n• log₄(y) existe ⟺ y > 0\n• log₁₆(z) existe ⟺ z > 0\n\n✓ Assumimos x, y, z > 0 para toda a resolução."
+                },
+                {
+                    "title": "Passo 1: Revisar Propriedades dos Logaritmos",
+                    "explanation": "As propriedades fundamentais que usaremos.",
+                    "content": "📌 Propriedades:\n\n1. n·log_a(x) = log_a(x^n)\n2. log_a(x) + log_a(y) = log_a(xy)\n3. log_a(x) - log_a(y) = log_a(x/y)\n4. log_a(a) = 1, logo 1 = log₄(4)"
+                },
+                {
+                    "title": "Passo 2: Converter log₁₆z para Base 4",
+                    "explanation": "Precisamos de todos os logs na mesma base.",
+                    "content": "log₁₆(z) = ?\n\nComo 16 = 4², usamos mudança de base:\nlog₁₆(z) = log₄(z)/log₄(16)\n         = log₄(z)/log₄(4²)\n         = log₄(z)/2\n\nOu diretamente: log₁₆(z) = log₄(z)/2\nEntão: log₁₆(z) = (1/2)log₄(z) = log₄(z^(1/2)) = log₄(√z)"
+                },
+                {
+                    "title": "Passo 3: Aplicar a Propriedade da Potência",
+                    "explanation": "Mover coeficientes para expoentes.",
+                    "content": "• 2log₄(x) = log₄(x²)\n\n• (1/3)log₄(y) = log₄(y^(1/3)) = log₄(∛y)\n\n• log₁₆(z) = log₄(√z)\n\n• 1 = log₄(4)"
+                },
+                {
+                    "title": "Passo 4: Combinar Todos os Termos",
+                    "explanation": "Usar soma e subtração de logaritmos.",
+                    "content": "2log₄x + (1/3)log₄y - log₁₆z + 1\n\n= log₄(x²) + log₄(∛y) - log₄(√z) + log₄(4)\n\n= log₄(x² · ∛y · 4 / √z)\n\n= log₄(4x²∛y/√z)\n\n✓ Resposta: log₄(4x²∛y/√z)"
+                }
+            ],
+            "tips": [
+                "Sempre converta para a mesma base primeiro",
+                "log_a²(x) = log_a(x)/2",
+                "Coeficiente vira expoente: n·log = log(x^n)"
+            ]
+        },
+        {
+            "id": "me-ap3.1-q2",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Equações Logarítmicas",
+            "title": "Q2: Resolver (log₂t)² - 6log₂t + 8 = 0",
+            "difficulty": "Intermediário",
+            "problem": "Resolva a equação (log₂t)² - 6log₂t + 8 = 0",
+            "finalAnswer": "t = 4 ou t = 16",
+            "steps": [
+                {
+                    "title": "Passo 1: Substituição",
+                    "explanation": "Fazer u = log₂(t) para simplificar.",
+                    "content": "📌 Técnica: Substituição\n\nSeja u = log₂(t)\n\nA equação fica:\nu² - 6u + 8 = 0\n\nÉ uma equação do 2º grau em u!"
+                },
+                {
+                    "title": "Passo 2: Resolver a Equação Quadrática",
+                    "explanation": "Fatorar ou usar Bhaskara.",
+                    "content": "u² - 6u + 8 = 0\n\n📐 Fatoração:\nProcuramos dois números que:\n• Multiplicam = 8\n• Somam = -6\n\nResposta: -2 e -4\n\n(u - 2)(u - 4) = 0\n\nu = 2 ou u = 4"
+                },
+                {
+                    "title": "Passo 3: Voltar para a Variável Original",
+                    "explanation": "Substituir u = log₂(t) de volta.",
+                    "content": "Se u = 2:\nlog₂(t) = 2\nt = 2² = 4 ✓\n\nSe u = 4:\nlog₂(t) = 4\nt = 2⁴ = 16 ✓"
+                },
+                {
+                    "title": "Passo 4: Verificação",
+                    "explanation": "Confirmar as soluções na equação original.",
+                    "content": "Para t = 4:\n(log₂4)² - 6log₂4 + 8\n= 2² - 6(2) + 8\n= 4 - 12 + 8 = 0 ✓\n\nPara t = 16:\n(log₂16)² - 6log₂16 + 8\n= 4² - 6(4) + 8\n= 16 - 24 + 8 = 0 ✓\n\n✓ S = {4, 16}"
+                }
+            ],
+            "tips": [
+                "Substituição transforma equação log em algébrica",
+                "Sempre verifique se t > 0 (domínio do log)",
+                "Lembre: log_a(a^n) = n"
+            ]
+        },
+        {
+            "id": "me-ap3.1-q3",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Razões Trigonométricas",
+            "title": "Q3: Encontrar razões dado sen θ = a (2º quadrante)",
+            "difficulty": "Intermediário",
+            "problem": "Dado sen θ = a, sendo θ um arco do segundo quadrante, encontre as demais razões trigonométricas.",
+            "finalAnswer": "cos θ = -√(1-a²), tan θ = -a/√(1-a²), cot θ = -√(1-a²)/a, sec θ = -1/√(1-a²), csc θ = 1/a",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar Sinais no 2º Quadrante",
+                    "explanation": "O quadrante determina quais razões são positivas.",
+                    "content": "📍 2º QUADRANTE (90° < θ < 180°):\n\n• sen θ > 0 ✓ (dado: sen θ = a > 0)\n• cos θ < 0\n• tan θ < 0\n• cot θ < 0\n• sec θ < 0\n• csc θ > 0\n\n💡 Mnemônico: \"Só o Seno é feliz no 2º\""
+                },
+                {
+                    "title": "Passo 2: Encontrar cos θ",
+                    "explanation": "Usar a identidade fundamental.",
+                    "content": "📐 sen²θ + cos²θ = 1\n\na² + cos²θ = 1\ncos²θ = 1 - a²\n\ncos θ = ±√(1 - a²)\n\n⚠️ No 2º quadrante, cos < 0:\n\n✓ cos θ = -√(1 - a²)"
+                },
+                {
+                    "title": "Passo 3: Calcular tan θ e cot θ",
+                    "explanation": "Usando as definições.",
+                    "content": "tan θ = sen θ / cos θ\n      = a / (-√(1-a²))\n      = -a/√(1-a²)\n\ncot θ = cos θ / sen θ\n      = (-√(1-a²)) / a\n      = -√(1-a²)/a\n\n(Ambas negativas como esperado no 2º quadrante)"
+                },
+                {
+                    "title": "Passo 4: Calcular sec θ e csc θ",
+                    "explanation": "Inversos de cos e sen.",
+                    "content": "sec θ = 1/cos θ\n      = 1/(-√(1-a²))\n      = -1/√(1-a²)\n\ncsc θ = 1/sen θ\n      = 1/a\n\n✓ Resumo:\n• sen θ = a\n• cos θ = -√(1-a²)\n• tan θ = -a/√(1-a²)\n• cot θ = -√(1-a²)/a\n• sec θ = -1/√(1-a²)\n• csc θ = 1/a"
+                }
+            ],
+            "tips": [
+                "O quadrante define os sinais das razões",
+                "sen²θ + cos²θ = 1 é a relação fundamental",
+                "Racionalize se necessário: 1/√(1-a²) = √(1-a²)/(1-a²)"
+            ]
+        },
+        {
+            "id": "me-ap3.1-q4a",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Imagem de Funções",
+            "title": "Q4a: Imagem de y = 2 - 3cos x",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a imagem da função y = 2 - 3cos x",
+            "finalAnswer": "Im(f) = [-1, 5]",
+            "steps": [
+                {
+                    "title": "Passo 1: Intervalo do Cosseno",
+                    "explanation": "A função cosseno é limitada.",
+                    "content": "📌 Para todo x real:\n\n-1 ≤ cos(x) ≤ 1"
+                },
+                {
+                    "title": "Passo 2: Multiplicar por -3",
+                    "explanation": "Multiplicar por número negativo inverte desigualdade.",
+                    "content": "Multiplicando por -3:\n\n(-3) × (-1) ≥ -3cos(x) ≥ (-3) × 1\n\n3 ≥ -3cos(x) ≥ -3\n\nOu, reordenando:\n\n-3 ≤ -3cos(x) ≤ 3"
+                },
+                {
+                    "title": "Passo 3: Somar 2",
+                    "explanation": "Translação vertical.",
+                    "content": "Somando 2 em todos os membros:\n\n-3 + 2 ≤ 2 - 3cos(x) ≤ 3 + 2\n\n-1 ≤ y ≤ 5\n\n✓ Im(f) = [-1, 5]"
+                },
+                {
+                    "title": "Passo 4: Verificação",
+                    "explanation": "Conferir os extremos.",
+                    "content": "📊 Verificação:\n\n• Quando cos(x) = 1 (x = 0, 2π, ...):\n  y = 2 - 3(1) = -1 ✓ (mínimo)\n\n• Quando cos(x) = -1 (x = π, 3π, ...):\n  y = 2 - 3(-1) = 5 ✓ (máximo)"
+                }
+            ],
+            "tips": [
+                "-1 ≤ cos(x) ≤ 1 sempre",
+                "Multiplicar por negativo inverte a desigualdade",
+                "Para y = a - b·cos(x): Im = [a-|b|, a+|b|]"
+            ]
+        },
+        {
+            "id": "me-ap3.1-q4b",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Imagem de Funções",
+            "title": "Q4b: Imagem de y = 4 + sec x",
+            "difficulty": "Avançado",
+            "problem": "Encontre a imagem da função y = 4 + sec x",
+            "finalAnswer": "Im(f) = (-∞, 3] ∪ [5, +∞)",
+            "steps": [
+                {
+                    "title": "Passo 1: Comportamento da Secante",
+                    "explanation": "A secante tem um \"buraco\" no intervalo (-1, 1).",
+                    "content": "📌 sec(x) = 1/cos(x)\n\nComo -1 ≤ cos(x) ≤ 1 e cos(x) ≠ 0:\n\nsec(x) ≤ -1  ou  sec(x) ≥ 1\n\n⚠️ A secante NUNCA assume valores entre -1 e 1!"
+                },
+                {
+                    "title": "Passo 2: Caso sec(x) ≥ 1",
+                    "explanation": "Quando a secante é positiva.",
+                    "content": "Se sec(x) ≥ 1:\n\ny = 4 + sec(x) ≥ 4 + 1 = 5\n\n→ Quando sec ≥ 1: y ≥ 5"
+                },
+                {
+                    "title": "Passo 3: Caso sec(x) ≤ -1",
+                    "explanation": "Quando a secante é negativa.",
+                    "content": "Se sec(x) ≤ -1:\n\ny = 4 + sec(x) ≤ 4 + (-1) = 3\n\n→ Quando sec ≤ -1: y ≤ 3"
+                },
+                {
+                    "title": "Passo 4: Unir os Casos",
+                    "explanation": "A imagem é a união dos dois intervalos.",
+                    "content": "✓ Im(f) = (-∞, 3] ∪ [5, +∞)\n\n💡 A função \"pula\" os valores entre 3 e 5.\n\n📊 Verificação:\n• sec(0) = 1 → y = 5\n• sec(π) = -1 → y = 3"
+                }
+            ],
+            "tips": [
+                "sec(x) ∈ (-∞, -1] ∪ [1, +∞)",
+                "Há um \"gap\" em valores que sec nunca atinge",
+                "O gap da imagem será transladado por +4"
+            ]
+        },
+        {
+            "id": "me-ap3.1-q5",
+            "topicId": "mat-elem-ap3.1",
+            "category": "Identidades Trigonométricas",
+            "title": "Q5: Mostrar que sen(π/2 - β) = cos β",
+            "difficulty": "Intermediário",
+            "problem": "Mostre que sen(π/2 - β) = cos β",
+            "finalAnswer": "Demonstração algébrica usando fórmula do seno da diferença",
+            "steps": [
+                {
+                    "title": "Passo 1: Fórmula do Seno da Diferença",
+                    "explanation": "Aplicar a fórmula sen(a - b).",
+                    "content": "📌 Fórmula:\nsen(a - b) = sen(a)·cos(b) - cos(a)·sen(b)\n\nCom a = π/2 e b = β:\nsen(π/2 - β) = sen(π/2)·cos(β) - cos(π/2)·sen(β)"
+                },
+                {
+                    "title": "Passo 2: Substituir Valores Conhecidos",
+                    "explanation": "sen(π/2) = 1 e cos(π/2) = 0.",
+                    "content": "📐 Valores notáveis:\n• sen(π/2) = sen(90°) = 1\n• cos(π/2) = cos(90°) = 0\n\nSubstituindo:\nsen(π/2 - β) = 1·cos(β) - 0·sen(β)\n             = cos(β) - 0\n             = cos(β)"
+                },
+                {
+                    "title": "Passo 3: Conclusão",
+                    "explanation": "Resultado final.",
+                    "content": "✓ sen(π/2 - β) = cos β\n\n💡 Esta é a IDENTIDADE DOS ÂNGULOS COMPLEMENTARES:\n\nDois ângulos são complementares se somam 90° (π/2).\n\nO seno de um ângulo é igual ao cosseno do seu complementar (e vice-versa)."
+                },
+                {
+                    "title": "Passo 4: Interpretação Geométrica",
+                    "explanation": "Entender visualmente.",
+                    "content": "📊 No triângulo retângulo:\n\nSe α + β = 90°, então α = 90° - β\n\n• sen(α) = cateto oposto a α / hipotenusa\n• cos(β) = cateto adjacente a β / hipotenusa\n\nMas o cateto oposto a α É o cateto adjacente a β!\n\nPortanto: sen(90° - β) = cos(β) ✓"
+                }
+            ],
+            "tips": [
+                "Ângulos complementares: α + β = 90°",
+                "sen(90° - θ) = cos(θ) e cos(90° - θ) = sen(θ)",
+                "Essa relação é chamada de co-função"
+            ]
+        }
+    ]
+}

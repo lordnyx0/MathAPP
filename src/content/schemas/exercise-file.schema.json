@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "exercise-file.schema.json",
+    "title": "Exercise File",
+    "description": "Schema for math exercise files with step-by-step solutions",
+    "type": "object",
+    "required": [
+        "topicId",
+        "title",
+        "exercises"
+    ],
+    "properties": {
+        "topicId": {
+            "type": "string",
+            "description": "Unique identifier matching the registry key",
+            "pattern": "^[a-z0-9-\\.]+$"
+        },
+        "title": {
+            "type": "string",
+            "description": "Display title for the exercise set"
+        },
+        "description": {
+            "type": "string",
+            "description": "Optional description of the exercise set"
+        },
+        "exercises": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/Exercise"
+            }
+        }
+    },
+    "definitions": {
+        "Exercise": {
+            "type": "object",
+            "required": [
+                "id",
+                "topicId",
+                "category",
+                "title",
+                "difficulty",
+                "problem",
+                "finalAnswer",
+                "steps",
+                "tips"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique exercise identifier",
+                    "pattern": "^[a-z0-9-\\.]+$"
+                },
+                "topicId": {
+                    "type": "string",
+                    "description": "Reference to parent topic (should match file topicId)"
+                },
+                "category": {
+                    "type": "string",
+                    "description": "Mathematical category (e.g., 'Logaritmos', 'Trigonometria')"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Exercise title (e.g., 'Q1: Resolver equação')"
+                },
+                "difficulty": {
+                    "type": "string",
+                    "enum": [
+                        "Básico",
+                        "Intermediário",
+                        "Avançado"
+                    ],
+                    "description": "Difficulty level"
+                },
+                "problem": {
+                    "type": "string",
+                    "description": "Problem statement"
+                },
+                "finalAnswer": {
+                    "type": "string",
+                    "description": "Final answer for quick reference"
+                },
+                "steps": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/ExerciseStep"
+                    }
+                },
+                "tips": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Helpful tips for solving similar problems"
+                }
+            }
+        },
+        "ExerciseStep": {
+            "type": "object",
+            "required": [
+                "title",
+                "explanation",
+                "content"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Step title (e.g., 'Passo 1: Identificar')"
+                },
+                "explanation": {
+                    "type": "string",
+                    "description": "Brief explanation of why this step is needed"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Detailed step content with math notation"
+                }
+            }
+        }
+    }
+}

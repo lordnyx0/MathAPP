@@ -1,0 +1,96 @@
+{
+    "topic": "calc-revisao",
+    "title": "Cálculo: Revisão Geral",
+    "lessons": [
+        {
+            "id": "calc-rev-1",
+            "title": "1. Continuidade de Funções",
+            "level": "Intermediário",
+            "content": "📌 Definição de Continuidade\n\nUma função f é contínua em x = a se:\n1. f(a) existe\n2. lim(x→a) f(x) existe\n3. lim(x→a) f(x) = f(a)\n\n🔹 Funções por Partes:\nVerifique continuidade nos pontos de transição!\n\n📝 Exemplo:\nf(x) = { x², se x ≤ 1 | 2x-1, se x > 1 }\n\nEm x = 1:\n• f(1) = 1² = 1\n• lim(x→1⁻) = 1\n• lim(x→1⁺) = 2(1)-1 = 1\n• lim = f(1) → contínua!\n\n💡 Polinômios são sempre contínuos em todo ℝ",
+            "questions": [
+                {
+                    "q": "Qual condição NÃO é necessária para continuidade?",
+                    "a": "f'(a) existe",
+                    "hint": "Continuidade não exige derivabilidade"
+                },
+                {
+                    "q": "Se lim(x→a⁻) ≠ lim(x→a⁺), a função é...?",
+                    "a": "descontínua",
+                    "hint": "O limite não existe, violando condição 2"
+                }
+            ]
+        },
+        {
+            "id": "calc-rev-2",
+            "title": "2. Derivadas Especiais",
+            "level": "Avançado",
+            "content": "📌 Derivadas de Logaritmos e Exponenciais\n\n🔹 Logaritmo natural:\n(ln x)' = 1/x\n\n🔹 Logaritmo base a:\n(log_a x)' = 1/(x·ln a)\n\n🔹 Exponencial natural:\n(eˣ)' = eˣ\n\n🔹 Exponencial base a:\n(aˣ)' = aˣ · ln a\n\n📝 Exemplo:\nf(x) = log(x) · 2ˣ\n\nUsando regra do produto:\nf' = [1/(x·ln10)]·2ˣ + log(x)·2ˣ·ln2\n\n💡 Memorize: log tem ln no denominador, aˣ tem ln multiplicando!",
+            "questions": [
+                {
+                    "q": "(log₂ x)' = ?",
+                    "a": "1/(x·ln2)",
+                    "hint": "Use a fórmula geral com a = 2"
+                },
+                {
+                    "q": "(3ˣ)' = ?",
+                    "a": "3ˣ·ln3",
+                    "hint": "Derivada de aˣ = aˣ·ln(a)"
+                }
+            ]
+        },
+        {
+            "id": "calc-rev-3",
+            "title": "3. Derivadas de Ordem Superior",
+            "level": "Avançado",
+            "content": "📌 Padrões em Derivadas Múltiplas\n\n🔹 Potências (xⁿ):\nd^k(xⁿ)/dx^k = n!/(n-k)! · x^(n-k)\n\nExemplo: d³(x⁵)/dx³ = 5·4·3·x² = 60x²\n\n🔹 Exponenciais (aˣ):\nd^k(aˣ)/dx^k = aˣ · (ln a)^k\n\n🔹 Trigonométricas (ciclo de 4):\nsen → cos → -sen → -cos → sen...\n\n📝 Para encontrar a n-ésima derivada de sen/cos:\nDivida n por 4 e use o resto!\n\n• resto 0 → volta ao original\n• resto 1 → 1ª derivada\n• resto 2 → 2ª derivada\n• resto 3 → 3ª derivada",
+            "questions": [
+                {
+                    "q": "Qual é a 100ª derivada de sen(x)?",
+                    "a": "sen(x)",
+                    "hint": "100 ÷ 4 = 25 resto 0"
+                },
+                {
+                    "q": "d²(eˣ)/dx² = ?",
+                    "a": "eˣ",
+                    "hint": "A derivada de eˣ é sempre eˣ"
+                }
+            ]
+        },
+        {
+            "id": "calc-rev-4",
+            "title": "4. Problemas de Otimização",
+            "level": "Avançado",
+            "content": "📌 Método de Otimização\n\n1️⃣ Modelar: expressar quantidade a otimizar\n2️⃣ Uma variável: usar restrições para eliminar variáveis\n3️⃣ Derivar: encontrar f'(x)\n4️⃣ Críticos: resolver f'(x) = 0\n5️⃣ Verificar: testar se é máximo ou mínimo\n\n📝 Exemplo Clássico:\nMaior retângulo inscrito em circunferência de raio r:\n\n• Restrição: x² + y² = 4r²\n• Área: A = xy = x√(4r² - x²)\n• A' = 0 → x = r√2\n• Resposta: quadrado de lado r√2, área = 2r²\n\n💡 Problemas de inscrição geralmente têm soluções simétricas!",
+            "questions": [
+                {
+                    "q": "O que fazer primeiro em otimização?",
+                    "a": "modelar o problema",
+                    "hint": "Escrever a função a ser otimizada"
+                },
+                {
+                    "q": "Pontos críticos são onde f'(x) = ?",
+                    "a": "0",
+                    "hint": "Ou onde f' não existe"
+                }
+            ]
+        },
+        {
+            "id": "calc-rev-5",
+            "title": "5. Análise Completa de Funções",
+            "level": "Avançado",
+            "content": "📌 Roteiro de Análise\n\n🔹 1ª Derivada (f'):\n• f' > 0 → função crescente\n• f' < 0 → função decrescente\n• f' = 0 → ponto crítico\n\n🔹 2ª Derivada (f''):\n• f'' > 0 → côncava para cima (∪)\n• f'' < 0 → côncava para baixo (∩)\n• f'' = 0 → candidato a inflexão\n\n📝 Classificação de Extremos:\n• f' muda de + para - → máximo\n• f' muda de - para + → mínimo\n\n📝 Ponto de Inflexão:\nOnde f'' muda de sinal\n\n💡 Polinômios não têm assíntotas!",
+            "questions": [
+                {
+                    "q": "Se f''(a) < 0, a curva em x=a é...?",
+                    "a": "côncava para baixo",
+                    "hint": "Lembra um ∩ (arco voltado para baixo)"
+                },
+                {
+                    "q": "Ponto de inflexão é onde...?",
+                    "a": "concavidade muda",
+                    "hint": "f'' muda de sinal"
+                }
+            ]
+        }
+    ]
+}

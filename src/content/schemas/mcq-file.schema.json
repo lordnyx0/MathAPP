@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "mcq-file.schema.json",
+    "title": "MCQ File",
+    "description": "Schema for multiple choice question files",
+    "type": "object",
+    "required": [
+        "topic",
+        "title",
+        "questions"
+    ],
+    "properties": {
+        "topic": {
+            "type": "string",
+            "description": "Topic identifier"
+        },
+        "title": {
+            "type": "string",
+            "description": "Display title"
+        },
+        "questions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/MCQ"
+            }
+        }
+    },
+    "definitions": {
+        "MCQ": {
+            "type": "object",
+            "required": [
+                "id",
+                "question",
+                "topic",
+                "difficulty",
+                "options",
+                "correctAnswer",
+                "concept"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique question identifier"
+                },
+                "question": {
+                    "type": "string",
+                    "description": "Question text"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Topic this question belongs to"
+                },
+                "difficulty": {
+                    "type": "string",
+                    "enum": [
+                        "basico",
+                        "intermediario",
+                        "avancado"
+                    ],
+                    "description": "Difficulty level (lowercase)"
+                },
+                "options": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 6,
+                    "items": {
+                        "$ref": "#/definitions/MCQOption"
+                    }
+                },
+                "correctAnswer": {
+                    "type": "string",
+                    "description": "ID of the correct option (e.g., 'A', 'B')"
+                },
+                "concept": {
+                    "type": "string",
+                    "description": "Mathematical concept being tested"
+                }
+            }
+        },
+        "MCQOption": {
+            "type": "object",
+            "required": [
+                "id",
+                "text",
+                "explanation"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Option identifier (A, B, C, D, etc.)"
+                },
+                "text": {
+                    "type": "string",
+                    "description": "Option text"
+                },
+                "explanation": {
+                    "type": "string",
+                    "description": "Explanation of why this option is correct/incorrect"
+                }
+            }
+        }
+    }
+}
