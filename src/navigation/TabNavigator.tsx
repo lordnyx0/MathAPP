@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, Platform, Animated } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { fontSize } from '../styles/theme';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { fontSize, borderRadius } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 
 import ExercisesScreen from '../screens/ExercisesScreen';
@@ -20,6 +21,10 @@ type TabParamList = {
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+// ============================================================
+// TAB ICON COMPONENT
+// ============================================================
+
 interface TabIconProps {
     label: string;
     focused: boolean;
@@ -27,29 +32,106 @@ interface TabIconProps {
 }
 
 const TabIcon: React.FC<TabIconProps> = ({ label, focused, colors }) => {
-    const icons: Record<string, string> = {
-        'Exercícios': '📝',
-        'Aprender': '📚',
-        'Treino': '🎯',
-        'MCQ': '🧠',
-        'Config': '⚙️',
+    const scaleAnim = useRef(new Animated.Value(focused ? 1 : 0.9)).current;
+    const indicatorOpacity = useRef(new Animated.Value(focused ? 1 : 0)).current;
+
+    useEffect(() => {
+        Animated.parallel([
+            Animated.spring(scaleAnim, {
+                toValue: focused ? 1.1 : 0.9,
+                friction: 6,
+                tension: 120,
+                useNativeDriver: true,
+            }),
+            Animated.timing(indicatorOpacity, {
+                toValue: focused ? 1 : 0,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [focused]);
+
+    const iconColor = focused ? colors.primary : colors.textTertiary;
+    const iconSize = 24;
+
+    const renderIcon = () => {
+        switch (label) {
+            case 'Exercícios':
+                return (
+                    <Ionicons
+                        name={focused ? 'book' : 'book-outline'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            case 'Aprender':
+                return (
+                    <Ionicons
+                        name={focused ? 'school' : 'school-outline'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            case 'MCQ':
+                return (
+                    <MaterialCommunityIcons
+                        name={focused ? 'brain' : 'brain'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            case 'Treino':
+                return (
+                    <Ionicons
+                        name={focused ? 'game-controller' : 'game-controller-outline'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            case 'Config':
+                return (
+                    <Ionicons
+                        name={focused ? 'settings' : 'settings-outline'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            default:
+                return null;
+        }
     };
 
     return (
         <View style={styles.tabItem}>
-            <Text style={[styles.tabIcon, focused && styles.tabIconFocused]}>
-                {icons[label]}
-            </Text>
-            <Text style={[
-                styles.tabLabel,
-                { color: colors.textTertiary },
-                focused && { color: colors.primary, fontWeight: '700' as const }
-            ]}>
+            {/* Active indicator dot */}
+            <Animated.View
+                style={[
+                    styles.activeIndicator,
+                    { backgroundColor: colors.primary, opacity: indicatorOpacity },
+                ]}
+            />
+
+            {/* Icon with scale animation */}
+            <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+                {renderIcon()}
+            </Animated.View>
+
+            <Text
+                style={[
+                    styles.tabLabel,
+                    { color: focused ? colors.primary : colors.textTertiary },
+                    focused && styles.tabLabelFocused,
+                ]}
+            >
                 {label}
             </Text>
         </View>
     );
 };
+
+// ============================================================
+// TAB NAVIGATOR
+// ============================================================
 
 const TabNavigator: React.FC = () => {
     const { colors } = useTheme();
@@ -61,18 +143,18 @@ const TabNavigator: React.FC = () => {
                 headerShown: false,
                 tabBarStyle: {
                     position: 'absolute',
-                    bottom: Platform.OS === 'ios' ? 20 : 10,
-                    left: 20,
-                    right: 20,
-                    height: 70,
-                    borderRadius: 20,
+                    bottom: Platform.OS === 'ios' ? 20 : 12,
+                    left: 16,
+                    right: 16,
+                    height: 72,
+                    borderRadius: borderRadius.xl,
                     backgroundColor: colors.surface,
                     borderTopWidth: 0,
-                    shadowColor: '#000',
+                    shadowColor: colors.primary,
                     shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.15,
-                    shadowRadius: 12,
-                    elevation: 8,
+                    shadowOpacity: 0.12,
+                    shadowRadius: 16,
+                    elevation: 10,
                     paddingBottom: 0,
                 },
                 tabBarShowLabel: false,
@@ -122,24 +204,31 @@ const TabNavigator: React.FC = () => {
     );
 };
 
+// ============================================================
+// STYLES
+// ============================================================
+
 const styles = StyleSheet.create({
     tabItem: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 10,
+        paddingTop: 8,
+        minWidth: 56,
     },
-    tabIcon: {
-        fontSize: 24,
-        marginBottom: 4,
-        opacity: 0.5,
-    },
-    tabIconFocused: {
-        opacity: 1,
-        transform: [{ scale: 1.1 }],
+    activeIndicator: {
+        position: 'absolute',
+        top: 0,
+        width: 24,
+        height: 3,
+        borderRadius: 2,
     },
     tabLabel: {
         fontSize: fontSize.xs,
         fontWeight: '500',
+        marginTop: 4,
+    },
+    tabLabelFocused: {
+        fontWeight: '700',
     },
 });
 

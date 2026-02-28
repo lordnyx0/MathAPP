@@ -212,6 +212,8 @@ export const topicRegistry = {
 
 ## 🏷️ Adicionando Nova Categoria Principal
 
+O aplicativo usa as categorias principais (como Matemática Elementar e Álgebra Linear) transversalmente. Ao adicionar uma nova categoria aqui, ela refletirá **automaticamente** tanto na aba **Exercícios** (simulados e provas) quanto na aba **Aprender** (hub teórico), graças à fonte única de dados centralizada.
+
 ```typescript
 // src/data/registry.ts
 
@@ -226,8 +228,35 @@ export const mainCategories = [
     },
 ];
 
-// Depois adicione tópicos com mainCategory: 'calculo-ii'
+// Depois adicione tópicos com mainCategory: 'calculo-ii' nas sessões de lessons ou exercises!
 ```
+
+---
+
+## 🔢 Renderização de Fórmulas e LaTeX
+
+O aplicativo suporta LaTeX avançado nativamente, com uma **abordagem híbrida** de alta performance: usa **MathJax** via SVG integrado para instâncias Nativas (Android/iOS) e injeta **KaTeX** fidedignamente no DOM em instâncias da **Web**, mitigando quaisquer bugs de dimensão e caixas pretas na interface do navegador.
+
+Para utilizar fórmulas no JSON, você precisa escapar corretamente as barras invertidas (`\`) com uma barra extra, pois o JSON as interpreta como caracteres de escape.
+
+**Exemplo Simples:**
+```json
+{
+    "problem": "Calcule a integral de \\\\int x^2 dx"
+}
+```
+
+**Exemplo com Matrizes e Ambientes Complexos:**
+```json
+{
+    "problem": "Dada a matriz A = \\\\begin{pmatrix} 1 & 0 \\\\\\\\ 0 & 1 \\\\end{pmatrix}, encontre..."
+}
+```
+*(Note que `\\` no LaTeX para quebra de linha em matrizes vira `\\\\\\\\` no JSON!)*
+
+> [!NOTE]
+> Componentes que usam LaTeX vão automaticamente converter blocos de texto entre `$` ou apenas formatar todo o bloco no modo `display` (centralizado e grande) se estiver definido com `<MathText formula>`.
+> Para **Previews em Cartões de Lista** (`ExercisesScreen`), os motores leem o campo `problem` e removem blocos grandes (como matrizes), os convertendo para a palavra-chave compacta `[Matriz]`, além de traduzir `\\\\mathbb` e barras remanescentes para símbolos Unicode limpos, mantendo a harmonia visual da lista sem vazar a sintaxe LaTeX para o usuário final!
 
 ---
 

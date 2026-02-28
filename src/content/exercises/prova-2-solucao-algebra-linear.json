@@ -1,0 +1,100 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "prova-2-solucao-algebra-linear",
+    "title": "Prova 2 - Álgebra Linear (Solução Passo a Passo)",
+    "description": "Prova de Álgebra Linear (Licenciatura em Física). Prof. Angelo Papa Neto (26/02/2025)",
+    "exercises": [
+        {
+            "id": "p2-sol-q1",
+            "topicId": "prova-2-solucao-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 1: Transformação Linear R3 -> R3",
+            "difficulty": "Intermediário",
+            "problem": "Considere a transformação linear $T: \\\\mathbb{R}^3 \\\\to \\\\mathbb{R}^3$, dada por\n$T(x,y,z) = (x - y - z, y - z - x, z - x + y)$.\n\n(a) Determine o núcleo de $T$.\n(b) Determine a dimensão da imagem de $T$.\n(c) Explique porque um dos autovalores de $T$ é igual a zero.",
+            "finalAnswer": "$\\ker T = \\operatorname{Ger}(1,1,0)$, $\\dim \\operatorname{Im} T = 2$. O vetor $(1,1,0)$ é autovetor para $\\lambda = 0$.",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar o núcleo (ker T)",
+                    "explanation": "Resolver o sistema associado a $T(x,y,z) = (0,0,0)$.",
+                    "content": "O sistema linear gerado é:\n$x - y - z = 0$\n$-x + y - z = 0$\n$-x + y + z = 0$\n\nEscalonando a matriz ampliada:\n$\\\\begin{pmatrix} 1 & -1 & -1 & | & 0 \\\\\\\\ -1 & 1 & -1 & | & 0 \\\\\\\\ -1 & 1 & 1 & | & 0 \\\\end{pmatrix}$\n\nSomando a L1 na L2 e L3:\n$\\\\begin{pmatrix} 1 & -1 & -1 & | & 0 \\\\\\\\ 0 & 0 & -2 & | & 0 \\\\\\\\ 0 & 0 & 0 & | & 0 \\\\end{pmatrix}$\n\nLogo, obtemos $-2z = 0 \\\\Rightarrow z = 0$.\nSubstituindo na primeira equação: $x - y - 0 = 0 \\\\Rightarrow x = y$.\nAssim, todo vetor do núcleo é da forma $(x,x,0) = x(1,1,0)$.\nPortanto, $\\\\ker T = \\\\operatorname{Ger}(1,1,0)$ e $\\\\dim \\\\ker T = 1$."
+                },
+                {
+                    "title": "Passo 2: Dimensão da imagem",
+                    "explanation": "Usar o Teorema do Núcleo e da Imagem.",
+                    "content": "Pelo Teorema do Núcleo e da Imagem, sabemos que:\n$\\\\dim \\\\ker T + \\\\dim \\\\operatorname{Im } T = \\\\dim \\\\mathbb{R}^3 = 3$.\n\nComo $\\\\dim \\\\ker T = 1$, temos:\n$1 + \\\\dim \\\\operatorname{Im } T = 3 \\\\Rightarrow \\\\dim \\\\operatorname{Im } T = 2$."
+                },
+                {
+                    "title": "Passo 3: Explicar o autovalor zero",
+                    "explanation": "Mostrar a relação entre o núcleo não trivial e o autovalor zero.",
+                    "content": "Um vetor $v \\\\in \\\\mathbb{R}^3$ é autovetor de $T$ com autovalor $\\\\lambda$ se $v \\\\neq 0$ e $T(v) = \\\\lambda v$.\nComo calculamos,\no vetor $v = (1,1,0)$ está no núcleo, logo $T(1,1,0) = (0,0,0)$.\nPodemos reescrever como $T(1,1,0) = 0 \\\\cdot (1,1,0)$.\nPortanto, o autovalor associado a este autovetor é $\\\\lambda = 0$."
+                }
+            ],
+            "tips": [
+                "Um operador possui o autovalor 0 se, e somente se, seu núcleo for maior que a dimensão zero (ou seja, se a matriz associada for não inversível)."
+            ]
+        },
+        {
+            "id": "p2-sol-q2",
+            "topicId": "prova-2-solucao-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 2: Semelhança de Matrizes",
+            "difficulty": "Avançado",
+            "problem": "Considere a matriz\n$A = \\\\begin{pmatrix} 0 & 1 & 0 \\\\\\\\ 1 & 0 & 0 \\\\\\\\ -1 & -1 & -1 \\\\end{pmatrix}$\n\n(a) Encontre o polinômio característico de $A$.\n(b) Encontre os autovalores de $A$.\n(c) Encontre os autovetores de $A$.\n(d) Determine, se possível, uma matriz invertível $P$ tal que $P^{-1} \\\\cdot A \\\\cdot P = D$ é uma matriz diagonal.\n(e) Encontre $A^{2025}$.",
+            "finalAnswer": "A potência para números ímpares é a própria matriz. Então $A^{2025} = A$.",
+            "steps": [
+                {
+                    "title": "Passo 1: Polinômio característico",
+                    "explanation": "Cálculo do determinante de (A - tI).",
+                    "content": "$P_A(t) = \\\\det \\\\begin{pmatrix} -t & 1 & 0 \\\\\\\\ 1 & -t & 0 \\\\\\\\ -1 & -1 & -t - 1 \\\\end{pmatrix} = -(t+1)(t^2 - 1) = -(t-1)(t+1)^2$."
+                },
+                {
+                    "title": "Passo 2: Autovalores e Autovetores",
+                    "explanation": "Resolver o sistema linear para cada raiz do polinômio.",
+                    "content": "Os autovalores são as raízes: $\\\\lambda_1 = 1$, $\\\\lambda_2 = -1$.\n\nPara $\\\\lambda_1 = 1$:\nA partir do sistema, obtemos $y = x$ e $z = -x$. Logo $v_1 = (1, 1, -1)$.\n\nPara $\\\\lambda_2 = -1$:\nA partir do sistema, obtemos $y = -x$ e $z$ livre. Isso nos dá dois vetores de base: $v_2 = (1, -1, 0)$ e $v_3 = (0, 0, 1)$."
+                },
+                {
+                    "title": "Passo 3: Diagonalização e Matriz P",
+                    "explanation": "Montar as matrizes de mudança de base.",
+                    "content": "Seja $P$ a matriz cujas colunas são os autovetores de $A$:\n$P = \\\\begin{pmatrix} 1 & 1 & 0 \\\\\\\\ 1 & -1 & 0 \\\\\\\\ -1 & 0 & 1 \\\\end{pmatrix}$.\n\nMantemos à mão a inversa de P escalonada a partir da matriz ampliada $(P|I)$:\n$P^{-1} = \\\\begin{pmatrix} 1/2 & 1/2 & 0 \\\\\\\\ 1/2 & -1/2 & 0 \\\\\\\\ 1/2 & 1/2 & 1 \\\\end{pmatrix}$.\n\nA multiplicação revela que $P^{-1} \\\\cdot A \\\\cdot P = \\\\operatorname{diag}(1, -1, -1)$."
+                },
+                {
+                    "title": "Passo 4: Calculando a Potência",
+                    "explanation": "Potenciação da matriz diagonal.",
+                    "content": "A fórmula diz que $A^n = P \\\\cdot D^n \\\\cdot P^{-1}$.\nComo $D = \\\\operatorname{diag}(1, -1, -1)$, então $D^{2025} = \\\\operatorname{diag}(1^{2025}, (-1)^{2025}, (-1)^{2025}) = \\\\operatorname{diag}(1, -1, -1) = D$.\nComo $D^{2025} = D$, é claro que:\n$A^{2025} = P \\\\cdot D \\\\cdot P^{-1} = A$."
+                }
+            ],
+            "tips": [
+                "Notou o padrão? Todas as vezes que o autovalor é base da identidade ou reflexão (±1), potências da matriz terão resultados cíclicos!"
+            ]
+        },
+        {
+            "id": "p2-sol-q3",
+            "topicId": "prova-2-solucao-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 3: Base Ortonormal (Gram-Schmidt)",
+            "difficulty": "Intermediário",
+            "problem": "Considere o espaço vetorial $\\\\mathbb{R}^3$ com o produto interno usual $\\\\langle(x,y,z), (x',y',z')\\\\rangle = xx' + yy' + zz'$. Considere os dois conjuntos de vetores em $\\\\mathbb{R}^3$: \n$B = \\\\{(1, 1, 1), (-2, 1, 1), (-1, 2, -1)\\}$ e \n$C = \\\\{(1, 1, 1), (-2, 1, 1), (0, 1, -1)\\}$.\n\n(a) Qual desses dois conjuntos é ortogonal?\n(b) Obtenha, a partir desses dois conjuntos, duas bases ortonormais.",
+            "finalAnswer": "O conjunto C é ortogonal. As bases ortonormais são C' normalizado e B' após aplicar Gram-Schmidt.",
+            "steps": [
+                {
+                    "title": "Passo 1: Verificação de Ortogonalidade",
+                    "explanation": "Calcular o produto interno entre os vetores de cada conjunto.",
+                    "content": "O conjunto $C$ é ortogonal, pois o produto interno de pares de elementos seus é zero:\n$\\\\langle(1,1,1), (-2,1,1)\\\\rangle = -2+1+1=0$\n$\\\\langle(1,1,1), (0,1,-1)\\\\rangle = 0+1-1=0$\n$\\\\langle(-2,1,1), (0,1,-1)\\\\rangle = 0+1-1=0$\n\nO conjunto $B$ não é, pois $\\\\langle(-2, 1, 1), (-1, 2, -1)\\\\rangle = 2 + 2 - 1 = 3 \\\\neq 0$."
+                },
+                {
+                    "title": "Passo 2: Ortonormalização de C",
+                    "explanation": "Como C já é ortogonal, basta dividir pelas respectivas normas.",
+                    "content": "Para $v_1=(1,1,1)$, a norma é $\\\\sqrt{3}$.\nPara $v_2=(-2,1,1)$, a norma é $\\\\sqrt{4+1+1} = \\\\sqrt{6}$.\nPara $v_3=(0,1,-1)$, a norma é $\\\\sqrt{1+1} = \\\\sqrt{2}$.\n\nLogo a base ortonormal $C'$ é:\n$C' = \\\\left\\\\{ \\\\left( \\\\frac{1}{\\\\sqrt{3}}, \\\\frac{1}{\\\\sqrt{3}}, \\\\frac{1}{\\\\sqrt{3}} \\\\right), \\\\left( \\\\frac{-2}{\\\\sqrt{6}}, \\\\frac{1}{\\\\sqrt{6}}, \\\\frac{1}{\\\\sqrt{6}} \\\\right), \\\\left( 0, \\\\frac{1}{\\\\sqrt{2}}, -\\\\frac{1}{\\\\sqrt{2}} \\\\right) \\\\right\\\\}$"
+                },
+                {
+                    "title": "Passo 3: Ortonormalização de B (Gram-Schmidt)",
+                    "explanation": "O processo de Gram-Schmidt gera bases ortogonais.",
+                    "content": "Os vetores $(1,1,1)$ e $(-2,1,1)$ de B coincidem com os de C e já são ortogonais entre si, nos rendendo $e_1$ e $e_2$ iguais aos de $C'$ da etapa anterior.\nFixamos $e_1$ e $e_2$.\n\nPara achar $e_3$, seja $v_3 = (-1, 2, -1)$. Subtraímos as projeções de $v_3$ sobre os eixos representados por $e_1$ e $e_2$:\n$w_3 = v_3 - \\\\langle v_3, e_1 \\\\rangle e_1 - \\\\langle v_3, e_2 \\\\rangle e_2$\nO produto de $v_3$ com o equivalente nâo normalizado de $e_1$ (que é $v_1$) é $0$. Com isso:\n$w_3 = v_3 - \\\\langle v_3, e_2 \\\\rangle e_2 = (-1, 2, -1) - \\\\frac{3}{\\\\sqrt{6}} \\\\cdot e_2 = (-1, 2, -1) - \\\\left(-1, \\\\frac{1}{2}, \\\\frac{1}{2}\\\\right)$\nIsso resulta em $w_3 = \\\\left(0, \\\\frac{3}{2}, -\\\\frac{3}{2}\\\\right)$.\n\nAgora normalizamos esse vetor:\n$e_3 = \\\\frac{w_3}{||w_3||} = \\\\left(0, \\\\frac{\\\\sqrt{2}}{2}, -\\\\frac{\\\\sqrt{2}}{2}\\\\right)$."
+                }
+            ],
+            "tips": [
+                "Sempre que notar vetores ortogonais numa matriz ou conjunto que precisa passar por Gram-Schmidt, mantenha-os daquela maneira para economizar tempo."
+            ]
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 // REFACTORED: Now uses registry as single source of truth
 // No more switch statements or duplicate definitions
 
-import { getLessonsForTopic as getFromRegistry, topicRegistry } from '../registry';
+import { getLessonsForTopic as getFromRegistry, topicRegistry, mainCategories } from '../registry';
 
 // Re-export the registry function directly
 export const getLessonsForTopic = getFromRegistry;
@@ -24,10 +24,7 @@ export const calculoRevisaoLessons = getLessonsForTopic('revisao');
 // These exports are kept for backward compatibility but marked as deprecated
 
 /** @deprecated Use mainCategories from registry instead */
-export const learningMainCategories = [
-    { id: 'mat-elementar', title: 'Matemática Elementar', icon: '🧮', color: '#6366F1' },
-    { id: 'calculo-i', title: 'Cálculo I', icon: '📈', color: '#EC4899' },
-];
+export const learningMainCategories = mainCategories;
 
 /** @deprecated Use getTopicsForCategory from registry instead */
 export const learningTopics = Object.values(topicRegistry).map(topic => ({

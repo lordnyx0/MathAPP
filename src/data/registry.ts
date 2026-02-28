@@ -17,6 +17,7 @@ import funcoesElementarLessonsData from '../content/lessons/funcoes-elementar.js
 import calculoLimitesLessonsData from '../content/lessons/calculo-limites.json';
 import calculoDerivadasLessonsData from '../content/lessons/calculo-derivadas.json';
 import calculoRevisaoLessonsData from '../content/lessons/calculo-revisao.json';
+import algebraLinearLessonsData from '../content/lessons/algebra-linear.json';
 
 // MCQ
 import logaritmosMCQData from '../content/mcq/logaritmos.json';
@@ -35,6 +36,10 @@ import calcAP4Data from '../content/exercises/calc-ap4.json';
 import calcAP4_1Data from '../content/exercises/calc-ap4.1.json';
 import calcRevisaoData from '../content/exercises/calc-revisao.json';
 import calcFinalData from '../content/exercises/calc-final.json';
+import prova1SegAlData from '../content/exercises/prova-1-segunda-chamada-algebra-linear.json';
+import prova2AlData from '../content/exercises/prova-2-algebra-linear.json';
+import prova2SegAlData from '../content/exercises/prova-2-segunda-chamada-algebra-linear.json';
+import prova2SolAlData from '../content/exercises/prova-2-solucao-algebra-linear.json';
 
 // =============================================================================
 // EXTRACT ARRAYS - Maintain backward compatibility
@@ -46,6 +51,7 @@ const funcoesElementarLessons = funcoesElementarLessonsData.lessons;
 const calculoLimitesLessons = calculoLimitesLessonsData.lessons;
 const calculoDerivadasLessons = calculoDerivadasLessonsData.lessons;
 const calculoRevisaoLessons = calculoRevisaoLessonsData.lessons;
+const algebraLinearLessons = algebraLinearLessonsData.lessons;
 
 const logaritmosMCQ = logaritmosMCQData.questions;
 const quadrantesMCQ = quadrantesMCQData.questions;
@@ -62,6 +68,10 @@ const calcAP4Exercises = calcAP4Data.exercises;
 const calcAP4_1Exercises = calcAP4_1Data.exercises;
 const calcRevisaoExercises = calcRevisaoData.exercises;
 const calcFinalExercises = calcFinalData.exercises;
+const prova1SegAlExercises = prova1SegAlData.exercises;
+const prova2AlExercises = prova2AlData.exercises;
+const prova2SegAlExercises = prova2SegAlData.exercises;
+const prova2SolAlExercises = prova2SolAlData.exercises;
 
 // =============================================================================
 // FACTORY FUNCTIONS - DRY principle
@@ -121,6 +131,13 @@ export const mainCategories = [
         icon: '📈',
         color: colors.elementar,
         description: 'Limites e Derivadas',
+    },
+    {
+        id: 'algebra-linear',
+        title: 'Álgebra Linear',
+        icon: '📐',
+        color: colors.logaritmos,
+        description: 'Matrizes e Transformações',
     },
 ];
 
@@ -188,6 +205,19 @@ export const topicRegistry = {
         icon: '🔄',
         color: '#F97316',
         lessons: calculoRevisaoLessons,
+        mcq: null,
+    }),
+
+    // -------------------------------------------------------------------------
+    // ÁLGEBRA LINEAR
+    // -------------------------------------------------------------------------
+    'matrizes-e-transformacoes': createTopic({
+        id: 'matrizes-e-transformacoes',
+        mainCategory: 'algebra-linear',
+        title: 'Matrizes e Teorias Básicas',
+        icon: '📐',
+        color: colors.logaritmos,
+        lessons: algebraLinearLessons,
         mcq: null,
     }),
 };
@@ -299,6 +329,42 @@ export const exerciseRegistry = {
         icon: '🎯',
         color: colors.derivadasLight,
         exercises: calcFinalExercises,
+    }),
+
+    // -------------------------------------------------------------------------
+    // ÁLGEBRA LINEAR
+    // -------------------------------------------------------------------------
+    'prova-1-segunda-chamada-algebra-linear': createExerciseTopic({
+        id: 'prova-1-segunda-chamada-algebra-linear',
+        mainCategory: 'algebra-linear',
+        title: 'Prova 1 - 2ª Cham.',
+        icon: '📝',
+        color: colors.primary,
+        exercises: prova1SegAlExercises,
+    }),
+    'prova-2-algebra-linear': createExerciseTopic({
+        id: 'prova-2-algebra-linear',
+        mainCategory: 'algebra-linear',
+        title: 'Prova 2',
+        icon: '📝',
+        color: colors.secondary,
+        exercises: prova2AlExercises,
+    }),
+    'prova-2-segunda-chamada-algebra-linear': createExerciseTopic({
+        id: 'prova-2-segunda-chamada-algebra-linear',
+        mainCategory: 'algebra-linear',
+        title: 'Prova 2 - 2ª Cham.',
+        icon: '📝',
+        color: colors.primaryLight,
+        exercises: prova2SegAlExercises,
+    }),
+    'prova-2-solucao-algebra-linear': createExerciseTopic({
+        id: 'prova-2-solucao-algebra-linear',
+        mainCategory: 'algebra-linear',
+        title: 'Prova 2 (Solução)',
+        icon: '✅',
+        color: colors.success,
+        exercises: prova2SolAlExercises,
     }),
 };
 

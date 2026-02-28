@@ -12,7 +12,7 @@ export interface CheckAnswerResult {
 export const normalizeAnswer = (answer: string | null | undefined): string => {
     if (!answer || typeof answer !== 'string') return '';
 
-    let normalized = answer
+    const normalized = answer
         .toLowerCase()
         .trim()
         // Remove ALL spaces (fixes "1 / 2" vs "1/2")

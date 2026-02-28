@@ -9,6 +9,7 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import ConfidenceSlider from '../components/ConfidenceSlider';
@@ -189,25 +190,29 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                         )}
 
                         <TouchableOpacity
-                            style={styles.modeCard}
+                            style={[styles.modeCard, styles.modeCardInterleaved]}
                             onPress={() => startSession('interleaved')}
+                            activeOpacity={0.85}
                         >
                             <Text style={styles.modeIcon}>🔀</Text>
                             <View style={styles.modeContent}>
                                 <Text style={styles.modeTitle}>Prática Intercalada</Text>
                                 <Text style={styles.modeDesc}>Mistura de todos os tópicos</Text>
                             </View>
+                            <Ionicons name="chevron-forward" size={18} color={colors.primary} />
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={styles.modeCard}
+                            style={[styles.modeCard, styles.modeCardAdaptive]}
                             onPress={() => startSession('adaptive')}
+                            activeOpacity={0.85}
                         >
                             <Text style={styles.modeIcon}>🎯</Text>
                             <View style={styles.modeContent}>
                                 <Text style={styles.modeTitle}>Prática Adaptativa</Text>
                                 <Text style={styles.modeDesc}>Foco nos seus pontos fracos</Text>
                             </View>
+                            <Ionicons name="chevron-forward" size={18} color={colors.secondary} />
                         </TouchableOpacity>
 
                         <View style={styles.infoCard}>
@@ -418,7 +423,9 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     statLabel: { fontSize: fontSize.sm, color: colors.textSecondary },
 
     // Mode Cards
-    modeCard: { flexDirection: 'row', alignItems: 'center', margin: spacing.xl, marginTop: 0, marginBottom: spacing.md, padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, ...shadows.md },
+    modeCard: { flexDirection: 'row', alignItems: 'center', margin: spacing.xl, marginTop: 0, marginBottom: spacing.md, padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, ...shadows.md, borderLeftWidth: 4 },
+    modeCardInterleaved: { borderLeftColor: colors.primary },
+    modeCardAdaptive: { borderLeftColor: colors.secondary },
     modeIcon: { fontSize: 32, marginRight: spacing.md },
     modeContent: { flex: 1 },
     modeTitle: { fontSize: fontSize.lg, fontWeight: '700', color: colors.textPrimary },

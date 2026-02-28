@@ -9,6 +9,7 @@ import {
     TextInput,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
@@ -23,6 +24,7 @@ import { STORAGE_KEYS, DEFAULT_COMPLETED_LESSONS, CompletedLessons } from '../co
 import { showToast } from '../components/Toast';
 import { CardSkeleton } from '../components/Skeleton';
 import MathText from '../components/MathText';
+import BackButton from '../components/BackButton';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import strings from '../i18n/strings';
 
@@ -180,7 +182,10 @@ const LearningScreen = () => {
 
                         {/* Main Progress Card */}
                         <View style={styles.mainProgressCard}>
-                            <Text style={styles.mainProgressTitle}>{strings.overallProgress}</Text>
+                            <View style={styles.mainProgressHeader}>
+                                <Ionicons name="trending-up" size={18} color={colors.primary} />
+                                <Text style={styles.mainProgressTitle}>{strings.overallProgress}</Text>
+                            </View>
                             <View style={styles.progressBar}>
                                 <View style={[styles.progressFill, {
                                     width: `${totalLessons > 0 ? (completedTotal / totalLessons) * 100 : 0}%`,
@@ -239,7 +244,7 @@ const LearningScreen = () => {
                                             }]} />
                                         </View>
                                     </View>
-                                    <Text style={[styles.chevron, { color: cat.color }]}>▶</Text>
+                                    <Ionicons name="chevron-forward" size={18} color={cat.color} />
                                 </TouchableOpacity>
                             );
                         })}
@@ -260,14 +265,7 @@ const LearningScreen = () => {
             <SafeAreaView style={styles.container}>
                 <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
-                            onPress={() => setSelectedMainCategory(null)}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        <BackButton onPress={() => setSelectedMainCategory(null)} />
 
                         <View style={styles.header}>
                             <View style={styles.topicHeaderRow}>
@@ -302,7 +300,7 @@ const LearningScreen = () => {
                                             }]} />
                                         </View>
                                     </View>
-                                    <Text style={[styles.chevron, { color: topic.color }]}>▶</Text>
+                                    <Ionicons name="chevron-forward" size={18} color={topic.color} />
                                 </TouchableOpacity>
                             );
                         })}
@@ -323,19 +321,14 @@ const LearningScreen = () => {
             <SafeAreaView style={styles.container}>
                 <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
+                        <BackButton
                             onPress={() => {
                                 setShowQuestions(false);
                                 setCurrentQuestionIndex(0);
                                 setUserAnswer('');
                                 setShowFeedback(false);
                             }}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        />
 
                         <View style={styles.header}>
                             <Text style={styles.headerTitle}>{currentLesson.title}</Text>
@@ -409,17 +402,12 @@ const LearningScreen = () => {
             <SafeAreaView style={styles.container}>
                 <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
+                        <BackButton
                             onPress={() => {
                                 setSelectedTopic(null);
                                 setCurrentLessonIndex(0);
                             }}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        />
 
                         <View style={styles.header}>
                             <Text style={styles.headerTitle}>{topic?.icon} {topic?.title}</Text>
@@ -532,11 +520,16 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         marginBottom: spacing.lg,
         ...shadows.md,
     },
+    mainProgressHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: spacing.xs,
+        marginBottom: spacing.sm,
+    },
     mainProgressTitle: {
         fontSize: fontSize.md,
         fontWeight: '600',
         color: colors.textPrimary,
-        marginBottom: spacing.sm,
     },
     mainProgressText: {
         fontSize: fontSize.sm,

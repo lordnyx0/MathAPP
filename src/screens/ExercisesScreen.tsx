@@ -9,15 +9,30 @@ import {
     RefreshControl,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { exercises, exerciseTopics, mainCategories, getExercisesByTopic } from '../data';
 import StepCard from '../components/StepCard';
-import MathText from '../components/MathText';
+import MathText, { latexToUnicode } from '../components/MathText';
+import BackButton from '../components/BackButton';
 import { logError } from '../utils';
 import { CardSkeleton, LessonListSkeleton } from '../components/Skeleton';
 import EmptyState from '../components/EmptyState';
 import strings from '../i18n/strings';
+
+const getPreviewText = (text: string) => {
+    let clean = text;
+    // Substitui matrizes por notação compacta
+    clean = clean.replace(/\\\\begin\{[a-z\*]+\}[\s\S]*?\\\\end\{[a-z\*]+\}/g, '[Matriz]');
+    clean = clean.replace(/\\begin\{[a-z\*]+\}[\s\S]*?\\end\{[a-z\*]+\}/g, '[Matriz]');
+    // Substitui Display Math por notação compacta
+    clean = clean.replace(/\$\$[\s\S]*?\$\$/g, '[Fórmula]');
+    // Aplica a limpeza final de Unicode e remove novas linhas para ficar em texto contínuo
+    clean = latexToUnicode(clean).replace(/\n/g, ' ').trim();
+    // Remove barras invertidas residuais para limpar o texto (ex: \text{})
+    return clean.replace(/\\/g, '');
+};
 
 const ExercisesScreen = () => {
     const { colors } = useTheme();
@@ -81,7 +96,7 @@ const ExercisesScreen = () => {
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.header}>
-                            <Text style={styles.headerTitle}>📚 Exercícios Guiados</Text>
+                            <Text style={styles.headerTitle}>Exercícios Guiados</Text>
                             <Text style={styles.headerSubtitle}>Escolha uma disciplina</Text>
                         </View>
 
@@ -105,7 +120,7 @@ const ExercisesScreen = () => {
                                             {totalExercises} exercícios
                                         </Text>
                                     </View>
-                                    <Text style={[styles.chevron, { color: cat.color }]}>▶</Text>
+                                    <Ionicons name="chevron-forward" size={18} color={cat.color} />
                                 </TouchableOpacity>
                             );
                         })}
@@ -131,14 +146,7 @@ const ExercisesScreen = () => {
                     style={styles.gradient}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
-                            onPress={() => setSelectedMainCategory(null)}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        <BackButton onPress={() => setSelectedMainCategory(null)} />
 
                         <View style={styles.header}>
                             <View style={styles.topicHeaderRow}>
@@ -168,7 +176,7 @@ const ExercisesScreen = () => {
                                             {topicExercises.length} exercícios
                                         </Text>
                                     </View>
-                                    <Text style={[styles.chevron, { color: topic.color }]}>▶</Text>
+                                    <Ionicons name="chevron-forward" size={18} color={topic.color} />
                                 </TouchableOpacity>
                             );
                         })}
@@ -197,14 +205,7 @@ const ExercisesScreen = () => {
                     style={styles.gradient}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
-                            onPress={() => setSelectedTopic(null)}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        <BackButton onPress={() => setSelectedTopic(null)} />
 
                         <View style={styles.header}>
                             <View style={styles.topicHeaderRow}>
@@ -241,10 +242,12 @@ const ExercisesScreen = () => {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            <Text style={styles.cardProblem} numberOfLines={2}>{ex.problem}</Text>
+                                            <Text style={styles.cardProblem} numberOfLines={2}>
+                                                {getPreviewText(ex.problem)}
+                                            </Text>
                                             <View style={styles.cardFooter}>
                                                 <Text style={styles.stepsCount}>{ex.steps.length} passos</Text>
-                                                <Text style={[styles.chevron, { color: topic.color }]}>▶</Text>
+                                                <Ionicons name="chevron-forward" size={16} color={topic.color} />
                                             </View>
                                         </TouchableOpacity>
                                     ))}
@@ -276,17 +279,12 @@ const ExercisesScreen = () => {
             >
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {/* Back Button */}
-                    <TouchableOpacity
-                        style={styles.backButton}
+                    <BackButton
                         onPress={() => {
                             setSelectedExercise(null);
                             setRevealedSteps([]);
                         }}
-                        accessibilityLabel={strings.a11y.backButton}
-                        accessibilityRole="button"
-                    >
-                        <Text style={styles.backButtonText}>{strings.back}</Text>
-                    </TouchableOpacity>
+                    />
 
                     {/* Exercise Header */}
                     <View style={styles.exerciseHeader}>

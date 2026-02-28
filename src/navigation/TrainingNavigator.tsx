@@ -5,12 +5,13 @@ import QuadrantTrainingScreen from '../screens/QuadrantTrainingScreen';
 import SymbolSprintScreen from '../screens/SymbolSprintScreen';
 import FunctionLabScreen from '../screens/FunctionLabScreen';
 import DerivativeTrainerScreen from '../screens/DerivativeTrainerScreen';
+import IntegralTrainerScreen from '../screens/IntegralTrainerScreen';
 
 // ============================================================
 // TYPES
 // ============================================================
 
-type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives';
+type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals';
 
 // ============================================================
 // NAVIGATOR
@@ -23,13 +24,15 @@ const TrainingNavigator: React.FC = () => {
 
     switch (currentScreen) {
         case 'quadrants':
-            return <QuadrantTrainingScreen />;
+            return <QuadrantTrainingScreen onBack={goBack} />;
         case 'symbols':
             return <SymbolSprintScreen onBack={goBack} />;
         case 'functions':
             return <FunctionLabScreen onBack={goBack} />;
         case 'derivatives':
             return <DerivativeTrainerScreen onBack={goBack} />;
+        case 'integrals':
+            return <IntegralTrainerScreen onBack={goBack} />;
         case 'hub':
         default:
             return (
@@ -43,6 +46,8 @@ const TrainingNavigator: React.FC = () => {
                             setCurrentScreen('functions');
                         } else if (id === 'derivatives') {
                             setCurrentScreen('derivatives');
+                        } else if (id === 'integrals') {
+                            setCurrentScreen('integrals');
                         }
                     }}
                 />

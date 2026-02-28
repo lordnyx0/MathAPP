@@ -1,0 +1,111 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "prova-2-algebra-linear",
+    "title": "Prova 2 - Álgebra Linear",
+    "description": "Prova de Álgebra Linear. Prof. Angelo Papa Neto (07/01/2026)",
+    "exercises": [
+        {
+            "id": "p2-al-q1",
+            "topicId": "prova-2-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 1: Operador Linear R2 -> R2",
+            "difficulty": "Intermediário",
+            "problem": "Considere o operador linear $T: \\\\mathbb{R}^2 \\\\to \\\\mathbb{R}^2$, dado por $T(x,y) = (x - y, x - y)$.\n\n(a) Encontre $\\\\ker T$ e $\\\\text{Im } T$.\n(b) Exiba um exemplo de operador linear $T: \\\\mathbb{R}^4 \\\\to \\\\mathbb{R}^4$ tal que $\\\\ker T = \\\\text{Im } T$.\n(c) Existe algum operador linear $T: \\\\mathbb{R}^3 \\\\to \\\\mathbb{R}^3$ tal que $\\\\ker T = \\\\text{Im } T$? Justifique sua resposta.",
+            "finalAnswer": "$\\ker T = \\operatorname{Ger}(1,1)$, $\\text{Im } T = \\operatorname{Ger}(1,1)$. Não existe em $\\mathbb{R}^3$ pois $\\dim \\mathbb{R}^3 = 3$ é ímpar.",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar o Núcleo (ker T)",
+                    "explanation": "O núcleo é o conjunto de vetores que são levados ao vetor nulo.",
+                    "content": "Queremos encontrar $(x,y)$ tal que $T(x,y) = (0,0)$.\nLogo, $(x - y, x - y) = (0,0)$, o que implica $x - y = 0 \\\\Rightarrow x = y$.\nAssim, os vetores do núcleo são da forma $(x,x) = x(1,1)$.\nPortanto, $\\\\ker T$ é gerado pelo vetor $(1,1)$, ou seja, $\\\\ker T = \\\\text{Ger}((1,1))$ e sua dimensão é 1."
+                },
+                {
+                    "title": "Passo 2: Identificar a Imagem (Im T)",
+                    "explanation": "A imagem é o conjunto de todos os vetores obtidos ao aplicar a transformação.",
+                    "content": "Para a imagem, notamos que qualquer vetor $T(x,y) = (x-y, x-y)$ tem coordenadas iguais. Se chamarmos $x-y = a$, os vetores da imagem são da forma $(a,a) = a(1,1)$.\nAssim, a imagem é gerada pelo vetor $(1,1)$, logo $\\\\text{Im } T = \\\\text{Ger}((1,1))$ e sua dimensão é 1."
+                },
+                {
+                    "title": "Passo 3: Exemplo em R4 onde ker T = Im T",
+                    "explanation": "Construir uma transformação em dimensão par onde o núcleo e a imagem coincidem.",
+                    "content": "Basta definir uma transformação que 'desloque' dois vetores da base para o zero, e 'mova' os outros dois vetores da base para as posições dos dois primeiros.\nSeja a base canônica $\\\\{e_1, e_2, e_3, e_4\\\\}$.\nDefinimos $T(e_1) = 0$, $T(e_2) = 0$, $T(e_3) = e_1$, e $T(e_4) = e_2$.\nNa forma de vetor: $T(x, y, z, w) = (z, w, 0, 0)$.\nAqui, $\\\\ker T = \\\\text{Ger}(e_1, e_2)$ e $\\\\text{Im } T = \\\\text{Ger}(e_1, e_2)$, portanto $\\\\ker T = \\\\text{Im } T$."
+                },
+                {
+                    "title": "Passo 4: Analisar a possibilidade em R3",
+                    "explanation": "Aplicar o Teorema do Núcleo e da Imagem para justificar a impossibilidade.",
+                    "content": "Pelo Teorema do Núcleo e da Imagem: $\\\\dim \\\\ker T + \\\\dim \\\\text{Im } T = \\\\dim V$.\nSe existisse tal transformação em $\\\\mathbb{R}^3$, teríamos $\\\\ker T = \\\\text{Im } T$, logo suas dimensões seriam iguais. Chamando essa dimensão de $d$:\n$d + d = 3 \\\\Rightarrow 2d = 3 \\\\Rightarrow d = 1,5$, o que é impossível pois a dimensão deve ser um número inteiro.\nLogo, não existe operador linear em $\\\\mathbb{R}^3$ tal que $\\\\ker T = \\\\text{Im } T$."
+                }
+            ],
+            "tips": [
+                "Lembre-se sempre do Teorema do Núcleo e da Imagem: dim(ker T) + dim(Im T) = dim(V).",
+                "Para transformações $T$ que têm $\\ker T = \\text{Im } T$, a dimensão do espaço vetorial original subjacente deve ser sempre um número par."
+            ]
+        },
+        {
+            "id": "p2-al-q2",
+            "topicId": "prova-2-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 2: Estudo de Matriz 3x3",
+            "difficulty": "Avançado",
+            "problem": "Considere a matriz\n$A = \\\\begin{pmatrix} 0 & 1 & 0 \\\\\\\\ 1 & 0 & 0 \\\\\\\\ -1 & -1 & -1 \\\\end{pmatrix}$\n\n(a) Encontre o polinômio característico de $A$.\n(b) Encontre os autovalores de $A$.\n(c) Encontre os autovetores de $A$.\n(d) Determine, se possível, uma matriz invertível $P$ tal que $P^{-1} \\\\cdot A \\\\cdot P = D$ é uma matriz diagonal.\n(e) Encontre $A^{2026}$.",
+            "finalAnswer": "Autovalores: 1, -1 (mult 2). $A^{2026} = I$ (matriz identidade).",
+            "steps": [
+                {
+                    "title": "Passo 1: Polinômio característico",
+                    "explanation": "Calculamos o determinante de A - tI.",
+                    "content": "$P_A(t) = \\\\det \\\\begin{pmatrix} -t & 1 & 0 \\\\\\\\ 1 & -t & 0 \\\\\\\\ -1 & -1 & -t - 1 \\\\end{pmatrix} = (-t-1)(t^2 - 1) = -(t-1)(t+1)^2$."
+                },
+                {
+                    "title": "Passo 2: Autovalores",
+                    "explanation": "As raízes do polinômio característico são os autovalores.",
+                    "content": "Igualando o polinômio a zero, obtemos $\\\\lambda_1 = 1$, e $\\\\lambda_2 = -1$ (raiz dupla)."
+                },
+                {
+                    "title": "Passo 3: Autovetores",
+                    "explanation": "Para cada autovalor, resolvemos o sistema (A - λI)v = 0.",
+                    "content": "Para $\\\\lambda = 1$:\n$\\\\begin{pmatrix} -1 & 1 & 0 \\\\\\\\ 1 & -1 & 0 \\\\\\\\ -1 & -1 & -2 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} x \\\\\\\\ y \\\\\\\\ z \\\\end{pmatrix} = \\\\begin{pmatrix} 0 \\\\\\\\ 0 \\\\\\\\ 0 \\\\end{pmatrix}$\nObtemos $x = y$ e $-2x - 2z = 0 \\\\Rightarrow z = -x$. Logo, $v_1 = (1, 1, -1)$.\n\nPara $\\\\lambda = -1$:\n$\\\\begin{pmatrix} 1 & 1 & 0 \\\\\\\\ 1 & 1 & 0 \\\\\\\\ -1 & -1 & 0 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} x \\\\\\\\ y \\\\\\\\ z \\\\end{pmatrix} = \\\\begin{pmatrix} 0 \\\\\\\\ 0 \\\\\\\\ 0 \\\\end{pmatrix}$\nObtemos $x = -y$ com $z$ livre. Isso nos dá dois vetores base de autovetores associados: $v_2 = (1, -1, 0)$ e $v_3 = (0, 0, 1)$."
+                },
+                {
+                    "title": "Passo 4: Diagonalização",
+                    "explanation": "Construir a matriz P com os autovetores e a matriz D com os autovalores.",
+                    "content": "A matriz $P$ de mudança de base será:\n$P = \\\\begin{pmatrix} 1 & 1 & 0 \\\\\\\\ 1 & -1 & 0 \\\\\\\\ -1 & 0 & 1 \\\\end{pmatrix}$\n\nA matriz diagonal $D$ será:\n$D = \\\\begin{pmatrix} 1 & 0 & 0 \\\\\\\\ 0 & -1 & 0 \\\\\\\\ 0 & 0 & -1 \\\\end{pmatrix}$"
+                },
+                {
+                    "title": "Passo 5: Encontrar $A^{2026}$",
+                    "explanation": "Usar a relação $A^n = P D^n P^{-1}$.",
+                    "content": "Note que $D^{2026} = \\\\begin{pmatrix} 1^{2026} & 0 & 0 \\\\\\\\ 0 & (-1)^{2026} & 0 \\\\\\\\ 0 & 0 & (-1)^{2026} \\\\end{pmatrix} = \\\\begin{pmatrix} 1 & 0 & 0 \\\\\\\\ 0 & 1 & 0 \\\\\\\\ 0 & 0 & 1 \\\\end{pmatrix} = I$\n\nComo $D^{2026} = I$ (Matriz Identidade), segue que:\n$A^{2026} = P \\\\cdot I \\\\cdot P^{-1} = P \\\\cdot P^{-1} = I$\nLogo, a resposta final é a matriz identidade $I$."
+                }
+            ],
+            "tips": [
+                "A diagonalização é muito útil para calcular potências de matrizes elevadas. Sempre utilize a forma $A^n = P D^n P^{-1}$."
+            ]
+        },
+        {
+            "id": "p2-al-q3",
+            "topicId": "prova-2-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 3: Matriz e Teorema de Cayley-Hamilton",
+            "difficulty": "Intermediário",
+            "problem": "Considere a matriz\n$A = \\\\begin{pmatrix} 1 & 0 & 1 \\\\\\\\ 1 & 0 & 0 \\\\\\\\ 0 & 1 & -1 \\\\end{pmatrix}$\n\n(a) Encontre o polinômio característico de $A$.\n(b) Aplique o Teorema de Cayley-Hamilton para concluir que $A^{-1} = A^2 - I$ e encontre $A^{-1}$.",
+            "finalAnswer": "$P_A(t) = -t^3 + t + 1$. A inversa é $A^{-1} = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & -1 & 1 \\\\ 1 & -1 & 0 \\end{pmatrix}$",
+            "steps": [
+                {
+                    "title": "Passo 1: Polinômio Característico",
+                    "explanation": "Calcular $\\det(A - tI)$.",
+                    "content": "$P_A(t) = \\\\det \\\\begin{pmatrix} 1-t & 0 & 1 \\\\\\\\ 1 & -t & 0 \\\\\\\\ 0 & 1 & -1-t \\\\end{pmatrix}$\n$P_A(t) = (1-t)[(-t)(-1-t) - 0] - 0 + 1(1 - 0) = (1-t)(t^2 + t) + 1 = t^2 + t - t^3 - t^2 + 1 = -t^3 + t + 1$.\nLogo, $P_A(t) = -t^3 + t + 1$."
+                },
+                {
+                    "title": "Passo 2: Teorema de Cayley-Hamilton",
+                    "explanation": "O Teorema afirma que toda matriz quadrada é raiz do seu próprio polinômio característico.",
+                    "content": "Pelo Teorema de Cayley-Hamilton, $P_A(A) = 0$, ou seja:\n$-A^3 + A + I = 0$\nRearrumando os termos:\n$A^3 - A = I \\\\Rightarrow A(A^2 - I) = I$.\nMultiplicando por $A^{-1}$ ambos os lados:\n$A^{-1} \\\\cdot A(A^2 - I) = A^{-1} \\\\cdot I \\\\Rightarrow A^2 - I = A^{-1}$."
+                },
+                {
+                    "title": "Passo 3: Encontrar A oc inversa",
+                    "explanation": "Calcular $A^2 - I$ diretamente.",
+                    "content": "Primeiro, calculamos $A^2$:\n$A^2 = \\\\begin{pmatrix} 1 & 0 & 1 \\\\\\\\ 1 & 0 & 0 \\\\\\\\ 0 & 1 & -1 \\\\end{pmatrix} \\\\cdot \\\\begin{pmatrix} 1 & 0 & 1 \\\\\\\\ 1 & 0 & 0 \\\\\\\\ 0 & 1 & -1 \\\\end{pmatrix} = \\\\begin{pmatrix} 1 & 1 & 0 \\\\\\\\ 1 & 0 & 1 \\\\\\\\ 1 & -1 & 1 \\\\end{pmatrix}$\n\nEntão, subtraímos $I$:\n$A^{-1} = A^2 - I = \\\\begin{pmatrix} 0 & 1 & 0 \\\\\\\\ 1 & -1 & 1 \\\\\\\\ 1 & -1 & 0 \\\\end{pmatrix}$"
+                }
+            ],
+            "tips": [
+                "O Teorema de Cayley-Hamilton provê uma forma muito eficiente de calcular a inversa de matrizes sem usar determinantes e matrizes adjuntas completas."
+            ]
+        }
+    ]
+}

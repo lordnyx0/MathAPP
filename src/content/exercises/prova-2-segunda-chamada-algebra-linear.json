@@ -1,0 +1,95 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "prova-2-segunda-chamada-algebra-linear",
+    "title": "Prova 2 - Segunda Chamada - Álgebra Linear",
+    "description": "Segunda Chamada de Álgebra Linear. Prof. Angelo Papa Neto (10/01/2026)",
+    "exercises": [
+        {
+            "id": "p2-seg-al-q1",
+            "topicId": "prova-2-segunda-chamada-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 1: Operador Linear e Núcleo",
+            "difficulty": "Intermediário",
+            "problem": "Considere o operador linear $T: \\\\mathbb{R}^3 \\\\to \\\\mathbb{R}^3$, dado por $T(x,y,z) = (x - y, y - z, z - x)$.\n\n(a) Encontre a matriz que representa $T$ na base canônica.\n(b) Encontre $\\\\ker T$ e $\\\\text{Im } T$.\n(c) Encontre $\\\\ker(T^2)$, onde $T^2 = T \\\\circ T$.",
+            "finalAnswer": "Matriz com traço zero. Núcleo é igual ao span((1,1,1)). Núcleo de T^2 também é (1,1,1).",
+            "steps": [
+                {
+                    "title": "Passo 1: Matriz na Base Canônica",
+                    "explanation": "Aplicar a base canônica no operador para formar as colunas da matriz.",
+                    "content": "Para $e_1 = (1,0,0)$: $T(1,0,0) = (1, 0, -1)$\nPara $e_2 = (0,1,0)$: $T(0,1,0) = (-1, 1, 0)$\nPara $e_3 = (0,0,1)$: $T(0,0,1) = (0, -1, 1)$\nA matriz $[T]$ é formada por esses vetores dispostos em colunas:\n$[T] = \\\\begin{pmatrix} 1 & -1 & 0 \\\\\\\\ 0 & 1 & -1 \\\\\\\\ -1 & 0 & 1 \\\\end{pmatrix}$"
+                },
+                {
+                    "title": "Passo 2: Núcleo (ker T) e Imagem (Im T)",
+                    "explanation": "Resolver T(x,y,z) = (0,0,0) para o núcleo e determinar a dimensão da imagem.",
+                    "content": "Temos o sistema:\n$x - y = 0 \\\\Rightarrow x = y$\n$y - z = 0 \\\\Rightarrow y = z$\n$z - x = 0$\nLogo, $x = y = z$. Assim, $\\\\ker T = \\\\text{Ger}(1,1,1)$.\nA sua dimensão é 1.\nPelo teorema, $\\\\dim \\\\text{Im } T = 3 - 1 = 2$. As colunas linearmente independentes definem a imagem:\n$\\\\text{Im } T = \\\\text{Ger}((1, 0, -1), (-1, 1, 0))$ (ou seja, o plano $x + y + z = 0$)."
+                },
+                {
+                    "title": "Passo 3: Núcleo de $T^2$",
+                    "explanation": "O núcleo no quadrado de uma transformação pode crescer, ou permanecer igual, dependendo da relação de Im T com ker T.",
+                    "content": "O operador é $T^2(v) = T(T(v))$. Para $v \\\\in \\\\ker(T^2)$, precisamos que $T(v) \\\\in \\\\ker T$.\nA imagem de $T$ são todos os vetores cuja soma das coordenadas é zero ($a+b+c=0$).\nPara que um vetor de $\\\\text{Im } T$ pertença também a $\\\\ker T$, ele precisa ser um múltiplo de $(1,1,1)$.\nSuponha $k(1,1,1)$ na Imagem: $k+k+k = 0 \\\\Rightarrow 3k = 0 \\\\Rightarrow k = 0$.\nLogo, a intersecção de $\\\\ker T$ e $\\\\text{Im } T$ é apenas a origem.\nIsso implica que nenhum vetor fora do núcleo original vai parar nele ao aplicar $T$.\nPortanto, $\\\\ker(T^2) = \\\\ker T = \\\\text{Ger}(1,1,1)$."
+                }
+            ],
+            "tips": [
+                "Essa matriz de $T$ representa uma diferença cíclica. Como a soma dos coeficientes em cada linha da matriz é 0, sabemos de cara que (1,1,1) é vetor próprio do autovalor 0."
+            ]
+        },
+        {
+            "id": "p2-seg-al-q2",
+            "topicId": "prova-2-segunda-chamada-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 2: Estudo da Matriz de Intercâmbio",
+            "difficulty": "Intermediário",
+            "problem": "Considere a matriz\n$A = \\\\begin{pmatrix} 1 & 0 & 0 \\\\\\\\ 0 & 0 & 1 \\\\\\\\ 0 & 1 & 0 \\\\end{pmatrix}$\n\n(a) Encontre o polinômio característico de $A$.\n(b) Encontre os autovalores de $A$.\n(c) Encontre os autovetores de $A$.\n(d) Determine matriz $P$ que diagonaliza $A$.\n(e) Encontre $A^{2026}$.",
+            "finalAnswer": "A própria matriz A é invertível cíclica. $A^2=I$, portanto $A^{2026}=I$.",
+            "steps": [
+                {
+                    "title": "Passo 1: Polinômio característico",
+                    "explanation": "Det(A - tI).",
+                    "content": "$P_A(t) = \\\\det \\\\begin{pmatrix} 1-t & 0 & 0 \\\\\\\\ 0 & -t & 1 \\\\\\\\ 0 & 1 & -t \\\\end{pmatrix} = (1-t) (t^2 - 1) = (1-t)(t-1)(t+1) = -(t-1)^2(t+1)$."
+                },
+                {
+                    "title": "Passo 2: Autovalores",
+                    "explanation": "Raízes do polinômio dado.",
+                    "content": "A matriz $A$ é em blocos, onde o primeiro é unitário ($1$) em $x$, e o segundo permuta $y$ e $z$.\nOs autovalores são as raízes, logo $\\\\lambda_1 = 1$ (com dupla multiplicidade algébrica) e $\\\\lambda_2 = -1$."
+                },
+                {
+                    "title": "Passo 3: Autovetores e a matriz $P$",
+                    "explanation": "Resolvendo para os lambda dados.",
+                    "content": "Para $\\\\lambda = 1$: $y = z$, e $x$ pode ser qualquer valor. Isso gera dois vetores: $v_1 = (1, 0, 0)$ e $v_2 = (0, 1, 1)$.\nPara $\\\\lambda = -1$: $y = -z$ e $x=0$. Isso gera o vetor: $v_3 = (0, -1, 1)$.\n\nA matriz $P$ de mudança será formada por esses três nas colunas, e $D$ será a matriz contendo sua diagonal:\n$P = \\\\begin{pmatrix} 1 & 0 & 0 \\\\\\\\ 0 & 1 & -1 \\\\\\\\ 0 & 1 & 1 \\\\end{pmatrix}$"
+                },
+                {
+                    "title": "Passo 4: Elevando a matriz a potência",
+                    "explanation": "Avaliando A pelas próprias multiplicações nativas de transposição.",
+                    "content": "A matriz A é o operador que faz permutações das componentes $y$ e $z$. Logo, $A(x,y,z) = (x,z,y)$.\nSe realizarmos isso duas vezes: $A^2(x,y,z) = A(x,z,y) = (x,y,z)$.\nDisso tiramos que $A^2$ é a matriz Identidade $I$.\n\nPara $A^{2026}$, temos a quantidade par (pois $2026 = 2 \\\\times 1013$):\n$A^{2026} = (A^2)^{1013} = (I)^{1013} = I$\nA resposta é $I$."
+                }
+            ],
+            "tips": [
+                "Para matrizes de reflexão e permutação, experimente multiplicar a matriz por si mesma antes de tentar o caminho mais longo se os autovalores falharem. Frequentemente $A^2 = I$ e pula todas as etapas!"
+            ]
+        },
+        {
+            "id": "p2-seg-al-q3",
+            "topicId": "prova-2-segunda-chamada-algebra-linear",
+            "category": "Álgebra Linear",
+            "title": "Questão 3: Cayley-Hamilton para Matriz 2x2 com traço nulo",
+            "difficulty": "Avançado",
+            "problem": "A matriz quadrada 2x2:\n$A = \\\\begin{pmatrix} a & b \\\\\\\\ c & d \\\\end{pmatrix}$\nTem traço zero (ou seja $a + d = 0$).\n\n(a) Encontre o polinômio característico de $A$.\n(b) Aplique o Teorema de Cayley-Hamilton para concluir que $A^2$ comuta com todas as matrizes 2x2.",
+            "finalAnswer": "Como d = -a, o polinômio reduz a $t^2 - (ad-bc)$. Cayley-Hamilton prova que $A^2 = (-det A)I$, e logo ela comuta com qualquer outra por ser uma escalar multiplicada da identidade.",
+            "steps": [
+                {
+                    "title": "Passo 1: Polinômio característico e o Traço",
+                    "explanation": "O polinômio da 2x2 é $t^2 - t \\cdot tr(A) + det(A)$.",
+                    "content": "Para a matriz $2 \\\\times 2$, O polinômio sempre pode ser escrito na forma $P_A(t) = t^2 - \\\\text{tr}(A)t + \\\\det(A)$.\nComo dado no enunciado, $\\\\text{tr}(A) = 0$.\nLogo, a equação do polinômio característico vira diretamente:\n$P_A(t) = t^2 + \\\\det(A)$\nOu, substituindo explicitamente:\n$P_A(t) = t^2 + (ad - bc)$."
+                },
+                {
+                    "title": "Passo 2: Teorema e Constante (Comutatividade)",
+                    "explanation": "Teorema de Cayley mostra que A no quadrado gera a matriz escalar.",
+                    "content": "Pelo Teorema de Cayley-Hamilton:\n$P_A(A) = 0 \\\\Rightarrow A^2 + (\\\\det A)I = 0$.\nIsolando $A^2$, tiramos que:\n$A^2 = -(\\\\det A)I$.\n\nSendo o determinante um número (escalar) constante $k$ associado à I,\nentão $A^2 = kI$.\nComo a matriz identidade $I$ (e seus múltiplos escalares $kI$) comutam com absolutely qualquer matriz quadrada de mesma dimensão, segue imediatamente que:\n$(kI)B = B(kI) \\\\Rightarrow A^2 B = B A^2$"
+                }
+            ],
+            "tips": [
+                "Lembre-se sempre de que o polinômio em espaço bivalente (2x2) é sempre governado pela relação: $x^2 - Traço(x) + det = 0$."
+            ]
+        }
+    ]
+}

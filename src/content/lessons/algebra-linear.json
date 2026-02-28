@@ -1,0 +1,78 @@
+{
+    "topic": "algebra-linear",
+    "title": "Álgebra Linear",
+    "lessons": [
+        {
+            "id": "al-1",
+            "title": "1. Núcleo e Imagem de Operadores",
+            "level": "Intermediário",
+            "content": "📌 Transformações Lineares\n\nUma transformação linear $T: V \\to W$ preserva a estrutura de espaço vetorial.\n\n🔹 Núcleo ($\\ker T$):\nÉ o conjunto de todos os vetores $v \\in V$ que são \"zerados\" pela transformação.\n$\\ker T = \\{v \\in V \\mid T(v) = 0\\}$\n\n🔹 Imagem ($\\text{Im } T$):\nÉ o conjunto de todos os vetores $w \\in W$ que são alcançados pela transformação.\n$\\text{Im } T = \\{T(v) \\mid v \\in V\\}$\n\n⚡ Teorema do Núcleo e da Imagem:\nA soma das dimensões do núcleo e da imagem é igual à dimensão do espaço de domínio.\n$\\dim(\\ker T) + \\dim(\\text{Im } T) = \\dim(V)$\n\n💡 O que isso significa?\nSe $\\dim V = 3$ (ímpar), é impossível ter $\\ker T = \\text{Im } T$, pois a soma deveria ser $2 \\cdot d = 3$, e $d$ deve ser inteiro!",
+            "questions": [
+                {
+                    "q": "Se T: ℝ⁴ → ℝ⁴ e dim(ker T) = 1, qual a dimensão da Imagem?",
+                    "a": "3",
+                    "hint": "Use o Teorema: 1 + dim(Im) = 4"
+                },
+                {
+                    "q": "Pode existir T: ℝ⁵ → ℝ⁵ tal que ker T = Im T?",
+                    "a": "não",
+                    "hint": "A dimensão do domínio (5) é ímpar."
+                }
+            ]
+        },
+        {
+            "id": "al-2",
+            "title": "2. Autovalores e Autovetores",
+            "level": "Avançado",
+            "content": "📌 Encontrando os eixos principais\n\nSeja $A$ uma matriz quadrada. Um autovetor $v$ (não nulo) e seu autovalor $\\lambda$ satisfazem:\n$A \\cdot v = \\lambda \\cdot v$\n\n🔹 Polinômio Característico:\nPara encontrar $\\lambda$, calculamos o polinômio característico e igualamos a zero:\n$P_A(\\lambda) = \\det(A - \\lambda I) = 0$\nAs raízes desta equação são os autovalores!\n\n🔹 Como encontrar Autovetores?\nApós achar um $\\lambda$, substituímos no sistema:\n$(A - \\lambda I) \\cdot v = 0$\ne resolvemos para encontrar o vetor $v$.\n\n📝 Matriz Identidade ($I$):\nÉ a matriz com 1 na diagonal principal e 0 no resto.",
+            "questions": [
+                {
+                    "q": "O polinômio característico é calculado achando o determinante de qual matriz?",
+                    "a": "A - λI",
+                    "hint": "det(A - λI) = 0"
+                },
+                {
+                    "q": "Se Av = 3v, qual é o autovalor associado ao vetor v?",
+                    "a": "3",
+                    "hint": "A equação é Av = λv"
+                }
+            ]
+        },
+        {
+            "id": "al-3",
+            "title": "3. Diagonalização de Matrizes",
+            "level": "Avançado",
+            "content": "📌 Simplificando Potências de Matrizes\n\nUma matriz $A$ é diagonalizável se existe uma matriz inversível $P$ e uma matriz diagonal $D$ tais que:\n$A = P \\cdot D \\cdot P^{-1}$\n(ou equivalentemente $P^{-1} \\cdot A \\cdot P = D$)\n\n🔹 Como montar?\n• $D$ contém os **autovalores** na diagonal.\n• $P$ contém os **autovetores** correspondentes nas colunas.\n\n⚡ A Mágica das Potências:\nCalcular $A^{2026}$ diretamente é exaustivo. Mas observe:\n$A^n = P \\cdot D^n \\cdot P^{-1}$\nComo $D$ é diagonal, $D^n$ é apenas elevar cada item da diagonal principal a $n$!\nSe $D$ tiver apenas 1 e -1, sabemos que $1^n = 1$ e $(-1)^{par} = 1$.",
+            "questions": [
+                {
+                    "q": "Na diagonalização A = P D P⁻¹, o que a matriz D contém na sua diagonal?",
+                    "a": "autovalores",
+                    "hint": "D é formada pelos autovalores de A."
+                },
+                {
+                    "q": "Se D é a matriz Identidade I, quanto é D²⁰²⁶?",
+                    "a": "I",
+                    "hint": "I elevado a qualquer potência é I."
+                }
+            ]
+        },
+        {
+            "id": "al-4",
+            "title": "4. Teorema de Cayley-Hamilton",
+            "level": "Avançado",
+            "content": "📌 A Matriz como raiz do próprio polinômio\n\n\"Toda matriz quadrada satisfaz sua própria equação característica.\"\n\nSe o polinômio característico de $A$ é $P_A(t) = -t^3 + t + 1$, então:\n$-A^3 + A + I = 0$\n\n🔹 Utilidade Matadora: Achar Inversas ($A^{-1}$)\nPodemos isolar $I$ na equação!\n$I = A^3 - A$\nFatorando o $A$ do lado direito:\n$I = A(A^2 - I)$\nMultiplicando por $A^{-1}$ nos dois lados, temos:\n$A^{-1} = A^2 - I$\n\nAssim, calculamos a matriz inversa apenas usando multiplicações lineares simples, sem precisar de determinantes ou matriz adjunta!",
+            "questions": [
+                {
+                    "q": "Pelo Teorema de Cayley-Hamilton, o que ocorre quando substituímos a matriz A no seu polinômio característico?",
+                    "a": "0",
+                    "hint": "A matriz zera o polinômio: P(A) = 0"
+                },
+                {
+                    "q": "Se A² - 5A + 2I = 0, podemos isolar 2I como 5A - A². Multiplicando por A⁻¹, quanto é 2A⁻¹?",
+                    "a": "5I - A",
+                    "hint": "A⁻¹(5A - A²) = 5I - A"
+                }
+            ]
+        }
+    ]
+}

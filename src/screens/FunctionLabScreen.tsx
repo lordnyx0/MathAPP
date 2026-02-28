@@ -731,21 +731,23 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                             {/* Function Expression */}
                             <Text style={styles.functionLabel}>f(x) =</Text>
                             <MathText style={styles.functionExpression}>
-                                {fn.expression}
+                                {currentQuestion.type === 'match' && !showResult ? '?' : fn.expression}
                             </MathText>
 
                             {/* Graph */}
-                            <View style={styles.graphContainer}>
-                                <FunctionGraph
-                                    points={fn.graphPoints}
-                                    domainRange={fn.graphDomain}
-                                    imageRange={fn.graphRange}
-                                    width={260}
-                                    height={180}
-                                    highlightDomain={currentQuestion.type === 'domain' || showResult}
-                                    highlightImage={currentQuestion.type === 'image' || showResult}
-                                />
-                            </View>
+                            {(currentQuestion.type !== 'match' || showResult) && (
+                                <View style={styles.graphContainer}>
+                                    <FunctionGraph
+                                        points={fn.graphPoints}
+                                        domainRange={fn.graphDomain}
+                                        imageRange={fn.graphRange}
+                                        width={260}
+                                        height={180}
+                                        highlightDomain={currentQuestion.type === 'domain' || showResult}
+                                        highlightImage={currentQuestion.type === 'image' || showResult}
+                                    />
+                                </View>
+                            )}
 
                             {/* Question */}
                             <Text style={styles.questionText}>{currentQuestion.question}</Text>

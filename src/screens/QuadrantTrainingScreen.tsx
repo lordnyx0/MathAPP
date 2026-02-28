@@ -11,6 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
+import BackButton from '../components/BackButton';
 import QuadrantCircle from '../components/QuadrantCircle';
 import MathText from '../components/MathText';
 import { quadrantQuestions, quadrantInfo, halvesReference, getRandomQuestionNoRepeat, QuadrantQuestion, isIntervalQuestion, isBaseQuestion } from '../data/quadrantQuestions';
@@ -20,7 +21,11 @@ import { showToast } from '../components/Toast';
 import strings from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 
-const QuadrantTrainingScreen = () => {
+interface QuadrantTrainingScreenProps {
+    onBack?: () => void;
+}
+
+const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack }) => {
     const { colors } = useTheme();
     const styles = useMemo(() => createStyles(colors), [colors]);
     const [mode, setMode] = useState<'menu' | 'learn' | 'practice'>('menu');
@@ -136,6 +141,7 @@ const QuadrantTrainingScreen = () => {
                     style={styles.gradient}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
+                        {onBack && <BackButton onPress={onBack} />}
                         <View style={styles.header}>
                             <Text style={styles.headerTitle}>🎯 Treino de Quadrantes</Text>
                             <Text style={styles.headerSubtitle}>Domine o círculo trigonométrico</Text>
@@ -221,14 +227,7 @@ const QuadrantTrainingScreen = () => {
                     style={styles.gradient}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <TouchableOpacity
-                            style={styles.backButton}
-                            onPress={() => setMode('menu')}
-                            accessibilityLabel={strings.a11y.backButton}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.backButtonText}>{strings.back}</Text>
-                        </TouchableOpacity>
+                        <BackButton onPress={() => setMode('menu')} />
 
                         <View style={styles.learnHeader}>
                             <Text style={styles.learnTitle}>📖 Modo Aprendizado</Text>

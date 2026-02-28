@@ -1,21 +1,16 @@
 /**
- * BackButton - Styled back navigation button
- *
- * Consistent back button component for all screens with proper styling
- * and safe area padding for devices with notches/status bars.
+ * BackButton - Styled back navigation button with vector icon
  */
 import React, { useMemo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { spacing, borderRadius, fontSize } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 
 interface BackButtonProps {
-    /** Callback when button is pressed */
     onPress: () => void;
-    /** Optional label (default: "Voltar") */
     label?: string;
-    /** Whether to add extra top padding for status bar */
     withStatusBarPadding?: boolean;
 }
 
@@ -28,7 +23,6 @@ const BackButton: React.FC<BackButtonProps> = ({
     const insets = useSafeAreaInsets();
     const styles = useMemo(() => createStyles(colors), [colors]);
 
-    // Add extra padding on Android for status bar area
     const topPadding = withStatusBarPadding
         ? Math.max(insets.top, Platform.OS === 'android' ? 24 : 0) + spacing.sm
         : spacing.md;
@@ -43,7 +37,7 @@ const BackButton: React.FC<BackButtonProps> = ({
                 accessibilityRole="button"
             >
                 <View style={styles.iconContainer}>
-                    <Text style={styles.icon}>←</Text>
+                    <Ionicons name="chevron-back" size={17} color={colors.textWhite} />
                 </View>
                 <Text style={styles.label}>{label}</Text>
             </TouchableOpacity>
@@ -66,19 +60,16 @@ const createStyles = (colors: ThemeColors) =>
             paddingVertical: spacing.sm,
             paddingHorizontal: spacing.md,
             gap: spacing.xs,
+            borderWidth: 1,
+            borderColor: colors.border,
         },
         iconContainer: {
-            width: 24,
-            height: 24,
-            borderRadius: 12,
+            width: 26,
+            height: 26,
+            borderRadius: 13,
             backgroundColor: colors.primary,
             alignItems: 'center',
             justifyContent: 'center',
-        },
-        icon: {
-            fontSize: 14,
-            fontWeight: '700',
-            color: colors.textWhite,
         },
         label: {
             fontSize: fontSize.sm,
