@@ -71,6 +71,7 @@ math-app/
 - [Adicionar Conteúdo](./docs/ADDING_CONTENT.md)
 - [Componentes](./docs/COMPONENTS.md)
 - [Learning Psychology](./docs/LEARNING_PSYCHOLOGY.md)
+- [QA Audit](./docs/QA_AUDIT_REPORT.md)
 
 ## 🛠️ Tech Stack
 
@@ -84,12 +85,7 @@ math-app/
 
 ## 📊 Status
 
-- ✅ **TypeScript strict mode** habilitado (0 erros)
-- ✅ **48 testes** passando
-- ✅ 10 rounds de code review
-- ✅ 8 melhorias de UI/UX
-- ✅ 5 features de psicologia do aprendizado
-- ✅ Registry pattern para extensibilidade
-- ✅ Type guards para union types
-- ✅ Zero `as any` ou `@ts-ignore`
-
+- ✅ TypeScript strict mode enabled in project configuration
+- ✅ QA audit report maintained in docs (`docs/QA_AUDIT_REPORT.md`)
+- ℹ️ Test pass counts may vary by environment and dependency availability
+- ⚠️ If npm registry access is restricted, run tests in CI or a network-enabled local setup

@@ -7,17 +7,16 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
-    Dimensions,
+    useWindowDimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import type { ComponentProps } from 'react';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 
-const { width } = Dimensions.get('window');
 const CARD_GAP = spacing.md;
 const CARD_PADDING = spacing.lg;
-const CARD_WIDTH = (width - CARD_PADDING * 2 - CARD_GAP) / 2;
 
 // ============================================================
 // TYPES
@@ -25,15 +24,28 @@ const CARD_WIDTH = (width - CARD_PADDING * 2 - CARD_GAP) / 2;
 
 type MinigameId = 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals';
 
-interface Minigame {
-    id: MinigameId;
-    name: string;
-    description: string;
-    gradient: readonly [string, string];
-    iconLib: 'ion' | 'mci';
-    iconName: string;
-    tag: string;
-}
+type IoniconName = ComponentProps<typeof Ionicons>['name'];
+type MciIconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
+
+type Minigame =
+    | {
+        id: MinigameId;
+        name: string;
+        description: string;
+        gradient: readonly [string, string];
+        iconLib: 'ion';
+        iconName: IoniconName;
+        tag: string;
+    }
+    | {
+        id: MinigameId;
+        name: string;
+        description: string;
+        gradient: readonly [string, string];
+        iconLib: 'mci';
+        iconName: MciIconName;
+        tag: string;
+    };
 
 interface TrainingHubScreenProps {
     onSelectMinigame: (id: MinigameId) => void;
@@ -98,14 +110,16 @@ const minigames: Minigame[] = [
 interface MinigameCardProps {
     game: Minigame;
     onPress: () => void;
+    cardWidth: number;
+    compact?: boolean;
 }
 
-const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress }) => {
+const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress, cardWidth, compact = false }) => {
     const { colors } = useTheme();
 
     return (
         <TouchableOpacity
-            style={[styles.card, { width: CARD_WIDTH }]}
+            style={[styles.card, { width: cardWidth }]}
             onPress={onPress}
             activeOpacity={0.85}
             accessibilityLabel={`Jogar ${game.name}`}
@@ -114,32 +128,32 @@ const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress }) => {
             {/* Gradient banner */}
             <LinearGradient
                 colors={game.gradient}
-                style={styles.cardBanner}
+                style={[styles.cardBanner, compact && styles.cardBannerCompact]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
             >
                 {game.iconLib === 'ion' ? (
-                    <Ionicons name={game.iconName as any} size={34} color="rgba(255,255,255,0.95)" />
+                    <Ionicons name={game.iconName} size={34} color="rgba(255,255,255,0.95)" />
                 ) : (
-                    <MaterialCommunityIcons name={game.iconName as any} size={34} color="rgba(255,255,255,0.95)" />
+                    <MaterialCommunityIcons name={game.iconName} size={34} color="rgba(255,255,255,0.95)" />
                 )}
             </LinearGradient>
 
             {/* Card body */}
-            <View style={[styles.cardBody, { backgroundColor: colors.surface }]}>
+            <View style={[styles.cardBody, compact && styles.cardBodyCompact, { backgroundColor: colors.surface }]}>
                 {/* Tag */}
                 <View style={[styles.tagChip, { backgroundColor: game.gradient[0] + '18' }]}>
                     <Text style={[styles.tagText, { color: game.gradient[0] }]}>{game.tag}</Text>
                 </View>
 
-                <Text style={[styles.cardName, { color: colors.textPrimary }]}>{game.name}</Text>
-                <Text style={[styles.cardDesc, { color: colors.textSecondary }]} numberOfLines={2}>
+                <Text style={[styles.cardName, compact && styles.cardNameCompact, { color: colors.textPrimary }]}>{game.name}</Text>
+                <Text style={[styles.cardDesc, compact && styles.cardDescCompact, { color: colors.textSecondary }]} numberOfLines={compact ? 3 : 2}>
                     {game.description}
                 </Text>
 
                 {/* Play row */}
                 <View style={styles.playRow}>
-                    <Text style={[styles.playText, { color: game.gradient[0] }]}>Jogar</Text>
+                    <Text style={[styles.playText, compact && styles.playTextCompact, { color: game.gradient[0] }]}>Jogar</Text>
                     <Ionicons name="chevron-forward" size={14} color={game.gradient[0]} />
                 </View>
             </View>
@@ -154,6 +168,11 @@ const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress }) => {
 const TrainingHubScreen: React.FC<TrainingHubScreenProps> = ({ onSelectMinigame }) => {
     const { colors } = useTheme();
     const styles2 = useMemo(() => createPageStyles(colors), [colors]);
+    const { width } = useWindowDimensions();
+    const isCompact = width < 360;
+    const cardWidth = isCompact
+        ? width - CARD_PADDING * 2
+        : (width - CARD_PADDING * 2 - CARD_GAP) / 2;
 
     return (
         <SafeAreaView style={styles2.container}>
@@ -176,12 +195,14 @@ const TrainingHubScreen: React.FC<TrainingHubScreenProps> = ({ onSelectMinigame 
                     </View>
 
                     {/* Minigame Grid */}
-                    <View style={styles2.grid}>
+                    <View style={[styles2.grid, isCompact && styles2.gridCompact]}>
                         {minigames.map((game) => (
                             <MinigameCard
                                 key={game.id}
                                 game={game}
                                 onPress={() => onSelectMinigame(game.id)}
+                                cardWidth={cardWidth}
+                                compact={isCompact}
                             />
                         ))}
                     </View>
@@ -209,8 +230,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    cardBannerCompact: {
+        height: 80,
+    },
     cardBody: {
         padding: spacing.md,
+    },
+    cardBodyCompact: {
+        padding: spacing.sm,
     },
     tagChip: {
         alignSelf: 'flex-start',
@@ -229,10 +256,17 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         marginBottom: 2,
     },
+    cardNameCompact: {
+        fontSize: fontSize.sm,
+    },
     cardDesc: {
         fontSize: fontSize.xs,
         lineHeight: 16,
         marginBottom: spacing.sm,
+    },
+    cardDescCompact: {
+        lineHeight: 14,
+        marginBottom: spacing.xs,
     },
     playRow: {
         flexDirection: 'row',
@@ -242,6 +276,9 @@ const styles = StyleSheet.create({
     playText: {
         fontSize: fontSize.sm,
         fontWeight: '700',
+    },
+    playTextCompact: {
+        fontSize: fontSize.xs,
     },
 });
 
@@ -290,6 +327,9 @@ const createPageStyles = (colors: import('../contexts/ThemeContext').ThemeColors
             flexWrap: 'wrap',
             paddingHorizontal: CARD_PADDING,
             gap: CARD_GAP,
+        },
+        gridCompact: {
+            flexDirection: 'column',
         },
         bottomPadding: {
             height: 100,

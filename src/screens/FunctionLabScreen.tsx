@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
+import { domainsAreEquivalent } from '../utils/domainUtils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import MathText from '../components/MathText';
@@ -174,17 +175,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
 
         setBuildDomainShowResult(true);
 
-        // Robust domain comparison with normalization
-        const normalizeDomain = (s: string): string => {
-            return s
-                .replace(/\s+/g, '')        // Remove spaces
-                .replace(/R/g, 'ℝ')          // R -> ℝ
-                .replace(/inf/gi, '∞')       // inf -> ∞
-                .replace(/\+-∞/g, '+∞')     // Fix +- to +
-                .replace(/-\+∞/g, '-∞')     // Fix -+ to -
-                .toLowerCase();
-        };
-        const isCorrect = normalizeDomain(builtDomainString) === normalizeDomain(buildDomainFunction.domain);
+        const isCorrect = domainsAreEquivalent(builtDomainString, buildDomainFunction.domain);
 
         if (isCorrect) {
             const points = 20 + streak * 5; // Higher points for construction

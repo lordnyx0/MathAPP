@@ -83,9 +83,12 @@ const parseNumeric = (str: string, originalStr: string = str): number | null => 
     const fractionValue = fractionToDecimal(str);
     if (fractionValue !== null) return fractionValue;
 
-    // Try as regular number
-    const num = parseFloat(str);
-    if (!isNaN(num)) return num;
+    // Try as regular number (strict full-string parse)
+    const numericPattern = /^[-+]?((\d+(\.\d+)?)|(\.\d+))$/;
+    if (numericPattern.test(str)) {
+        const num = Number(str);
+        if (Number.isFinite(num)) return num;
+    }
 
     return null;
 };

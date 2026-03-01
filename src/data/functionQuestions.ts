@@ -357,6 +357,10 @@ export const getRandomFunction = (() => {
         if (buildableOnly) {
             filtered = filtered.filter(f => BUILDABLE_DOMAINS.includes(f.domain));
         }
+        if (filtered.length === 0) {
+            filtered = mathFunctions;
+        }
+
         let index: number;
         do {
             index = Math.floor(Math.random() * filtered.length);

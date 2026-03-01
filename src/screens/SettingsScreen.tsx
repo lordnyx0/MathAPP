@@ -1,5 +1,5 @@
 // Settings Screen - Appearance and Data management
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, type ComponentProps } from 'react';
 import {
     View,
     Text,
@@ -24,7 +24,7 @@ const SettingsScreen = () => {
     const [isResetting, setIsResetting] = useState(false);
 
     // Theme options for picker
-    const themeOptions = [
+    const themeOptions: Array<{ id: ThemeType; label: string; icon: ComponentProps<typeof Ionicons>['name']; swatch: string }> = [
         { id: THEMES.LIGHT, label: strings.settings.themes.light, icon: 'sunny', swatch: '#6366F1' },
         { id: THEMES.DARK, label: strings.settings.themes.dark, icon: 'moon', swatch: '#818CF8' },
         { id: THEMES.OLED, label: strings.settings.themes.oled, icon: 'phone-portrait', swatch: '#A78BFA' },
@@ -195,7 +195,7 @@ const SettingsScreen = () => {
                                         <View style={[styles.themeSwatch, { backgroundColor: option.swatch }]} />
                                         <View style={styles.themeOptionContent}>
                                             <Ionicons
-                                                name={option.icon as any}
+                                                name={option.icon}
                                                 size={16}
                                                 color={isSelected ? colors.primary : colors.textTertiary}
                                             />

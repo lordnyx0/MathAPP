@@ -379,6 +379,7 @@ export const generateFunction = (
             exponential: generateExponential,
             logarithmic: generateLogarithmic,
             trigonometric: generateTrigonometric,
+            absolute: generateAbsolute,
         };
         return generators[functionType]?.() || generateLinear();
     }
