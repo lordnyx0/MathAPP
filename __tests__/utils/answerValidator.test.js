@@ -87,6 +87,11 @@ describe('Answer Validator', () => {
                 expect(compareAnswers('3.14', '3.2')).toBe(false);
             });
 
+            it('should reject malformed numeric strings', () => {
+                expect(compareAnswers('2abc', '2')).toBe(false);
+                expect(compareAnswers('3.14xyz', '3.14')).toBe(false);
+            });
+
             it('should use relative tolerance for large numbers', () => {
                 expect(compareAnswers('1000', '1001')).toBe(true); // 0.1% diff
                 expect(compareAnswers('1000', '1050')).toBe(false); // 5% diff

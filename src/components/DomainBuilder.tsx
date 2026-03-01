@@ -19,6 +19,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { spacing, borderRadius, fontSize } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
+import { domainsAreEquivalent } from '../utils/domainUtils';
 
 // ============================================================
 // TYPES
@@ -135,21 +136,53 @@ const selectionToDomainString = (selection: DomainSelection): string => {
  * Normalizes domain string for comparison.
  * Handles variations like "R" vs "ℝ", spaces, etc.
  */
-const normalizeDomain = (domain: string): string => {
-    return domain
-        .replace(/\s+/g, '')
-        .replace(/R/g, 'ℝ')
-        .replace(/inf/gi, '∞')
-        .replace(/\+-∞/g, '+∞')
-        .replace(/-\+∞/g, '-∞')
-        .toLowerCase();
-};
+const domainsMatch = (userDomain: string, correctDomain: string): boolean =>
+    domainsAreEquivalent(userDomain, correctDomain);
 
 /**
- * Checks if user's domain matches the correct domain.
+ * Basic validation to avoid contradictory domain selections.
  */
-const domainsMatch = (userDomain: string, correctDomain: string): boolean => {
-    return normalizeDomain(userDomain) === normalizeDomain(correctDomain);
+const sanitizeSelection = (selection: DomainSelection): DomainSelection => {
+    const next = { ...selection };
+
+    // Explicitly enforce finite/half-line combinations to avoid empty/contradictory intervals.
+    const validByLeftBound: Record<BoundType, BoundType[]> = {
+        negInf: ['negative', 'zero', 'posInf'],
+        zero: ['zero', 'posInf'],
+        positive: ['posInf'],
+        negative: ['negative', 'zero', 'posInf'],
+        posInf: ['posInf'],
+    };
+
+    if (!validByLeftBound[next.leftBound].includes(next.rightBound)) {
+        next.rightBound = next.leftBound === 'negInf' ? 'zero' : 'posInf';
+    }
+
+    // Infinite bounds are always open.
+    if (next.leftBound === 'negInf') next.leftBracket = 'open';
+    if (next.rightBound === 'posInf') next.rightBracket = 'open';
+
+    // Any strict sign bound around zero is open by definition.
+    if (next.leftBound === 'positive') next.leftBracket = 'open';
+    if (next.rightBound === 'negative') next.rightBracket = 'open';
+
+    // (0,0), [0,0), (0,0] are empty. Keep only singleton {0} when both bounds are zero.
+    if (next.leftBound === 'zero' && next.rightBound === 'zero') {
+        next.leftBracket = 'closed';
+        next.rightBracket = 'closed';
+    }
+
+    // Excluding zero is meaningless if the interval already excludes it by construction.
+    if (
+        next.leftBound === 'positive' ||
+        next.rightBound === 'negative' ||
+        next.leftBound === 'zero' ||
+        next.rightBound === 'zero'
+    ) {
+        next.excludeZero = false;
+    }
+
+    return next;
 };
 
 // ============================================================
@@ -184,7 +217,7 @@ const DomainBuilder: React.FC<DomainBuilderProps> = ({
         (updates: Partial<DomainSelection>) => {
             if (disabled) return;
 
-            const newSelection = { ...selection, ...updates };
+            const newSelection = sanitizeSelection({ ...selection, ...updates });
 
             // Auto-adjust brackets for infinity bounds
             if (updates.leftBound === 'negInf') {
@@ -436,10 +469,12 @@ const createStyles = (colors: ThemeColors) =>
         },
         selectorOptions: {
             flexDirection: 'row',
+            flexWrap: 'wrap',
             gap: spacing.sm,
         },
         selectorButton: {
-            flex: 1,
+            flexGrow: 1,
+            flexBasis: 84,
             paddingVertical: spacing.sm,
             paddingHorizontal: spacing.md,
             borderRadius: borderRadius.md,
@@ -473,10 +508,12 @@ const createStyles = (colors: ThemeColors) =>
         },
         bracketOptions: {
             flexDirection: 'row',
+            flexWrap: 'wrap',
             gap: spacing.sm,
         },
         bracketButton: {
-            flex: 1,
+            flexGrow: 1,
+            flexBasis: 120,
             paddingVertical: spacing.sm,
             borderRadius: borderRadius.md,
             borderWidth: 1,

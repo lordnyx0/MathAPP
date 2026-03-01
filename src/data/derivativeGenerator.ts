@@ -2,10 +2,9 @@
  * Procedural Derivative Generator
  * 
  * Generates derivative questions with randomized parameters to prevent
- * pattern memorization. Uses mathjs for symbolic differentiation.
+ * pattern memorization with randomized parameters.
  */
 
-import { derivative, parse, simplify } from 'mathjs';
 import {
     DerivativeQuestion,
     DerivativeRuleType,
@@ -37,74 +36,6 @@ const toSuperscript = (n: number): string => {
         '-': '⁻',
     };
     return String(n).split('').map(c => superscripts[c] || c).join('');
-};
-
-/**
- * Format mathjs output to display-friendly math notation
- * Converts things like x^2 to x², 2*x to 2x, etc.
- */
-const formatMathExpression = (expr: string): string => {
-    let formatted = expr;
-
-    // Handle x^n → xⁿ
-    formatted = formatted.replace(/x\^(\d+)/g, (_, exp) => `x${toSuperscript(parseInt(exp))}`);
-    formatted = formatted.replace(/\(x\)\^(\d+)/g, (_, exp) => `x${toSuperscript(parseInt(exp))}`);
-
-    // Handle e^(n*x) → eⁿˣ
-    formatted = formatted.replace(/exp\((\d+)\s*\*\s*x\)/g, (_, n) => `e${toSuperscript(parseInt(n))}ˣ`);
-    formatted = formatted.replace(/exp\(x\s*\*\s*(\d+)\)/g, (_, n) => `e${toSuperscript(parseInt(n))}ˣ`);
-    formatted = formatted.replace(/exp\(x\)/g, 'eˣ');
-
-    // Handle n * x → nx and x * n → nx (for coefficients)
-    formatted = formatted.replace(/(\d+)\s*\*\s*x(?!\^)/g, '$1x');
-    formatted = formatted.replace(/x\s*\*\s*(\d+)(?!\^)/g, '$1x');
-
-    // Handle parentheses multiplication: (...) * x → (...)x
-    formatted = formatted.replace(/\)\s*\*\s*x(?!\^)/g, ')x');
-
-    // Clean up: a * b → a·b (but keep coefficient * variable clean)
-    formatted = formatted.replace(/(\d)\s*\*\s*(\d)/g, '$1·$2');
-
-    // Handle negative signs: - 1 * → -
-    formatted = formatted.replace(/-\s*1\s*\*\s*/g, '-');
-    formatted = formatted.replace(/\+\s*-/g, '- ');
-
-    // Clean up coefficient * trig/log
-    formatted = formatted.replace(/(\d+)\s*\*\s*(sin|cos|tan|ln|log)/g, '$1$2');
-
-    // Handle cos^2, sin^2 etc → cos²
-    formatted = formatted.replace(/(sin|cos|tan|sec)\^2\(([^)]+)\)/g, '$1²($2)');
-
-    // Handle 1 / x → 1/x
-    formatted = formatted.replace(/1\s*\/\s*x/g, '1/x');
-    formatted = formatted.replace(/(\d+)\s*\/\s*x/g, '$1/x');
-
-    // Clean up spaces
-    formatted = formatted.replace(/\s+/g, ' ').trim();
-
-    return formatted;
-};
-
-/**
- * Format a mathjs expression for display (input function)
- */
-const formatFunction = (expr: string): string => {
-    return formatMathExpression(expr);
-};
-
-/**
- * Calculate derivative using mathjs and format for display
- */
-const calculateDerivative = (expr: string): string => {
-    try {
-        const node = parse(expr);
-        const derivativeNode = derivative(node, 'x');
-        const simplified = simplify(derivativeNode);
-        return formatMathExpression(simplified.toString());
-    } catch (error) {
-        console.error('Derivative calculation error:', expr, error);
-        return '?';
-    }
 };
 
 /**
@@ -574,67 +505,119 @@ export const generateRandomQuestion = (
  * Generate plausible wrong answers for a question
  * Creates distractors that look similar but are mathematically wrong
  */
+
+const wrapIfNeeded = (expr: string): string => {
+    return /[\s+\-]/.test(expr) ? `(${expr})` : expr;
+};
+
+const multiplyExpression = (expr: string, factor: number): string => {
+    if (factor === 1) return expr;
+    return `${factor}${wrapIfNeeded(expr)}`;
+};
+
+const invertSign = (expr: string): string => {
+    if (expr.startsWith('-')) return expr.slice(1);
+    return `-${expr}`;
+};
+
+const mutatePowerExponent = (expr: string): string => {
+    const superscriptDigits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+    const match = expr.match(new RegExp(`[${superscriptDigits}]+$`));
+    if (!match) return `${expr}²`;
+    const current = match[0];
+    const options = ['¹', '²', '³', '⁴', '⁵'].filter(v => v !== current);
+    return expr.replace(new RegExp(`${current}$`), randomChoice(options));
+};
+
 export const generateWrongAnswers = (
     correct: DerivativeQuestion,
     count: number = 3
 ): string[] => {
     const wrongAnswers: Set<string> = new Set();
-
-    // Strategy: Generate variations based on common mistakes
     const correctDeriv = correct.derivative;
 
-    // Parse components from correct answer for generating similar wrongs
     const addDistractor = (distractor: string) => {
-        if (distractor !== correctDeriv && distractor.length > 0) {
-            wrongAnswers.add(distractor);
+        const cleaned = distractor.trim();
+        if (cleaned && cleaned !== correctDeriv) {
+            wrongAnswers.add(cleaned);
         }
     };
 
-    // Common mistake patterns based on rule type
     switch (correct.rule) {
+        case 'constant':
+            addDistractor('1');
+            addDistractor('-1');
+            addDistractor('x');
+            break;
+
         case 'power':
-            // Wrong coefficient or exponent
-            addDistractor(correctDeriv.replace(/^\d+/, m => String(parseInt(m) + 1)));
+            addDistractor(mutatePowerExponent(correctDeriv));
             addDistractor(correctDeriv.replace(/^\d+/, m => String(Math.max(1, parseInt(m) - 1))));
-            addDistractor(correctDeriv.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+$/, m => toSuperscript(randomInt(1, 5))));
+            addDistractor(correctDeriv.replace(/^\d+/, m => String(parseInt(m) + 1)));
+            break;
+
+        case 'sum':
+            addDistractor(correctDeriv.replace(' + ', ' - '));
+            addDistractor(correctDeriv.replace(' - ', ' + '));
+            addDistractor(invertSign(correctDeriv));
             break;
 
         case 'sin':
-            // Forgot negative, wrong trig
             addDistractor(correctDeriv.replace('cos', 'sin'));
-            addDistractor('-' + correctDeriv);
+            addDistractor(invertSign(correctDeriv));
             addDistractor(correctDeriv.replace(/^\d+/, m => String(parseInt(m) + 1)));
             break;
 
         case 'cos':
-            // Forgot negative, wrong trig
             addDistractor(correctDeriv.replace('-', ''));
             addDistractor(correctDeriv.replace('sin', 'cos'));
             addDistractor(correctDeriv.replace(/\d+/, m => String(parseInt(m) + 1)));
             break;
 
+        case 'tan':
+            addDistractor('sec(x)');
+            addDistractor('tan(x)');
+            addDistractor('cos²(x)');
+            break;
+
         case 'exp':
-            // Wrong coefficient
-            addDistractor(correctDeriv.replace(/^\d+/, m => String(parseInt(m) * 2)));
-            addDistractor(correctDeriv.replace(/^\d+/, m => String(Math.max(1, parseInt(m) - 1))));
-            addDistractor('e' + correctDeriv.slice(1)); // Remove coefficient
+            addDistractor(multiplyExpression(correctDeriv, 2));
+            addDistractor(multiplyExpression(correctDeriv, 3));
+            if (/^\d+/.test(correctDeriv)) {
+                addDistractor(correctDeriv.replace(/^\d+/, ''));
+            }
             break;
 
         case 'ln':
-            // Common ln mistakes
             addDistractor('1/x²');
             addDistractor('x');
             addDistractor('ln(x)');
             break;
 
+        case 'chain':
+            addDistractor(invertSign(correctDeriv));
+            addDistractor(`${wrapIfNeeded(correctDeriv)} + 1`);
+            addDistractor(multiplyExpression(correctDeriv, 2));
+            break;
+
+        case 'product':
+            addDistractor(correctDeriv.replace(' + ', '·'));
+            addDistractor(invertSign(correctDeriv));
+            addDistractor(`${wrapIfNeeded(correctDeriv)} + 1`);
+            break;
+
+        case 'quotient':
+            addDistractor(correctDeriv.replace('/', '·'));
+            addDistractor(invertSign(correctDeriv));
+            addDistractor(`${wrapIfNeeded(correctDeriv)} + 1`);
+            break;
+
         default:
-            // Generate similar-looking expressions
-            addDistractor(correctDeriv + ' + 1');
-            addDistractor('2' + correctDeriv);
-            addDistractor(correctDeriv.replace(/\d/, m => String((parseInt(m) || 1) + 1)));
+            addDistractor(invertSign(correctDeriv));
+            addDistractor(multiplyExpression(correctDeriv, 2));
+            addDistractor(`${wrapIfNeeded(correctDeriv)} + 1`);
     }
 
-    // If we don't have enough, generate more from other rules
     while (wrongAnswers.size < count) {
         const randomQ = generateRandomQuestion();
         if (randomQ.derivative !== correctDeriv) {

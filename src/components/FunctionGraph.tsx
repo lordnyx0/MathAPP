@@ -48,24 +48,25 @@ const FunctionGraph: React.FC<FunctionGraphProps> = ({
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
 
+    const [xMin, xMax] = domainRange;
+    const [yMin, yMax] = imageRange;
+    const safeXSpan = xMax - xMin === 0 ? 1 : (xMax - xMin);
+    const safeYSpan = yMax - yMin === 0 ? 1 : (yMax - yMin);
+
     // Scale functions
     const xScale = useMemo(() => {
-        const [xMin, xMax] = domainRange;
-        return (x: number) => padding.left + ((x - xMin) / (xMax - xMin)) * graphWidth;
-    }, [domainRange, graphWidth, padding.left]);
+        return (x: number) => padding.left + ((x - xMin) / safeXSpan) * graphWidth;
+    }, [xMin, safeXSpan, graphWidth, padding.left]);
 
     const yScale = useMemo(() => {
-        const [yMin, yMax] = imageRange;
-        return (y: number) => padding.top + graphHeight - ((y - yMin) / (yMax - yMin)) * graphHeight;
-    }, [imageRange, graphHeight, padding.top]);
+        return (y: number) => padding.top + graphHeight - ((y - yMin) / safeYSpan) * graphHeight;
+    }, [yMin, safeYSpan, graphHeight, padding.top]);
 
     // Generate SVG path from points
     const pathData = useMemo(() => {
         if (points.length === 0) return '';
 
         const validPoints = points.filter(p => {
-            const [xMin, xMax] = domainRange;
-            const [yMin, yMax] = imageRange;
             return p.x >= xMin && p.x <= xMax && p.y >= yMin && p.y <= yMax;
         });
 
@@ -93,11 +94,8 @@ const FunctionGraph: React.FC<FunctionGraphProps> = ({
     const gridLines = useMemo(() => {
         const lines: { x1: number; y1: number; x2: number; y2: number; label?: string; isVertical: boolean }[] = [];
 
-        const [xMin, xMax] = domainRange;
-        const [yMin, yMax] = imageRange;
-
         // Vertical grid lines
-        const xStep = (xMax - xMin) / 4;
+        const xStep = safeXSpan / 4;
         for (let x = xMin; x <= xMax; x += xStep) {
             lines.push({
                 x1: xScale(x),
@@ -110,7 +108,7 @@ const FunctionGraph: React.FC<FunctionGraphProps> = ({
         }
 
         // Horizontal grid lines
-        const yStep = (yMax - yMin) / 4;
+        const yStep = safeYSpan / 4;
         for (let y = yMin; y <= yMax; y += yStep) {
             lines.push({
                 x1: padding.left,
@@ -123,7 +121,7 @@ const FunctionGraph: React.FC<FunctionGraphProps> = ({
         }
 
         return lines;
-    }, [domainRange, imageRange, xScale, yScale, graphWidth, graphHeight, padding]);
+    }, [xMin, xMax, yMin, yMax, safeXSpan, safeYSpan, xScale, yScale, graphWidth, graphHeight, padding]);
 
     // Origin position
     const originX = xScale(0);

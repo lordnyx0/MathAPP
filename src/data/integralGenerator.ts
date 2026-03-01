@@ -219,6 +219,16 @@ export const generateRandomQuestion = (
     return generatorsByRule[selectedRule]();
 };
 
+
+const stripConstantTerm = (expr: string): string => expr.replace(/\s*\+\s*C\s*$/, '');
+
+const flipLeadingSign = (expr: string): string => {
+    if (expr.startsWith('-')) return expr.slice(1);
+    return `-${expr}`;
+};
+
+const withConstant = (expr: string): string => `${stripConstantTerm(expr)} + C`;
+
 export const generateWrongAnswers = (
     correct: IntegralQuestion,
     count: number = 3
@@ -227,34 +237,54 @@ export const generateWrongAnswers = (
     const correctIntegral = correct.integral;
 
     const addDistractor = (distractor: string) => {
-        if (distractor !== correctIntegral && distractor.length > 0) {
-            wrongAnswers.add(distractor);
+        const cleaned = distractor.trim();
+        if (cleaned && cleaned !== correctIntegral) {
+            wrongAnswers.add(cleaned);
         }
     };
 
     switch (correct.rule) {
+        case 'constant':
+            addDistractor(withConstant(flipLeadingSign(correctIntegral)));
+            addDistractor(withConstant('x'));
+            addDistractor(stripConstantTerm(correctIntegral));
+            break;
+
         case 'power':
-            // Forgot +1 on exponent, or forgot to divide
-            addDistractor(correctIntegral.replace(/\/[1-9]+/, ''));
-            addDistractor(correctIntegral.replace('+', '-'));
+            // Typical errors: forget divide-by-new-exponent, sign flip, omit integration constant
+            addDistractor(stripConstantTerm(correctIntegral));
+            addDistractor(withConstant(flipLeadingSign(correctIntegral)));
+            addDistractor(withConstant(stripConstantTerm(correctIntegral).replace(/\/(\d+)/, '/1')));
             break;
+
         case 'sin':
-            addDistractor(correctIntegral.replace('-cos', 'cos'));
-            addDistractor(correctIntegral.replace('-cos', 'sin'));
+            addDistractor(withConstant(correctIntegral.replace('-cos', 'cos')));
+            addDistractor(withConstant(correctIntegral.replace('-cos', 'sin')));
+            addDistractor(stripConstantTerm(correctIntegral));
             break;
+
         case 'cos':
-            addDistractor(correctIntegral.replace('sin', '-sin'));
-            addDistractor(correctIntegral.replace('sin', '-cos'));
+            addDistractor(withConstant(correctIntegral.replace('sin', '-sin')));
+            addDistractor(withConstant(correctIntegral.replace('sin', '-cos')));
+            addDistractor(stripConstantTerm(correctIntegral));
             break;
+
         case 'inverse':
             addDistractor('1/x² + C');
             addDistractor('x + C');
+            addDistractor('ln|x|');
             break;
+
         case 'exp':
             addDistractor('xeˣ + C');
+            addDistractor(withConstant(flipLeadingSign(correctIntegral)));
+            addDistractor(stripConstantTerm(correctIntegral));
             break;
+
         default:
-            addDistractor(correctIntegral.replace(' + C', ''));
+            addDistractor(stripConstantTerm(correctIntegral));
+            addDistractor(withConstant(flipLeadingSign(correctIntegral)));
+            addDistractor(withConstant('0'));
     }
 
     while (wrongAnswers.size < count) {
