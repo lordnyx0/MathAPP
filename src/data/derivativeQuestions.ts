@@ -320,11 +320,11 @@ export const derivativeQuestions: DerivativeQuestion[] = [
     },
     {
         id: 'chain3',
-        function: 'e²ˣ',
-        derivative: '2e²ˣ',
+        function: 'e^(2x)',
+        derivative: '2e^(2x)',
         rule: 'chain',
         difficulty: 'avancado',
-        explanation: 'd/dx[e²ˣ] = e²ˣ·d/dx[2x] = e²ˣ·2 = 2e²ˣ',
+        explanation: 'd/dx[e^(2x)] = e^(2x)·d/dx[2x] = e^(2x)·2 = 2e^(2x)',
     },
     {
         id: 'chain4',

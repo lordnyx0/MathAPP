@@ -86,7 +86,7 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
     };
 
     const checkAnswer = (answer: number | 'eixo') => {
-        if (!currentQuestion) return;
+        if (!currentQuestion || showResult) return;
 
         setSelectedAnswer(answer);
         setShowResult(true);
@@ -288,6 +288,8 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
 
     // Practice Mode
     if (!currentQuestion) return null;
+    const isCurrentAnswerCorrect = selectedAnswer === currentQuestion.quadrant ||
+        (currentQuestion.quadrant === 'eixo' && selectedAnswer === 'eixo');
 
     return (
         <SafeAreaView style={styles.container}>
@@ -385,15 +387,14 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                         <View style={styles.resultContainer}>
                             {/* Result */}
                             <View style={[
-                                styles.resultBox,
-                                {
-                                    backgroundColor: selectedAnswer === currentQuestion.quadrant ||
-                                        (currentQuestion.quadrant === 'eixo' && selectedAnswer === 'eixo')
+                                    styles.resultBox,
+                                    {
+                                        backgroundColor: isCurrentAnswerCorrect
                                         ? colors.successLight : colors.errorLight
-                                }
-                            ]}>
+                                    }
+                                ]}>
                                 <Text style={styles.resultIcon}>
-                                    {selectedAnswer === currentQuestion.quadrant ? '✓ Correto!' : '✗ Incorreto'}
+                                    {isCurrentAnswerCorrect ? '✓ Correto!' : '✗ Incorreto'}
                                 </Text>
                                 <MathText style={styles.resultExplanation}>{getExplanation()}</MathText>
                             </View>
@@ -791,4 +792,3 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
 });
 
 export default QuadrantTrainingScreen;
-
