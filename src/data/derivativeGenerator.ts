@@ -39,6 +39,17 @@ const toSuperscript = (n: number): string => {
 };
 
 /**
+ * Format polynomial term coefficient*x^exp (without showing x¹)
+ */
+const formatPowerTerm = (coefficient: number, exponent: number): string => {
+    if (exponent === 0) return `${coefficient}`;
+    if (exponent === 1) return coefficient === 1 ? 'x' : `${coefficient}x`;
+    return coefficient === 1
+        ? `x${toSuperscript(exponent)}`
+        : `${coefficient}x${toSuperscript(exponent)}`;
+};
+
+/**
  * Generate explanation for a derivative
  */
 const generateExplanation = (
@@ -186,11 +197,11 @@ export const generateExpQuestion = (): DerivativeQuestion => {
     if (a === 1 && b === 1) {
         funcDisplay = 'eˣ';
     } else if (a === 1) {
-        funcDisplay = `e${toSuperscript(b)}ˣ`;
+        funcDisplay = `e^(${b}x)`;
     } else if (b === 1) {
         funcDisplay = `${a}eˣ`;
     } else {
-        funcDisplay = `${a}e${toSuperscript(b)}ˣ`;
+        funcDisplay = `${a}e^(${b}x)`;
     }
 
     const derivCoeff = a * b;
@@ -199,8 +210,8 @@ export const generateExpQuestion = (): DerivativeQuestion => {
         derivDisplay = derivCoeff === 1 ? 'eˣ' : `${derivCoeff}eˣ`;
     } else {
         derivDisplay = derivCoeff === 1
-            ? `e${toSuperscript(b)}ˣ`
-            : `${derivCoeff}e${toSuperscript(b)}ˣ`;
+            ? `e^(${b}x)`
+            : `${derivCoeff}e^(${b}x)`;
     }
 
     return {
@@ -300,21 +311,21 @@ export const generateChainQuestion = (): DerivativeQuestion => {
         () => {
             const n = randomInt(2, 4);
             const func = `sin(x${toSuperscript(n)})`;
-            const deriv = `${n}x${toSuperscript(n - 1)}cos(x${toSuperscript(n)})`;
+            const deriv = `${formatPowerTerm(n, n - 1)}cos(x${toSuperscript(n)})`;
             return { func, deriv };
         },
         // cos(x^n)
         () => {
             const n = randomInt(2, 4);
             const func = `cos(x${toSuperscript(n)})`;
-            const deriv = `-${n}x${toSuperscript(n - 1)}sin(x${toSuperscript(n)})`;
+            const deriv = `-${formatPowerTerm(n, n - 1)}sin(x${toSuperscript(n)})`;
             return { func, deriv };
         },
         // e^(x^n)
         () => {
             const n = randomInt(2, 3);
             const func = `e^(x${toSuperscript(n)})`;
-            const deriv = `${n}x${toSuperscript(n - 1)}·e^(x${toSuperscript(n)})`;
+            const deriv = `${formatPowerTerm(n, n - 1)}·e^(x${toSuperscript(n)})`;
             return { func, deriv };
         },
         // ln(x^n) - simplifies nicely
