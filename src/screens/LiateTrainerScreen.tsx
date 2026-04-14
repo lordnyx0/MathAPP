@@ -231,7 +231,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                         style={[styles.inputBox, selectedPhase2Target === 'du' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('du')}
                                     >
-                                        {duInput ? <MathText style={styles.inputText}>du = {duInput}</MathText> : <Text style={styles.placeholderText}>Selecione $du$</Text>}
+                                        {duInput ? <MathText style={styles.inputText}>du = {duInput}</MathText> : <MathText style={styles.placeholderText}>Selecione $du$</MathText>}
                                     </TouchableOpacity>
                                 </View>
 
@@ -241,7 +241,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                         style={[styles.inputBox, selectedPhase2Target === 'v' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('v')}
                                     >
-                                        {vInput ? <MathText style={styles.inputText}>v = {vInput}</MathText> : <Text style={styles.placeholderText}>Selecione $v$</Text>}
+                                        {vInput ? <MathText style={styles.inputText}>v = {vInput}</MathText> : <MathText style={styles.placeholderText}>Selecione $v$</MathText>}
                                     </TouchableOpacity>
                                 </View>
                             </View>

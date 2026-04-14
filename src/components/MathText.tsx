@@ -93,8 +93,11 @@ export const latexToUnicode = (text: string): string => {
     // Handle \log
     result = result.replace(/\\log/g, 'log');
 
-    // Handle \frac{a}{b} -> a/b (simplified)
-    result = result.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1/$2)');
+    // Handle \sqrt{a} -> √a
+    result = result.replace(/\\sqrt\{([^}]+)\}/g, '√($1)');
+
+    // Handle \frac{a}{b} -> (a)/(b) (simplified)
+    result = result.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
 
     // Remove remaining $ delimiters
     result = result.replace(/\$/g, '');
@@ -108,6 +111,7 @@ interface MathTextProps {
     size?: MathTextSize;
     color?: string;
     style?: StyleProp<TextStyle>;
+    numberOfLines?: number;
 }
 
 /**
@@ -119,6 +123,7 @@ const MathText: React.FC<MathTextProps> = ({
     size = 'normal',
     color,
     style,
+    numberOfLines,
 }) => {
     const { colors } = useTheme();
     const textColor = color || colors.textPrimary;
@@ -167,7 +172,7 @@ const MathText: React.FC<MathTextProps> = ({
                         const parts = paragraph.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
 
                         return (
-                            <Text key={index} style={[styles.text, sizeStyle, { color: textColor, marginVertical: 2, flexWrap: 'wrap' }]}>
+                            <Text key={index} numberOfLines={numberOfLines} style={[styles.text, sizeStyle, { color: textColor, marginVertical: 2, flexWrap: 'wrap' }]}>
                                 {parts.map((part, i) => {
                                     if (part.startsWith('$$') && part.endsWith('$$')) {
                                         // O replace converte o double-escape oriundo do JSON (\\) para single-escape (\) pro KaTeX
@@ -224,7 +229,7 @@ const MathText: React.FC<MathTextProps> = ({
     const text = latexToUnicode(rawString);
 
     return (
-        <Text style={[styles.text, sizeStyle, { color: textColor }, style]}>
+        <Text numberOfLines={numberOfLines} style={[styles.text, sizeStyle, { color: textColor }, style]}>
             {text}
         </Text>
     );

@@ -43,9 +43,9 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isRevealed, onToggle, 
                     </View>
                     <View style={styles.headerText}>
                         <MathText style={styles.stepTitle}>{step.title}</MathText>
-                        <Text style={styles.stepExplanation} numberOfLines={isRevealed ? undefined : 2}>
+                        <MathText style={styles.stepExplanation} numberOfLines={isRevealed ? undefined : 2}>
                             {step.explanation}
-                        </Text>
+                        </MathText>
                     </View>
                 </View>
                 <Text style={styles.chevron}>{isRevealed ? '▼' : '▶'}</Text>

@@ -6,7 +6,7 @@
             "id": "c2-l1-tvm",
             "title": "1. Teorema do Valor Médio (TVM)",
             "level": "Intermediário",
-            "content": "📌 **Conceito Principal**\n\nO Teorema do Valor Médio (TVM) garante que, para qualquer função contínua em $[a, b]$ e derivável em $(a, b)$, existe pelo menos um ponto $c \\\\in (a, b)$ onde a taxa de variação instantânea (derivada) iguala a taxa de variação média do intervalo.\n\nFórmula:\n$$ f(b) - f(a) = f'(c)(b - a) $$\n\nGeometricamente, isso significa que existe um ponto na curva onde a reta tangente é **paralela** à reta secante que liga os pontos extremos $(a, f(a))$ e $(b, f(b))$.\n\n📝 **Exemplo: Por que não se aplica ao módulo?**\nA função $f(x) = |x|$ falha no TVM no intervalo $[-1, 2]$ porque ela apresenta um \"bico\" em $x = 0$, não sendo derivável neste ponto. O TVM exige derivabilidade em todo o intervalo aberto $(a, b)$.",
+            "content": "📌 **Conceito Principal**\n\nO Teorema do Valor Médio (TVM) garante que, para qualquer função contínua em $[a, b]$ e derivável em $(a, b)$, existe pelo menos um ponto $c \\in (a, b)$ onde a taxa de variação instantânea (derivada) iguala a taxa de variação média do intervalo.\n\nFórmula:\n$$ f(b) - f(a) = f'(c)(b - a) $$\n\nGeometricamente, isso significa que existe um ponto na curva onde a reta tangente é **paralela** à reta secante que liga os pontos extremos $(a, f(a))$ e $(b, f(b))$.\n\n📝 **Exemplo: Por que não se aplica ao módulo?**\nA função $f(x) = |x|$ falha no TVM no intervalo $[-1, 2]$ porque ela apresenta um \"bico\" em $x = 0$, não sendo derivável neste ponto. O TVM exige derivabilidade em todo o intervalo aberto $(a, b)$.",
             "questions": [
                 {
                     "q": "Geometricamente, o que o TVM nos diz sobre as retas tangente e secante?",
@@ -32,7 +32,7 @@
             "id": "c2-l1-cinematica",
             "title": "3. Primitivas na Cinemática",
             "level": "Intermediário",
-            "content": "📌 **Do Cálculo para a Física**\n\nSabemos que a velocidade $v(t)$ é a derivada da posição $s(t)$, e a aceleração $a(t)$ é a derivada da velocidade.\nLogo, usar primitivas significa fazer o caminho inverso:\n\n1. Integrar a aceleração nos dá a velocidade: $\\\\int a(t) dt = v(t)$\n2. Integrar a velocidade nos dá a posição: $\\\\int v(t) dt = s(t)$\n\n📝 **Atenção às Constantes**\nAo integrar, sempre ganhamos uma constante de integração $+C$. Na física, essas constantes geralmente representam as **condições iniciais**: a posição inicial $s_{0}$ ou a velocidade inicial $v_{0}$.\nIsso comprova a formação exata do raciocínio físico sem assumir decorar fórmulas!",
+            "content": "📌 **Do Cálculo para a Física**\n\nSabemos que a velocidade $v(t)$ é a derivada da posição $s(t)$, e a aceleração $a(t)$ é a derivada da velocidade.\nLogo, usar primitivas significa fazer o caminho inverso:\n\n1. Integrar a aceleração nos dá a velocidade: $\\int a(t) dt = v(t)$\n2. Integrar a velocidade nos dá a posição: $\\int v(t) dt = s(t)$\n\n📝 **Atenção às Constantes**\nAo integrar, sempre ganhamos uma constante de integração $+C$. Na física, essas constantes geralmente representam as **condições iniciais**: a posição inicial $s_{0}$ ou a velocidade inicial $v_{0}$.\nIsso comprova a formação exata do raciocínio físico sem assumir decorar fórmulas!",
             "questions": [
                 {
                     "q": "Se conhecemos a velocidade e calculamos a integral (primitiva), o que encontramos?",
@@ -45,11 +45,11 @@
             "id": "c2-l1-partes",
             "title": "4. Integração por Partes",
             "level": "Intermediário",
-            "content": "📌 **A Regra do Produto Invertida**\n\nAssim como a substituição desfaz a Regra da Cadeia, a Integração por Partes desfaz a **Regra do Produto** das derivadas.\nEla é útil quando temos o produto de duas funções distintas (como $x \\\\cdot \\\\ln(x)$ ou $x \\\\cdot e^x$).\n\nFórmula clássica:\n$$ \\\\int u \\\\, dv = u \\\\cdot v - \\\\int v \\\\, du $$\n\n📝 **A Regra LIATE**\nPara escolher quem será o **$u$** (a função que será derivada) e quem será o **$dv$** (a função que será integrada), siga a prioridade LIATE:\n- **L**ogarítmicas (ex: $\\\\ln x$)\n- **I**nversas trigonométricas (ex: $\\\\arcsin x$)\n- **A**lgébricas (ex: $x^2, 3x$)\n- **T**rigonométricas (ex: $\\\\sin x$)\n- **E**xponenciais (ex: $e^x$)",
+            "content": "📌 **A Regra do Produto Invertida**\n\nAssim como a substituição desfaz a Regra da Cadeia, a Integração por Partes desfaz a **Regra do Produto** das derivadas.\nEla é útil quando temos o produto de duas funções distintas (como $x \\cdot \\ln(x)$ ou $x \\cdot e^x$).\n\nFórmula clássica:\n$$ \\int u \\, dv = u \\cdot v - \\int v \\, du $$\n\n📝 **A Regra LIATE**\nPara escolher quem será o **$u$** (a função que será derivada) e quem será o **$dv$** (a função que será integrada), siga a prioridade LIATE:\n- **L**ogarítmicas (ex: $\\ln x$)\n- **I**nversas trigonométricas (ex: $\\arcsin x$)\n- **A**lgébricas (ex: $x^2, 3x$)\n- **T**rigonométricas (ex: $\\sin x$)\n- **E**xponenciais (ex: $e^x$)",
             "questions": [
                 {
-                    "q": "Na integral de $x \\\\cdot \\\\ln(x)$, segundo LIATE, quem deverá ser nosso $u$?",
-                    "a": "O logaritmo natural $\\\\ln(x)$.",
+                    "q": "Na integral de $x \\cdot \\ln(x)$, segundo LIATE, quem deverá ser nosso $u$?",
+                    "a": "O logaritmo natural $\\ln(x)$.",
                     "hint": "A primeira letra de LIATE é L."
                 }
             ]
@@ -58,11 +58,11 @@
             "id": "c2-l1-arcotangente",
             "title": "5. A Integral do Arco Tangente",
             "level": "Avançado",
-            "content": "📌 **O Padrão das Frações Quadráticas**\n\nMuitas integrais por substituição terminam em uma fração com uma soma de quadrados no denominador levando à função **Arco Tangente**.\nIsto se sustenta pela propriedade genérica de derivadas trigonométricas inversas:\n\nComo consequência, sempre que você mapear a primitiva para esse formato fundamental, terá:\n$$ \\\\int \\\\frac{du}{a^2 + u^2} = \\\\frac{1}{a} \\\\arctan\\\\left(\\\\frac{u}{a}\\\\right) + C $$\n\n📝 **Exemplo Prático**\nSeja a integral de $\\\\frac{\\\\cos(x)}{1+\\\\sin^2(x)}$.\nAdotando $u = \\\\sin(x)$, temos que o numerador é exatamente $du$, transformando a integral perfeitamente em $\\\\int \\\\frac{du}{1+u^2}$, o que garante a conversão direta em $\\\\arctan(\\\\sin x) + C$!",
+            "content": "📌 **O Padrão das Frações Quadráticas**\n\nMuitas integrais por substituição terminam em uma fração com uma soma de quadrados no denominador levando à função **Arco Tangente**.\nIsto se sustenta pela propriedade genérica de derivadas trigonométricas inversas:\n\nComo consequência, sempre que você mapear a primitiva para esse formato fundamental, terá:\n$$ \\int \\frac{du}{a^2 + u^2} = \\frac{1}{a} \\arctan\\left(\\frac{u}{a}\\right) + C $$\n\n📝 **Exemplo Prático**\nSeja a integral de $\\frac{\\cos(x)}{1+\\sin^2(x)}$.\nAdotando $u = \\sin(x)$, temos que o numerador é exatamente $du$, transformando a integral perfeitamente em $\\int \\frac{du}{1+u^2}$, o que garante a conversão direta em $\\arctan(\\sin x) + C$!",
             "questions": [
                 {
                     "q": "Qual é a primitiva de $1/(1+x^2)$?",
-                    "a": "$\\\\arctan(x) + C$",
+                    "a": "$\\arctan(x) + C$",
                     "hint": "Use a propriedade clássica em que $a = 1$."
                 }
             ]
@@ -71,11 +71,11 @@
             "id": "c2-l1-reducao",
             "title": "6. Fórmulas de Redução e Casos Cíclicos",
             "level": "Avançado",
-            "content": "📌 **O Efeito Rebote na Integração**\n\nMuitas vezes, integrar uma função aplicando a técnica Por Partes não a simplifica de imediato, mas **retorna à integral original** (Integrais Cíclicas) ou cai em uma potência inferior da mesma função matemática (Fórmulas de Redução).\n\n📝 **Exemplo Cíclico: As Gêmeas $e^x \\\\sin(x)$**\nQuando tentamos integrar a Exponencial com um Seno, após rodar Partes duas vezes, voltamos a ter a expressão da Integral original.\nA sacada? Você não vai entrar num loop infinito! Você **soma a integral no outro lado da equação algébrica**, como num jogo de álgebra polinomial normal.",
+            "content": "📌 **O Efeito Rebote na Integração**\n\nMuitas vezes, integrar uma função aplicando a técnica Por Partes não a simplifica de imediato, mas **retorna à integral original** (Integrais Cíclicas) ou cai em uma potência inferior da mesma função matemática (Fórmulas de Redução).\n\n📝 **Exemplo Cíclico: As Gêmeas $e^x \\sin(x)$**\nQuando tentamos integrar a Exponencial com um Seno, após rodar Partes duas vezes, voltamos a ter a expressão da Integral original.\nA sacada? Você não vai entrar num loop infinito! Você **soma a integral no outro lado da equação algébrica**, como num jogo de álgebra polinomial normal.",
             "questions": [
                 {
-                    "q": "Se fazendo integrais por partes acharmos a equação $I = e^x \\\\sin(x) - e^x \\\\cos(x) - I$, qual é a saída?",
-                    "a": "$2I = e^x \\\\sin(x) - e^x \\\\cos(x)$, logo passamos o 2 dividindo.",
+                    "q": "Se fazendo integrais por partes acharmos a equação $I = e^x \\sin(x) - e^x \\cos(x) - I$, qual é a saída?",
+                    "a": "$2I = e^x \\sin(x) - e^x \\cos(x)$, logo passamos o 2 dividindo.",
                     "hint": "Trate o Símbolo I como se fosse uma variável X qualquer."
                 }
             ]
@@ -84,10 +84,10 @@
             "id": "c2-l1-substituicao",
             "title": "7. Substituição Simples (Regra da Cadeia Inversa)",
             "level": "Intermediário",
-            "content": "📌 **O Coração do Cálculo II**\n\nMuitas integrais parecem impossíveis porque são o resultado de uma Regra da Cadeia que já foi executada.\nA técnica de Substituição (ou Mudança de Variável) consiste em escolher uma parte da função para chamar de $u$, de forma que a **derivada dela** ($du$) esteja presente flutuando no resto da integral.\n\nFórmula base:\n$$ \\\\int f(g(x)) \\\\cdot g'(x) dx = \\\\int f(u) du $$\n\n📝 **Exemplo Prático**\nNa integral $\\\\int 2x \\\\cos(x^2) dx$, perceba o padrão perfeito: a derivada de $x^2$ é justamente $2x$!\nFazendo $u = x^2$, ganhamos de brinde que $du = 2x dx$. A integral monstruosa inteira afunila para a sua forma primal $\\\\int \\\\cos(u) du$, que é de tabela (literalmente $\\\\sin(u)$)!",
+            "content": "📌 **O Coração do Cálculo II**\n\nMuitas integrais parecem impossíveis porque são o resultado de uma Regra da Cadeia que já foi executada.\nA técnica de Substituição (ou Mudança de Variável) consiste em escolher uma parte da função para chamar de $u$, de forma que a **derivada dela** ($du$) esteja presente flutuando no resto da integral.\n\nFórmula base:\n$$ \\int f(g(x)) \\cdot g'(x) dx = \\int f(u) du $$\n\n📝 **Exemplo Prático**\nNa integral $\\int 2x \\cos(x^2) dx$, perceba o padrão perfeito: a derivada de $x^2$ é justamente $2x$!\nFazendo $u = x^2$, ganhamos de brinde que $du = 2x dx$. A integral monstruosa inteira afunila para a sua forma primal $\\int \\cos(u) du$, que é de tabela (literalmente $\\sin(u)$)!",
             "questions": [
                 {
-                    "q": "Ao resolver $\\\\int 2x \\\\cos(x^2) dx$ usando $u=x^2$, o que ocorre com o termo '2x dx' visível na tela?",
+                    "q": "Ao resolver $\\int 2x \\cos(x^2) dx$ usando $u=x^2$, o que ocorre com o termo '2x dx' visível na tela?",
                     "a": "Ele se comprime inteiramente para formar o diferencial matemático simples $du$.",
                     "hint": "Olhe o próprio valor da derivada do $u$."
                 }
@@ -97,10 +97,10 @@
             "id": "c2-l1-werner",
             "title": "8. Identidades de Werner (Prostaférese)",
             "level": "Avançado",
-            "content": "📌 **Quebrando o Produto Trigonométrico**\n\nÉ matematicamente impossível integrar linearmente o produto de duas funções trigonométricas com argumentos distintos, como $\\\\sin(3x) \\\\cdot \\\\cos(5x)$. Para salvar nossa pele, recorremos às **Fórmulas de Prostaférese (Werner)**, que transformam esse produto em uma Subtração/Adição que pode ser integrada separadamente!\n\nAs três leis que você precisa ter no bolso:\n1. Misto: $\\\\sin(A)\\\\cos(B) = \\\\frac{1}{2}[\\\\sin(A+B) + \\\\sin(A-B)]$\n2. Duplo Cosseno: $\\\\cos(A)\\\\cos(B) = \\\\frac{1}{2}[\\\\cos(A+B) + \\\\cos(A-B)]$\n3. Duplo Seno: $\\\\sin(A)\\\\sin(B) = \\\\frac{1}{2}[\\\\cos(A-B) - \\\\cos(A+B)]$\n\nLembre-se que o Cosseno \"engole\" negativos devido a ser Função Par: $\\\\cos(-x) = \\\\cos(x)$. Mas o Seno cospe: $\\\\sin(-x) = -\\\\sin(x)$.",
+            "content": "📌 **Quebrando o Produto Trigonométrico**\n\nÉ matematicamente impossível integrar linearmente o produto de duas funções trigonométricas com argumentos distintos, como $\\sin(3x) \\cdot \\cos(5x)$. Para salvar nossa pele, recorremos às **Fórmulas de Prostaférese (Werner)**, que transformam esse produto em uma Subtração/Adição que pode ser integrada separadamente!\n\nAs três leis que você precisa ter no bolso:\n1. Misto: $\\sin(A)\\cos(B) = \\frac{1}{2}[\\sin(A+B) + \\sin(A-B)]$\n2. Duplo Cosseno: $\\cos(A)\\cos(B) = \\frac{1}{2}[\\cos(A+B) + \\cos(A-B)]$\n3. Duplo Seno: $\\sin(A)\\sin(B) = \\frac{1}{2}[\\cos(A-B) - \\cos(A+B)]$\n\nLembre-se que o Cosseno \"engole\" negativos devido a ser Função Par: $\\cos(-x) = \\cos(x)$. Mas o Seno cospe: $\\sin(-x) = -\\sin(x)$.",
             "questions": [
                 {
-                    "q": "Se tivermos $\\\\cos(A) \\\\cdot \\\\cos(B)$, o Teorema de Werner transforma isso numa soma de quais funções?",
+                    "q": "Se tivermos $\\cos(A) \\cdot \\cos(B)$, o Teorema de Werner transforma isso numa soma de quais funções?",
                     "a": "Em uma soma de Cossenos, dividida por 2.",
                     "hint": "As funções iguais não produzem senos residuais no Teorema 2."
                 }
