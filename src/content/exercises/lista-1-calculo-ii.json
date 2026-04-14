@@ -106,6 +106,355 @@
             "tips": [
                 "O denominador frequentemente hospeda o melhor $u$ se você conseguir encontrar suas derivadas perdidas no numerador."
             ]
+        },
+        {
+            "id": "c2-e4-pvi",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Equações Diferenciais",
+            "title": "Q4: Problema de Valor Inicial",
+            "difficulty": "Básico",
+            "problem": "Determine a função $y = f(x)$, sabendo que as derivadas formam a equação $\\\\frac{dy}{dx} = 3x - 1$ e que a condição inicial é $y(0) = 2$.",
+            "finalAnswer": "$y(x) = \\\\frac{3x^2}{2} - x + 2$",
+            "steps": [
+                {
+                    "title": "Passo 1: Separar os Diferenciais",
+                    "explanation": "Colocar $y$ de um lado e $x$ do outro.",
+                    "content": "$\\\\frac{dy}{dx} = 3x - 1$\nIsolando $dy$:\n$dy = (3x - 1) dx$"
+                },
+                {
+                    "title": "Passo 2: Integrar os Lados",
+                    "explanation": "Aplicar a integral para recuperar $y$.",
+                    "content": "$\\\\int dy = \\\\int (3x - 1) dx$\n$y = \\\\int 3x dx - \\\\int 1 dx$\n$y = 3\\\\frac{x^2}{2} - x + C$"
+                },
+                {
+                    "title": "Passo 3: Aplicar Condição Inicial (PVI)",
+                    "explanation": "Substituir $x=0$ e $y=2$ para encontrar a Constante.",
+                    "content": "$y(0) = 2$\n$2 = \\\\frac{3(0)^2}{2} - 0 + C$\n$C = 2$"
+                },
+                {
+                    "title": "Passo 4: Finalizar",
+                    "explanation": "Montar a resposta explícita substituindo C.",
+                    "content": "Voltando à equação geral:\n$y(x) = \\\\frac{3x^2}{2} - x + 2$ ✓"
+                }
+            ],
+            "tips": [
+                "Lembre-se que $\\\\int dy = y$, que é basicamente a integral da constante 1 em relação à y."
+            ]
+        },
+        {
+            "id": "c2-e5-partes",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Integração por Partes",
+            "title": "Q5: Logaritmo por Partes",
+            "difficulty": "Avançado",
+            "problem": "Calcule a integral indefinida $\\\\int \\\\ln(x) dx$.",
+            "finalAnswer": "$x\\\\ln(x) - x + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Usar Ocultamento",
+                    "explanation": "Na ausência de produto explícito, multiplicamos por 1.",
+                    "content": "Podemos ver a integral de $\\\\ln(x)$ como um produto:\n$\\\\int \\\\ln(x) \\\\cdot 1 \\\\, dx$"
+                },
+                {
+                    "title": "Passo 2: Definir Padrão LIATE",
+                    "explanation": "Escolher $u$ e $dv$.",
+                    "content": "Pelo Padrão LIATE, Logaritmo vem antes de Polinômica (o 1 é algébrico/polinômio de grau 0).\n$u = \\\\ln(x) \\\\implies du = \\\\frac{1}{x} dx$\n$dv = 1 dx \\\\implies v = x$"
+                },
+                {
+                    "title": "Passo 3: Aplicar a Regra de Partes",
+                    "explanation": "Substituir em $\\\\int u \\\\, dv = uv - \\\\int v \\\\, du$.",
+                    "content": "$\\\\int \\\\ln(x) dx = \\\\ln(x) \\\\cdot x - \\\\int x \\\\cdot \\\\frac{1}{x} dx$\nReorganizando:\n$x \\\\ln(x) - \\\\int 1 dx$"
+                },
+                {
+                    "title": "Passo 4: Resolver e Finalizar",
+                    "explanation": "Integrar a forma residual.",
+                    "content": "$\\\\int 1 dx = x$\n\nSubstituindo de volta:\n$x \\\\ln(x) - x + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Sempre que não houver integração natural pra uma função isolada, tente empurrar o '1' pra ser o $dv$."
+            ]
+        },
+        {
+            "id": "c2-e6-arcotangente",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Substituições Trigonométricas",
+            "title": "Q6: Fracionamento Trigonométrico",
+            "difficulty": "Intermediário",
+            "problem": "Calcule usando as substituições ensinadas a integral $\\\\int \\\\frac{\\\\cos(x)}{1 + \\\\sin^2(x)} dx$.",
+            "finalAnswer": "$\\\\arctan(\\\\sin x) + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Ancorar o Diferencial",
+                    "explanation": "Notar a derivada da variável compondo o numerador.",
+                    "content": "O $1+\\\\sin^2(x)$ no denominador sugere usar a identidade de inverso trigonométrico.\nSendo $u = \\\\sin(x)$, temos perfeitamente:\n$du = \\\\cos(x) dx$"
+                },
+                {
+                    "title": "Passo 2: Reorganizar no padrão de Arctan",
+                    "explanation": "Substituir tudo e evidenciar a regra clássica.",
+                    "content": "Dado que $\\\\cos(x) dx = du$,  isso engole o numerador inteiro.\nFica: $\\\\int \\\\frac{du}{1 + u^2}$"
+                },
+                {
+                    "title": "Passo 3: Integração Canônica",
+                    "explanation": "Recuperar a regra da Tabela de Integrais.",
+                    "content": "Pela regra: $\\\\int \\\\frac{1}{1+x^2} dx = \\\\arctan(x)$\n$\\\\int \\\\frac{du}{1 + u^2} = \\\\arctan(u) + C$"
+                },
+                {
+                    "title": "Passo 4: Voltar à Variável Original",
+                    "explanation": "Substituir $u$ de volta pelo Seno.",
+                    "content": "Deixando de usar $u$:\n$\\\\arctan(\\\\sin(x)) + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Essas reestruturações diretas que caem em Tabelas Primárias não precisam expandir cálculo matricial se você decorar as inversas trigonométricas clássicas como $1/(1+x^2)$."
+            ]
+        },
+        {
+            "id": "c2-e7-prostaferese",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Métodos de Integração",
+            "title": "Q7: Integração com Cargas Diferentes",
+            "difficulty": "Avançado",
+            "problem": "Calcule aplicando a identidade de Prostaférese: $\\\\int \\\\sin(6x)\\\\cos(x) dx$",
+            "finalAnswer": "$-\\\\frac{1}{14}\\\\cos(7x) - \\\\frac{1}{10}\\\\cos(5x) + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Desconstrução de Valores",
+                    "explanation": "Usar Prostaférese que transforma o produto seno e cosseno em uma soma.",
+                    "content": "Fórmula: $\\\\sin(A)\\\\cos(B) = \\\\frac{1}{2}\\\\left[ \\\\sin(A+B) + \\\\sin(A-B) \\\\right]$\n\nAplicando com $A = 6x$ e $B = x$:\n$\\\\sin(6x)\\\\cos(x) = \\\\frac{1}{2}\\\\left[ \\\\sin(6x+x) + \\\\sin(6x-x) \\\\right]$\n$= \\\\frac{1}{2}\\\\left[ \\\\sin(7x) + \\\\sin(5x) \\\\right]$"
+                },
+                {
+                    "title": "Passo 2: Integrar a Soma",
+                    "explanation": "Retornar os termos expandidos para o construto da Integral.",
+                    "content": "$\\\\int \\\\left( \\\\frac{1}{2}[\\\\sin(7x) + \\\\sin(5x)] \\\\right) dx$\nTirando a constante:\n$= \\\\frac{1}{2} \\\\left( \\\\int \\\\sin(7x) dx + \\\\int \\\\sin(5x) dx \\\\right)$"
+                },
+                {
+                    "title": "Passo 3: Mapear Regras de Múltiplos",
+                    "explanation": "A Integral de $\\\\sin(mx)$ é $-\\\\frac{\\\\cos(mx)}{m}$.",
+                    "content": "$\\\\int \\\\sin(7x) dx = -\\\\frac{\\\\cos(7x)}{7}$\n$\\\\int \\\\sin(5x) dx = -\\\\frac{\\\\cos(5x)}{5}$"
+                },
+                {
+                    "title": "Passo 4: Construir Vetor Final",
+                    "explanation": "Juntar as frações num passo final distribuindo o $1/2$.",
+                    "content": "Voltando com os termos agrupados:\n$= \\\\frac{1}{2} \\\\left( -\\\\frac{\\\\cos(7x)}{7} - \\\\frac{\\\\cos(5x)}{5} \\\\right) + C$\n$= -\\\\frac{1}{14}\\\\cos(7x) - \\\\frac{1}{10}\\\\cos(5x) + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Na seção 12.8 do Guidorizzi, esta técnica é sempre obrigatória quando o argumento linear angular de seno e cosseno difere entre os fatores!"
+            ]
+        },
+        {
+            "id": "c2-e8-potencias-prova",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Integrais Fundamentais",
+            "title": "Q8: A Prova Eterna do Tombo",
+            "difficulty": "Básico",
+            "problem": "Mostre filosoficamente derivando, que a integral indefinida de $\\\\int x^n dx$ precisa ser de fato $\\\\frac{x^{n+1}}{n+1} + C$, com $n \\\\neq -1$.",
+            "finalAnswer": "Provado formalmente revertendo à função primária.",
+            "steps": [
+                {
+                    "title": "Passo 1: Entender a Correlação Primitiva",
+                    "explanation": "Pela definição de Primitiva, a derivada da resposta tem que voltar pra pergunta.",
+                    "content": "Se $\\\\int x^n dx = F(x)$, então obrigatoriamente $F'(x) = x^n$.\nSe afirmamos que $F(x) = \\\\frac{x^{n+1}}{n+1} + C$, precisamos usar a derivada."
+                },
+                {
+                    "title": "Passo 2: Derivar e Checar (Regra do Tombo)",
+                    "explanation": "Faça o expoente descer multiplicando.",
+                    "content": "$F'(x) = \\\\frac{d}{dx} \\\\left[ \\\\frac{x^{n+1}}{n+1} + C \\\\right]$\nDesce o $(n+1)$ e diminui $1$:\n$F'(x) = \\\\frac{n+1}{n+1} x^{(n+1)-1} + 0$"
+                },
+                {
+                    "title": "Passo 3: Cancelamentos Naturais",
+                    "explanation": "Corte as frações geradas pra demonstrar o argumento.",
+                    "content": "$F'(x) = 1 \\\\cdot x^n$\n$F'(x) = x^n$\nDessa forma se prova o uso matemático da Regra Básica da Potência Inversa! ✓"
+                }
+            ],
+            "tips": [
+                "É por este mesmo modelo que a restrição $n \\\\neq -1$ existe. Se $n=1$, o denominador será zero e essa estrutura se esfacela pro logaritmo natural."
+            ]
+        },
+        {
+            "id": "c2-e9-exponencial-linear",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Integrais Fundamentais",
+            "title": "Q9: O Peso da Constante Exponencial",
+            "difficulty": "Básico",
+            "problem": "Calcule sem sofrer e pela forma dedutiva a taxa $\\\\int e^{\\\\alpha x} dx$, supondo $\\\\alpha \\\\neq 0$.",
+            "finalAnswer": "$\\\\frac{e^{\\\\alpha x}}{\\\\alpha} + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Inferência de Similaridade",
+                    "explanation": "Ver o que a Regra da Cadeia costuma fazer com as exponenciais.",
+                    "content": "Sabemos que se derivarmos $e^{\\\\alpha x}$, a regra da cadeia ejeta a constante pra fora multiplicando: $\\\\alpha e^{\\\\alpha x}$."
+                },
+                {
+                    "title": "Passo 2: Aplicação Inversa",
+                    "explanation": "Se a derivada joga a constante multiplicando, a Integral a puxará dividindo.",
+                    "content": "A integral fará o oposto da Cadeira. Como queremos isolar apenas a Exponencial:\n$\\\\int e^{\\\\alpha x} dx = \\\\frac{e^{\\\\alpha x}}{\\\\alpha} + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Na vida adulta de um estudante de exatas, você não faz mais integral por Substituição quando a constante está dentro do argumento. Apenas a jogue dividindo de forma mecânica!"
+            ]
+        },
+        {
+            "id": "c2-e10-cosseno-duplo",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Integrais Fundamentais",
+            "title": "Q10: O Argumento do Cosseno",
+            "difficulty": "Básico",
+            "problem": "Usando a técnica acelerada de compensação dedutiva, faça $\\\\int \\\\cos(2x) dx$.",
+            "finalAnswer": "$\\\\frac{\\\\sin(2x)}{2} + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Reconhecer Famílias Primais",
+                    "explanation": "Cosseno vem do Seno. Com sinal positivo ou negativo?",
+                    "content": "A derivada do Seno é o Cosseno positivo (Sem sinal trocado). Logo, a Primitiva básica de $\\\\cos(u)$ é $\\\\sin(u)$."
+                },
+                {
+                    "title": "Passo 2: Compensar a Regra da Cadeia",
+                    "explanation": "Reparar no argumento interno $(2x)$ e sua derivada $2$.",
+                    "content": "Se derivarmos $\\\\sin(2x)$, seria gerado um '2' indesejado multiplicando tudo, mas nosso termo base não possui multiplicador de fora. Logo precisaremos criar um $\\\\frac{1}{2}$ compensatório no final.\nAssim: $\\\\int \\\\cos(2x) dx = \\\\frac{\\\\sin(2x)}{2} + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Não aplique Integração por Partes pra argumentos fixos! Basta assumir a Primitória da forma de tabela e dividir pelo multiplicador angular linear."
+            ]
+        },
+        {
+            "id": "c2-e11-guid-cosseno",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Prostaférese",
+            "title": "Q11: Desmontagem de Cossenos Puros",
+            "difficulty": "Avançado",
+            "problem": "Calcule a integral da subseção 12.8 do Guidorizzi: $\\\\int \\\\cos(2x)\\\\cos(3x) dx$.",
+            "finalAnswer": "$\\\\frac{\\\\sin(5x)}{10} + \\\\frac{\\\\sin(x)}{2} + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: A Relação Fundamental de Werner",
+                    "explanation": "Para produto de Cossenos, o Teorema de Werner exige a decomposição por adições trigonométricas.",
+                    "content": "Lembramos da identidade do Ensino Médio de Produto Cruzado puro (Werner de cossenos):\n$\\\\cos(A)\\\\cos(B) = \\\\frac{1}{2}\\\\left[ \\\\cos(A+B) + \\\\cos(A-B) \\\\right]$"
+                },
+                {
+                    "title": "Passo 2: Adentar o Termo no Formato",
+                    "explanation": "Plugando $A = 2x, B = 3x$.",
+                    "content": "Advento:\n$\\\\cos(2x)\\\\cos(3x) = \\\\frac{1}{2}\\\\left[ \\\\cos(5x) + \\\\cos(-x) \\\\right]$\n\nMas $\\\\cos(-x)$ absorve o sinal da paridade! Fica simplesmente $\\\\cos(x)$."
+                },
+                {
+                    "title": "Passo 3: Acessar a Integral da Adição",
+                    "explanation": "Partir para a tabela fundamental e tratar multiplicadores.",
+                    "content": "$\\\\frac{1}{2} \\\\left( \\\\int \\\\cos(5x) dx + \\\\int \\\\cos(x) dx \\\\right)$\nUsando a divisão mecânica no expoente 5:\n$= \\\\frac{1}{2} \\\\left[ \\\\frac{\\\\sin(5x)}{5} + \\\\sin(x) \\\\right]$"
+                },
+                {
+                    "title": "Passo 4: Enchimentação Cíclica",
+                    "explanation": "Propague o $1/2$.",
+                    "content": "$\\\\frac{\\\\sin(5x)}{10} + \\\\frac{\\\\sin(x)}{2} + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Identidades de Werner: A multiplicação $\\\\cos \\\\cos$ gera uma soma $\\\\cos + \\\\cos$. A multiplicação $\\\\sin \\\\sin$ gera uma diferença $\\\\cos - \\\\cos$. Decorando isso te economizará uns 40 minutos em toda lista."
+            ]
+        },
+        {
+            "id": "c2-e13-ciclica",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Integrais Cíclicas",
+            "title": "Q13: O Loop Infinito Inevitável",
+            "difficulty": "Mestre",
+            "problem": "Calcule usando a teoria de rebote algébrico para a integral $\\\\int e^x \\\\sin(x) dx$.",
+            "finalAnswer": "$I = \\\\frac{e^x(\\\\sin(x) - \\\\cos(x))}{2} + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Primeira Rodada de Partes",
+                    "explanation": "Designar funções. Pela LIATE, a Trigonométrica precede a Exponencial.",
+                    "content": "Assuma $I = \\\\int e^x \\\\sin(x) dx$\n$u = \\\\sin(x) \\\\implies du = \\\\cos(x)dx$\n$dv = e^x dx \\\\implies v = e^x$\n\nNo UV - Int(VdU):\n$= e^x\\\\sin(x) - \\\\int e^x\\\\cos(x) dx$"
+                },
+                {
+                    "title": "Passo 2: O Novo Bloqueio",
+                    "explanation": "A integral gerada é tão complexa quanto a original. Faremos Partes de novo sobre ela.",
+                    "content": "Voltamos a operar $\\\\int e^x \\\\cos(x) dx$ em paralelo isoladamente:\n$u_2 = \\\\cos(x) \\\\implies du_2 = -\\\\sin(x)dx$\n$dv_2 = e^x dx \\\\implies v_2 = e^x$\n\nMontando essa 2ª fase:\n$= e^x \\\\cos(x) - (\\\\int e^x(-\\\\sin(x)) dx)$\n$= e^x \\\\cos(x) + \\\\int e^x \\\\sin(x) dx$"
+                },
+                {
+                    "title": "Passo 3: A Colisão do Mundo Base e Reconhecimento",
+                    "explanation": "Montar a colisão entre a equação inteira. Enxergaremos a própria incógnita no horizonte final.",
+                    "content": "Juntando a equação lá de cima com essa embutida:\n$I = e^x \\\\sin(x) - [e^x \\\\cos(x) + \\\\int e^x \\\\sin(x) dx]$\n$I = e^x \\\\sin(x) - e^x \\\\cos(x) - I$\nOlhe para esse milagre matemático! A integral sobrou da mesmíssima forma e com incógnita de sinal oposto!"
+                },
+                {
+                    "title": "Passo 4: Retirada de Fluxo Algébrico",
+                    "explanation": "Passe o (-I) negativo de modo positivo para a esquerda como uma parcela isolada do lado esquerdo.",
+                    "content": "$I + I = e^x \\\\sin(x) - e^x \\\\cos(x)$\n$2I = e^x (\\\\sin(x) - \\\\cos(x))$\nFinal: $I = \\\\frac{e^x(\\\\sin(x) - \\\\cos(x))}{2} + C$ ✓"
+                }
+            ],
+            "tips": [
+                "Não caia na besteira imunda de calcular 40 Integrais de Partes seguidas e explodir a folha do caderno. Analise os vizinhos - na 3ª ou 4ª integração você provavelmente achará a própria pergunta esperando para ser repassada como valor reverso!"
+            ]
+        },
+        {
+            "id": "c2-e14-reducao-secante",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Fórmulas de Redução",
+            "title": "Q14: Reduzindo o Caos em Patamares",
+            "difficulty": "Mestre",
+            "problem": "Usos de dedução avançada: Qual é a fórmula de redução geral (Recursiva) para se englobar integrais de $\\\\int \\\\sec^n(x) dx$ onde $n > 2$?",
+            "finalAnswer": "$\\\\frac{\\\\sec^{n-2}(x)\\\\tan(x)}{n-1} + \\\\frac{n-2}{n-1}\\\\int \\\\sec^{n-2}(x) dx$",
+            "steps": [
+                {
+                    "title": "Passo 1: Desmembrar a Secante ao Quadrado",
+                    "explanation": "Técnica universal de redução trigonométrica de funções inversas.",
+                    "content": "Extraia da potência $n$, uma potência 2, sabendo que Integral de Secante Quadrado é amável.\n$\\\\int \\\\sec^{n-2}(x)\\\\cdot \\\\sec^2(x) dx$"
+                },
+                {
+                    "title": "Passo 2: Assumir os Pilares de Partes",
+                    "explanation": "Preparar substituição em cascata priorizando tangentes em $dv$.",
+                    "content": "Pilar Fundamental para Partes:\n$u = \\\\sec^{n-2}(x)$\n$dv = \\\\sec^2(x) dx \\\\implies v = \\\\tan(x)$"
+                },
+                {
+                    "title": "Passo 3: A Cadeia de Implantação e Transição de Secantes",
+                    "explanation": "Calcular $du$ aplicando a Regra do Tombo seguida da Cadeia Intrema.",
+                    "content": "$du = (n-2) \\\\sec^{n-3}(x) \\\\cdot [ \\\\sec(x)\\\\tan(x) ] dx$\n$= (n-2) \\\\sec^{n-2}(x) \\\\tan(x) dx$\n\nAplicando por Partes:\n$= \\\\sec^{n-2}(x) \\\\tan(x) - \\\\int \\\\tan(x) [ (n-2) \\\\sec^{n-2}(x) \\\\tan(x) ] dx$\n$= \\\\sec^{n-2}(x) \\\\tan(x) - (n-2) \\\\int \\\\sec^{n-2}(x) \\\\tan^2(x) dx$"
+                },
+                {
+                    "title": "Passo 4: Identidade e Rebote Físico",
+                    "explanation": "Recuperar de Tangente pra Secante e enviar algebricamente pro divisor.",
+                    "content": "Sabemos que $\\\\tan^2(x) = \\\\sec^2(x) - 1$.\nSubstituindo na integral:\n$= \\\\int \\\\sec^n(x) dx - \\\\int \\\\sec^{n-2}(x) dx$\nAplicando os rebotes cíclicos pro outro lado da equação do Passo 3 como aprendemos na técnica anterior...\n\nChega-se à formula fechada universal:\n$I = \\\\frac{\\\\sec^{n-2}(x)\\\\tan(x)}{n-1} + \\\\frac{n-2}{n-1}\\\\int \\\\sec^{n-2}(x) dx$ ✓"
+                }
+            ],
+            "tips": [
+                "Fórmulas de Redução são apenas Integrais Cíclicas generalizadas para um exponente infinito 'n' abstrato! Com essa fórmula, você não precisará nunca mais calcular uma de Secante por Partes, apenas aplicará a tabela."
+            ]
+        },
+        {
+            "id": "c2-e15-fracoes-polinomiais",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Divisão Polinomial",
+            "title": "Q15: O Falso Monstro Racional",
+            "difficulty": "Básico",
+            "problem": "Determine de forma esperta a integral aparentemente impossível $\\\\int \\\\frac{x^3 - 1}{x - 1} dx$.",
+            "finalAnswer": "$\\\\frac{x^3}{3} + \\\\frac{x^2}{2} + x + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatoração Exata (Diferença de Cubos)",
+                    "explanation": "Evitar técnicas avançadas substituindo por identidades algébricas primárias do ensino fundamental.",
+                    "content": "A expressão $x^3 - 1$ pode ser fatorada pela clássica diferença de cubos: $A^3 - B^3 = (A-B)(A^2 + AB + B^2)$.\nAqui $A = x$ e $B = 1$:\n$x^3 - 1 = (x - 1)(x^2 + x + 1)$"
+                },
+                {
+                    "title": "Passo 2: Anulação Fracionária",
+                    "explanation": "Cancele os termos comuns para matar o denominador cível.",
+                    "content": "Volte para a divisão original englobada na integral:\n$\\\\int \\\\frac{(x - 1)(x^2 + x + 1)}{x - 1} dx$\n\nCortando $(x-1)$ do numerador e denominador, sobra um singelo:\n$\\\\int (x^2 + x + 1) dx$"
+                },
+                {
+                    "title": "Passo 3: Aplicação Independente Constante",
+                    "explanation": "Use a Regra da Soma Integrativa nas partes soltas.",
+                    "content": "Essa integral polinomial se distribui:\n$= \\\\int x^2 dx + \\\\int x dx + \\\\int 1 dx$"
+                },
+                {
+                    "title": "Passo 4: Montagem Primitiva",
+                    "explanation": "Tombo Inverso nos termos simplificados.",
+                    "content": "$= \\\\frac{x^3}{3} + \\\\frac{x^2}{2} + x + C$ ✓"
+                }
+            ],
+            "tips": [
+                "No Cálculo II, nunca se desespere ou aplique Frações Parciais complexas antes de testar se a divisão de Equações não é um simples produto notável oculto."
+            ]
         }
     ]
 }
