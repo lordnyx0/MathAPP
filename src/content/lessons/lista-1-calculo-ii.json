@@ -1,0 +1,45 @@
+{
+    "topic": "lista-1-calculo-ii",
+    "title": "Teorema do Valor Médio e Primitivas",
+    "lessons": [
+        {
+            "id": "c2-l1-tvm",
+            "title": "1. Teorema do Valor Médio (TVM)",
+            "level": "Intermediário",
+            "content": "📌 **Conceito Principal**\n\nO Teorema do Valor Médio (TVM) garante que, para qualquer função contínua em $[a, b]$ e derivável em $(a, b)$, existe pelo menos um ponto $c \\\\in (a, b)$ onde a taxa de variação instantânea (derivada) iguala a taxa de variação média do intervalo.\n\nFórmula:\n$$ f(b) - f(a) = f'(c)(b - a) $$\n\nGeometricamente, isso significa que existe um ponto na curva onde a reta tangente é **paralela** à reta secante que liga os pontos extremos $(a, f(a))$ e $(b, f(b))$.\n\n📝 **Exemplo: Por que não se aplica ao módulo?**\nA função $f(x) = |x|$ falha no TVM no intervalo $[-1, 2]$ porque ela apresenta um \"bico\" em $x = 0$, não sendo derivável neste ponto. O TVM exige derivabilidade em todo o intervalo aberto $(a, b)$.",
+            "questions": [
+                {
+                    "q": "Geometricamente, o que o TVM nos diz sobre as retas tangente e secante?",
+                    "a": "Elas são paralelas.",
+                    "hint": "Lembre-se que coeficientes angulares iguais implicam em algo sobre a direção das retas."
+                }
+            ]
+        },
+        {
+            "id": "c2-l1-primitivas",
+            "title": "2. Introdução às Primitivas",
+            "level": "Básico",
+            "content": "📌 **O Que é Uma Primitiva?**\n\nUma função $F(x)$ é chamada de **primitiva** (ou antiderivada) de $f(x)$ em um intervalo se $F'(x) = f(x)$ para todo $x$ nesse intervalo.\n\nSe $F$ e $G$ são primitivas da mesma função $f$, então elas diferem apenas por uma constante $C$:\n$$ F(x) = G(x) + C $$\n\n📝 **Funções sem primitiva?**\nNem toda função possui primitiva contínua. Funções com quebras abruptas (descontinuidades de salto) não podem ser derivadas de uma única função contínua em todo o intervalo. (Ex: Função degrau).",
+            "questions": [
+                {
+                    "q": "Qual é a relação entre duas primitivas $F(x)$ e $G(x)$ da mesma função $f(x)$?",
+                    "a": "Elas diferem por uma constante, garantindo paralelas infinitas.",
+                    "hint": "O que acontece quando você deriva uma constante?"
+                }
+            ]
+        },
+        {
+            "id": "c2-l1-cinematica",
+            "title": "3. Primitivas na Cinemática",
+            "level": "Intermediário",
+            "content": "📌 **Do Cálculo para a Física**\n\nSabemos que a velocidade $v(t)$ é a derivada da posição $s(t)$, e a aceleração $a(t)$ é a derivada da velocidade.\nLogo, usar primitivas significa fazer o caminho inverso:\n\n1. Integrar a aceleração nos dá a velocidade: $\\\\int a(t) dt = v(t)$\n2. Integrar a velocidade nos dá a posição: $\\\\int v(t) dt = s(t)$\n\n📝 **Atenção às Constantes**\nAo integrar, sempre ganhamos uma constante de integração $+C$. Na física, essas constantes geralmente representam as **condições iniciais**: a posição inicial $s_{0}$ ou a velocidade inicial $v_{0}$.\nIsso comprova a formação exata do raciocínio físico sem assumir decorar fórmulas!",
+            "questions": [
+                {
+                    "q": "Se conhecemos a velocidade e calculamos a integral (primitiva), o que encontramos?",
+                    "a": "A equação da posição, faltando evidenciar a constante inicial que seria a posição original.",
+                    "hint": "A velocidade é a taxa de variação de qual grandeza na física?"
+                }
+            ]
+        }
+    ]
+}

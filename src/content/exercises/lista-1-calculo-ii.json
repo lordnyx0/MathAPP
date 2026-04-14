@@ -1,0 +1,111 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "lista-1-calculo-ii",
+    "title": "Lista 1: TVM e Primitivas",
+    "exercises": [
+        {
+            "id": "c2-e1-estimativa",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Teorema do Valor Médio",
+            "title": "Q1: Estimativa da raiz por TVM",
+            "difficulty": "Avançado",
+            "problem": "Aplique o Teorema do Valor Médio em $f(x) = \\\\sqrt{x}$ no intervalo $[100, 101]$ para provar que: $\\\\sqrt{101} = 10 + \\\\frac{1}{2\\\\sqrt{c}}$. A partir disso, mostre as margens da raiz garantindo a estimativa: $10,049 < \\\\sqrt{101} < 10,05$.",
+            "finalAnswer": "Demonstrado aplicando as margens $100 < c < 101$.",
+            "steps": [
+                {
+                    "title": "Passo 1: Entender o TVM para o Intervalo",
+                    "explanation": "Aplicar a fórmula do TVM $f(b) - f(a) = f'(c)(b - a)$",
+                    "content": "$f(b) - f(a) = f'(c)(b - a)$\n$f(101) - f(100) = f'(c)(101 - 100)$\n$\\\\sqrt{101} - 10 = f'(c) \\\\cdot 1$\n$\\\\sqrt{101} = 10 + f'(c)$"
+                },
+                {
+                    "title": "Passo 2: Derivada da Função",
+                    "explanation": "Encontrar $f'(x)$ e plugar o ponto $c$.",
+                    "content": "Sendo $f(x) = x^{1/2}$, logo $f'(x) = \\\\frac{1}{2\\\\sqrt{x}}$.\nPara $x = c$, $f'(c) = \\\\frac{1}{2\\\\sqrt{c}}$.\nSubstituindo na equação anterior:\n$\\\\sqrt{101} = 10 + \\\\frac{1}{2\\\\sqrt{c}}$"
+                },
+                {
+                    "title": "Passo 3: Mapear a Desigualdade",
+                    "explanation": "Pela definição do TVM, $c$ está estritamente entre os pontos.",
+                    "content": "Sabemos que o TVM diz que $c \\\\in (100, 101)$. Logo:\n$100 < c < 101$\nAplique raiz: $10 < \\\\sqrt{c} < \\\\sqrt{101} < 10,05$\nIsolando isso em frações, temos que as frações inverterão as desigualdades:\n$\\\\frac{1}{2 \\\\cdot 10,05} < \\\\frac{1}{2\\\\sqrt{c}} < \\\\frac{1}{20}$ (Estimando fracamente $10,05$)"
+                },
+                {
+                    "title": "Passo 4: Resolver Acumulativo",
+                    "explanation": "Substituir as margens na fórmula.",
+                    "content": "Seja fracamente $100 < c < 102,01 \\\\implies 10 < \\\\sqrt{c} < 10,1$.\nInvertendo: $1/10,1 < 1/\\\\sqrt{c} < 1/10$\nLidando com os fatores divididos por 2:\n$1/20,2 < 1/(2\\\\sqrt{c}) < 1/20$\nSomando o 10 em ambos os lados:\n$10 + 0,0495... < \\\\sqrt{101} < 10 + 0,05$\n$10,049 < \\\\sqrt{101} < 10,05$ ✓"
+                }
+            ],
+            "tips": [
+                "Lembre-se que $1/A > 1/B$ se $A < B$. O denominador maior deixa o número final menor.",
+                "Transforme $\\\\sqrt{x}$ em $x^{1/2}$ para derivar usando a regra do tombo."
+            ]
+        },
+        {
+            "id": "c2-e2-cinematica",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Primitivas",
+            "title": "Q2: O Caminho da Partícula",
+            "difficulty": "Básico",
+            "problem": "Uma partícula se desloca sobre o eixo $x$ com velocidade $v(t) = t + 3$ com $t \\\\ge 0$. Sabe-se que no instante inicial ($t = 0$), a partícula encontra-se na posição $x = 2$. Determine a posição ($x(t)$) para qualquer instante.",
+            "finalAnswer": "$x(t) = \\\\frac{t^2}{2} + 3t + 2$",
+            "steps": [
+                {
+                    "title": "Passo 1: Integrar a Velocidade",
+                    "explanation": "A posição é a primitiva da velocidade.",
+                    "content": "$x(t) = \\\\int v(t) dt$\n$x(t) = \\\\int (t + 3) dt$"
+                },
+                {
+                    "title": "Passo 2: Calcular as Primitivas Base",
+                    "explanation": "Use a regra da potência inversa para $t^1$ e $3$.",
+                    "content": "$\\\\int t^1 dt = \\\\frac{t^2}{2}$\n$\\\\int 3 dt = 3t$\n\nNão esqueça da constante $C$:\n$x(t) = \\\\frac{t^2}{2} + 3t + C$"
+                },
+                {
+                    "title": "Passo 3: Aplicar Condição Inicial",
+                    "explanation": "Usar $t=0, x=2$ para encontrar a Constante $C$.",
+                    "content": "Para $t=0$, $x(0) = 2$.\n$2 = \\\\frac{(0)^2}{2} + 3(0) + C$\n$2 = 0 + 0 + C$\n$C = 2$"
+                },
+                {
+                    "title": "Passo 4: Montar Resposta Final",
+                    "explanation": "Juntar a equação resolvida da partícula em forma analítica.",
+                    "content": "Substituindo C:\n$x(t) = \\\\frac{t^2}{2} + 3t + 2$ ✓"
+                }
+            ],
+            "tips": [
+                "Física e Cálculo são íntimos: $s'(t) = v(t)$.",
+                "Você descobrirá que essa é exatamente a fórmula da Cinemática Clássica $S = S_0 + Vt + \\\\frac{at^2}{2}$ com aceleração $a=1$, velocidade incial $v_0=3$ e deslocamento inicial $S_0=2$!"
+            ]
+        },
+        {
+            "id": "c2-e3-substituicao",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Métodos de Integração",
+            "title": "Q3: Integral com Substituição Trigonométrica em Fração",
+            "difficulty": "Intermediário",
+            "problem": "Calcule a área fluída não-definida $\\\\int \\\\frac{\\\\sin(x)}{\\\\cos^5(x)} dx$",
+            "finalAnswer": "$\\\\frac{1}{4\\\\cos^4(x)} + C$",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar a Substituição",
+                    "explanation": "Escolher um $u$ que possua sua derivada presente no integrando.",
+                    "content": "Nós escolhemos $u = \\\\cos(x)$ pois sua derivada contém $\\\\sin(x)$.\n$du = -\\\\sin(x) dx$\nIsolando:\n$\\\\sin(x) dx = -du$"
+                },
+                {
+                    "title": "Passo 2: Substituir e Integrar",
+                    "explanation": "Trocar do domínio geométrico para a variável da Álgebra Básica $u$.",
+                    "content": "$\\\\int \\\\frac{\\\\sin(x) dx}{u^5}$\nSubstituindo:\n$\\\\int \\\\frac{-du}{u^5} = - \\\\int u^{-5} du$"
+                },
+                {
+                    "title": "Passo 3: Regra do Tombo Inversa",
+                    "explanation": "Integrar a potência de $u$.",
+                    "content": "- $\\\\left( \\\\frac{u^{-5 + 1}}{-5 + 1} \\\\right) + C$\n- $\\\\left( \\\\frac{u^{-4}}{-4} \\\\right) + C$\n$\\\\frac{u^{-4}}{4} + C$\n$\\\\frac{1}{4u^4} + C$"
+                },
+                {
+                    "title": "Passo 4: Retornar à Variável Original",
+                    "explanation": "Onde tinha $u$, volte pra função de início.",
+                    "content": "$u = \\\\cos(x)$\n$\\\\frac{1}{4(\\\\cos(x))^4} + C$\n$\\\\frac{1}{4\\\\cos^4(x)} + C$ ✓"
+                }
+            ],
+            "tips": [
+                "O denominador frequentemente hospeda o melhor $u$ se você conseguir encontrar suas derivadas perdidas no numerador."
+            ]
+        }
+    ]
+}

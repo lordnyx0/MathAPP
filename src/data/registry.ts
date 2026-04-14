@@ -41,6 +41,9 @@ import prova2AlData from '../content/exercises/prova-2-algebra-linear.json';
 import prova2SegAlData from '../content/exercises/prova-2-segunda-chamada-algebra-linear.json';
 import prova2SolAlData from '../content/exercises/prova-2-solucao-algebra-linear.json';
 
+import calculoIILessonData1 from '../content/lessons/lista-1-calculo-ii.json';
+import calculoIIExerciseData1 from '../content/exercises/lista-1-calculo-ii.json';
+
 // =============================================================================
 // EXTRACT ARRAYS - Maintain backward compatibility
 // =============================================================================
@@ -72,6 +75,9 @@ const prova1SegAlExercises = prova1SegAlData.exercises;
 const prova2AlExercises = prova2AlData.exercises;
 const prova2SegAlExercises = prova2SegAlData.exercises;
 const prova2SolAlExercises = prova2SolAlData.exercises;
+
+const calculoIILessons1 = calculoIILessonData1.lessons;
+const calculoIIExercises1 = calculoIIExerciseData1.exercises;
 
 // =============================================================================
 // FACTORY FUNCTIONS - DRY principle
@@ -138,6 +144,13 @@ export const mainCategories = [
         icon: '📐',
         color: colors.logaritmos,
         description: 'Matrizes e Transformações',
+    },
+    {
+        id: 'calculo-ii',
+        title: 'Cálculo II',
+        icon: '∫',
+        color: colors.success,
+        description: 'Integrais e Séries',
     },
 ];
 
@@ -218,6 +231,19 @@ export const topicRegistry = {
         icon: '📐',
         color: colors.logaritmos,
         lessons: algebraLinearLessons,
+        mcq: null,
+    }),
+
+    // -------------------------------------------------------------------------
+    // CÁLCULO II
+    // -------------------------------------------------------------------------
+    'lista-1-calculo-ii': createTopic({
+        id: 'lista-1-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'TVM e Primitivas (Lista 1)',
+        icon: '∫',
+        color: colors.success,
+        lessons: calculoIILessons1,
         mcq: null,
     }),
 };
@@ -365,6 +391,18 @@ export const exerciseRegistry = {
         icon: '✅',
         color: colors.success,
         exercises: prova2SolAlExercises,
+    }),
+
+    // -------------------------------------------------------------------------
+    // CÁLCULO II
+    // -------------------------------------------------------------------------
+    'lista-1-calculo-ii': createExerciseTopic({
+        id: 'lista-1-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'Lista 1 - TVM e Primitivas',
+        icon: '📝',
+        color: colors.success,
+        exercises: calculoIIExercises1,
     }),
 };
 
