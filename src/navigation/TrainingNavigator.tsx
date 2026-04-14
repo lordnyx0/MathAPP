@@ -6,12 +6,18 @@ import SymbolSprintScreen from '../screens/SymbolSprintScreen';
 import FunctionLabScreen from '../screens/FunctionLabScreen';
 import DerivativeTrainerScreen from '../screens/DerivativeTrainerScreen';
 import IntegralTrainerScreen from '../screens/IntegralTrainerScreen';
+import LiateTrainerScreen from '../screens/LiateTrainerScreen';
+import SubstitutionScannerScreen from '../screens/SubstitutionScannerScreen';
+import TrigSprintScreen from '../screens/TrigSprintScreen';
+import TVMLabScreen from '../screens/TVMLabScreen';
+import RecurrenceBuilderScreen from '../screens/RecurrenceBuilderScreen';
 
 // ============================================================
 // TYPES
 // ============================================================
 
-type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals';
+type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals' 
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence';
 
 // ============================================================
 // NAVIGATOR
@@ -33,6 +39,16 @@ const TrainingNavigator: React.FC = () => {
             return <DerivativeTrainerScreen onBack={goBack} />;
         case 'integrals':
             return <IntegralTrainerScreen onBack={goBack} />;
+        case 'liate':
+            return <LiateTrainerScreen onBack={goBack} />;
+        case 'substitution':
+            return <SubstitutionScannerScreen onBack={goBack} />;
+        case 'trigsprint':
+            return <TrigSprintScreen onBack={goBack} />;
+        case 'tvmlab':
+            return <TVMLabScreen onBack={goBack} />;
+        case 'recurrence':
+            return <RecurrenceBuilderScreen onBack={goBack} />;
         case 'hub':
         default:
             return (
@@ -48,6 +64,16 @@ const TrainingNavigator: React.FC = () => {
                             setCurrentScreen('derivatives');
                         } else if (id === 'integrals') {
                             setCurrentScreen('integrals');
+                        } else if (id === 'liate') {
+                            setCurrentScreen('liate');
+                        } else if (id === 'substitution') {
+                            setCurrentScreen('substitution');
+                        } else if (id === 'trigsprint') {
+                            setCurrentScreen('trigsprint');
+                        } else if (id === 'tvmlab') {
+                            setCurrentScreen('tvmlab');
+                        } else if (id === 'recurrence') {
+                            setCurrentScreen('recurrence');
                         }
                     }}
                 />

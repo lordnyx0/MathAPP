@@ -10,7 +10,7 @@ export const normalizeDomainString = (domain: string): string => {
         .replace(/\s+/g, '')
         .replace(/R/g, 'ℝ')
         .replace(/inf/gi, '∞')
-        .replace(/\+\-∞/g, '+∞')
+        .replace(/\+∞/g, '∞')
         .replace(/-\+∞/g, '-∞')
         .toLowerCase();
 };

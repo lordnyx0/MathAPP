@@ -22,7 +22,8 @@ const CARD_PADDING = spacing.lg;
 // TYPES
 // ============================================================
 
-type MinigameId = 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals';
+type MinigameId = 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals'
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence';
 
 type IoniconName = ComponentProps<typeof Ionicons>['name'];
 type MciIconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -100,6 +101,51 @@ const minigames: Minigame[] = [
         iconLib: 'mci',
         iconName: 'math-integral',
         tag: 'Cálculo',
+    },
+    {
+        id: 'liate',
+        name: 'LIATE',
+        description: 'Treine a Integração por Partes',
+        gradient: ['#E11D48', '#BE123C'], // Rose
+        iconLib: 'mci',
+        iconName: 'puzzle-outline',
+        tag: 'Avançado',
+    },
+    {
+        id: 'substitution',
+        name: 'Scanner Substituição',
+        description: 'Identifique e aplique substituição',
+        gradient: ['#047857', '#064E3B'], // Emerald dark
+        iconLib: 'ion',
+        iconName: 'scan-outline',
+        tag: 'Avançado',
+    },
+    {
+        id: 'trigsprint',
+        name: 'Trig Sprint',
+        description: 'Identidades Trigonométricas',
+        gradient: ['#4338CA', '#312E81'], // Indigo
+        iconLib: 'mci',
+        iconName: 'cards-playing-outline',
+        tag: 'Pré-Cálculo',
+    },
+    {
+        id: 'tvmlab',
+        name: 'TVM Lab',
+        description: 'Teorema do Valor Médio exploratório',
+        gradient: ['#B45309', '#78350F'], // Amber dark
+        iconLib: 'ion',
+        iconName: 'analytics-outline',
+        tag: 'Teoremas',
+    },
+    {
+        id: 'recurrence',
+        name: 'Fórmulas Recorrência',
+        description: 'Monte demonstrações passo a passo',
+        gradient: ['#6D28D9', '#4C1D95'], // Purple dark
+        iconLib: 'ion',
+        iconName: 'build-outline',
+        tag: 'Avançado',
     },
 ];
 
