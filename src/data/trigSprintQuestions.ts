@@ -21,7 +21,7 @@ export const trigSprintQuestions: TrigSprintLevel[] = [
         options: [
             { id: 'arco_duplo', label: 'Arco Duplo', math: '\\sin(2a) = 2\\sin(a)\\cos(a)' },
             { id: 'fundamental', label: 'Relação Fundamental', math: '\\sin^2(x) + \\cos^2(x) = 1' },
-            { id: 'prod_sum', label: 'Produto em Soma', math: '\\sin(a)\\cos(b) = \\frac{\\sin(a+b) + \\sin(a-b)}{2}' }
+            { id: 'prod_sum', label: 'Produto em Soma', math: '\\sin(a)\\cos(b) = \\frac{\\sin(a+b)+\\sin(a-b)}{2}' }
         ]
     },
     {
@@ -52,7 +52,7 @@ export const trigSprintQuestions: TrigSprintLevel[] = [
         correctCardId: 'tan_sec',
         simplifiedResult: '\\sec^2(x) - 1',
         options: [
-            { id: 'prod_sum', label: 'Produto em Soma', math: '\\sin(a)\\cos(b)' },
+            { id: 'prod_sum', label: 'Produto em Soma', math: '\\sin(a)\\cos(b) = \\frac{\\sin(a+b)+\\sin(a-b)}{2}' },
             { id: 'tan_sec', label: 'Tangente e Secante', math: '1 + \\tan^2(x) = \\sec^2(x)' },
             { id: 'arco_duplo', label: 'Arco Duplo', math: '\\cos(2a)' }
         ]

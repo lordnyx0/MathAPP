@@ -59,7 +59,9 @@ export const latexToUnicode = (text: string): string => {
         '\\cdot': '·', '\\ldots': '…', '\\in': '∈', '\\notin': '∉',
         '\\forall': '∀', '\\exists': '∃', '\\to': '→',
         '\\mathbb{R}': 'ℝ', '\\mathbb{C}': 'ℂ', '\\mathbb{Q}': 'ℚ', '\\mathbb{Z}': 'ℤ', '\\mathbb{N}': 'ℕ',
-        '\\ker': 'ker', '\\det': 'det', '\\text{Im }': 'Im ', '\\operatorname{Ger}': 'Ger'
+        '\\ker': 'ker', '\\det': 'det', '\\text{Im }': 'Im ', '\\operatorname{Ger}': 'Ger',
+        '\\sin': 'sin', '\\cos': 'cos', '\\tan': 'tan', '\\sec': 'sec', '\\csc': 'csc', '\\cot': 'cot',
+        '\\arcsin': 'arcsin', '\\arccos': 'arccos', '\\arctan': 'arctan'
     };
 
     // Replace Greek letters

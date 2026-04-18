@@ -7,7 +7,8 @@ import {
     Animated,
     Dimensions,
     Easing,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
@@ -101,7 +102,7 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                     {gameState === 'falling' && (
                         <Animated.View style={[styles.fallingBox, { transform: [{ translateY }] }]}>
                             <Text style={styles.fallingLabel}>Simplifique:</Text>
-                            <MathText style={styles.fallingMath}>{level.fallingExpression}</MathText>
+                            <MathText style={styles.fallingMath} formula>{level.fallingExpression}</MathText>
                         </Animated.View>
                     )}
 
@@ -118,8 +119,10 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                     {gameState === 'gameover' && (
                         <FadeInView style={[styles.resultBox, { borderColor: colors.error }]}>
                             <Text style={styles.failTitle}>Falhou!</Text>
+                            <Text style={styles.failDesc}>A expressão era:</Text>
+                            <DisplayMath>{level.fallingExpression}</DisplayMath>
                             <Text style={styles.failDesc}>
-                                A expressão era {level.fallingExpression}. A identidade correta seria {level.options.find(o => o.id === level.correctCardId)?.label}.
+                                A identidade correta seria "{level.options.find(o => o.id === level.correctCardId)?.label}".
                             </Text>
                             <TouchableOpacity style={styles.nextButton} onPress={startNextLevel}>
                                 <Text style={styles.nextButtonText}>Tentar Novamente</Text>
@@ -142,7 +145,9 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                         >
                             <Text style={styles.cardLabel} numberOfLines={2} adjustsFontSizeToFit>{card.label}</Text>
                             <View style={styles.cardMathBox}>
-                                <MathText style={styles.cardMathText} size="small">{card.math}</MathText>
+                                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
+                                    <MathText style={styles.cardMathText} size="small" formula>{card.math}</MathText>
+                                </ScrollView>
                             </View>
                         </TouchableOpacity>
                     ))}
@@ -212,15 +217,17 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     nextButtonText: { color: colors.textWhite, fontWeight: '700', fontSize: fontSize.md },
     
     handArea: {
-        height: 200,
         flexDirection: 'row',
         paddingHorizontal: spacing.sm,
-        paddingBottom: spacing.lg,
+        paddingBottom: 90, // compensate bottom nav bar height
+        paddingTop: spacing.xs,
         gap: spacing.xs,
         justifyContent: 'space-between',
+        alignItems: 'stretch',
     },
     card: {
         flex: 1,
+        minHeight: 180,
         backgroundColor: colors.surface,
         borderRadius: borderRadius.md,
         borderTopWidth: 4,
@@ -228,6 +235,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         padding: spacing.sm,
         alignItems: 'center',
         justifyContent: 'flex-start',
+        overflow: 'hidden',
         ...shadows.md,
     },
     cardDisabled: {

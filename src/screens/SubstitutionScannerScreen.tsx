@@ -12,7 +12,7 @@ import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
+import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import StepCard from '../components/StepCard';
 import { SubstitutionQuestion, getRandomSubstitutionQuestion } from '../data/substitutionQuestions';
@@ -89,11 +89,11 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         const disabled = !chunk.isSelectable || phase !== 'scan';
 
         if (!chunk.isSelectable) {
-            // Unselectable text
+            // Unselectable text - render as formula
             return (
-                <Text key={`chunk-${idx}`} style={[styles.chunkText, styles.chunkTextUnselectable]}>
-                    {latexToUnicode(chunk.text)}
-                </Text>
+                <MathText key={`chunk-${idx}`} formula style={styles.chunkText}>
+                    {chunk.text}
+                </MathText>
             );
         }
 
@@ -108,13 +108,16 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                     (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkPillSuccess
                 ]}
             >
-                <Text style={[
-                    styles.chunkTextSelectable,
-                    isSelected && styles.chunkTextSelected,
-                    (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkTextSelected
-                ]}>
-                    {latexToUnicode(chunk.text)}
-                </Text>
+                <MathText
+                    formula
+                    style={[
+                        styles.chunkTextSelectable,
+                        isSelected && styles.chunkTextSelected,
+                        (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkTextSelected
+                    ]}
+                >
+                    {chunk.text}
+                </MathText>
             </TouchableOpacity>
         );
     });
@@ -158,7 +161,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                 onPress={confirmU}
                                 disabled={!selectedChunk}
                             >
-                                <Text style={styles.actionButtonText}>Confirmar $u$</Text>
+                                <Text style={styles.actionButtonText}>Confirmar u</Text>
                             </TouchableOpacity>
                         </FadeInView>
                     )}
@@ -181,7 +184,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                             {phase === 'du_calc' && (
                                 <FadeInView delay={300}>
                                     <View style={styles.duPanel}>
-                                        <Text style={styles.duPanelText}>Se $u = {question.correctUText}$</Text>
+                                        <MathText formula style={styles.duPanelText}>{`u = ${question.correctUText}`}</MathText>
                                         <DisplayMath>{`du = ${question.duText}`}</DisplayMath>
                                         <Text style={styles.duInstruction}>Encontrou essa derivada na equação?</Text>
                                         
