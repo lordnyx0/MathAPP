@@ -226,7 +226,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                             
                             <View style={styles.boxesContainer}>
                                 <View style={styles.readonlyBox}>
-                                    <Text style={styles.boxLabel}>$u = {question.correctU.join(' ')}$</Text>
+                                    <MathText formula style={styles.boxLabel}>{`u = ${question.correctU.join(' ')}`}</MathText>
                                     <TouchableOpacity 
                                         style={[styles.inputBox, selectedPhase2Target === 'du' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('du')}
@@ -236,7 +236,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 </View>
 
                                 <View style={styles.readonlyBox}>
-                                    <Text style={styles.boxLabel}>$dv = {question.correctDv.join(' ')}$</Text>
+                                    <MathText formula style={styles.boxLabel}>{`dv = ${question.correctDv.join(' ')}`}</MathText>
                                     <TouchableOpacity 
                                         style={[styles.inputBox, selectedPhase2Target === 'v' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('v')}
@@ -276,9 +276,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 <Text style={styles.successText}>✅ Fórmula Montada!</Text>
                                 <DisplayMath>{`\\int u dv = uv - \\int v du`}</DisplayMath>
                                 <View style={styles.finalEquation}>
-                                    <MathText style={styles.finalEquationText}>
-                                        {`= (${question.correctU.join(' ')}\\)(${question.v}) - \\int (${question.v})(${question.du})`}
-                                    </MathText>
+                                    <DisplayMath>{`= (${question.correctU.join(' ')})(${question.v}) - \\int (${question.v})(${question.du})`}</DisplayMath>
                                 </View>
                             </AnimatedCard>
                             
@@ -396,6 +394,5 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         backgroundColor: colors.surfaceAlt,
         borderRadius: borderRadius.md,
     },
-    finalEquationText: { fontSize: fontSize.md, color: colors.textPrimary, textAlign: 'center' },
     bottomPadding: { height: 100 },
 });
