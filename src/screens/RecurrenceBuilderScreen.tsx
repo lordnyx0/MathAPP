@@ -69,30 +69,10 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
             playCorrect();
             setScore(s => s + 10);
             
-            checkLineCompletion(lineId);
         } else {
             playIncorrect();
             setSelectedPieceId(null);
         }
-    };
-
-    const checkLineCompletion = (lineId: string) => {
-        if (!proof) return;
-        const currentLine = proof.lines[currentLineIdx];
-        if (currentLine.id !== lineId) return;
-
-        // Count how many blanks this line has
-        const totalBlanks = currentLine.blanks.length;
-        
-        // Count how many are filled right now (including the one just tapped via state async workaround? No, we need to count directly)
-        // Since we evaluate inside handleBlankTap after setting state, we can simulate:
-        let filledCount = 0;
-        currentLine.blanks.forEach(b => {
-            const gid = `${lineId}_${b.id}`;
-            // The one we just filled might not be in state yet if we check synchronously, but wait, we already know the exact piece was correct!
-        });
-
-        // Better approach: use effect to check line completion
     };
 
     useEffect(() => {
@@ -112,11 +92,12 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
             return filledBlanks[`${currentLine.id}_${b.id}`] !== undefined;
         });
 
-        if (allBlanksFilled && currentLine.blanks.length > 0) {
-            // Auto-advance after small delay
+        if (allBlanksFilled) {
+            // Auto-advance after small delay (or immediately for informational lines without blanks)
+            const delay = currentLine.blanks.length > 0 ? 500 : 250;
             const timer = setTimeout(() => {
                 setCurrentLineIdx(idx => idx + 1);
-            }, 500);
+            }, delay);
             return () => clearTimeout(timer);
         }
     }, [filledBlanks, currentLineIdx, proof, isComplete]);
