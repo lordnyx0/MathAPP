@@ -26,21 +26,21 @@ export const recurrenceQuestions: RecurrenceProof[] = [
     {
         id: 'r1',
         title: 'Fórmula de Recorrência do Seno',
-        integralTarget: '\\int \\sin^n(x) dx',
+        integralTarget: '$\\int \\sin^n(x) dx$',
         lines: [
             {
                 id: 'l1',
-                textParts: ['Separamos um seno: \\int \\sin^{n-1}(x)', ' dx'],
+                textParts: ['Separamos um seno: $\\int \\sin^{n-1}(x) \\cdot $', '$dx$'],
                 blanks: [{ id: 'b1_1', correctPieceId: 'p_sinx' }]
             },
             {
                 id: 'l2',
-                textParts: ['Por integração por partes, u = \\sin^{n-1}(x) e dv = ', ''],
+                textParts: ['Por integração por partes, $u = \\sin^{n-1}(x)$ e $dv = $', ''],
                 blanks: [{ id: 'b2_1', correctPieceId: 'p_sinxdx' }]
             },
             {
                 id: 'l3',
-                textParts: ['Temos du = ', '\\sin^{n-2}(x)\\cos(x) dx e v = ', ''],
+                textParts: ['Temos $du = $', '$\\sin^{n-2}(x)\\cos(x) dx$ e $v = $', ''],
                 blanks: [
                     { id: 'b3_1', correctPieceId: 'p_n_minus_1' },
                     { id: 'b3_2', correctPieceId: 'p_minus_cosx' }
@@ -48,22 +48,22 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             },
             {
                 id: 'l4',
-                textParts: ['A integral se torna: -\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x)', ' dx'],
+                textParts: ['A integral se torna: $-\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x) \\cdot $', '$dx$'],
                 blanks: [{ id: 'b4_1', correctPieceId: 'p_cos2x' }]
             },
             {
                 id: 'l5',
-                textParts: ['Usando a identidade trigonométrica, trocamos \\cos^2(x) por ', ''],
+                textParts: ['Usando a identidade trigonométrica, trocamos $\\cos^2(x)$ por ', ''],
                 blanks: [{ id: 'b5_1', correctPieceId: 'p_1_minus_sin2x' }]
             },
             {
                 id: 'l6',
-                textParts: ['Isolando I_n, escrevemos: nI_n = ', ' + (n-1)\\int \\sin^{n-2}(x) dx'],
+                textParts: ['Isolando $I_n$, escrevemos: $nI_n = $', ' + $(n-1)\\int \\sin^{n-2}(x) dx$'],
                 blanks: [{ id: 'b6_1', correctPieceId: 'p_minus_sin_pow_cos' }]
             },
             {
                 id: 'l7',
-                textParts: ['Logo, I_n = ', ' + ', '\\int \\sin^{n-2}(x) dx'],
+                textParts: ['Logo, $I_n = $', ' + ', '$\\int \\sin^{n-2}(x) dx$'],
                 blanks: [
                     { id: 'b7_1', correctPieceId: 'p_minus_sin_pow_cos_over_n' },
                     { id: 'b7_2', correctPieceId: 'p_n_minus_1_over_n' }
@@ -71,59 +71,59 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             }
         ],
         pool: [
-            { id: 'p_sinx', math: '\\sin(x)' },
-            { id: 'p_sinxdx', math: '\\sin(x)dx' },
-            { id: 'p_n_minus_1', math: '(n-1)' },
-            { id: 'p_n', math: 'n' },
-            { id: 'p_minus_cosx', math: '-\\cos(x)' },
-            { id: 'p_cosx', math: '\\cos(x)' },
-            { id: 'p_cos2x', math: '\\cos^2(x)' },
-            { id: 'p_1_minus_sin2x', math: '1 - \\sin^2(x)' },
-            { id: 'p_1_over_n', math: '\\frac{1}{n}' },
-            { id: 'p_minus_sin_pow_cos', math: '-\\sin^{n-1}(x)\\cos(x)' },
-            { id: 'p_minus_sin_pow_cos_over_n', math: '-\\frac{\\sin^{n-1}(x)\\cos(x)}{n}' },
-            { id: 'p_n_minus_1_over_n', math: '\\frac{n-1}{n}' },
-            { id: 'p_1_plus_sin2x', math: '1 + \\sin^2(x)' }
+            { id: 'p_sinx', math: '$\\sin(x)$' },
+            { id: 'p_sinxdx', math: '$\\sin(x)dx$' },
+            { id: 'p_n_minus_1', math: '$(n-1)$' },
+            { id: 'p_n', math: '$n$' },
+            { id: 'p_minus_cosx', math: '$-\\cos(x)$' },
+            { id: 'p_cosx', math: '$\\cos(x)$' },
+            { id: 'p_cos2x', math: '$\\cos^2(x)$' },
+            { id: 'p_1_minus_sin2x', math: '$1 - \\sin^2(x)$' },
+            { id: 'p_1_over_n', math: '$\\frac{1}{n}$' },
+            { id: 'p_minus_sin_pow_cos', math: '$-\\sin^{n-1}(x)\\cos(x)$' },
+            { id: 'p_minus_sin_pow_cos_over_n', math: '$-\\frac{\\sin^{n-1}(x)\\cos(x)}{n}$' },
+            { id: 'p_n_minus_1_over_n', math: '$\\frac{n-1}{n}$' },
+            { id: 'p_1_plus_sin2x', math: '$1 + \\sin^2(x)$' }
         ]
     },
     {
         id: 'r2',
         title: 'Fórmula de Recorrência da Secante',
-        integralTarget: '\\int \\sec^n(x) dx',
+        integralTarget: '$\\int \\sec^n(x) dx$',
         lines: [
             {
                 id: 'l1',
-                textParts: ['Fatoramos a expressão como: \\int \\sec^{n-2}(x)', ' dx'],
+                textParts: ['Fatoramos a expressão como: $\\int \\sec^{n-2}(x) \\cdot $', '$dx$'],
                 blanks: [{ id: 'b1_1', correctPieceId: 'p_sec2x' }]
             },
             {
                 id: 'l2',
-                textParts: ['Por partes, seja dv = \\sec^2(x) dx. Logo, v = ', ''],
+                textParts: ['Por partes, seja $dv = \\sec^2(x) dx$. Logo, $v = $', ''],
                 blanks: [{ id: 'b2_1', correctPieceId: 'p_tanx' }]
             },
             {
                 id: 'l3',
-                textParts: ['Derivamos u = \\sec^{n-2}(x) obtendo du = ', '\\sec^{n-2}(x)\\tan(x) dx'],
+                textParts: ['Derivamos $u = \\sec^{n-2}(x)$ obtendo $du = $', '$\\sec^{n-2}(x)\\tan(x) dx$'],
                 blanks: [{ id: 'b3_1', correctPieceId: 'p_n_minus_2' }]
             },
             {
                 id: 'l4',
-                textParts: ['Ficamos com \\sec^{n-2}(x)\\tan(x) - (n-2)\\int \\sec^{n-2}(x)', ' dx'],
+                textParts: ['Ficamos com $\\sec^{n-2}(x)\\tan(x) - (n-2)\\int \\sec^{n-2}(x) \\cdot $', '$dx$'],
                 blanks: [{ id: 'b4_1', correctPieceId: 'p_tan2x' }]
             },
             {
                 id: 'l5',
-                textParts: ['Substituímos \\tan^2(x) por ', ''],
+                textParts: ['Substituímos $\\tan^2(x)$ por ', ''],
                 blanks: [{ id: 'b5_1', correctPieceId: 'p_sec2x_minus_1' }]
             },
             {
                 id: 'l6',
-                textParts: ['Reorganizando, obtemos: (n-1)I_n = \\sec^{n-2}(x)\\tan(x) + (n-2)\\int \\sec^{n-2}(x) dx'],
+                textParts: ['Reorganizando, obtemos: $(n-1)I_n = \\sec^{n-2}(x)\\tan(x) + (n-2)\\int \\sec^{n-2}(x) dx$'],
                 blanks: []
             },
             {
                 id: 'l7',
-                textParts: ['Portanto, I_n = ', ' + ', '\\int \\sec^{n-2}(x) dx'],
+                textParts: ['Portanto, $I_n = $', ' + ', '$\\int \\sec^{n-2}(x) dx$'],
                 blanks: [
                     { id: 'b7_1', correctPieceId: 'p_sec_pow_tan_over_n_minus_1' },
                     { id: 'b7_2', correctPieceId: 'p_n_minus_2_over_n_minus_1' }
@@ -131,16 +131,16 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             }
         ],
         pool: [
-            { id: 'p_secx', math: '\\sec(x)' },
-            { id: 'p_sec2x', math: '\\sec^2(x)' },
-            { id: 'p_tanx', math: '\\tan(x)' },
-            { id: 'p_n_minus_2', math: '(n-2)' },
-            { id: 'p_n_minus_1', math: '(n-1)' },
-            { id: 'p_tan2x', math: '\\tan^2(x)' },
-            { id: 'p_sec2x_minus_1', math: '\\sec^2(x) - 1' },
-            { id: 'p_sec_pow_tan_over_n_minus_1', math: '\\frac{\\sec^{n-2}(x)\\tan(x)}{n-1}' },
-            { id: 'p_n_minus_2_over_n_minus_1', math: '\\frac{n-2}{n-1}' },
-            { id: 'p_1_minus_sec2x', math: '1 - \\sec^2(x)' }
+            { id: 'p_secx', math: '$\\sec(x)$' },
+            { id: 'p_sec2x', math: '$\\sec^2(x)$' },
+            { id: 'p_tanx', math: '$\\tan(x)$' },
+            { id: 'p_n_minus_2', math: '$(n-2)$' },
+            { id: 'p_n_minus_1', math: '$(n-1)$' },
+            { id: 'p_tan2x', math: '$\\tan^2(x)$' },
+            { id: 'p_sec2x_minus_1', math: '$\\sec^2(x) - 1$' },
+            { id: 'p_sec_pow_tan_over_n_minus_1', math: '$\\frac{\\sec^{n-2}(x)\\tan(x)}{n-1}$' },
+            { id: 'p_n_minus_2_over_n_minus_1', math: '$\\frac{n-2}{n-1}$' },
+            { id: 'p_1_minus_sec2x', math: '$1 - \\sec^2(x)$' }
         ]
     }
 ];

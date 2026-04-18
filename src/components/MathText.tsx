@@ -61,7 +61,9 @@ export const latexToUnicode = (text: string): string => {
         '\\mathbb{R}': 'ℝ', '\\mathbb{C}': 'ℂ', '\\mathbb{Q}': 'ℚ', '\\mathbb{Z}': 'ℤ', '\\mathbb{N}': 'ℕ',
         '\\ker': 'ker', '\\det': 'det', '\\text{Im }': 'Im ', '\\operatorname{Ger}': 'Ger',
         '\\sin': 'sin', '\\cos': 'cos', '\\tan': 'tan', '\\sec': 'sec', '\\csc': 'csc', '\\cot': 'cot',
-        '\\arcsin': 'arcsin', '\\arccos': 'arccos', '\\arctan': 'arctan'
+        '\\arcsin': 'arcsin', '\\arccos': 'arccos', '\\arctan': 'arctan',
+        '\\ln': 'ln', '\\log': 'log', '\\exp': 'exp', '\\lim': 'lim',
+        '\\frac{': '(', '}{': ')/(', '}': ')', '\\sqrt{': '√(', '\\,': ' ', '\\ ': ' '
     };
 
     // Replace Greek letters
@@ -92,16 +94,17 @@ export const latexToUnicode = (text: string): string => {
     // Handle single char superscript ^x
     result = result.replace(/\^([0-9a-z+-])/g, (_, c: string) => superscripts[c] || `^${c}`);
 
-    // Handle \log
-    result = result.replace(/\\log/g, 'log');
+    // Handle \log and \ln (sometimes useful if they aren't explicitly in mathSymbols with backslash)
+    result = result.replace(/\\(log|ln|exp|lim)/g, '$1');
+
+    // Handle remaining raw fragments if any
+    result = result.replace(/\\(frac|sqrt)\{/g, '(');
+    result = result.replace(/\}\{/g, ')/(');
 
     // Handle \sqrt{a} -> √a
     result = result.replace(/\\sqrt\{([^}]+)\}/g, '√($1)');
 
-    // Handle \frac{a}{b} -> (a)/(b) (simplified)
-    result = result.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
-
-    // Remove remaining $ delimiters
+    // Remove remaining $ delimiters explicitly at the very end
     result = result.replace(/\$/g, '');
 
     return result;
@@ -138,7 +141,8 @@ const MathText: React.FC<MathTextProps> = ({
     }, [children]);
 
     const isComplexMath = useMemo(() => {
-        return formula || /\$|\\\[|\\\(|\\begin\{/.test(rawString);
+        // Trigger complex rendering if explicitly requested or if it looks like a formula
+        return formula || /\$|\\\[|\\\(|\\begin\{|\\frac\{|\\sqrt\{/.test(rawString);
     }, [formula, rawString]);
 
     const sizeStyle = useMemo((): TextStyle => {
@@ -151,7 +155,6 @@ const MathText: React.FC<MathTextProps> = ({
     }, [size]);
 
     if (isComplexMath) {
-        // No web, vamos usar o KaTeX que é nativo ao DOM e não sofre de bugs de SVG.
         if (Platform.OS === ('web' as string)) {
             injectKatexCss();
             // eslint-disable-next-line @typescript-eslint/no-require-imports

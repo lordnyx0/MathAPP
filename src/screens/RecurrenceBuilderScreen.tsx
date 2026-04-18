@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
+    Animated,
+    Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
@@ -34,10 +36,39 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
     const [selectedPieceId, setSelectedPieceId] = useState<string | null>(null);
     const [isComplete, setIsComplete] = useState(false);
 
+    // Animations
+    const pulseAnim = useRef(new Animated.Value(1)).current;
+    const shakeAnims = useRef<Record<string, Animated.Value>>({}).current;
+    const successAnims = useRef<Record<string, Animated.Value>>({}).current;
+
     useEffect(() => {
         initAudio();
         startNextProof();
     }, []);
+
+    // Pulse animation for selected piece
+    useEffect(() => {
+        if (selectedPieceId) {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(pulseAnim, {
+                        toValue: 1.05,
+                        duration: 600,
+                        easing: Easing.inOut(Easing.ease),
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(pulseAnim, {
+                        toValue: 1,
+                        duration: 600,
+                        easing: Easing.inOut(Easing.ease),
+                        useNativeDriver: true,
+                    }),
+                ])
+            ).start();
+        } else {
+            pulseAnim.setValue(1);
+        }
+    }, [selectedPieceId]);
 
     const startNextProof = () => {
         const nextProof = getRandomRecurrenceProof();
@@ -58,6 +89,28 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
         }
     };
 
+    const triggerShake = (blankId: string) => {
+        if (!shakeAnims[blankId]) shakeAnims[blankId] = new Animated.Value(0);
+        
+        Animated.sequence([
+            Animated.timing(shakeAnims[blankId], { toValue: 10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnims[blankId], { toValue: -10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnims[blankId], { toValue: 10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnims[blankId], { toValue: 0, duration: 50, useNativeDriver: true }),
+        ]).start();
+    };
+
+    const triggerSuccess = (blankId: string) => {
+        if (!successAnims[blankId]) successAnims[blankId] = new Animated.Value(1);
+        successAnims[blankId].setValue(0.8);
+        Animated.spring(successAnims[blankId], {
+            toValue: 1,
+            friction: 4,
+            tension: 40,
+            useNativeDriver: true,
+        }).start();
+    };
+
     const handleBlankTap = (lineId: string, blankId: string, correctPieceId: string, isLineActive: boolean) => {
         if (!selectedPieceId || !isLineActive || isComplete) return;
 
@@ -65,13 +118,15 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
 
         if (selectedPieceId === correctPieceId) {
             setFilledBlanks(prev => ({ ...prev, [globalBlankId]: selectedPieceId }));
+            triggerSuccess(globalBlankId);
             setSelectedPieceId(null);
             playCorrect();
             setScore(s => s + 10);
             
         } else {
+            triggerShake(globalBlankId);
             playIncorrect();
-            setSelectedPieceId(null);
+            // Optional: don't deselect to allow quick second try
         }
     };
 
@@ -94,7 +149,7 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
 
         if (allBlanksFilled) {
             // Auto-advance after small delay (or immediately for informational lines without blanks)
-            const delay = currentLine.blanks.length > 0 ? 500 : 250;
+            const delay = currentLine.blanks.length > 0 ? 800 : 250;
             const timer = setTimeout(() => {
                 setCurrentLineIdx(idx => idx + 1);
             }, delay);
@@ -115,7 +170,14 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
         line.textParts.forEach((part, i) => {
             // text parts
             if (part !== '') {
-                elements.push(<Text key={`text-${i}`} style={[styles.lineText, isPast && styles.lineTextPast]}>{latexToUnicode(part)}</Text>);
+                elements.push(
+                    <MathText 
+                        key={`text-${i}`} 
+                        style={[styles.lineText, isPast && styles.lineTextPast, isActive && styles.lineTextActive]}
+                    >
+                        {part}
+                    </MathText>
+                );
             }
             
             // blank after this part, except for the last part
@@ -126,25 +188,39 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                 
                 if (filledPieceId) {
                     const mathPiece = proof.pool.find(p => p.id === filledPieceId)?.math || '';
+                    if (!successAnims[globalBlankId]) successAnims[globalBlankId] = new Animated.Value(1);
+                    
                     elements.push(
-                        <View key={`blank-${i}`} style={styles.filledBlank}>
-                            <MathText style={styles.filledBlankText}>{mathPiece}</MathText>
-                        </View>
-                    );
-                } else {
-                    elements.push(
-                        <TouchableOpacity 
+                        <Animated.View 
                             key={`blank-${i}`} 
                             style={[
-                                styles.emptyBlank, 
-                                isActive && selectedPieceId && styles.emptyBlankTargetable,
-                                !isActive && styles.emptyBlankDisabled
+                                styles.filledBlank,
+                                { transform: [{ scale: successAnims[globalBlankId] }] }
                             ]}
-                            disabled={!isActive || !selectedPieceId}
-                            onPress={() => handleBlankTap(line.id, blankInfo.id, blankInfo.correctPieceId, isActive)}
                         >
-                            <Text style={styles.emptyBlankHint}>?</Text>
-                        </TouchableOpacity>
+                            <MathText style={styles.filledBlankText}>{mathPiece}</MathText>
+                        </Animated.View>
+                    );
+                } else {
+                    if (!shakeAnims[globalBlankId]) shakeAnims[globalBlankId] = new Animated.Value(0);
+                    
+                    elements.push(
+                        <Animated.View 
+                            key={`blank-${i}`}
+                            style={{ transform: [{ translateX: shakeAnims[globalBlankId] }] }}
+                        >
+                            <TouchableOpacity 
+                                style={[
+                                    styles.emptyBlank, 
+                                    isActive && selectedPieceId && styles.emptyBlankTargetable,
+                                    !isActive && styles.emptyBlankDisabled
+                                ]}
+                                disabled={!isActive || !selectedPieceId}
+                                onPress={() => handleBlankTap(line.id, blankInfo.id, blankInfo.correctPieceId, isActive)}
+                            >
+                                <Text style={styles.emptyBlankHint}>?</Text>
+                            </TouchableOpacity>
+                        </Animated.View>
                     );
                 }
             }
@@ -164,21 +240,35 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
             <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
                 <View style={styles.header}>
                     {onBack && <BackButton onPress={onBack} />}
-                    <Text style={styles.headerTitle}>Construtor de Fórmulas</Text>
-                    <Text style={styles.scoreText}>Pts: {score}</Text>
+                    <View style={styles.headerTextCenter}>
+                        <Text style={styles.headerTitle}>Construtor de Fórmulas</Text>
+                        <Text style={styles.headerSubtitle}>Complete a demonstração</Text>
+                    </View>
+                    <View style={styles.scoreContainer}>
+                        <Text style={styles.scoreLabel}>PONTOS</Text>
+                        <Text style={styles.scoreValue}>{score}</Text>
+                    </View>
                 </View>
 
-                <AnimatedCard borderColor={colors.primary}>
-                    <Text style={styles.instruction}>Prove a fórmula para:</Text>
+                <AnimatedCard borderColor={colors.primary} style={styles.targetCard}>
+                    <Text style={styles.instruction}>Integral Alvo:</Text>
                     <DisplayMath>{proof.integralTarget}</DisplayMath>
                 </AnimatedCard>
 
-                <ScrollView style={styles.proofArea} showsVerticalScrollIndicator={false}>
+                <ScrollView 
+                    style={styles.proofArea} 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.proofContent}
+                >
                     {proof.lines.map((line, idx) => renderLine(line, idx))}
 
                     {isComplete && (
                         <FadeInView style={styles.successBox}>
+                            <View style={styles.successIconContainer}>
+                                <Text style={styles.successIcon}>✨</Text>
+                            </View>
                             <Text style={styles.successTitle}>Demonstração Concluída!</Text>
+                            <Text style={styles.successSubtitle}>Você dominou esta recorrência.</Text>
                             <TouchableOpacity style={styles.nextButton} onPress={startNextProof}>
                                 <Text style={styles.nextButtonText}>Próximo Desafio</Text>
                             </TouchableOpacity>
@@ -189,18 +279,36 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
 
                 {/* Pool Area fixed at bottom */}
                 {!isComplete && (
-                    <View style={[styles.poolArea, { backgroundColor: colors.surfaceAlt }]}>
-                        <Text style={styles.poolTitle}>Peças disponíveis:</Text>
+                    <View style={[styles.poolArea, { backgroundColor: colors.surface }]}>
+                        <View style={styles.poolHeader}>
+                            <Text style={styles.poolTitle}>Peças disponíveis:</Text>
+                            {selectedPieceId && (
+                                <FadeInView style={styles.selectionHint}>
+                                    <Text style={styles.selectionHintText}>Toque em um [?] para encaixar</Text>
+                                </FadeInView>
+                            )}
+                        </View>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.poolScroll}>
                             {proof.pool.map((piece) => {
                                 const isSelected = selectedPieceId === piece.id;
                                 return (
                                     <TouchableOpacity 
                                         key={piece.id} 
-                                        style={[styles.pieceBox, isSelected && styles.pieceBoxSelected]}
+                                        activeOpacity={0.7}
+                                        style={[styles.pieceContainer]}
                                         onPress={() => handlePieceTap(piece.id)}
                                     >
-                                        <MathText style={[styles.pieceText, isSelected && styles.pieceTextSelected]}>{piece.math}</MathText>
+                                        <Animated.View 
+                                            style={[
+                                                styles.pieceBox, 
+                                                isSelected && styles.pieceBoxSelected,
+                                                isSelected && { transform: [{ scale: pulseAnim }] }
+                                            ]}
+                                        >
+                                            <MathText style={[styles.pieceText, isSelected && styles.pieceTextSelected]}>
+                                                {piece.math}
+                                            </MathText>
+                                        </Animated.View>
                                     </TouchableOpacity>
                                 );
                             })}
@@ -219,35 +327,68 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: spacing.md,
+        paddingHorizontal: spacing.xl,
         paddingTop: spacing.md,
-        paddingBottom: spacing.sm,
+        paddingBottom: spacing.md,
     },
-    headerTitle: { fontSize: fontSize.lg, fontWeight: '700', color: colors.textPrimary },
-    scoreText: { fontSize: fontSize.md, fontWeight: '600', color: colors.primary },
-    instruction: { fontSize: fontSize.sm, color: colors.textSecondary, marginBottom: spacing.xs, textAlign: 'center' },
+    headerTextCenter: {
+        flex: 1,
+        alignItems: 'center',
+        marginHorizontal: spacing.sm,
+    },
+    headerTitle: { fontSize: fontSize.lg, fontWeight: '800', color: colors.textPrimary },
+    headerSubtitle: { fontSize: fontSize.xs, color: colors.textSecondary, fontWeight: '500' },
+    
+    scoreContainer: {
+        backgroundColor: colors.surfaceAlt,
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.xs,
+        borderRadius: borderRadius.md,
+        alignItems: 'center',
+        minWidth: 70,
+        ...shadows.sm,
+    },
+    scoreLabel: { fontSize: 8, color: colors.textTertiary, fontWeight: '700' },
+    scoreValue: { fontSize: fontSize.md, fontWeight: '800', color: colors.primary },
+    
+    targetCard: {
+        marginHorizontal: spacing.xl,
+        marginBottom: spacing.sm,
+    },
+    instruction: { 
+        fontSize: fontSize.xs, 
+        color: colors.textSecondary, 
+        marginBottom: spacing.xs, 
+        textAlign: 'left',
+        fontWeight: '600'
+    },
     
     proofArea: {
         flex: 1,
         paddingHorizontal: spacing.xl,
+    },
+    proofContent: {
         paddingTop: spacing.sm,
     },
     lineBox: {
         backgroundColor: colors.surface,
-        borderRadius: borderRadius.md,
+        borderRadius: borderRadius.lg,
         padding: spacing.md,
         marginBottom: spacing.md,
-        borderLeftWidth: 4,
+        borderLeftWidth: 6,
         borderColor: colors.border,
         ...shadows.sm,
     },
     lineBoxActive: {
         borderColor: colors.primary,
         backgroundColor: colors.surface,
+        ...shadows.md,
+        transform: [{ scale: 1.02 }],
     },
     lineBoxPast: {
         borderColor: colors.success,
-        backgroundColor: colors.surface + '80', // semi transparent
+        backgroundColor: colors.surface + '90',
+        opacity: 0.9,
     },
     lineContent: {
         flexDirection: 'row',
@@ -257,19 +398,22 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     lineText: {
         fontSize: fontSize.md,
         color: colors.textPrimary,
-        fontWeight: '500',
-        lineHeight: 28,
+        fontWeight: '600',
+        lineHeight: 32,
     },
     lineTextPast: {
         color: colors.textSecondary,
     },
+    lineTextActive: {
+        color: colors.textPrimary,
+    },
     
     emptyBlank: {
         backgroundColor: colors.surfaceAlt,
-        minWidth: 40,
-        height: 28,
-        borderRadius: borderRadius.sm,
-        borderWidth: 1,
+        minWidth: 45,
+        height: 32,
+        borderRadius: borderRadius.md,
+        borderWidth: 2,
         borderColor: colors.border,
         borderStyle: 'dashed',
         marginHorizontal: spacing.xs,
@@ -278,96 +422,134 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     },
     emptyBlankTargetable: {
         borderColor: colors.primary,
-        backgroundColor: colors.primary + '20',
+        backgroundColor: colors.primary + '15',
         borderStyle: 'solid',
-        borderWidth: 2,
+        borderWidth: 3,
     },
     emptyBlankDisabled: {
-        opacity: 0.5,
+        opacity: 0.4,
     },
     emptyBlankHint: {
-        color: colors.textTertiary,
-        fontSize: fontSize.sm,
+        color: colors.primary,
+        fontSize: fontSize.md,
+        fontWeight: '800',
     },
     
     filledBlank: {
-        backgroundColor: colors.successLight,
-        paddingHorizontal: spacing.xs,
-        minWidth: 40,
-        height: 28,
-        borderRadius: borderRadius.sm,
-        borderWidth: 1,
+        backgroundColor: colors.success + '15',
+        paddingHorizontal: spacing.sm,
+        minWidth: 50,
+        height: 34,
+        borderRadius: borderRadius.md,
+        borderWidth: 2,
         borderColor: colors.success,
         marginHorizontal: spacing.xs,
         alignItems: 'center',
         justifyContent: 'center',
+        ...shadows.sm,
     },
     filledBlankText: {
         fontSize: fontSize.md,
-        color: colors.textPrimary,
-        fontWeight: '700',
+        color: colors.success,
+        fontWeight: '800',
     },
     
     poolArea: {
-        paddingTop: spacing.sm,
-        paddingBottom: spacing.xl,
+        paddingTop: spacing.md,
+        paddingBottom: 80, // Increased to clear TabBar
         borderTopWidth: 1,
         borderColor: colors.border,
-        ...shadows.md,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        ...shadows.lg,
+    },
+    poolHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: spacing.xl,
+        marginBottom: spacing.md,
     },
     poolTitle: {
         fontSize: fontSize.sm,
+        fontWeight: '700',
         color: colors.textSecondary,
-        paddingHorizontal: spacing.xl,
-        marginBottom: spacing.sm,
+    },
+    selectionHint: {
+        backgroundColor: colors.primary,
+        paddingHorizontal: spacing.sm,
+        paddingVertical: 2,
+        borderRadius: borderRadius.full,
+    },
+    selectionHintText: {
+        fontSize: 10,
+        color: colors.textWhite,
+        fontWeight: '700',
     },
     poolScroll: {
         paddingHorizontal: spacing.xl,
-        gap: spacing.sm,
+        gap: spacing.md,
+        paddingBottom: spacing.sm,
+    },
+    pieceContainer: {
+        paddingVertical: 4,
     },
     pieceBox: {
-        backgroundColor: colors.surface,
+        backgroundColor: colors.surfaceAlt,
         borderWidth: 2,
         borderColor: colors.border,
-        borderRadius: borderRadius.md,
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm,
-        minWidth: 60,
+        borderRadius: borderRadius.xl,
+        paddingHorizontal: spacing.lg,
+        paddingVertical: spacing.md,
+        minWidth: 80,
         alignItems: 'center',
         justifyContent: 'center',
         ...shadows.sm,
     },
     pieceBoxSelected: {
         borderColor: colors.primary,
-        backgroundColor: colors.primary + '20',
-        transform: [{ translateY: -2 }],
+        backgroundColor: colors.surface,
+        borderWidth: 3,
+        ...shadows.md,
     },
     pieceText: {
         fontSize: fontSize.md,
         color: colors.textPrimary,
-        fontWeight: '600',
+        fontWeight: '700',
     },
     pieceTextSelected: {
         color: colors.primary,
     },
     
     successBox: {
-        marginTop: spacing.md,
+        marginTop: spacing.xl,
         backgroundColor: colors.surface,
-        borderRadius: borderRadius.lg,
-        borderWidth: 2,
+        borderRadius: 24,
+        borderWidth: 3,
         borderColor: colors.success,
-        padding: spacing.xl,
+        padding: spacing.xxl,
         alignItems: 'center',
-        ...shadows.md,
+        ...shadows.lg,
     },
-    successTitle: { fontSize: fontSize.lg, fontWeight: '700', color: colors.success, marginBottom: spacing.md },
+    successIconContainer: {
+        width: 80,
+        height: 80,
+        backgroundColor: colors.success + '20',
+        borderRadius: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: spacing.lg,
+    },
+    successIcon: { fontSize: 40 },
+    successTitle: { fontSize: fontSize.xl, fontWeight: '800', color: colors.success, marginBottom: spacing.xs },
+    successSubtitle: { fontSize: fontSize.sm, color: colors.textSecondary, marginBottom: spacing.xl },
     nextButton: {
         backgroundColor: colors.primary,
-        paddingHorizontal: spacing.xl,
+        paddingHorizontal: 40,
         paddingVertical: spacing.md,
-        borderRadius: borderRadius.md,
+        borderRadius: borderRadius.full,
+        ...shadows.md,
     },
-    nextButtonText: { color: colors.textWhite, fontWeight: '700', fontSize: fontSize.md },
-    bottomPadding: { height: 120 },
+    nextButtonText: { color: colors.textWhite, fontWeight: '800', fontSize: fontSize.md },
+    bottomPadding: { height: 180 },
 });

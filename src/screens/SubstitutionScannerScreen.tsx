@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
+    Animated,
+    Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
@@ -35,10 +37,28 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
     // Track revealed steps in StepCard
     const [revealedSteps, setRevealedSteps] = useState<boolean[]>([true, false, false]);
 
+    // Animations
+    const pulseAnim = useRef(new Animated.Value(1)).current;
+    const shakeAnim = useRef(new Animated.Value(0)).current;
+
     useEffect(() => {
         initAudio();
         nextQuestion();
     }, []);
+
+    // Selection pulse
+    useEffect(() => {
+        if (selectedChunk && phase === 'scan') {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(pulseAnim, { toValue: 1.05, duration: 500, useNativeDriver: true }),
+                    Animated.timing(pulseAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
+                ])
+            ).start();
+        } else {
+            pulseAnim.setValue(1);
+        }
+    }, [selectedChunk, phase]);
 
     const nextQuestion = () => {
         setQuestion(getRandomSubstitutionQuestion());
@@ -52,6 +72,15 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         setSelectedChunk(chunkId);
     };
 
+    const triggerErrorShake = () => {
+        Animated.sequence([
+            Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
+            Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+        ]).start();
+    };
+
     const confirmU = () => {
         if (!question || !selectedChunk) return;
 
@@ -59,8 +88,9 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
             playCorrect();
             setScore(s => s + 10);
             setPhase('du_calc');
-            setRevealedSteps([false, true, false]); // Open step 2
+            setRevealedSteps([false, true, false]);
         } else {
+            triggerErrorShake();
             playIncorrect();
             setSelectedChunk(null);
         }
@@ -70,7 +100,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         playCorrect();
         setScore(s => s + 5);
         setPhase('substituted');
-        setRevealedSteps([false, false, true]); // Open step 3
+        setRevealedSteps([false, false, true]);
     };
 
     const toggleStep = (index: number) => {
@@ -89,9 +119,6 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         const disabled = !chunk.isSelectable || phase !== 'scan';
 
         if (!chunk.isSelectable) {
-            // Some non-selectable chunks are intentionally partial LaTeX snippets
-            // (e.g. "\\frac{", "}{", "^5}\\, dx"), which are invalid as standalone
-            // formulas and can crash/fail in the math renderer.
             return (
                 <MathText key={`chunk-${idx}`} style={styles.chunkText}>
                     {chunk.text}
@@ -104,21 +131,26 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                 key={`chunk-${idx}`}
                 disabled={disabled}
                 onPress={() => handleChunkTap(chunk.id)}
-                style={[
-                    styles.chunkPill,
-                    isSelected && styles.chunkPillSelected,
-                    (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkPillSuccess
-                ]}
             >
-                <MathText
+                <Animated.View
                     style={[
-                        styles.chunkTextSelectable,
-                        isSelected && styles.chunkTextSelected,
-                        (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkTextSelected
+                        styles.chunkPill,
+                        isSelected && styles.chunkPillSelected,
+                        isSelected && { transform: [{ scale: pulseAnim }] },
+                        (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkPillSuccess,
+                        isSelected && { transform: [{ scale: pulseAnim }, { translateX: shakeAnim }] }
                     ]}
                 >
-                    {chunk.text}
-                </MathText>
+                    <MathText
+                        style={[
+                            styles.chunkTextSelectable,
+                            isSelected && styles.chunkTextSelected,
+                            (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkTextSelected
+                        ]}
+                    >
+                        {chunk.text}
+                    </MathText>
+                </Animated.View>
             </TouchableOpacity>
         );
     });
@@ -130,17 +162,28 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                     {onBack && <BackButton onPress={onBack} />}
                     
                     <View style={styles.header}>
-                        <Text style={styles.headerTitle}>Scanner Substituição</Text>
-                        <Text style={styles.scoreText}>Pontos: {score}</Text>
+                        <View>
+                            <Text style={styles.headerTitle}>Scanner Substituição</Text>
+                            <Text style={styles.headerSubtitle}>Tática de Integração</Text>
+                        </View>
+                        <View style={styles.scoreBadge}>
+                            <Text style={styles.scoreValue}>{score}</Text>
+                            <Text style={styles.scoreLabel}>PTS</Text>
+                        </View>
                     </View>
 
                     <Text style={styles.instruction}>Analise a integral original:</Text>
 
-                    <AnimatedCard borderColor={colors.primary}>
+                    <AnimatedCard borderColor={colors.primary} style={styles.mainCard}>
                         <DisplayMath>{question.integral}</DisplayMath>
                         <View style={styles.equationContainer}>
                             {visualBlocks}
                         </View>
+                        {phase === 'scan' && !selectedChunk && (
+                            <FadeInView style={styles.hintBox}>
+                                <Text style={styles.hintText}>Toque no termo que você escolheria como 'u'</Text>
+                            </FadeInView>
+                        )}
                     </AnimatedCard>
 
                     {/* Step 1: Identify U */}
@@ -150,14 +193,14 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                         onToggle={() => toggleStep(0)}
                         categoryColor={colors.primary}
                         step={{
-                            title: 'Identificar u',
-                            explanation: 'Toque no bloco acima que deve ser substituído por u.',
-                            content: 'Procure uma função cuja derivada também esteja presente na integral (multiplicando dx).',
+                            title: '1. Identificar u',
+                            explanation: 'A peça chave da substituição.',
+                            content: 'Procure uma função cuja derivada também esteja presente na integral (multiplicando dx). Geralmente é o termo de maior grau ou o argumento de uma função composta.',
                         }}
                     />
 
                     {phase === 'scan' && (
-                        <FadeInView delay={300}>
+                        <FadeInView delay={300} style={styles.actionContainer}>
                             <TouchableOpacity 
                                 style={[styles.actionButton, !selectedChunk && styles.disabledBtn]} 
                                 onPress={confirmU}
@@ -177,21 +220,23 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                 onToggle={() => toggleStep(1)}
                                 categoryColor={colors.warning}
                                 step={{
-                                    title: 'Calcular du',
-                                    explanation: 'Achamos u. Agora precisamos derivá-lo para encontrar du.',
-                                    content: `Derivando $u = ${question.correctUText}$, temos $du = ${question.duText}$.`,
+                                    title: '2. Calcular du',
+                                    explanation: 'Traduzindo o dx para du.',
+                                    content: `Derivando $u = ${question.correctUText}$, temos $du = ${question.duText}$. Este passo é fundamental para garantir que todos os termos em x sumam!`,
                                 }}
                             />
                             
                             {phase === 'du_calc' && (
                                 <FadeInView delay={300}>
                                     <View style={styles.duPanel}>
-                                        <MathText formula style={styles.duPanelText}>{`u = ${question.correctUText}`}</MathText>
-                                        <DisplayMath>{`du = ${question.duText}`}</DisplayMath>
-                                        <Text style={styles.duInstruction}>Encontrou essa derivada na equação?</Text>
+                                        <MathText style={styles.duPanelTextSmall}>Derivada encontrada:</MathText>
+                                        <View style={styles.duFormulaBox}>
+                                            <MathText style={styles.duPanelMath}>{`u = ${question.correctUText}`}</MathText>
+                                            <MathText style={[styles.duPanelMath, { color: colors.warning }]}>{`du = ${question.duText}`}</MathText>
+                                        </View>
                                         
-                                        <TouchableOpacity style={[styles.actionButton, { marginTop: spacing.md }]} onPress={confirmDu}>
-                                            <Text style={styles.actionButtonText}>Substituir e Cancelar</Text>
+                                        <TouchableOpacity style={styles.actionButton} onPress={confirmDu}>
+                                            <Text style={styles.actionButtonText}>Substituir e Simplificar</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </FadeInView>
@@ -208,19 +253,22 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                 onToggle={() => toggleStep(2)}
                                 categoryColor={colors.success}
                                 step={{
-                                    title: 'Reescrever e Simplificar',
-                                    explanation: 'Substitua e veja como a integral fica simples.',
+                                    title: '3. Resultado Final',
+                                    explanation: 'A integral agora é imediata.',
                                     content: question.explanation,
                                 }}
                             />
                             
                             <FadeInView delay={300}>
-                                <AnimatedCard borderColor={colors.success}>
-                                    <Text style={styles.successText}>Integral Reescrita:</Text>
+                                <AnimatedCard borderColor={colors.success} style={styles.resultCard}>
+                                    <View style={styles.successBadge}>
+                                        <Text style={styles.successEmoji}>🎯</Text>
+                                    </View>
+                                    <Text style={styles.resultLabel}>Integral em u:</Text>
                                     <DisplayMath>{question.finalUIntegral}</DisplayMath>
                                 </AnimatedCard>
 
-                                <TouchableOpacity style={styles.actionButton} onPress={nextQuestion}>
+                                <TouchableOpacity style={[styles.actionButton, styles.nextBtn]} onPress={nextQuestion}>
                                     <Text style={styles.actionButtonText}>Próximo Desafio</Text>
                                 </TouchableOpacity>
                             </FadeInView>
@@ -236,7 +284,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
 const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) => StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
     gradient: { flex: 1 },
-    scrollContent: { paddingBottom: 100, paddingHorizontal: spacing.xl },
+    scrollContent: { paddingBottom: 180, paddingHorizontal: spacing.xl },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -244,75 +292,137 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         paddingTop: spacing.md,
         paddingBottom: spacing.lg,
     },
-    headerTitle: { fontSize: fontSize.lg, fontWeight: '700', color: colors.textPrimary },
-    scoreText: { fontSize: fontSize.md, fontWeight: '600', color: colors.primary },
-    instruction: { fontSize: fontSize.sm, color: colors.textSecondary, marginBottom: spacing.sm, textAlign: 'center' },
+    headerTitle: { fontSize: fontSize.xl, fontWeight: '800', color: colors.textPrimary },
+    headerSubtitle: { fontSize: 10, fontWeight: '600', color: colors.textTertiary, textTransform: 'uppercase', letterSpacing: 1 },
     
+    scoreBadge: {
+        backgroundColor: colors.surfaceAlt,
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.xs,
+        borderRadius: borderRadius.md,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: colors.border,
+        ...shadows.sm,
+    },
+    scoreValue: { fontSize: fontSize.lg, fontWeight: '800', color: colors.primary },
+    scoreLabel: { fontSize: 8, fontWeight: '700', color: colors.textTertiary },
+
+    instruction: { fontSize: fontSize.xs, color: colors.textSecondary, marginBottom: spacing.sm, textAlign: 'center', fontWeight: '500' },
+    
+    mainCard: {
+        paddingVertical: spacing.md,
+        marginBottom: spacing.md,
+    },
     equationContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: spacing.md,
+        paddingVertical: spacing.lg,
+        backgroundColor: colors.surfaceAlt + '40',
+        borderRadius: borderRadius.lg,
+        marginHorizontal: spacing.sm,
+        marginTop: spacing.sm,
     },
     chunkText: {
-        fontSize: 24,
-        fontFamily: 'monospace',
-    },
-    chunkTextUnselectable: {
+        fontSize: 22,
+        fontWeight: '500',
         color: colors.textPrimary,
-        marginHorizontal: 1,
     },
     chunkPill: {
-        paddingHorizontal: spacing.xs,
-        paddingVertical: 2,
-        marginHorizontal: 1,
-        borderRadius: borderRadius.sm,
-        borderWidth: 1,
+        paddingHorizontal: spacing.sm,
+        paddingVertical: 6,
+        marginHorizontal: 2,
+        borderRadius: borderRadius.md,
+        borderWidth: 2,
         borderColor: colors.border,
-        backgroundColor: colors.surfaceAlt,
+        backgroundColor: colors.surface,
+        ...shadows.sm,
     },
     chunkPillSelected: {
         borderColor: colors.primary,
-        backgroundColor: colors.primary + '20',
-        transform: [{ scale: 1.05 }],
+        backgroundColor: colors.primary + '10',
+        ...shadows.md,
     },
     chunkPillSuccess: {
         borderColor: colors.success,
-        backgroundColor: colors.success + '20',
+        backgroundColor: colors.success + '10',
     },
     chunkTextSelectable: {
-        fontSize: 24,
-        fontFamily: 'monospace',
+        fontSize: 22,
         color: colors.primary,
-        fontWeight: 'bold',
+        fontWeight: '700',
     },
     chunkTextSelected: {
-        color: colors.primaryDark || colors.primary,
+        color: colors.primary,
     },
 
+    hintBox: {
+        marginTop: spacing.md,
+        alignItems: 'center',
+    },
+    hintText: {
+        fontSize: 10,
+        color: colors.textTertiary,
+        fontStyle: 'italic',
+    },
+
+    actionContainer: {
+        alignItems: 'center',
+    },
     actionButton: {
         backgroundColor: colors.primary,
-        padding: spacing.md,
-        borderRadius: borderRadius.md,
+        paddingVertical: spacing.md,
+        paddingHorizontal: 40,
+        borderRadius: borderRadius.full,
         alignItems: 'center',
         marginVertical: spacing.md,
         ...shadows.md,
     },
+    nextBtn: {
+        backgroundColor: '#4361ee', // A contrasting blue for next
+    },
     disabledBtn: { opacity: 0.5 },
-    actionButtonText: { fontSize: fontSize.md, fontWeight: '700', color: colors.textWhite },
+    actionButtonText: { fontSize: fontSize.md, fontWeight: '800', color: colors.textWhite },
 
     duPanel: {
         backgroundColor: colors.surface,
-        padding: spacing.xl,
-        borderRadius: borderRadius.lg,
-        borderWidth: 1,
+        padding: spacing.lg,
+        borderRadius: borderRadius.xl,
+        borderWidth: 2,
         borderColor: colors.warning,
         marginVertical: spacing.md,
         alignItems: 'center',
+        ...shadows.md,
+    },
+    duPanelTextSmall: { fontSize: fontSize.xs, color: colors.textSecondary, marginBottom: spacing.sm },
+    duFormulaBox: {
+        backgroundColor: colors.surfaceAlt,
+        padding: spacing.md,
+        borderRadius: borderRadius.md,
+        width: '100%',
+        alignItems: 'center',
+        gap: spacing.xs,
+        marginBottom: spacing.sm,
+    },
+    duPanelMath: { fontSize: fontSize.md, color: colors.textPrimary, fontWeight: '700' },
+    
+    resultCard: {
+        alignItems: 'center',
+        paddingVertical: spacing.xl,
+    },
+    resultLabel: { fontSize: fontSize.xs, color: colors.textSecondary, marginBottom: spacing.md, fontWeight: '600' },
+    successBadge: {
+        position: 'absolute',
+        top: -15,
+        backgroundColor: colors.success,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
         ...shadows.sm,
     },
-    duPanelText: { fontSize: fontSize.md, color: colors.textPrimary, marginBottom: spacing.xs },
-    duInstruction: { fontSize: fontSize.sm, color: colors.textSecondary, marginTop: spacing.xs, textAlign: 'center' },
-    successText: { fontSize: fontSize.md, fontWeight: '700', color: colors.success, marginBottom: spacing.sm, textAlign: 'center' },
+    successEmoji: { fontSize: 16 },
 });

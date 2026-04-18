@@ -556,7 +556,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         opacity: 0.8,
     },
     bottomPadding: {
-        height: 100,
+        height: 180,
     },
     backButton: {
         paddingHorizontal: spacing.xl,
@@ -657,6 +657,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     practiceContainer: {
         flex: 1,
         padding: spacing.xl,
+        marginBottom: 80, // Increased to clear TabBar
     },
     statsBar: {
         flexDirection: 'row',

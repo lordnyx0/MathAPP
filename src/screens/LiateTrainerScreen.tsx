@@ -155,7 +155,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                     {/* PHASE 1: Pick u and dv */}
                     {phase === 'pick_u_dv' && (
                         <FadeInView>
-                            <Text style={styles.subtext}>Selecione as partes abaixo e toque na caixa destino para definir $u$ e $dv$.</Text>
+                            <MathText style={styles.subtext}>Selecione as partes abaixo e toque na caixa destino para definir $u$ e $dv$.</MathText>
                             
                             <View style={styles.pool}>
                                 {unassignedParts.map((p, i) => (
@@ -175,7 +175,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                     style={[styles.targetBox, { borderColor: colors.info }]}
                                     onPress={() => handleBoxTap('u')}
                                 >
-                                    <Text style={[styles.boxLabel, { color: colors.info }]}>$u$ (Derivar)</Text>
+                                    <MathText style={[styles.boxLabel, { color: colors.info }]}>$u$ (Derivar)</MathText>
                                     {uParts.map((p, i) => (
                                         <TouchableOpacity 
                                             key={`u-${i}`} 
@@ -191,7 +191,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                     style={[styles.targetBox, { borderColor: colors.warning }]}
                                     onPress={() => handleBoxTap('dv')}
                                 >
-                                    <Text style={[styles.boxLabel, { color: colors.warning }]}>$dv$ (Integrar)</Text>
+                                    <MathText style={[styles.boxLabel, { color: colors.warning }]}>$dv$ (Integrar)</MathText>
                                     {dvParts.map((p, i) => (
                                         <TouchableOpacity 
                                             key={`dv-${i}`} 
@@ -209,7 +209,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 onPress={checkPhase1}
                                 disabled={unassignedParts.length > 0}
                             >
-                                <Text style={styles.actionButtonText}>Verificar $u$ e $dv$</Text>
+                                <MathText style={styles.actionButtonText}>Verificar $u$ e $dv$</MathText>
                             </TouchableOpacity>
                         </FadeInView>
                     )}
@@ -394,5 +394,5 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         backgroundColor: colors.surfaceAlt,
         borderRadius: borderRadius.md,
     },
-    bottomPadding: { height: 100 },
+    bottomPadding: { height: 180 },
 });
