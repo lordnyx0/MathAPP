@@ -58,8 +58,16 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             },
             {
                 id: 'l6',
-                textParts: ['Resolvendo a equação para a integral original, obtemos a fórmula geral com fator ', ''],
-                blanks: [{ id: 'b6_1', correctPieceId: 'p_1_over_n' }]
+                textParts: ['Isolando I_n, escrevemos: nI_n = ', ' + (n-1)\\int \\sin^{n-2}(x) dx'],
+                blanks: [{ id: 'b6_1', correctPieceId: 'p_minus_sin_pow_cos' }]
+            },
+            {
+                id: 'l7',
+                textParts: ['Logo, I_n = ', ' + ', '\\int \\sin^{n-2}(x) dx'],
+                blanks: [
+                    { id: 'b7_1', correctPieceId: 'p_minus_sin_pow_cos_over_n' },
+                    { id: 'b7_2', correctPieceId: 'p_n_minus_1_over_n' }
+                ]
             }
         ],
         pool: [
@@ -72,6 +80,9 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             { id: 'p_cos2x', math: '\\cos^2(x)' },
             { id: 'p_1_minus_sin2x', math: '1 - \\sin^2(x)' },
             { id: 'p_1_over_n', math: '\\frac{1}{n}' },
+            { id: 'p_minus_sin_pow_cos', math: '-\\sin^{n-1}(x)\\cos(x)' },
+            { id: 'p_minus_sin_pow_cos_over_n', math: '-\\frac{\\sin^{n-1}(x)\\cos(x)}{n}' },
+            { id: 'p_n_minus_1_over_n', math: '\\frac{n-1}{n}' },
             { id: 'p_1_plus_sin2x', math: '1 + \\sin^2(x)' }
         ]
     },
@@ -104,6 +115,19 @@ export const recurrenceQuestions: RecurrenceProof[] = [
                 id: 'l5',
                 textParts: ['Substituímos \\tan^2(x) por ', ''],
                 blanks: [{ id: 'b5_1', correctPieceId: 'p_sec2x_minus_1' }]
+            },
+            {
+                id: 'l6',
+                textParts: ['Reorganizando, obtemos: (n-1)I_n = \\sec^{n-2}(x)\\tan(x) + (n-2)\\int \\sec^{n-2}(x) dx'],
+                blanks: []
+            },
+            {
+                id: 'l7',
+                textParts: ['Portanto, I_n = ', ' + ', '\\int \\sec^{n-2}(x) dx'],
+                blanks: [
+                    { id: 'b7_1', correctPieceId: 'p_sec_pow_tan_over_n_minus_1' },
+                    { id: 'b7_2', correctPieceId: 'p_n_minus_2_over_n_minus_1' }
+                ]
             }
         ],
         pool: [
@@ -114,6 +138,8 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             { id: 'p_n_minus_1', math: '(n-1)' },
             { id: 'p_tan2x', math: '\\tan^2(x)' },
             { id: 'p_sec2x_minus_1', math: '\\sec^2(x) - 1' },
+            { id: 'p_sec_pow_tan_over_n_minus_1', math: '\\frac{\\sec^{n-2}(x)\\tan(x)}{n-1}' },
+            { id: 'p_n_minus_2_over_n_minus_1', math: '\\frac{n-2}{n-1}' },
             { id: 'p_1_minus_sec2x', math: '1 - \\sec^2(x)' }
         ]
     }
