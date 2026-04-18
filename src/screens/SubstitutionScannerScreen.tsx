@@ -89,9 +89,11 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         const disabled = !chunk.isSelectable || phase !== 'scan';
 
         if (!chunk.isSelectable) {
-            // Unselectable text - render as formula
+            // Some non-selectable chunks are intentionally partial LaTeX snippets
+            // (e.g. "\\frac{", "}{", "^5}\\, dx"), which are invalid as standalone
+            // formulas and can crash/fail in the math renderer.
             return (
-                <MathText key={`chunk-${idx}`} formula style={styles.chunkText}>
+                <MathText key={`chunk-${idx}`} style={styles.chunkText}>
                     {chunk.text}
                 </MathText>
             );
@@ -109,7 +111,6 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                 ]}
             >
                 <MathText
-                    formula
                     style={[
                         styles.chunkTextSelectable,
                         isSelected && styles.chunkTextSelected,
@@ -136,6 +137,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                     <Text style={styles.instruction}>Analise a integral original:</Text>
 
                     <AnimatedCard borderColor={colors.primary}>
+                        <DisplayMath>{question.integral}</DisplayMath>
                         <View style={styles.equationContainer}>
                             {visualBlocks}
                         </View>
