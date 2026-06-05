@@ -82,8 +82,8 @@ export const liateQuestions: LiateQuestion[] = [
         correctDv: ['$e^{3x}$', '$dx$'],
         uCategory: 't',
         dvCategory: 'e',
-        du: '-3\\sin(3x) dx',
-        v: '\\frac{1}{3}e^{3x}',
+        du: '$-3\\sin(3x) dx$',
+        v: '$\\frac{1}{3}e^{3x}$',
         explanation: 'LIATE: Trigonométrica (cos(3x)) vem antes de Exponencial (e^{3x}). Escolhemos u = cos(3x).',
     },
     {
@@ -94,8 +94,8 @@ export const liateQuestions: LiateQuestion[] = [
         correctDv: ['$e^x$', '$dx$'],
         uCategory: 't',
         dvCategory: 'e',
-        du: '\\cos(x) dx',
-        v: 'e^x',
+        du: '$\\cos(x) dx$',
+        v: '$e^x$',
         explanation: 'LIATE: Trigonométrica (sin(x)) vem antes de Exponencial (e^x). Escolhemos u = sin(x).',
     }
 ];
