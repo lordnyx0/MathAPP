@@ -65,6 +65,7 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
     const [streak, setStreak] = useState(0);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
     const [highScore, setHighScore] = useState(0);
+    const [recentQuestions, setRecentQuestions] = useState<IntegralQuestion[]>([]);
 
     // Load high score on mount
     useEffect(() => {
@@ -110,12 +111,40 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
         setScore(0);
         setStreak(0);
         setQuestionsAnswered(0);
-        nextQuestion(diff);
+        setRecentQuestions([]);
+        nextQuestion(diff, []);
     };
 
     // Next question
-    const nextQuestion = (diff: DifficultyLevel | undefined = difficulty) => {
-        const question = getRandomQuestion(diff);
+    const nextQuestion = (
+        diff: DifficultyLevel | undefined = difficulty,
+        historyOverride?: IntegralQuestion[]
+    ) => {
+        const history = historyOverride !== undefined ? historyOverride : recentQuestions;
+        let question: IntegralQuestion;
+        let attempts = 0;
+        const historyLimit = 4;
+
+        do {
+            question = getRandomQuestion(diff);
+            attempts++;
+            const isExactRepeat = history.some(q => q.function === question.function);
+            const isConsecutiveRuleRepeat = history.length > 0 && history[history.length - 1].rule === question.rule;
+            
+            if (!isExactRepeat && (attempts > 5 || !isConsecutiveRuleRepeat)) {
+                break;
+            }
+        } while (attempts < 10);
+
+        setRecentQuestions(prev => {
+            const baseHistory = historyOverride !== undefined ? historyOverride : prev;
+            const next = [...baseHistory, question];
+            if (next.length > historyLimit) {
+                next.shift();
+            }
+            return next;
+        });
+
         const wrongAnswers = getWrongIntegrals(question, 3);
         const allOptions = [question.integral, ...wrongAnswers].sort(() => Math.random() - 0.5);
 

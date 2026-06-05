@@ -31,6 +31,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
     const [question, setQuestion] = useState<LiateQuestion | null>(null);
     const [phase, setPhase] = useState<Phase>('pick_u_dv');
     const [score, setScore] = useState(0);
+    const [recentQuestions, setRecentQuestions] = useState<LiateQuestion[]>([]);
 
     // Phase 1 State
     const [unassignedParts, setUnassignedParts] = useState<string[]>([]);
@@ -46,11 +47,32 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
 
     useEffect(() => {
         initAudio();
-        nextQuestion();
+        nextQuestion([]);
     }, []);
 
-    const nextQuestion = () => {
-        const q = getRandomLiateQuestion();
+    const nextQuestion = (historyOverride?: LiateQuestion[]) => {
+        const history = historyOverride !== undefined ? historyOverride : recentQuestions;
+        let q: LiateQuestion;
+        let attempts = 0;
+        
+        do {
+            q = getRandomLiateQuestion();
+            attempts++;
+            const isRepeat = history.some(item => item.id === q.id);
+            if (!isRepeat || attempts > 5) {
+                break;
+            }
+        } while (attempts < 10);
+
+        setRecentQuestions(prev => {
+            const baseHistory = historyOverride !== undefined ? historyOverride : prev;
+            const next = [...baseHistory, q];
+            if (next.length > 3) {
+                next.shift();
+            }
+            return next;
+        });
+
         setQuestion(q);
         setUnassignedParts(q.parts);
         setUParts([]);
@@ -282,7 +304,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 </View>
                             </AnimatedCard>
                             
-                            <TouchableOpacity style={styles.actionButton} onPress={nextQuestion}>
+                            <TouchableOpacity style={styles.actionButton} onPress={() => nextQuestion()}>
                                 <Text style={styles.actionButtonText}>Próximo Desafio</Text>
                             </TouchableOpacity>
                         </FadeInView>
