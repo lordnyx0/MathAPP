@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, initAudio } from '../utils/sounds';
+import { notifySuccess } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import FunctionGraph from '../components/FunctionGraph';
@@ -61,7 +63,7 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
         if (Math.abs(newC - level.expectedC) < step * 1.5) {
             setC(level.expectedC); // snap
             setIsSuccess(true);
-            playCorrect();
+            playCorrect(); notifySuccess();
             setScore(s => s + 50);
         }
     };
@@ -310,5 +312,5 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         marginTop: spacing.md,
     },
     nextButtonText: { color: colors.textWhite, fontWeight: '700', fontSize: fontSize.md },
-    bottomPadding: { height: 100 },
+    bottomPadding: { height: TAB_BAR_CLEARANCE },
 });

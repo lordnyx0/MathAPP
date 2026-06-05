@@ -476,7 +476,7 @@ const generatorsByRule: Record<DerivativeRuleType, GeneratorFunction> = {
 };
 
 const generatorsByDifficulty: Record<DifficultyLevel, DerivativeRuleType[]> = {
-    basico: ['constant', 'power', 'sum'],
+    basico: ['constant', 'power', 'power', 'power', 'sum', 'sum', 'sum'],
     intermediario: ['exp', 'ln', 'sin', 'cos'],
     avancado: ['chain', 'product', 'quotient', 'tan'],
 };

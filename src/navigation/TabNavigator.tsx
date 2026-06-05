@@ -102,7 +102,8 @@ const TabIcon: React.FC<TabIconProps> = ({ label, focused, colors }) => {
     };
 
     return (
-        <View style={styles.tabItem}>
+        <View style={[styles.tabItem, focused && styles.tabItemFocused]}
+        >
             {/* Active indicator dot */}
             <Animated.View
                 style={[
@@ -116,15 +117,19 @@ const TabIcon: React.FC<TabIconProps> = ({ label, focused, colors }) => {
                 {renderIcon()}
             </Animated.View>
 
-            <Text
-                style={[
-                    styles.tabLabel,
-                    { color: focused ? colors.primary : colors.textTertiary },
-                    focused && styles.tabLabelFocused,
-                ]}
-            >
-                {label}
-            </Text>
+            {/* Show label only when focused */}
+            {focused && (
+                <Text
+                    style={[
+                        styles.tabLabel,
+                        { color: colors.primary },
+                        styles.tabLabelFocused,
+                    ]}
+                    numberOfLines={1}
+                >
+                    {label}
+                </Text>
+            )}
         </View>
     );
 };
@@ -141,6 +146,8 @@ const TabNavigator: React.FC = () => {
             id="MainTabs"
             screenOptions={{
                 headerShown: false,
+                lazy: false,
+                sceneStyle: { backgroundColor: colors.background },
                 tabBarStyle: {
                     position: 'absolute',
                     bottom: Platform.OS === 'ios' ? 20 : 12,
@@ -213,7 +220,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: 8,
-        minWidth: 56,
+        minWidth: 48,
+    },
+    tabItemFocused: {
+        minWidth: 64,
     },
     activeIndicator: {
         position: 'absolute',

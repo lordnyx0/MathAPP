@@ -14,6 +14,9 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
+import { FadeInView } from '../components/AnimatedCard';
+import ScreenHeader from '../components/ScreenHeader';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 
 const CARD_GAP = spacing.md;
 const CARD_PADDING = spacing.lg;
@@ -23,7 +26,7 @@ const CARD_PADDING = spacing.lg;
 // ============================================================
 
 type MinigameId = 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals'
-    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence';
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab';
 
 type IoniconName = ComponentProps<typeof Ionicons>['name'];
 type MciIconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -34,6 +37,7 @@ type Minigame =
         name: string;
         description: string;
         gradient: readonly [string, string];
+        darkGradient: readonly [string, string];
         iconLib: 'ion';
         iconName: IoniconName;
         tag: string;
@@ -43,6 +47,7 @@ type Minigame =
         name: string;
         description: string;
         gradient: readonly [string, string];
+        darkGradient: readonly [string, string];
         iconLib: 'mci';
         iconName: MciIconName;
         tag: string;
@@ -62,6 +67,7 @@ const minigames: Minigame[] = [
         name: 'Quadrantes',
         description: 'Domine o círculo trigonométrico',
         gradient: ['#10B981', '#059669'],
+        darkGradient: ['#34D399', '#10B981'],
         iconLib: 'ion',
         iconName: 'compass',
         tag: 'Trigonometria',
@@ -71,6 +77,7 @@ const minigames: Minigame[] = [
         name: 'Símbolos',
         description: 'Aprenda notação matemática',
         gradient: ['#8B5CF6', '#7C3AED'],
+        darkGradient: ['#A78BFA', '#8B5CF6'],
         iconLib: 'ion',
         iconName: 'flash',
         tag: 'Álgebra',
@@ -80,6 +87,7 @@ const minigames: Minigame[] = [
         name: 'Funções Lab',
         description: 'Domínio, imagem e contradomínio',
         gradient: ['#F59E0B', '#D97706'],
+        darkGradient: ['#FBBF24', '#F59E0B'],
         iconLib: 'mci',
         iconName: 'function-variant',
         tag: 'Funções',
@@ -89,6 +97,7 @@ const minigames: Minigame[] = [
         name: 'Derivadas',
         description: 'Pratique regras de derivação',
         gradient: ['#EF4444', '#DC2626'],
+        darkGradient: ['#F87171', '#EF4444'],
         iconLib: 'ion',
         iconName: 'trending-up',
         tag: 'Cálculo',
@@ -97,7 +106,8 @@ const minigames: Minigame[] = [
         id: 'integrals',
         name: 'Integrais',
         description: 'Treino de primitivas básicas',
-        gradient: ['#06B6D4', '#0891B2'], // Cyan
+        gradient: ['#06B6D4', '#0891B2'],
+        darkGradient: ['#22D3EE', '#06B6D4'],
         iconLib: 'mci',
         iconName: 'math-integral',
         tag: 'Cálculo',
@@ -106,7 +116,8 @@ const minigames: Minigame[] = [
         id: 'liate',
         name: 'LIATE',
         description: 'Treine a Integração por Partes',
-        gradient: ['#E11D48', '#BE123C'], // Rose
+        gradient: ['#E11D48', '#BE123C'],
+        darkGradient: ['#FB7185', '#E11D48'],
         iconLib: 'mci',
         iconName: 'puzzle-outline',
         tag: 'Avançado',
@@ -115,7 +126,8 @@ const minigames: Minigame[] = [
         id: 'substitution',
         name: 'Scanner Substituição',
         description: 'Identifique e aplique substituição',
-        gradient: ['#047857', '#064E3B'], // Emerald dark
+        gradient: ['#047857', '#064E3B'],
+        darkGradient: ['#10B981', '#047857'],
         iconLib: 'ion',
         iconName: 'scan-outline',
         tag: 'Avançado',
@@ -124,7 +136,8 @@ const minigames: Minigame[] = [
         id: 'trigsprint',
         name: 'Trig Sprint',
         description: 'Identidades Trigonométricas',
-        gradient: ['#4338CA', '#312E81'], // Indigo
+        gradient: ['#4338CA', '#312E81'],
+        darkGradient: ['#6366F1', '#4338CA'],
         iconLib: 'mci',
         iconName: 'cards-playing-outline',
         tag: 'Pré-Cálculo',
@@ -133,7 +146,8 @@ const minigames: Minigame[] = [
         id: 'tvmlab',
         name: 'TVM Lab',
         description: 'Teorema do Valor Médio exploratório',
-        gradient: ['#B45309', '#78350F'], // Amber dark
+        gradient: ['#B45309', '#78350F'],
+        darkGradient: ['#D97706', '#B45309'],
         iconLib: 'ion',
         iconName: 'analytics-outline',
         tag: 'Teoremas',
@@ -142,10 +156,21 @@ const minigames: Minigame[] = [
         id: 'recurrence',
         name: 'Fórmulas Recorrência',
         description: 'Monte demonstrações passo a passo',
-        gradient: ['#6D28D9', '#4C1D95'], // Purple dark
+        gradient: ['#6D28D9', '#4C1D95'],
+        darkGradient: ['#8B5CF6', '#6D28D9'],
         iconLib: 'ion',
         iconName: 'build-outline',
         tag: 'Avançado',
+    },
+    {
+        id: 'arealab',
+        name: 'Área Lab',
+        description: 'Identifique interseções e integre áreas entre curvas',
+        gradient: ['#EC4899', '#BE123C'],
+        darkGradient: ['#F472B6', '#E11D48'],
+        iconLib: 'mci',
+        iconName: 'shape-outline',
+        tag: 'Aplicações',
     },
 ];
 
@@ -161,7 +186,9 @@ interface MinigameCardProps {
 }
 
 const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress, cardWidth, compact = false }) => {
-    const { colors } = useTheme();
+    const { colors, isDark } = useTheme();
+    const activeGradient = isDark ? game.darkGradient : game.gradient;
+    const accentColor = activeGradient[0];
 
     return (
         <TouchableOpacity
@@ -173,7 +200,7 @@ const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress, cardWidth, c
         >
             {/* Gradient banner */}
             <LinearGradient
-                colors={game.gradient}
+                colors={activeGradient}
                 style={[styles.cardBanner, compact && styles.cardBannerCompact]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
@@ -188,8 +215,8 @@ const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress, cardWidth, c
             {/* Card body */}
             <View style={[styles.cardBody, compact && styles.cardBodyCompact, { backgroundColor: colors.surface }]}>
                 {/* Tag */}
-                <View style={[styles.tagChip, { backgroundColor: game.gradient[0] + '18' }]}>
-                    <Text style={[styles.tagText, { color: game.gradient[0] }]}>{game.tag}</Text>
+                <View style={[styles.tagChip, { backgroundColor: accentColor + '18' }]}>
+                    <Text style={[styles.tagText, { color: accentColor }]}>{game.tag}</Text>
                 </View>
 
                 <Text style={[styles.cardName, compact && styles.cardNameCompact, { color: colors.textPrimary }]}>{game.name}</Text>
@@ -199,8 +226,8 @@ const MinigameCard: React.FC<MinigameCardProps> = ({ game, onPress, cardWidth, c
 
                 {/* Play row */}
                 <View style={styles.playRow}>
-                    <Text style={[styles.playText, compact && styles.playTextCompact, { color: game.gradient[0] }]}>Jogar</Text>
-                    <Ionicons name="chevron-forward" size={14} color={game.gradient[0]} />
+                    <Text style={[styles.playText, compact && styles.playTextCompact, { color: accentColor }]}>Jogar</Text>
+                    <Ionicons name="chevron-forward" size={14} color={accentColor} />
                 </View>
             </View>
         </TouchableOpacity>
@@ -228,28 +255,23 @@ const TrainingHubScreen: React.FC<TrainingHubScreenProps> = ({ onSelectMinigame 
                     contentContainerStyle={styles2.scrollContent}
                 >
                     {/* Header */}
-                    <View style={styles2.header}>
-                        <View style={[styles2.headerIconWrap, { backgroundColor: colors.primary + '18' }]}>
-                            <Ionicons name="game-controller" size={28} color={colors.primary} />
-                        </View>
-                        <View style={styles2.headerText}>
-                            <Text style={styles2.headerTitle}>Área de Treino</Text>
-                            <Text style={styles2.headerSubtitle}>
-                                {minigames.length} minigames disponíveis
-                            </Text>
-                        </View>
-                    </View>
+                    <ScreenHeader
+                        title="Área de Treino"
+                        subtitle={`${minigames.length} minigames disponíveis`}
+                        icon="🎮"
+                    />
 
                     {/* Minigame Grid */}
                     <View style={[styles2.grid, isCompact && styles2.gridCompact]}>
-                        {minigames.map((game) => (
-                            <MinigameCard
-                                key={game.id}
-                                game={game}
-                                onPress={() => onSelectMinigame(game.id)}
-                                cardWidth={cardWidth}
-                                compact={isCompact}
-                            />
+                        {minigames.map((game, index) => (
+                            <FadeInView key={game.id} delay={index * 60}>
+                                <MinigameCard
+                                    game={game}
+                                    onPress={() => onSelectMinigame(game.id)}
+                                    cardWidth={cardWidth}
+                                    compact={isCompact}
+                                />
+                            </FadeInView>
                         ))}
                     </View>
 
@@ -378,7 +400,7 @@ const createPageStyles = (colors: import('../contexts/ThemeContext').ThemeColors
             flexDirection: 'column',
         },
         bottomPadding: {
-            height: 100,
+            height: TAB_BAR_CLEARANCE,
         },
     });
 

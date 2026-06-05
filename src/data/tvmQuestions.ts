@@ -71,6 +71,60 @@ export const tvmQuestions: TVMLevel[] = [
             const x = -1 + i * 0.1;
             return { x, y: x*x*x - x };
         }),
+    },
+    {
+        id: 'tvm4',
+        title: 'Tangente Cubica',
+        description: 'Sintonize a reta tangente de f(x) = x^3 - 3x + 2 no intervalo [0, 2] para achar c.',
+        functionEquation: 'f(x) = x^3 - 3x + 2',
+        derivativeEquation: 'f\\\'(x) = 3x^2 - 3',
+        a: 0,
+        b: 2,
+        expectedC: 2 / Math.sqrt(3), // slope = (4-2)/2 = 1. 3c^2-3=1 => 3c^2=4 => c=sqrt(4/3) ~ 1.15
+        graphDomain: [-0.5, 2.5],
+        graphImage: [-1, 6],
+        f: (x) => x*x*x - 3*x + 2,
+        df: (x) => 3*x*x - 3,
+        points: Array.from({ length: 40 }).map((_, i) => {
+            const x = -0.5 + i * 0.1;
+            return { x, y: x*x*x - 3*x + 2 };
+        }),
+    },
+    {
+        id: 'tvm5',
+        title: 'Crescimento e TVM',
+        description: 'Sintonize c para f(x) = 2x^3 - 3x^2 - 12x + 5 no intervalo [-2, 3].',
+        functionEquation: 'f(x) = 2x^3 - 3x^2 - 12x + 5',
+        derivativeEquation: 'f\\\'(x) = 6x^2 - 6x - 12',
+        a: -2,
+        b: 3,
+        expectedC: 0.5 + (5 * Math.sqrt(3)) / 6, // slope = -1. 6c^2-6c-12=-1 => 6c^2-6c-11=0 => c = 0.5 + 5sqrt(3)/6 ~ 1.943375...
+        graphDomain: [-2.5, 3.5],
+        graphImage: [-15, 15],
+        f: (x) => 2*x*x*x - 3*x*x - 12*x + 5,
+        df: (x) => 6*x*x - 6*x - 12,
+        points: Array.from({ length: 60 }).map((_, i) => {
+            const x = -2.5 + i * 0.1;
+            return { x, y: 2*x*x*x - 3*x*x - 12*x + 5 };
+        }),
+    },
+    {
+        id: 'tvm6',
+        title: 'Rolle e Extremos',
+        description: 'Ache c para f(x) = x^4 - 4x^3 + 4x^2 no intervalo [0, 2] onde a reta tangente e horizontal.',
+        functionEquation: 'f(x) = x^4 - 4x^3 + 4x^2',
+        derivativeEquation: 'f\\\'(x) = 4x^3 - 12x^2 + 8x',
+        a: 0,
+        b: 2,
+        expectedC: 1.0, // Rolle, slope = 0 => 4c(c-1)(c-2)=0 => c=1 in (0,2)
+        graphDomain: [-0.5, 2.5],
+        graphImage: [-0.5, 2.0],
+        f: (x) => Math.pow(x, 4) - 4*Math.pow(x, 3) + 4*x*x,
+        df: (x) => 4*x*x*x - 12*x*x + 8*x,
+        points: Array.from({ length: 35 }).map((_, i) => {
+            const x = -0.5 + i * 0.1;
+            return { x, y: Math.pow(x, 4) - 4*Math.pow(x, 3) + 4*x*x };
+        }),
     }
 ];
 

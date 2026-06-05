@@ -1,5 +1,6 @@
 // Training Navigator - State-based navigation for training minigames
 import React, { useState } from 'react';
+import { FadeInView } from '../components/AnimatedCard';
 import TrainingHubScreen from '../screens/TrainingHubScreen';
 import QuadrantTrainingScreen from '../screens/QuadrantTrainingScreen';
 import SymbolSprintScreen from '../screens/SymbolSprintScreen';
@@ -11,13 +12,29 @@ import SubstitutionScannerScreen from '../screens/SubstitutionScannerScreen';
 import TrigSprintScreen from '../screens/TrigSprintScreen';
 import TVMLabScreen from '../screens/TVMLabScreen';
 import RecurrenceBuilderScreen from '../screens/RecurrenceBuilderScreen';
+import AreaLabScreen from '../screens/AreaLabScreen';
 
 // ============================================================
 // TYPES
 // ============================================================
 
 type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals' 
-    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence';
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab';
+
+// Screen component map for cleaner rendering
+const SCREEN_MAP: Record<Exclude<TrainingScreen, 'hub'>, React.ComponentType<{ onBack: () => void }>> = {
+    quadrants: QuadrantTrainingScreen,
+    symbols: SymbolSprintScreen,
+    functions: FunctionLabScreen,
+    derivatives: DerivativeTrainerScreen,
+    integrals: IntegralTrainerScreen,
+    liate: LiateTrainerScreen,
+    substitution: SubstitutionScannerScreen,
+    trigsprint: TrigSprintScreen,
+    tvmlab: TVMLabScreen,
+    recurrence: RecurrenceBuilderScreen,
+    arealab: AreaLabScreen,
+};
 
 // ============================================================
 // NAVIGATOR
@@ -28,57 +45,22 @@ const TrainingNavigator: React.FC = () => {
 
     const goBack = () => setCurrentScreen('hub');
 
-    switch (currentScreen) {
-        case 'quadrants':
-            return <QuadrantTrainingScreen onBack={goBack} />;
-        case 'symbols':
-            return <SymbolSprintScreen onBack={goBack} />;
-        case 'functions':
-            return <FunctionLabScreen onBack={goBack} />;
-        case 'derivatives':
-            return <DerivativeTrainerScreen onBack={goBack} />;
-        case 'integrals':
-            return <IntegralTrainerScreen onBack={goBack} />;
-        case 'liate':
-            return <LiateTrainerScreen onBack={goBack} />;
-        case 'substitution':
-            return <SubstitutionScannerScreen onBack={goBack} />;
-        case 'trigsprint':
-            return <TrigSprintScreen onBack={goBack} />;
-        case 'tvmlab':
-            return <TVMLabScreen onBack={goBack} />;
-        case 'recurrence':
-            return <RecurrenceBuilderScreen onBack={goBack} />;
-        case 'hub':
-        default:
-            return (
-                <TrainingHubScreen
-                    onSelectMinigame={(id) => {
-                        if (id === 'quadrants') {
-                            setCurrentScreen('quadrants');
-                        } else if (id === 'symbols') {
-                            setCurrentScreen('symbols');
-                        } else if (id === 'functions') {
-                            setCurrentScreen('functions');
-                        } else if (id === 'derivatives') {
-                            setCurrentScreen('derivatives');
-                        } else if (id === 'integrals') {
-                            setCurrentScreen('integrals');
-                        } else if (id === 'liate') {
-                            setCurrentScreen('liate');
-                        } else if (id === 'substitution') {
-                            setCurrentScreen('substitution');
-                        } else if (id === 'trigsprint') {
-                            setCurrentScreen('trigsprint');
-                        } else if (id === 'tvmlab') {
-                            setCurrentScreen('tvmlab');
-                        } else if (id === 'recurrence') {
-                            setCurrentScreen('recurrence');
-                        }
-                    }}
-                />
-            );
+    if (currentScreen !== 'hub') {
+        const ScreenComponent = SCREEN_MAP[currentScreen];
+        return (
+            <FadeInView key={currentScreen} style={{ flex: 1 }}>
+                <ScreenComponent onBack={goBack} />
+            </FadeInView>
+        );
     }
+
+    return (
+        <FadeInView key="hub" style={{ flex: 1 }}>
+            <TrainingHubScreen
+                onSelectMinigame={(id) => setCurrentScreen(id as TrainingScreen)}
+            />
+        </FadeInView>
+    );
 };
 
 export default TrainingNavigator;

@@ -120,7 +120,7 @@ export const colors: Colors = {
     // Text
     textPrimary: '#1E293B',
     textSecondary: '#64748B',
-    textTertiary: '#94A3B8',
+    textTertiary: '#6B7280', // Improved from #94A3B8 for WCAG AA contrast (≥4.5:1)
     textWhite: '#FFFFFF',
 
     // Gradients (for LinearGradient)
@@ -334,6 +334,63 @@ export const animation: Animation = {
     normal: 300,
     slow: 500,
 };
+
+// ============================================================
+// MOTION (Easing Curves & Spring Configs)
+// ============================================================
+
+export const motion = {
+    /** Pre-built spring configs for Animated.spring() */
+    spring: {
+        /** Snappy — buttons, toggles */
+        snappy: { friction: 8, tension: 120 },
+        /** Gentle — cards sliding in */
+        gentle: { friction: 10, tension: 80 },
+        /** Bouncy — success celebrations, score pops */
+        bouncy: { friction: 4, tension: 40 },
+    },
+    /** Duration-based animation presets */
+    timing: {
+        /** Fast micro-interactions (150ms) */
+        fast: 150,
+        /** Normal transitions (300ms) */
+        normal: 300,
+        /** Slow emphasis animations (500ms) */
+        slow: 500,
+    },
+} as const;
+
+// ============================================================
+// Z-INDEX
+// ============================================================
+
+export const zIndex = {
+    /** Default layer for content */
+    base: 0,
+    /** Elevated cards, list items */
+    card: 1,
+    /** Sticky headers, floating elements */
+    header: 10,
+    /** Tab bar, FABs */
+    navigation: 50,
+    /** Bottom sheets, modals */
+    modal: 100,
+    /** Toasts, notifications */
+    toast: 1000,
+} as const;
+
+// ============================================================
+// FONT FAMILY
+// ============================================================
+
+export const fontFamily = {
+    regular: 'Inter_400Regular',
+    medium: 'Inter_500Medium',
+    semibold: 'Inter_600SemiBold',
+    bold: 'Inter_700Bold',
+    /** Fallback to system fonts when custom fonts haven't loaded */
+    system: undefined as string | undefined,
+} as const;
 
 // ============================================================
 // THEME EXPORT

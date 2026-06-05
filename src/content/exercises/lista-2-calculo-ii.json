@@ -1,0 +1,232 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "lista-2-calculo-ii",
+    "title": "Lista 2: Aplicações de Derivadas e Integrais",
+    "exercises": [
+        {
+            "id": "c2-l2-q1",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Derivadas",
+            "title": "Q1: Regras de Derivação Avançadas",
+            "difficulty": "Intermediário",
+            "problem": "Calcule a derivada das seguintes funções:\n\na) $f(x) = \\frac{x^2 - 1}{x^2 + 1}$\n\nb) $f(x) = \\sqrt[3]{x^2} \\cdot \\cos(x)$\n\nc) $f(x) = e^{x^2} \\cdot \\ln(x)$\n\nd) $f(x) = \\frac{\\sin(x)}{x^2}$\n\ne) $f(x) = \\tan(x^3 + 2x)$",
+            "finalAnswer": "a) $4x/(x^2+1)^2$; b) $\\frac{2\\cos(x)}{3\\sqrt[3]{x}} - \\sqrt[3]{x^2}\\sin(x)$; c) $e^{x^2}(2x\\ln(x) + 1/x)$; d) $\\frac{x\\cos(x) - 2\\sin(x)}{x^3}$; e) $(3x^2+2)\\sec^2(x^3+2x)$",
+            "steps": [
+                {
+                    "title": "Item a) Regra do Quociente",
+                    "explanation": "Aplicar a regra do quociente para derivar a fração.",
+                    "content": "Para $f(x) = \\frac{x^2 - 1}{x^2 + 1}$:\n\nUtilizamos $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$, com $u = x^2-1$ e $v = x^2+1$.\n- $u' = 2x$\n- $v' = 2x$\n\n$$ f'(x) = \\frac{2x(x^2 + 1) - (x^2 - 1)2x}{(x^2 + 1)^2} = \\frac{2x^3 + 2x - 2x^3 + 2x}{(x^2 + 1)^2} = \\frac{4x}{(x^2 + 1)^2} $$"
+                },
+                {
+                    "title": "Item b) Regra do Produto e Potência Fracionária",
+                    "explanation": "Reescrever a raiz como expoente fracionário e usar a regra do produto.",
+                    "content": "Para $f(x) = x^{2/3} \\cdot \\cos(x)$:\n\nUtilizamos $(u \\cdot v)' = u'v + uv'$.\n- $u = x^{2/3} \\implies u' = \\frac{2}{3}x^{-1/3} = \\frac{2}{3\\sqrt[3]{x}}$\n- $v = \\cos(x) \\implies v' = -\\sin(x)$\n\n$$ f'(x) = \\frac{2}{3\\sqrt[3]{x}} \\cos(x) + x^{2/3} (-\\sin(x)) = \\frac{2\\cos(x)}{3\\sqrt[3]{x}} - \\sqrt[3]{x^2}\\sin(x) $$"
+                },
+                {
+                    "title": "Item c) Regra do Produto e Regra da Cadeia",
+                    "explanation": "Derivar a exponencial usando a regra da cadeia e aplicar a regra do produto.",
+                    "content": "Para $f(x) = e^{x^2} \\cdot \\ln(x)$:\n\nUtilizamos $(u \\cdot v)' = u'v + uv'$.\n- $u = e^{x^2} \\implies u' = e^{x^2} \\cdot (x^2)' = 2x e^{x^2}$ (pela Regra da Cadeia)\n- $v = \\ln(x) \\implies v' = \\frac{1}{x}$\n\n$$ f'(x) = (2x e^{x^2})\\ln(x) + e^{x^2}\\left(\\frac{1}{x}\\right) = e^{x^2}\\left(2x\\ln(x) + \\frac{1}{x}\\right) $$"
+                },
+                {
+                    "title": "Item d) Regra do Quociente Simplificada",
+                    "explanation": "Aplicar a regra do quociente na divisão trigonométrica.",
+                    "content": "Para $f(x) = \\frac{\\sin(x)}{x^2}$:\n\nUtilizamos a Regra do Quociente com $u = \\sin(x)$ e $v = x^2$.\n- $u' = \\cos(x)$\n- $v' = 2x$\n\n$$ f'(x) = \\frac{\\cos(x) \\cdot x^2 - \\sin(x) \\cdot 2x}{(x^2)^2} = \\frac{x[x\\cos(x) - 2\\sin(x)]}{x^4} = \\frac{x\\cos(x) - 2\\sin(x)}{x^3} $$"
+                },
+                {
+                    "title": "Item e) Regra da Cadeia para Tangente",
+                    "explanation": "Aplicar a regra da cadeia com a função tangente e o argumento polinomial.",
+                    "content": "Para $f(x) = \\tan(x^3 + 2x)$:\n\nA função externa é $g(u) = \\tan(u) \\implies g'(u) = \\sec^2(u)$.\nA função interna é $u(x) = x^3 + 2x \\implies u'(x) = 3x^2 + 2$.\n\nPela Regra da Cadeia:\n$$ f'(x) = \\sec^2(x^3 + 2x) \\cdot (3x^2 + 2) = (3x^2 + 2)\\sec^2(x^3 + 2x) $$"
+                }
+            ],
+            "tips": [
+                "Lembre-se de reescrever raízes sob a forma de potência fracionária: $\\sqrt[n]{x^m} = x^{m/n}$ antes de derivar.",
+                "Na regra da cadeia, derive a função 'de fora' mantendo o de dentro intacto, e depois multiplique pela derivada 'do de dentro'."
+            ]
+        },
+        {
+            "id": "c2-l2-q2",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Aplicações de Derivadas",
+            "title": "Q2: Equação da Reta Tangente",
+            "difficulty": "Básico",
+            "problem": "Encontre a equação da reta tangente à curva $y = x^3 - 3x + 2$ no ponto $(2, 4)$.",
+            "finalAnswer": "$y = 9x - 14$",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar a Derivada",
+                    "explanation": "A derivada nos dá a inclinação genérica em qualquer ponto.",
+                    "content": "Dada a função $f(x) = x^3 - 3x + 2$, derivamos em relação a $x$:\n$$ f'(x) = 3x^2 - 3 $$"
+                },
+                {
+                    "title": "Passo 2: Calcular o Coeficiente Angular (m)",
+                    "explanation": "Substituir a coordenada x do ponto dado na derivada.",
+                    "content": "O ponto dado é $(2, 4)$, logo $x_0 = 2$.\n$$ m = f'(2) = 3(2)^2 - 3 = 3(4) - 3 = 9 $$"
+                },
+                {
+                    "title": "Passo 3: Montar a Equação da Reta",
+                    "explanation": "Usar a fórmula ponto-inclinação da reta tangente.",
+                    "content": "Utilizando a fórmula $y - y_0 = m(x - x_0)$ com $x_0 = 2$, $y_0 = 4$ e $m = 9$:\n$$ y - 4 = 9(x - 2) $$\n$$ y - 4 = 9x - 18 $$\n$$ y = 9x - 14 $$"
+                }
+            ],
+            "tips": [
+                "A derivada avaliada em $x = a$ é exatamente a inclinação da reta tangente naquele ponto.",
+                "Verifique se o ponto pertence à curva antes de tudo: $f(2) = 2^3 - 3(2) + 2 = 8 - 6 + 2 = 4$. Está correto!"
+            ]
+        },
+        {
+            "id": "c2-l2-q3",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Aplicações de Derivadas",
+            "title": "Q3: Intervalos de Crescimento e Decrescimento",
+            "difficulty": "Intermediário",
+            "problem": "Determine os intervalos de crescimento e decrescimento da função $f(x) = 2x^3 - 3x^2 - 12x + 5$.",
+            "finalAnswer": "Crescente em $(-\\infty, -1) \\cup (2, \\infty)$ e Decrescente em $(-1, 2)$",
+            "steps": [
+                {
+                    "title": "Passo 1: Calcular a Primeira Derivada",
+                    "explanation": "Precisamos encontrar $f'(x)$ para determinar o sinal da taxa de crescimento.",
+                    "content": "Dada a função $f(x) = 2x^3 - 3x^2 - 12x + 5$, derivamos:\n$$ f'(x) = 6x^2 - 6x - 12 $$"
+                },
+                {
+                    "title": "Passo 2: Encontrar os Pontos Críticos",
+                    "explanation": "Pontos críticos são onde $f'(x) = 0$.",
+                    "content": "Igualando a derivada a zero:\n$$ 6x^2 - 6x - 12 = 0 \\implies 6(x^2 - x - 2) = 0 $$\nFatorando o polinômio:\n$$ 6(x - 2)(x + 1) = 0 $$\nPontos críticos em: $x = 2$ e $x = -1$."
+                },
+                {
+                    "title": "Passo 3: Fazer a Análise de Sinal da Derivada",
+                    "explanation": "Testamos valores nos intervalos definidos pelos pontos críticos para descobrir o sinal de $f'(x)$.",
+                    "content": "Dividimos a reta real em três intervalos:\n\n1. Intervalo $(-\\infty, -1)$: Escolhemos $x = -2$:\n$$ f'(-2) = 6(-2 - 2)(-2 + 1) = 6(-4)(-1) = 24 > 0 \\implies \\text{Crescente} $$\n\n2. Intervalo $(-1, 2)$: Escolhemos $x = 0$:\n$$ f'(0) = 6(0^2 - 0 - 2) = -12 < 0 \\implies \\text{Decrescente} $$\n\n3. Intervalo $(2, \\infty)$: Escolhemos $x = 3$:\n$$ f'(3) = 6(3 - 2)(3 + 1) = 6(1)(4) = 24 > 0 \\implies \\text{Crescente} $$"
+                }
+            ],
+            "tips": [
+                "Fatore a derivada para tornar o estudo dos sinais muito mais simples.",
+                "A função muda de comportamento (crescente para decrescente ou vice-versa) ao passar pelos pontos críticos de multiplicidade ímpar."
+            ]
+        },
+        {
+            "id": "c2-l2-q4",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Aplicações de Derivadas",
+            "title": "Q4: Máximos e Mínimos Locais",
+            "difficulty": "Intermediário",
+            "problem": "Encontre os valores de máximo e mínimo locais da função $f(x) = x^4 - 4x^3 + 4x^2$.",
+            "finalAnswer": "Mínimos locais em $x=0$ (valor: 0) e $x=2$ (valor: 0); Máximo local em $x=1$ (valor: 1)",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar os Pontos Críticos",
+                    "explanation": "Calcular $f'(x)$ e encontrar onde ela é igual a zero.",
+                    "content": "Dada a função $f(x) = x^4 - 4x^3 + 4x^2$, sua derivada é:\n$$ f'(x) = 4x^3 - 12x^2 + 8x $$\nIgualando a zero para obter os pontos críticos:\n$$ 4x(x^2 - 3x + 2) = 0 \\implies 4x(x - 1)(x - 2) = 0 $$\nPontos críticos em: $x = 0$, $x = 1$ e $x = 2$."
+                },
+                {
+                    "title": "Passo 2: Calcular a Segunda Derivada",
+                    "explanation": "Utilizar o Teste da Segunda Derivada nos pontos críticos.",
+                    "content": "Calculando a segunda derivada:\n$$ f''(x) = 12x^2 - 24x + 8 $$"
+                },
+                {
+                    "title": "Passo 3: Classificar os Pontos Críticos",
+                    "explanation": "Avaliar o sinal de $f''(x)$ em cada ponto.",
+                    "content": "- Para $x = 0$:\n$$ f''(0) = 8 > 0 \\implies \\text{Mínimo Local} $$\n\n- Para $x = 1$:\n$$ f''(1) = 12(1)^2 - 24(1) + 8 = -4 < 0 \\implies \\text{Máximo Local} $$\n\n- Para $x = 2$:\n$$ f''(2) = 12(2)^2 - 24(2) + 8 = 48 - 48 + 8 = 8 > 0 \\implies \\text{Mínimo Local} $$"
+                },
+                {
+                    "title": "Passo 4: Encontrar os Valores da Função",
+                    "explanation": "Substituir os pontos na função original $f(x)$ para obter os extremos locais.",
+                    "content": "- Mínimos locais:\n$$ f(0) = 0^4 - 4(0)^3 + 4(0)^2 = 0 $$\n$$ f(2) = 2^4 - 4(2)^3 + 4(2)^2 = 16 - 32 + 16 = 0 $$\n\n- Máximo local:\n$$ f(1) = 1^4 - 4(1)^3 + 4(1)^2 = 1 - 4 + 4 = 1 $$"
+                }
+            ],
+            "tips": [
+                "O valor máximo ou mínimo local é o resultado de $f(c)$ (na função original), não de $f'(c)$ ou $f''(c)$.",
+                "O teste da segunda derivada é o mais rápido quando a função é fácil de derivar repetidas vezes."
+            ]
+        },
+        {
+            "id": "c2-l2-q5",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Integrais",
+            "title": "Q5: Cálculo de Integrais Imediatas",
+            "difficulty": "Básico",
+            "problem": "Calcule as seguintes integrais indefinidas:\n\na) $\\int (3x^2 - 4x + 5) dx$\n\nb) $\\int \\frac{1}{x^2 + 1} dx$\n\nc) $\\int \\sin(2x) dx$\n\nd) $\\int e^{3x} dx$",
+            "finalAnswer": "a) $x^3 - 2x^2 + 5x + C$; b) $\\arctan(x) + C$; c) $-\\frac{1}{2}\\cos(2x) + C$; d) $\\frac{1}{3}e^{3x} + C$",
+            "steps": [
+                {
+                    "title": "Item a) Integral Polinomial",
+                    "explanation": "Integrar termo a termo utilizando a regra da potência.",
+                    "content": "Para $\\int (3x^2 - 4x + 5) dx$:\n$$ \\int (3x^2 - 4x + 5) dx = 3\\left(\\frac{x^3}{3}\\right) - 4\\left(\\frac{x^2}{2}\\right) + 5x + C = x^3 - 2x^2 + 5x + C $$"
+                },
+                {
+                    "title": "Item b) Integral de Fração Trigonométrica Inversa",
+                    "explanation": "Reconhecer a derivada da função arco tangente.",
+                    "content": "Para $\\int \\frac{1}{x^2 + 1} dx$:\n\nEsta integral é imediata da tabela fundamental:\n$$ \\int \\frac{1}{x^2 + 1} dx = \\arctan(x) + C $$"
+                },
+                {
+                    "title": "Item c) Integral do Seno com Argumento Linear",
+                    "explanation": "Integrar dividindo pela constante angular do argumento.",
+                    "content": "Para $\\int \\sin(2x) dx$:\n\nSabemos que a primitiva de $\\sin(u)$ é $-\\cos(u)$. Pela compensação linear:\n$$ \\int \\sin(2x) dx = -\\frac{\\cos(2x)}{2} + C $$"
+                },
+                {
+                    "title": "Item d) Integral da Exponencial com Constante",
+                    "explanation": "Integrar dividindo pelo multiplicador do expoente.",
+                    "content": "Para $\\int e^{3x} dx$:\n\nSabemos que a primitiva de $e^u$ é $e^u$. Logo, aplicando a divisão pela derivada do expoente:\n$$ \\int e^{3x} dx = \\frac{e^{3x}}{3} + C $$"
+                }
+            ],
+            "tips": [
+                "Não esqueça de adicionar a constante de integração $+C$ ao resolver integrais indefinidas.",
+                "Se o argumento da integral trigonométrica ou exponencial for linear (como $ax+b$), a integral é a primitiva de tabela dividida por $a$."
+            ]
+        },
+        {
+            "id": "c2-l2-q6",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Área entre Curvas",
+            "title": "Q6: Área Limitada por Curvas",
+            "difficulty": "Avançado",
+            "problem": "Determine a área da região limitada pelas curvas $y = x^2$ e $y = x$.",
+            "finalAnswer": "$1/6$",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar os Pontos de Interseção",
+                    "explanation": "Igualamos as curvas para descobrir os limites de integração.",
+                    "content": "Para $y = x^2$ e $y = x$:\n$$ x^2 = x \\implies x^2 - x = 0 \\implies x(x - 1) = 0 $$\nAs curvas se interceptam em $x = 0$ e $x = 1$. Portanto, os limites de integração são $a = 0$ e $b = 1$."
+                },
+                {
+                    "title": "Passo 2: Determinar a Função Superior",
+                    "explanation": "Escolher um ponto de teste no intervalo $[0, 1]$ para verificar qual função tem maior valor de y.",
+                    "content": "Seja $x = 0,5$:\n- Reta: $y = 0,5$\n- Parábola: $y = (0,5)^2 = 0,25$\nComo $0,5 > 0,25$, a reta $y=x$ está acima da curva $y=x^2$ no intervalo $[0, 1]$.\nO integrando será $f(x) - g(x) = x - x^2$."
+                },
+                {
+                    "title": "Passo 3: Escrever e Resolver a Integral Definida",
+                    "explanation": "Montar a integral definindo a área e calcular o resultado.",
+                    "content": "A área $A$ é dada por:\n$$ A = \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1 $$\nAplicando os limites de integração (Teorema Fundamental do Cálculo):\n$$ A = \\left( \\frac{1^2}{2} - \\frac{1^3}{3} \\right) - \\left( \\frac{0^2}{2} - \\frac{0^3}{3} \\right) = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$"
+                }
+            ],
+            "tips": [
+                "Graficamente, as curvas delimitam uma folha no primeiro quadrante.",
+                "Se você inverter a ordem (fazer inferior menos superior), obterá uma área negativa. A área geométrica real é sempre positiva."
+            ]
+        },
+        {
+            "id": "c2-l2-q7",
+            "topicId": "lista-2-calculo-ii",
+            "category": "Limites",
+            "title": "Q7: Limites com Regra de L'Hôpital",
+            "difficulty": "Intermediário",
+            "problem": "Use a regra de L'Hôpital para calcular os limites:\n\na) $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$\n\nb) $\\lim_{x \\to \\infty} \\frac{e^x}{x^2}$",
+            "finalAnswer": "a) 1; b) $\\infty$",
+            "steps": [
+                {
+                    "title": "Item a) Limite Fundamental Trigonométrico",
+                    "explanation": "Identificar a indeterminação e derivar numerador e denominador.",
+                    "content": "Para $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$:\n\nSubstituição direta:\n$$ \\frac{\\sin(0)}{0} = \\frac{0}{0} \\quad (\\text{Indeterminado}) $$\nAplicamos a regra de L'Hôpital:\n- Derivada do numerador: $[\\sin(x)]' = \\cos(x)$\n- Derivada do denominador: $[x]' = 1$\n\n$$ \\lim_{x \\to 0} \\frac{\\sin(x)}{x} = \\lim_{x \\to 0} \\frac{\\cos(x)}{1} = \\frac{\\cos(0)}{1} = 1 $$"
+                },
+                {
+                    "title": "Item b) L'Hôpital Repetido",
+                    "explanation": "Aplicar a regra duas vezes pois a primeira ainda resulta em indeterminação.",
+                    "content": "Para $\\lim_{x \\to \\infty} \\frac{e^x}{x^2}$:\n\nSubstituição direta:\n$$ \\frac{e^\\infty}{\\infty^2} = \\frac{\\infty}{\\infty} \\quad (\\text{Indeterminado}) $$\nAplicamos a regra de L'Hôpital pela 1ª vez:\n- Numerador: $[e^x]' = e^x$\n- Denominador: $[x^2]' = 2x$\n\n$$ \\lim_{x \\to \\infty} \\frac{e^x}{x^2} = \\lim_{x \\to \\infty} \\frac{e^x}{2x} = \\frac{\\infty}{\\infty} \\quad (\\text{Ainda indeterminado}) $$\nAplicamos a regra de L'Hôpital pela 2ª vez:\n- Numerador: $[e^x]' = e^x$\n- Denominador: $[2x]' = 2$\n\n$$ \\lim_{x \\to \\infty} \\frac{e^x}{2x} = \\lim_{x \\to \\infty} \\frac{e^x}{2} = \\frac{\\infty}{2} = \\infty $$"
+                }
+            ],
+            "tips": [
+                "Antes de aplicar L'Hôpital, sempre verifique se o limite realmente é indeterminado. Aplicá-lo em limites definidos levará a resultados errados.",
+                "Você pode aplicar a regra de L'Hôpital consecutivamente quantas vezes forem necessárias, desde que persista a indeterminação $\\frac{0}{0}$ ou $\\frac{\\infty}{\\infty}$."
+            ]
+        }
+    ]
+}

@@ -455,6 +455,99 @@
             "tips": [
                 "No Cálculo II, nunca se desespere ou aplique Frações Parciais complexas antes de testar se a divisão de Equações não é um simples produto notável oculto."
             ]
+        },
+        {
+            "id": "c2-e16-tvm-limites",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Teorema do Valor Médio",
+            "title": "Q16: Estimativa de g(2) via TVM",
+            "difficulty": "Intermediário",
+            "problem": "Seja $g : I \\to \\mathbb{R}$ uma função derivável em um intervalo contendo $[0, 2]$. Suponha que $g(0) = 2$ e que $g'(x) \\ge 1$ para todo $x \\in [0, 2]$. Prove que $g(2) \\ge 4$.",
+            "finalAnswer": "$g(2) \\ge 4$",
+            "steps": [
+                {
+                    "title": "Passo 1: Aplicar o TVM",
+                    "explanation": "Utilizar a fórmula do TVM no intervalo [0, 2].",
+                    "content": "Como $g$ é contínua em $[0, 2]$ e derivável em $(0, 2)$, pelo Teorema do Valor Médio existe um ponto $c \\in (0, 2)$ tal que:\n$$ g(2) - g(0) = g'(c)(2 - 0) $$"
+                },
+                {
+                    "title": "Passo 2: Isolar g(2)",
+                    "explanation": "Substituir os valores conhecidos na equação.",
+                    "content": "Substituindo $g(0) = 2$:\n$$ g(2) - 2 = 2g'(c) $$\n$$ g(2) = 2 + 2g'(c) $$"
+                },
+                {
+                    "title": "Passo 3: Usar a hipótese sobre a derivada",
+                    "explanation": "Aplicar a desigualdade para obter o limite inferior.",
+                    "content": "Como $c \\in (0, 2)$, vale por hipótese que $g'(c) \\ge 1$.\nMultiplicando por 2 e somando 2:\n$$ g'(c) \\ge 1 \\implies 2g'(c) \\ge 2 \\implies 2 + 2g'(c) \\ge 4 $$\nPortanto:\n$$ g(2) \\ge 4 $$ ✓"
+                }
+            ],
+            "tips": [
+                "O TVM relaciona a variação média de uma função com sua variação instantânea, sendo ideal para obter estimativas numéricas de valores de funções."
+            ]
+        },
+        {
+            "id": "c2-e17-linearidade",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Primitivas",
+            "title": "Q17: Linearidade das Primitivas",
+            "difficulty": "Básico",
+            "problem": "Sejam $f$ e $g$ funções que admitem primitivas e $k$ uma constante. Prove que $\\int (f(x) + g(x)) dx = \\int f(x) dx + \\int g(x) dx$.",
+            "finalAnswer": "Provado derivando ambos os lados.",
+            "steps": [
+                {
+                    "title": "Passo 1: Definir as Primitivas",
+                    "explanation": "Representar as integrais por funções primitivas F(x) e G(x).",
+                    "content": "Sejam $F$ e $G$ tais que:\n$$ F(x) = \\int f(x) dx \\implies F'(x) = f(x) $$\n$$ G(x) = \\int g(x) dx \\implies G'(x) = g(x) $$"
+                },
+                {
+                    "title": "Passo 2: Derivar a Soma das Primitivas",
+                    "explanation": "Usar a propriedade de soma de derivadas.",
+                    "content": "Seja a função $H(x) = F(x) + G(x)$. Derivando $H$:\n$$ H'(x) = (F(x) + G(x))' = F'(x) + G'(x) $$\nSubstituindo pelas funções originais:\n$$ H'(x) = f(x) + g(x) $$"
+                },
+                {
+                    "title": "Passo 3: Concluir por Definição de Integral",
+                    "explanation": "Como a derivada da soma das primitivas é igual à soma das funções, a relação está provada.",
+                    "content": "Por definição, se $H'(x) = f(x) + g(x)$, então:\n$$ H(x) = \\int (f(x) + g(x)) dx $$\nSubstituindo $H(x)$ de volta:\n$$ \\int (f(x) + g(x)) dx = \\int f(x) dx + \\int g(x) dx $$ ✓"
+                }
+            ],
+            "tips": [
+                "Lembre-se de que a integral é o operador linear inverso da derivada, por isso herda as propriedades de soma e multiplicação por constante."
+            ]
+        },
+        {
+            "id": "c2-e18-equacao-dif",
+            "topicId": "lista-1-calculo-ii",
+            "category": "Equações Diferenciais",
+            "title": "Q18: Equação Diferencial Simples",
+            "difficulty": "Intermediário",
+            "problem": "Determine a função $y = f(x)$ tal que $f'(x) = 2f(x)$ para todo $x$, sabendo que $f(0) = 1$.",
+            "finalAnswer": "$f(x) = e^{2x}$",
+            "steps": [
+                {
+                    "title": "Passo 1: Escrever sob forma Diferencial Separada",
+                    "explanation": "Usar a notação de Leibniz dy/dx e separar as variáveis x e y.",
+                    "content": "Escrevemos $f'(x) = \\frac{dy}{dx}$ e $f(x) = y$:\n$$ \\frac{dy}{dx} = 2y $$\nSeparando as variáveis:\n$$ \\frac{1}{y} dy = 2 dx $$"
+                },
+                {
+                    "title": "Passo 2: Integrar Ambos os Lados",
+                    "explanation": "Aplicar a integral indefinida nos dois lados da igualdade.",
+                    "content": "$$ \\int \\frac{1}{y} dy = \\int 2 dx $$\n$$ \\ln|y| = 2x + C $$"
+                },
+                {
+                    "title": "Passo 3: Isolar a variável y",
+                    "explanation": "Aplicar a exponencial para remover o logaritmo natural.",
+                    "content": "Aplicando a função exponencial:\n$$ |y| = e^{2x + C} = e^C \\cdot e^{2x} $$\nComo $e^C$ é uma constante positiva, reescrevemos como uma constante real arbitrária $K$:\n$$ y = K e^{2x} $$"
+                },
+                {
+                    "title": "Passo 4: Aplicar a Condição Inicial",
+                    "explanation": "Usar f(0) = 1 para encontrar o valor de K.",
+                    "content": "Dado que para $x = 0$ temos $y = 1$:\n$$ 1 = K e^{2(0)} \\implies 1 = K e^0 \\implies K = 1 $$\nPortanto, a solução é:\n$$ f(x) = e^{2x} $$ ✓"
+                }
+            ],
+            "tips": [
+                "Equações diferenciais deste tipo modelam crescimento exponencial em biologia e finanças.",
+                "Sempre cheque a solução derivando o resultado final: $f'(x) = 2e^{2x} = 2f(x)$. Está correto!"
+            ]
         }
     ]
 }

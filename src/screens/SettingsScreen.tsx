@@ -17,11 +17,15 @@ import { useTheme, THEMES, ThemeType } from '../contexts/ThemeContext';
 import { STORAGE_KEYS } from '../constants';
 import { spacing, borderRadius, fontSize, shadows, colors } from '../styles/theme';
 import { showToast } from '../components/Toast';
+import ScreenHeader from '../components/ScreenHeader';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
+import { isHapticsEnabled, setHapticsEnabled } from '../utils/haptics';
 import strings from '../i18n/strings';
 
 const SettingsScreen = () => {
     const { theme, colors, setTheme, isDark } = useTheme();
     const [isResetting, setIsResetting] = useState(false);
+    const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled());
 
     // Theme options for picker
     const themeOptions: Array<{ id: ThemeType; label: string; icon: ComponentProps<typeof Ionicons>['name']; swatch: string }> = [
@@ -155,11 +159,10 @@ const SettingsScreen = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     {/* Header */}
-                    <View style={styles.header}>
-                        <Text style={[styles.title, dynamicStyles.text]}>
-                            {strings.settings.title}
-                        </Text>
-                    </View>
+                    <ScreenHeader
+                        title={strings.settings.title}
+                        icon="⚙️"
+                    />
 
                     {/* Appearance Section */}
                     <View style={[styles.section, dynamicStyles.surface, shadows.md]}>
@@ -227,6 +230,38 @@ const SettingsScreen = () => {
                                 onValueChange={handleSystemThemeToggle}
                                 trackColor={{ false: colors.border, true: colors.primaryLight }}
                                 thumbColor={theme === THEMES.SYSTEM ? colors.primary : colors.surfaceAlt}
+                            />
+                        </View>
+                    </View>
+
+                    {/* Feedback Section */}
+                    <View style={[styles.section, dynamicStyles.surface, shadows.md]}>
+                        <View style={styles.sectionHeader}>
+                            <View style={[styles.sectionIconWrap, { backgroundColor: colors.success + '18' }]}>
+                                <Ionicons name="notifications" size={18} color={colors.success} />
+                            </View>
+                            <Text style={[styles.sectionTitle, dynamicStyles.text]}>
+                                Feedback
+                            </Text>
+                        </View>
+
+                        <View style={[styles.settingRow, dynamicStyles.border]}>
+                            <View style={styles.settingInfo}>
+                                <Text style={[styles.settingLabel, dynamicStyles.text]}>
+                                    Vibração hapática
+                                </Text>
+                                <Text style={[styles.settingDescription, dynamicStyles.textSecondary]}>
+                                    Vibrar ao acertar/errar questões
+                                </Text>
+                            </View>
+                            <Switch
+                                value={hapticsOn}
+                                onValueChange={(val) => {
+                                    setHapticsOn(val);
+                                    setHapticsEnabled(val);
+                                }}
+                                trackColor={{ false: colors.border, true: colors.primaryLight }}
+                                thumbColor={hapticsOn ? colors.primary : colors.surfaceAlt}
                             />
                         </View>
                     </View>
@@ -406,6 +441,10 @@ const styles = StyleSheet.create({
         fontSize: fontSize.md,
         fontWeight: '500',
     },
+    settingDescription: {
+        fontSize: fontSize.sm,
+        marginTop: 2,
+    },
     resetButton: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -438,7 +477,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
     },
     bottomSpacing: {
-        height: 100,
+        height: TAB_BAR_CLEARANCE,
     },
 });
 

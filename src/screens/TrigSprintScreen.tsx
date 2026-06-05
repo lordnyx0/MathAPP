@@ -17,7 +17,11 @@ import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import { FadeInView } from '../components/AnimatedCard';
+import ScreenHeader from '../components/ScreenHeader';
+import ScoreBadge from '../components/ScoreBadge';
 import { TrigSprintLevel, getRandomTrigSprintLevel } from '../data/trigSprintQuestions';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
+import { notifySuccess, notifyError, notifyWarning } from '../utils/haptics';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -71,12 +75,14 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
         if (cardId === level.correctCardId) {
             fallAnim.stopAnimation();
             playCorrect();
+            notifySuccess();
             setScore(prev => prev + 20);
             setGameState('success');
         } else {
             // Wrong card costs time/score, but here we'll just fail the level
             fallAnim.stopAnimation();
             playIncorrect();
+            notifyError();
             setGameState('gameover');
         }
     };
@@ -86,21 +92,74 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
         outputRange: [-100, SCREEN_HEIGHT - 350], // Falls until the cards area
     });
 
+    // Timer bar width (100% → 0%)
+    const timerWidth = fallAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['100%', '0%'],
+    });
+
+    // Timer bar color: green → yellow → red
+    const timerColor = fallAnim.interpolate({
+        inputRange: [0, 0.4, 0.7, 1],
+        outputRange: ['#10B981', '#F59E0B', '#EF4444', '#DC2626'],
+    });
+
+    // Falling box glow intensity
+    const glowOpacity = fallAnim.interpolate({
+        inputRange: [0, 0.5, 0.8, 1],
+        outputRange: [0, 0.1, 0.4, 0.8],
+    });
+
+    // Falling box border color shift
+    const boxBorderColor = fallAnim.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [colors.primary, '#F59E0B', '#EF4444'],
+    });
+
     if (!level) return null;
 
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
-                <View style={styles.header}>
-                    {onBack && <BackButton onPress={onBack} />}
-                    <Text style={styles.headerTitle}>Trig Sprint</Text>
-                    <Text style={styles.scoreText}>Pontos: {score}</Text>
-                </View>
+                <ScreenHeader
+                    title="Trig Sprint"
+                    subtitle="Identidades Trigonométricas"
+                    leftAction={onBack && <BackButton onPress={onBack} />}
+                    rightAction={<ScoreBadge score={score} />}
+                />
+
+                {/* Urgency Timer Bar */}
+                {gameState === 'falling' && (
+                    <View style={styles.timerBarTrack}>
+                        <Animated.View
+                            style={[
+                                styles.timerBarFill,
+                                {
+                                    width: timerWidth as any,
+                                    backgroundColor: timerColor as any,
+                                },
+                            ]}
+                        />
+                    </View>
+                )}
 
                 {/* Game Area */}
                 <View style={styles.gameArea}>
                     {gameState === 'falling' && (
-                        <Animated.View style={[styles.fallingBox, { transform: [{ translateY }] }]}>
+                        <Animated.View style={[
+                            styles.fallingBox,
+                            {
+                                transform: [{ translateY }],
+                                borderColor: boxBorderColor as any,
+                            },
+                        ]}>
+                            {/* Glow overlay */}
+                            <Animated.View
+                                style={[
+                                    styles.fallingBoxGlow,
+                                    { opacity: glowOpacity },
+                                ]}
+                            />
                             <Text style={styles.fallingLabel}>Simplifique:</Text>
                             <MathText style={styles.fallingMath} formula>{level.fallingExpression}</MathText>
                         </Animated.View>
@@ -188,9 +247,27 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         ...shadows.md,
         minWidth: 200,
         zIndex: 5,
+        overflow: 'hidden',
     },
-    fallingLabel: { fontSize: fontSize.sm, color: colors.textSecondary, marginBottom: spacing.xs },
-    fallingMath: { fontSize: 32, fontWeight: '700', color: colors.primary },
+    fallingBoxGlow: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#EF4444',
+        borderRadius: borderRadius.lg,
+    },
+    fallingLabel: { fontSize: fontSize.sm, color: colors.textSecondary, marginBottom: spacing.xs, zIndex: 1 },
+    fallingMath: { fontSize: 32, fontWeight: '700', color: colors.primary, zIndex: 1 },
+    
+    timerBarTrack: {
+        height: 4,
+        backgroundColor: colors.border,
+        marginHorizontal: spacing.xl,
+        borderRadius: 2,
+        overflow: 'hidden',
+    },
+    timerBarFill: {
+        height: '100%',
+        borderRadius: 2,
+    },
     
     resultBox: {
         backgroundColor: colors.surface,
@@ -219,7 +296,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     handArea: {
         flexDirection: 'row',
         paddingHorizontal: spacing.sm,
-        paddingBottom: 90, // compensate bottom nav bar height
+        paddingBottom: TAB_BAR_CLEARANCE + 8, // compensate bottom nav bar height
         paddingTop: spacing.xs,
         gap: spacing.xs,
         justifyContent: 'space-between',

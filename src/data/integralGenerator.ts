@@ -251,10 +251,19 @@ export const generateWrongAnswers = (
             break;
 
         case 'power':
-            // Typical errors: forget divide-by-new-exponent, sign flip, omit integration constant
+            // Typical errors: omit integration constant, sign flip, forget to integrate
             addDistractor(stripConstantTerm(correctIntegral));
             addDistractor(withConstant(flipLeadingSign(correctIntegral)));
-            addDistractor(withConstant(stripConstantTerm(correctIntegral).replace(/\/(\d+)/, '/1')));
+            addDistractor(withConstant(correct.function)); // forget to integrate
+            
+            // Fallbacks modifying coefficient or denominator if present
+            if (correctIntegral.includes('/')) {
+                addDistractor(withConstant(stripConstantTerm(correctIntegral).replace(/\/(\d+)/, '/1')));
+                addDistractor(withConstant(stripConstantTerm(correctIntegral).replace(/\/(\d+)/, (match, p1) => `/${parseInt(p1)+1}`)));
+            } else {
+                addDistractor(correctIntegral.replace(/^\d+/, m => String(parseInt(m) + 1)));
+                addDistractor(correctIntegral.replace(/^\d+/, m => String(Math.max(1, parseInt(m) - 1))));
+            }
             break;
 
         case 'sin':

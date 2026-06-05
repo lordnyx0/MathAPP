@@ -13,10 +13,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
+import ScreenHeader from '../components/ScreenHeader';
+import ScoreBadge from '../components/ScoreBadge';
 import { RecurrenceProof, getRandomRecurrenceProof, RecurrenceLine } from '../data/recurrenceQuestions';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 
 interface RecurrenceBuilderScreenProps {
     onBack?: () => void;
@@ -49,7 +53,7 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
     // Pulse animation for selected piece
     useEffect(() => {
         if (selectedPieceId) {
-            Animated.loop(
+            const loop = Animated.loop(
                 Animated.sequence([
                     Animated.timing(pulseAnim, {
                         toValue: 1.05,
@@ -64,14 +68,16 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                         useNativeDriver: true,
                     }),
                 ])
-            ).start();
+            );
+            loop.start();
+            return () => loop.stop();
         } else {
             pulseAnim.setValue(1);
         }
     }, [selectedPieceId]);
 
     const startNextProof = () => {
-        const nextProof = getRandomRecurrenceProof();
+        const nextProof = { ...getRandomRecurrenceProof() };
         // shuffle pool
         nextProof.pool = [...nextProof.pool].sort(() => Math.random() - 0.5);
         setProof(nextProof);
@@ -120,12 +126,12 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
             setFilledBlanks(prev => ({ ...prev, [globalBlankId]: selectedPieceId }));
             triggerSuccess(globalBlankId);
             setSelectedPieceId(null);
-            playCorrect();
+            playCorrect(); notifySuccess();
             setScore(s => s + 10);
             
         } else {
             triggerShake(globalBlankId);
-            playIncorrect();
+            playIncorrect(); notifyError();
             // Optional: don't deselect to allow quick second try
         }
     };
@@ -136,7 +142,7 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
         if (currentLineIdx >= proof.lines.length) {
             if (!isComplete) {
                 setIsComplete(true);
-                playCorrect();
+                playCorrect(); notifySuccess();
                 setScore(s => s + 50);
             }
             return;
@@ -238,17 +244,12 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
-                <View style={styles.header}>
-                    {onBack && <BackButton onPress={onBack} />}
-                    <View style={styles.headerTextCenter}>
-                        <Text style={styles.headerTitle}>Construtor de Fórmulas</Text>
-                        <Text style={styles.headerSubtitle}>Complete a demonstração</Text>
-                    </View>
-                    <View style={styles.scoreContainer}>
-                        <Text style={styles.scoreLabel}>PONTOS</Text>
-                        <Text style={styles.scoreValue}>{score}</Text>
-                    </View>
-                </View>
+                <ScreenHeader
+                    title="Construtor de Fórmulas"
+                    subtitle="Complete a demonstração"
+                    leftAction={onBack && <BackButton onPress={onBack} />}
+                    rightAction={<ScoreBadge score={score} label="PONTOS" />}
+                />
 
                 <AnimatedCard borderColor={colors.primary} style={styles.targetCard}>
                     <Text style={styles.instruction}>Integral Alvo:</Text>
@@ -456,7 +457,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     
     poolArea: {
         paddingTop: spacing.md,
-        paddingBottom: 80, // Increased to clear TabBar
+        paddingBottom: TAB_BAR_CLEARANCE + 8, // Increased to clear TabBar
         borderTopWidth: 1,
         borderColor: colors.border,
         borderTopLeftRadius: 30,
@@ -551,5 +552,5 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         ...shadows.md,
     },
     nextButtonText: { color: colors.textWhite, fontWeight: '800', fontSize: fontSize.md },
-    bottomPadding: { height: 180 },
+    bottomPadding: { height: TAB_BAR_CLEARANCE + 60 },
 });

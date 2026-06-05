@@ -12,6 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import {
     learningMainCategories,
@@ -26,6 +27,7 @@ import { CardSkeleton } from '../components/Skeleton';
 import MathText from '../components/MathText';
 import BackButton from '../components/BackButton';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import strings from '../i18n/strings';
 
 const LearningScreen = () => {
@@ -110,9 +112,9 @@ const LearningScreen = () => {
 
         // Play sound feedback
         if (result) {
-            playCorrect();
+            playCorrect(); notifySuccess();
         } else {
-            playIncorrect();
+            playIncorrect(); notifyError();
         }
     };
 
@@ -730,7 +732,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         marginBottom: spacing.lg,
     },
     bottomPadding: {
-        height: 100,
+        height: TAB_BAR_CLEARANCE,
     },
     // Unlock All Toggle
     unlockAllButton: {

@@ -11,11 +11,13 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import ConfidenceSlider from '../components/ConfidenceSlider';
 import { AnimatedCard, FadeInView } from '../components/AnimatedCard';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import strings from '../i18n/strings';
 import MathText from '../components/MathText';
 import BackButton from '../components/BackButton';
@@ -89,9 +91,9 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
 
         // Play sound
         if (isCorrect) {
-            playCorrect();
+            playCorrect(); notifySuccess();
         } else {
-            playIncorrect();
+            playIncorrect(); notifyError();
         }
 
         // Create metacognition entry
@@ -412,7 +414,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     header: { paddingHorizontal: spacing.xl, paddingTop: spacing.xl, paddingBottom: spacing.lg },
     headerTitle: { fontSize: fontSize.xxl, fontWeight: '700', color: colors.textPrimary },
     headerSubtitle: { fontSize: fontSize.md, color: colors.textSecondary, marginTop: spacing.xs },
-    bottomPadding: { height: 100 },
+    bottomPadding: { height: TAB_BAR_CLEARANCE },
 
     // Stats
     statsCard: { margin: spacing.xl, padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, ...shadows.md },

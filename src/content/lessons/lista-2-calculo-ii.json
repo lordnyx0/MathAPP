@@ -1,0 +1,84 @@
+{
+    "topic": "lista-2-calculo-ii",
+    "title": "Aplicações de Derivadas e Integrais",
+    "lessons": [
+        {
+            "id": "c2-l2-regras",
+            "title": "1. Regras Avançadas de Derivação",
+            "level": "Intermediário",
+            "content": "📌 **Revisando Derivadas Complexas**\n\nNo Cálculo, frequentemente lidamos com funções que são combinações de quocientes e composições. Para estas, usamos duas ferramentas principais:\n\n1. **Regra do Quociente:** Para derivar uma divisão de funções $\\frac{u(x)}{v(x)}$:\n$$ \\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2} $$\n\n2. **Regra da Cadeia:** Para derivar funções compostas $f(g(x))$:\n$$ [f(g(x))]' = f'(g(x)) \\cdot g'(x) $$\n\n📝 **Exemplo Prático**\nPara derivar $f(x) = \\frac{x^2 - 1}{x^2 + 1}$, aplicamos a Regra do Quociente:\n- $u = x^2 - 1 \\implies u' = 2x$\n- $v = x^2 + 1 \\implies v' = 2x$\n$$ f'(x) = \\frac{2x(x^2 + 1) - (x^2 - 1)2x}{(x^2 + 1)^2} = \\frac{2x^3 + 2x - 2x^3 + 2x}{(x^2 + 1)^2} = \\frac{4x}{(x^2 + 1)^2} $$",
+            "questions": [
+                {
+                    "q": "Qual é a fórmula da regra do quociente para (u/v)'?",
+                    "a": "(u'v - uv')/v²",
+                    "hint": "Lembre-se: derivada do de cima vezes o de baixo, menos o de cima vezes a derivada do de baixo, tudo sobre o de baixo ao quadrado."
+                }
+            ]
+        },
+        {
+            "id": "c2-l2-tangente",
+            "title": "2. Equação da Reta Tangente",
+            "level": "Básico",
+            "content": "📌 **Interpretação Geométrica da Derivada**\n\nA derivada de uma função $f(x)$ em um ponto $x = x_0$ representa o **coeficiente angular** ($m$) da reta tangente à curva nesse ponto. Ou seja:\n$$ m = f'(x_0) $$\n\nUma vez obtido o coeficiente angular $m$ e conhecendo o ponto de tangência $(x_0, y_0)$ onde $y_0 = f(x_0)$, podemos encontrar a equação da reta utilizando a fórmula fundamental da reta:\n$$ y - y_0 = m(x - x_0) $$\n\n📝 **Exemplo Prático**\nPara encontrar a reta tangente a $y = x^3 - 3x + 2$ no ponto $(2, 4)$:\n- Derivada: $f'(x) = 3x^2 - 3$\n- Inclinação no ponto $x = 2$: $m = f'(2) = 3(2)^2 - 3 = 9$\n- Reta: $y - 4 = 9(x - 2) \\implies y = 9x - 14$.",
+            "questions": [
+                {
+                    "q": "Se f'(x0) = 5 e o ponto é (1, 2), qual é a equação da reta tangente?",
+                    "a": "y - 2 = 5(x - 1)",
+                    "hint": "Substitua m = 5, x0 = 1 e y0 = 2 na fórmula y - y0 = m(x - x0)."
+                }
+            ]
+        },
+        {
+            "id": "c2-l2-crescimento",
+            "title": "3. Crescimento e Decrescimento de Funções",
+            "level": "Intermediário",
+            "content": "📌 **O Teste da Primeira Derivada**\n\nPodemos determinar se uma função está subindo ou descendo analisando o **sinal de sua derivada**:\n\n- Se $f'(x) > 0$ em um intervalo, então $f$ é **crescente** nesse intervalo (a reta tangente tem inclinação positiva).\n- Se $f'(x) < 0$ em um intervalo, então $f$ é **decrescente** nesse intervalo (a reta tangente tem inclinação negativa).\n- Pontos onde $f'(x) = 0$ ou a derivada não existe são os **pontos críticos**.\n\n📝 **Exemplo Prático**\nPara $f(x) = 2x^3 - 3x^2 - 12x + 5$:\n- Derivada: $f'(x) = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x-2)(x+1)$\n- Pontos Críticos: $x = 2$ e $x = -1$\n- Analisando os sinais:\n  - Para $x < -1$: $f'(x) > 0$ (Crescente)\n  - Para $-1 < x < 2$: $f'(x) < 0$ (Decrescente)\n  - Para $x > 2$: $f'(x) > 0$ (Crescente)",
+            "questions": [
+                {
+                    "q": "Se f'(x) = x - 3, em qual intervalo a função f é decrescente?",
+                    "a": "x < 3",
+                    "hint": "Resolva a inequação f'(x) < 0."
+                }
+            ]
+        },
+        {
+            "id": "c2-l2-extremos",
+            "title": "4. Valores Máximos e Mínimos Locais",
+            "level": "Intermediário",
+            "content": "📌 **Encontrando Extremos de uma Função**\n\nOs pontos de máximo e mínimo locais de uma função derivável sempre ocorrem em seus **pontos críticos** (onde $f'(x) = 0$). Para classificar um ponto crítico $c$, podemos usar o **Teste da Segunda Derivada**:\n\n- Se $f''(c) > 0$, a concavidade é para cima, logo $c$ é um **mínimo local**.\n- Se $f''(c) < 0$, a concavidade é para baixo, logo $c$ é um **máximo local**.\n- Se $f''(c) = 0$, o teste é inconclusivo (use o teste da primeira derivada).\n\n📝 **Exemplo Prático**\nPara $f(x) = x^4 - 4x^3 + 4x^2$:\n- $f'(x) = 4x^3 - 12x^2 + 8x = 4x(x-1)(x-2) \\implies$ Pontos críticos em $x=0$, $x=1$ e $x=2$.\n- Segunda derivada: $f''(x) = 12x^2 - 24x + 8$\n  - $f''(0) = 8 > 0 \\implies x = 0$ é Mínimo Local.\n  - $f''(1) = -4 < 0 \\implies x = 1$ é Máximo Local.\n  - $f''(2) = 8 > 0 \\implies x = 2$ é Mínimo Local.",
+            "questions": [
+                {
+                    "q": "Se f'(c) = 0 e f''(c) = -3, o ponto c é um máximo ou mínimo local?",
+                    "a": "Máximo local",
+                    "hint": "Uma segunda derivada negativa indica concavidade voltada para baixo."
+                }
+            ]
+        },
+        {
+            "id": "c2-l2-area",
+            "title": "5. Área Entre Curvas",
+            "level": "Avançado",
+            "content": "📌 **Integração Definida como Área**\n\nA área da região limitada pelas curvas $y = f(x)$ e $y = g(x)$ e pelas retas verticais $x = a$ e $x = b$, onde $f(x) \\ge g(x)$ em todo o intervalo $[a, b]$, é dada por:\n$$ A = \\int_{a}^{b} [f(x) - g(x)] \\, dx $$\n\nPara resolver problemas de área, siga estes passos:\n1. Esboce ou visualize as curvas para identificar os pontos de interseção (que serão os limites $a$ e $b$).\n2. Determine qual função fica por cima ($f(x)$) e qual fica por baixo ($g(x)$) no intervalo.\n3. Escreva e calcule a integral de $f(x) - g(x)$.\n\n📝 **Exemplo Prático**\nÁrea entre $y = x$ e $y = x^2$:\n- Interseção: $x^2 = x \\implies x(x-1) = 0 \\implies x=0$ e $x=1$ (limites $[0, 1]$).\n- No intervalo $[0, 1]$, a reta $y=x$ está acima da parábola $y=x^2$.\n$$ A = \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1 = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$",
+            "questions": [
+                {
+                    "q": "Se g(x) = x² e f(x) = 4 no intervalo [-2, 2], qual integral fornece a área entre as curvas?",
+                    "a": "int_{-2}^{2} (4 - x²) dx",
+                    "hint": "A função superior é a constante f(x)=4."
+                }
+            ]
+        },
+        {
+            "id": "c2-l2-lhopital",
+            "title": "6. Regra de L'Hôpital",
+            "level": "Intermediário",
+            "content": "📌 **Resolvendo Indeterminações de Limites**\n\nA Regra de L'Hôpital é uma técnica que usa derivadas para calcular limites de frações que resultam em indeterminações do tipo $\\frac{0}{0}$ ou $\\frac{\\infty}{\\infty}$.\n\nSe $\\lim_{x \\to c} \\frac{f(x)}{g(x)}$ cai em uma dessas indeterminações, então:\n$$ \\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)} $$\ndesde que o limite do lado direito exista.\n\n⚠️ **Atenção:** Derivamos o numerador e o denominador **separadamente** (isto NÃO é a regra do quociente!).\n\n📝 **Exemplo Prático**\nCalcular $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$:\n- Teste direto: $\\frac{\\sin(0)}{0} = \\frac{0}{0}$ (Indeterminado).\n- Aplicando L'Hôpital:\n$$ \\lim_{x \\to 0} \\frac{[\\sin(x)]'}{[x]'} = \\lim_{x \\to 0} \\frac{\\cos(x)}{1} = \\frac{\\cos(0)}{1} = 1 $$",
+            "questions": [
+                {
+                    "q": "Ao usar a Regra de L'Hôpital para calcular o limite de f(x)/g(x), aplicamos a regra do quociente?",
+                    "a": "Não, derivamos o numerador e o denominador separadamente.",
+                    "hint": "A regra diz para calcular f'(x)/g'(x), não (f/g)'."
+                }
+            ]
+        }
+    ]
+}

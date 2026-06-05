@@ -3,6 +3,7 @@ import { substitutionQuestions, getRandomSubstitutionQuestion } from '../substit
 import { trigSprintQuestions, getRandomTrigSprintLevel } from '../trigSprintQuestions';
 import { tvmQuestions, getRandomTVMLevel } from '../tvmQuestions';
 import { recurrenceQuestions, getRandomRecurrenceProof } from '../recurrenceQuestions';
+import { areaQuestions, getRandomAreaQuestion } from '../areaQuestions';
 
 describe('Minigames Data Validation', () => {
 
@@ -81,6 +82,22 @@ describe('Minigames Data Validation', () => {
           });
         });
       });
+    });
+  });
+
+  describe('Area Lab Dataset', () => {
+    it('should have options containing the correct answer', () => {
+      areaQuestions.forEach(q => {
+        expect(q.boundsOptions).toContain(q.correctBounds);
+        expect(q.integrandOptions).toContain(q.correctIntegrand);
+        expect(q.areaOptions).toContain(q.correctArea);
+      });
+    });
+
+    it('should fetch a random area question', () => {
+      const q = getRandomAreaQuestion();
+      expect(q).toBeDefined();
+      expect(q.id).toBeDefined();
     });
   });
 

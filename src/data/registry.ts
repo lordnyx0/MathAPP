@@ -43,6 +43,8 @@ import prova2SolAlData from '../content/exercises/prova-2-solucao-algebra-linear
 
 import calculoIILessonData1 from '../content/lessons/lista-1-calculo-ii.json';
 import calculoIIExerciseData1 from '../content/exercises/lista-1-calculo-ii.json';
+import calculoIILessonData2 from '../content/lessons/lista-2-calculo-ii.json';
+import calculoIIExerciseData2 from '../content/exercises/lista-2-calculo-ii.json';
 
 // =============================================================================
 // EXTRACT ARRAYS - Maintain backward compatibility
@@ -78,6 +80,8 @@ const prova2SolAlExercises = prova2SolAlData.exercises;
 
 const calculoIILessons1 = calculoIILessonData1.lessons;
 const calculoIIExercises1 = calculoIIExerciseData1.exercises;
+const calculoIILessons2 = calculoIILessonData2.lessons;
+const calculoIIExercises2 = calculoIIExerciseData2.exercises;
 
 // =============================================================================
 // FACTORY FUNCTIONS - DRY principle
@@ -246,6 +250,15 @@ export const topicRegistry = {
         lessons: calculoIILessons1,
         mcq: null,
     }),
+    'lista-2-calculo-ii': createTopic({
+        id: 'lista-2-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'Aplicações de Derivadas e Integrais (Lista 2)',
+        icon: '∫',
+        color: colors.success,
+        lessons: calculoIILessons2,
+        mcq: null,
+    }),
 };
 
 // =============================================================================
@@ -403,6 +416,14 @@ export const exerciseRegistry = {
         icon: '📝',
         color: colors.success,
         exercises: calculoIIExercises1,
+    }),
+    'lista-2-calculo-ii': createExerciseTopic({
+        id: 'lista-2-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'Lista 2 - Aplicações de Derivadas e Integrais',
+        icon: '📝',
+        color: colors.success,
+        exercises: calculoIIExercises2,
     }),
 };
 

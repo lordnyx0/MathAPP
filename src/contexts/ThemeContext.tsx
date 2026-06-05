@@ -177,7 +177,7 @@ const themeColors: Record<string, ThemeColors> = {
         borderDark: '#64748B',
         textPrimary: '#F8FAFC',
         textSecondary: '#CBD5E1',
-        textTertiary: '#94A3B8',
+        textTertiary: '#9CA3AF', // Improved for contrast on dark backgrounds
         textWhite: '#FFFFFF',
         gradientPrimary: ['#818CF8', '#A78BFA'] as const,
         gradientBackground: ['#0F172A', '#1E1B4B', '#1E293B'] as const,
@@ -222,7 +222,7 @@ const themeColors: Record<string, ThemeColors> = {
         borderDark: '#404040',
         textPrimary: '#FFFFFF',
         textSecondary: '#E5E5E5',
-        textTertiary: '#A3A3A3',
+        textTertiary: '#A8A8A8', // Improved for contrast on OLED black
         textWhite: '#FFFFFF',
         gradientPrimary: ['#A78BFA', '#C4B5FD'] as const,
         gradientBackground: ['#000000', '#0A0A0A', '#121212'] as const,
@@ -267,7 +267,7 @@ const themeColors: Record<string, ThemeColors> = {
         borderDark: '#BC9A6C',
         textPrimary: '#3D3D3D',
         textSecondary: '#5C4033',
-        textTertiary: '#8B7355',
+        textTertiary: '#7D6B55', // Improved for contrast on sepia backgrounds
         textWhite: '#FFFFFF',
         gradientPrimary: ['#8B4513', '#CD853F'] as const,
         gradientBackground: ['#F5F5DC', '#FDF5E6', '#FAF0E6'] as const,

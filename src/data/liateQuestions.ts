@@ -73,6 +73,30 @@ export const liateQuestions: LiateQuestion[] = [
         du: '$\\frac{1}{1+x^2} dx$',
         v: '$x$',
         explanation: 'LIATE: Inversa Trigonométrica. O termo "dx" é considerado com coeficiente 1 (Algébrica constante).',
+    },
+    {
+        id: 'q6',
+        integral: '$\\int e^{3x} \\cos(3x) dx$',
+        parts: ['$e^{3x}$', '$\\cos(3x)$', '$dx$'],
+        correctU: ['$\\cos(3x)$'],
+        correctDv: ['$e^{3x}$', '$dx$'],
+        uCategory: 't',
+        dvCategory: 'e',
+        du: '-3\\sin(3x) dx',
+        v: '\\frac{1}{3}e^{3x}',
+        explanation: 'LIATE: Trigonométrica (cos(3x)) vem antes de Exponencial (e^{3x}). Escolhemos u = cos(3x).',
+    },
+    {
+        id: 'q7',
+        integral: '$\\int e^x \\sin(x) dx$',
+        parts: ['$e^x$', '$\\sin(x)$', '$dx$'],
+        correctU: ['$\\sin(x)$'],
+        correctDv: ['$e^x$', '$dx$'],
+        uCategory: 't',
+        dvCategory: 'e',
+        du: '\\cos(x) dx',
+        v: 'e^x',
+        explanation: 'LIATE: Trigonométrica (sin(x)) vem antes de Exponencial (e^x). Escolhemos u = sin(x).',
     }
 ];
 

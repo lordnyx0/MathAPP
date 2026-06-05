@@ -13,11 +13,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import StepCard from '../components/StepCard';
+import ScreenHeader from '../components/ScreenHeader';
+import ScoreBadge from '../components/ScoreBadge';
+import PhaseIndicator from '../components/PhaseIndicator';
 import { SubstitutionQuestion, getRandomSubstitutionQuestion } from '../data/substitutionQuestions';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 
 interface SubstitutionScannerScreenProps {
     onBack?: () => void;
@@ -49,12 +54,14 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
     // Selection pulse
     useEffect(() => {
         if (selectedChunk && phase === 'scan') {
-            Animated.loop(
+            const loop = Animated.loop(
                 Animated.sequence([
                     Animated.timing(pulseAnim, { toValue: 1.05, duration: 500, useNativeDriver: true }),
                     Animated.timing(pulseAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
                 ])
-            ).start();
+            );
+            loop.start();
+            return () => loop.stop();
         } else {
             pulseAnim.setValue(1);
         }
@@ -85,19 +92,19 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         if (!question || !selectedChunk) return;
 
         if (selectedChunk === question.correctUId) {
-            playCorrect();
+            playCorrect(); notifySuccess();
             setScore(s => s + 10);
             setPhase('du_calc');
             setRevealedSteps([false, true, false]);
         } else {
             triggerErrorShake();
-            playIncorrect();
+            playIncorrect(); notifyError();
             setSelectedChunk(null);
         }
     };
 
     const confirmDu = () => {
-        playCorrect();
+        playCorrect(); notifySuccess();
         setScore(s => s + 5);
         setPhase('substituted');
         setRevealedSteps([false, false, true]);
@@ -159,18 +166,22 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
         <SafeAreaView style={styles.container}>
             <LinearGradient colors={colors.gradientBackground} style={styles.gradient}>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                    {onBack && <BackButton onPress={onBack} />}
-                    
-                    <View style={styles.header}>
-                        <View>
-                            <Text style={styles.headerTitle}>Scanner Substituição</Text>
-                            <Text style={styles.headerSubtitle}>Tática de Integração</Text>
-                        </View>
-                        <View style={styles.scoreBadge}>
-                            <Text style={styles.scoreValue}>{score}</Text>
-                            <Text style={styles.scoreLabel}>PTS</Text>
-                        </View>
-                    </View>
+                    <ScreenHeader
+                        title="Scanner Substituição"
+                        subtitle="Tática de Integração"
+                        leftAction={onBack && <BackButton onPress={onBack} />}
+                        rightAction={<ScoreBadge score={score} />}
+                    />
+
+                    {/* Phase Stepper */}
+                    <PhaseIndicator
+                        phases={[
+                            { id: 'scan', label: 'Scan u' },
+                            { id: 'du_calc', label: 'Calcular du' },
+                            { id: 'substituted', label: 'Resultado' },
+                        ]}
+                        currentPhaseId={phase}
+                    />
 
                     <Text style={styles.instruction}>Analise a integral original:</Text>
 
@@ -222,7 +233,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                 step={{
                                     title: '2. Calcular du',
                                     explanation: 'Traduzindo o dx para du.',
-                                    content: `Derivando $u = ${question.correctUText}$, temos $du = ${question.duText}$. Este passo é fundamental para garantir que todos os termos em x sumam!`,
+                                    content: `Derivando $u = ${question.correctUText.replace(/\$/g, '')}$, temos $du = ${question.duText.replace(/\$/g, '')}$. Este passo é fundamental para garantir que todos os termos em x sumam!`,
                                 }}
                             />
                             
@@ -284,7 +295,7 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
 const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) => StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
     gradient: { flex: 1 },
-    scrollContent: { paddingBottom: 180, paddingHorizontal: spacing.xl },
+    scrollContent: { paddingBottom: TAB_BAR_CLEARANCE + 60, paddingHorizontal: spacing.xl },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',

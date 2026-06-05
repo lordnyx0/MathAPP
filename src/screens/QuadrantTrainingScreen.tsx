@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
     View,
     Text,
@@ -6,12 +6,16 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
+    Animated,
+    Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import BackButton from '../components/BackButton';
+import ScreenHeader from '../components/ScreenHeader';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import QuadrantCircle from '../components/QuadrantCircle';
 import MathText from '../components/MathText';
 import { quadrantQuestions, quadrantInfo, halvesReference, getRandomQuestionNoRepeat, QuadrantQuestion, isIntervalQuestion, isBaseQuestion } from '../data/quadrantQuestions';
@@ -20,6 +24,7 @@ import { STORAGE_KEYS } from '../constants';
 import { showToast } from '../components/Toast';
 import strings from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 
 interface QuadrantTrainingScreenProps {
     onBack?: () => void;
@@ -34,6 +39,10 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
+
+    // Animation for result bounce
+    const resultScale = useRef(new Animated.Value(0)).current;
+    const resultOpacity = useRef(new Animated.Value(0)).current;
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
     const [showHint, setShowHint] = useState(false);
     const [highScore, setHighScore] = useState(0);
@@ -98,12 +107,31 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
             const points = showHint ? 5 : 10;
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
-            playCorrect(); // Play success sound
+            playCorrect();
+            notifySuccess();
         } else {
             setStreak(0);
-            playIncorrect(); // Play error sound
+            playIncorrect();
+            notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
+
+        // Trigger bounce-in animation for result box
+        resultScale.setValue(0.3);
+        resultOpacity.setValue(0);
+        Animated.parallel([
+            Animated.spring(resultScale, {
+                toValue: 1,
+                friction: 4,
+                tension: 60,
+                useNativeDriver: true,
+            }),
+            Animated.timing(resultOpacity, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+        ]).start();
     };
 
     const endPractice = () => {
@@ -142,10 +170,11 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {onBack && <BackButton onPress={onBack} />}
-                        <View style={styles.header}>
-                            <Text style={styles.headerTitle}>🎯 Treino de Quadrantes</Text>
-                            <Text style={styles.headerSubtitle}>Domine o círculo trigonométrico</Text>
-                        </View>
+                        <ScreenHeader
+                            title="Treino de Quadrantes"
+                            subtitle="Domine o círculo trigonométrico"
+                            icon="🎯"
+                        />
 
                         {/* Reference Card */}
                         <View style={styles.referenceCard}>
@@ -229,10 +258,11 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <BackButton onPress={() => setMode('menu')} />
 
-                        <View style={styles.learnHeader}>
-                            <Text style={styles.learnTitle}>📖 Modo Aprendizado</Text>
-                            <Text style={styles.learnSubtitle}>Estude os quadrantes e seus sinais</Text>
-                        </View>
+                        <ScreenHeader
+                            title="Modo Aprendizado"
+                            subtitle="Estude os quadrantes e seus sinais"
+                            icon="📖"
+                        />
 
                         <QuadrantCircle showLabels={true} />
 
@@ -348,7 +378,7 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                         <View style={styles.hintBox}>
                             <Text style={styles.hintText}>
                                 {isBaseQuestion(currentQuestion)
-                                    ? `${currentQuestion.fraction} = ${currentQuestion.fraction}π\nDivida: ${currentQuestion.fraction} ≈ ${currentQuestion.fraction.toFixed(2)}`
+                                    ? `${currentQuestion.display} ≈ ${currentQuestion.fraction.toFixed(2)}π\nCompare com os eixos: 0.5π, 1π, 1.5π, 2π`
                                     : `Intervalo de ${currentQuestion.startFraction} a ${currentQuestion.endFraction}π`
                                 }
                             </Text>
@@ -385,19 +415,24 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                         </View>
                     ) : (
                         <View style={styles.resultContainer}>
-                            {/* Result */}
-                            <View style={[
+                            {/* Result with bounce animation */}
+                            <Animated.View style={[
                                     styles.resultBox,
                                     {
                                         backgroundColor: isCurrentAnswerCorrect
-                                        ? colors.successLight : colors.errorLight
+                                        ? colors.successLight : colors.errorLight,
+                                        transform: [{ scale: resultScale }],
+                                        opacity: resultOpacity,
                                     }
                                 ]}>
-                                <Text style={styles.resultIcon}>
+                                <Text style={[
+                                    styles.resultIcon,
+                                    { color: isCurrentAnswerCorrect ? colors.success : colors.error }
+                                ]}>
                                     {isCurrentAnswerCorrect ? '✓ Correto!' : '✗ Incorreto'}
                                 </Text>
                                 <MathText style={styles.resultExplanation}>{getExplanation()}</MathText>
-                            </View>
+                            </Animated.View>
 
                             <TouchableOpacity
                                 style={styles.nextButton}
@@ -556,7 +591,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         opacity: 0.8,
     },
     bottomPadding: {
-        height: 180,
+        height: TAB_BAR_CLEARANCE + 60,
     },
     backButton: {
         paddingHorizontal: spacing.xl,
@@ -657,7 +692,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     practiceContainer: {
         flex: 1,
         padding: spacing.xl,
-        marginBottom: 80, // Increased to clear TabBar
+        marginBottom: TAB_BAR_CLEARANCE, // Clear TabBar
     },
     statsBar: {
         flexDirection: 'row',

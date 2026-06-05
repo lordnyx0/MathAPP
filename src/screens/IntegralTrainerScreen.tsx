@@ -17,10 +17,12 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import MathText from '../components/MathText';
 import {
@@ -139,10 +141,10 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
             const points = difficultyBonus + streak * 2;
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
-            playCorrect();
+            playCorrect(); notifySuccess();
         } else {
             setStreak(0);
-            playIncorrect();
+            playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
     };
@@ -512,7 +514,7 @@ const createStyles = (colors: ThemeColors) =>
             color: colors.textSecondary,
         },
         bottomPadding: {
-            height: 100,
+            height: TAB_BAR_CLEARANCE,
         },
         // Rules screen
         ruleCard: {

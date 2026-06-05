@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
@@ -57,8 +59,8 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
         setPhase('pick_u_dv');
         
         // Setup options for second phase
-        const fakeDu = q.du.includes('dx') ? q.du.replace('dx', '') + 'x dx' : '-1 dx';
-        const fakeV = '-' + q.v;
+        const fakeDu = q.du.includes('dx$') ? q.du.replace('dx$', 'x dx$') : '$-1 dx$';
+        const fakeV = q.v.startsWith('$') ? q.v.replace('$', '$-') : `-${q.v}`;
         setOptionsPhase2([q.du, q.v, fakeDu, fakeV].sort(() => Math.random() - 0.5));
         setDuInput('');
         setVInput('');
@@ -99,11 +101,11 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
         const dvValid = dvParts.length === question.correctDv.length && dvParts.every(p => question.correctDv.includes(p));
 
         if (unassignedParts.length === 0 && uValid && dvValid) {
-            playCorrect();
+            playCorrect(); notifySuccess();
             setScore(s => s + 10);
             setPhase('pick_du_v');
         } else {
-            playIncorrect();
+            playIncorrect(); notifyError();
             // Reset to pool
             setUnassignedParts(question.parts);
             setUParts([]);
@@ -226,7 +228,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                             
                             <View style={styles.boxesContainer}>
                                 <View style={styles.readonlyBox}>
-                                    <MathText formula style={styles.boxLabel}>{`u = ${question.correctU.join(' ')}`}</MathText>
+                                    <MathText style={styles.boxLabel}>{`u = ${question.correctU.join(' ')}`}</MathText>
                                     <TouchableOpacity 
                                         style={[styles.inputBox, selectedPhase2Target === 'du' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('du')}
@@ -236,7 +238,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 </View>
 
                                 <View style={styles.readonlyBox}>
-                                    <MathText formula style={styles.boxLabel}>{`dv = ${question.correctDv.join(' ')}`}</MathText>
+                                    <MathText style={styles.boxLabel}>{`dv = ${question.correctDv.join(' ')}`}</MathText>
                                     <TouchableOpacity 
                                         style={[styles.inputBox, selectedPhase2Target === 'v' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('v')}
@@ -274,9 +276,9 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                         <FadeInView>
                             <AnimatedCard borderColor={colors.success}>
                                 <Text style={styles.successText}>✅ Fórmula Montada!</Text>
-                                <DisplayMath>{`\\int u dv = uv - \\int v du`}</DisplayMath>
+                                <DisplayMath>{`\\int u \\, dv = uv - \\int v \\, du`}</DisplayMath>
                                 <View style={styles.finalEquation}>
-                                    <DisplayMath>{`= (${question.correctU.join(' ')})(${question.v}) - \\int (${question.v})(${question.du})`}</DisplayMath>
+                                    <DisplayMath>{`= (${question.correctU.map(s => s.replace(/\$/g, '')).join(' ')})(${question.v.replace(/\$/g, '')}) - \\int (${question.v.replace(/\$/g, '')})(${question.du.replace(/\$/g, '')})`}</DisplayMath>
                                 </View>
                             </AnimatedCard>
                             
@@ -394,5 +396,5 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         backgroundColor: colors.surfaceAlt,
         borderRadius: borderRadius.md,
     },
-    bottomPadding: { height: 180 },
+    bottomPadding: { height: TAB_BAR_CLEARANCE + 60 },
 });

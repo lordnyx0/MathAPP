@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     },
 });
 
-interface FormulaProps extends Omit<MathTextProps, 'formula'> { }
+type FormulaProps = Omit<MathTextProps, 'formula'>;
 
 /**
  * Quick formula component - just pass the LaTeX

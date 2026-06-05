@@ -142,6 +142,106 @@ export const recurrenceQuestions: RecurrenceProof[] = [
             { id: 'p_n_minus_2_over_n_minus_1', math: '$\\frac{n-2}{n-1}$' },
             { id: 'p_1_minus_sec2x', math: '$1 - \\sec^2(x)$' }
         ]
+    },
+    {
+        id: 'r3',
+        title: 'Fórmula de Recorrência do Cosseno',
+        integralTarget: '$\\int \\cos^n(x) dx$',
+        lines: [
+            {
+                id: 'l1',
+                textParts: ['Separamos um cosseno: $\\int \\cos^{n-1}(x) \\cdot $', '$dx$'],
+                blanks: [{ id: 'b1_1', correctPieceId: 'p_cosx' }]
+            },
+            {
+                id: 'l2',
+                textParts: ['Por partes, seja $u = \\cos^{n-1}(x)$ e $dv = $', ''],
+                blanks: [{ id: 'b2_1', correctPieceId: 'p_cosxdx' }]
+            },
+            {
+                id: 'l3',
+                textParts: ['Obtemos $du = $', '$\\cos^{n-2}(x)\\sin(x) dx$ e $v = $', ''],
+                blanks: [
+                    { id: 'b3_1', correctPieceId: 'p_minus_n_minus_1' },
+                    { id: 'b3_2', correctPieceId: 'p_sinx' }
+                ]
+            },
+            {
+                id: 'l4',
+                textParts: ['Logo: $I_n = \\cos^{n-1}(x)\\sin(x) + (n-1)\\int \\cos^{n-2}(x) \\cdot $', '$dx$'],
+                blanks: [{ id: 'b4_1', correctPieceId: 'p_sin2x' }]
+            },
+            {
+                id: 'l5',
+                textParts: ['Usando a identidade trigonométrica, trocamos $\\sin^2(x)$ por ', ''],
+                blanks: [{ id: 'b5_1', correctPieceId: 'p_1_minus_cos2x' }]
+            },
+            {
+                id: 'l6',
+                textParts: ['Reagrupando e isolando $I_n$, temos: $nI_n = $', ' + $(n-1)\\int \\cos^{n-2}(x) dx$'],
+                blanks: [{ id: 'b6_1', correctPieceId: 'p_cos_pow_sin' }]
+            },
+            {
+                id: 'l7',
+                textParts: ['Finalmente: $I_n = $', ' + ', '$\\int \\cos^{n-2}(x) dx$'],
+                blanks: [
+                    { id: 'b7_1', correctPieceId: 'p_cos_pow_sin_over_n' },
+                    { id: 'b7_2', correctPieceId: 'p_n_minus_1_over_n' }
+                ]
+            }
+        ],
+        pool: [
+            { id: 'p_cosx', math: '$\\cos(x)$' },
+            { id: 'p_cosxdx', math: '$\\cos(x)dx$' },
+            { id: 'p_minus_n_minus_1', math: '$-(n-1)$' },
+            { id: 'p_sinx', math: '$\\sin(x)$' },
+            { id: 'p_sin2x', math: '$\\sin^2(x)$' },
+            { id: 'p_1_minus_cos2x', math: '$1 - \\cos^2(x)$' },
+            { id: 'p_cos_pow_sin', math: '$\\cos^{n-1}(x)\\sin(x)$' },
+            { id: 'p_cos_pow_sin_over_n', math: '$\\frac{\\cos^{n-1}(x)\\sin(x)}{n}$' },
+            { id: 'p_n_minus_1_over_n', math: '$\\frac{n-1}{n}$' },
+            { id: 'p_1_plus_cos2x', math: '$1 + \\cos^2(x)$' }
+        ]
+    },
+    {
+        id: 'r4',
+        title: 'Fórmula de Recorrência da Tangente',
+        integralTarget: '$\\int \\tan^n(x) dx$',
+        lines: [
+            {
+                id: 'l1',
+                textParts: ['Separamos a potência quadrada: $\\int \\tan^{n-2}(x) \\cdot $', '$dx$'],
+                blanks: [{ id: 'b1_1', correctPieceId: 'p_tan2x' }]
+            },
+            {
+                id: 'l2',
+                textParts: ['Aplicando a identidade trigonométrica, reescrevemos $\\tan^2(x)$ como ', ''],
+                blanks: [{ id: 'b2_1', correctPieceId: 'p_sec2x_minus_1' }]
+            },
+            {
+                id: 'l3',
+                textParts: ['Distribuindo a integral: $\\int \\tan^{n-2}(x)\\sec^2(x) dx - \\int $', '$dx$'],
+                blanks: [{ id: 'b3_1', correctPieceId: 'p_tan_pow_n_minus_2' }]
+            },
+            {
+                id: 'l4',
+                textParts: ['Por substituição $u = \\tan(x)$, a primeira integral resulta em ', ''],
+                blanks: [{ id: 'b4_1', correctPieceId: 'p_tan_pow_n_minus_1_over_n_minus_1' }]
+            },
+            {
+                id: 'l5',
+                textParts: ['Obtemos a fórmula final recorrente: $I_n = $', ' - $I_{n-2}$'],
+                blanks: [{ id: 'b5_1', correctPieceId: 'p_tan_pow_n_minus_1_over_n_minus_1' }]
+            }
+        ],
+        pool: [
+            { id: 'p_tan2x', math: '$\\tan^2(x)$' },
+            { id: 'p_sec2x_minus_1', math: '$\\sec^2(x) - 1$' },
+            { id: 'p_tan_pow_n_minus_2', math: '$\\tan^{n-2}(x)$' },
+            { id: 'p_tan_pow_n_minus_1_over_n_minus_1', math: '$\\frac{\\tan^{n-1}(x)}{n-1}$' },
+            { id: 'p_sec2x', math: '$\\sec^2(x)$' },
+            { id: 'p_n_minus_1', math: '$n-1$' }
+        ]
     }
 ];
 

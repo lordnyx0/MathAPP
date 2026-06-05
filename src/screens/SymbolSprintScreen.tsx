@@ -11,11 +11,13 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
 import strings from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
 import {
     MathSymbol,
@@ -129,10 +131,10 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
             const points = 10 + streak * 2; // Bonus for streak
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
-            playCorrect();
+            playCorrect(); notifySuccess();
         } else {
             setStreak(0);
-            playIncorrect();
+            playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
     };
@@ -450,7 +452,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
             color: colors.textSecondary,
         },
         bottomPadding: {
-            height: 100,
+            height: TAB_BAR_CLEARANCE,
         },
         // Practice screen
         practiceContainer: {

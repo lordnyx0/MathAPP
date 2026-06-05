@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
     View,
     Text,
@@ -19,6 +19,8 @@ import BackButton from '../components/BackButton';
 import { logError } from '../utils';
 import { CardSkeleton, LessonListSkeleton } from '../components/Skeleton';
 import EmptyState from '../components/EmptyState';
+import ScreenHeader from '../components/ScreenHeader';
+import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import strings from '../i18n/strings';
 
 const getPreviewText = (text: string) => {
@@ -50,11 +52,20 @@ const ExercisesScreen = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Cleanup refresh timer on unmount
+    useEffect(() => {
+        return () => {
+            if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current);
+        };
+    }, []);
+
     // Pull-to-refresh handler
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         // Simulate refresh
-        setTimeout(() => setRefreshing(false), 800);
+        refreshTimerRef.current = setTimeout(() => setRefreshing(false), 800);
     }, []);
 
     const toggleStep = (stepIndex: number) => {
@@ -95,10 +106,11 @@ const ExercisesScreen = () => {
                     style={styles.gradient}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styles.header}>
-                            <Text style={styles.headerTitle}>Exercícios Guiados</Text>
-                            <Text style={styles.headerSubtitle}>Escolha uma disciplina</Text>
-                        </View>
+                        <ScreenHeader
+                            title="Exercícios Guiados"
+                            subtitle="Escolha uma disciplina"
+                            icon="📝"
+                        />
 
                         {mainCategories.map(cat => {
                             const catTopics = exerciseTopics.filter(t => t.mainCategory === cat.id);
@@ -497,7 +509,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         fontSize: fontSize.md,
     },
     bottomPadding: {
-        height: 100,
+        height: TAB_BAR_CLEARANCE,
     },
     backButton: {
         paddingHorizontal: spacing.xl,
