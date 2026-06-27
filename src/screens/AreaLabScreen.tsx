@@ -308,7 +308,7 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                     {phase === 'bounds' && (
                         <FadeInView style={styles.interactionPanel}>
                             <Text style={styles.panelTitle}>Etapa 1: Encontre os Limites de Integração</Text>
-                            <Text style={styles.panelDesc}>Resolva $f(x) = g(x)$ para encontrar os pontos de interseção $[a, b]$ das curvas.</Text>
+                            <MathText style={styles.panelDesc}>Resolva $f(x) = g(x)$ para encontrar os pontos de interseção $[a, b]$ das curvas.</MathText>
                             
                             <View style={styles.optionsGrid}>
                                 {question.boundsOptions.map((opt, i) => (
@@ -336,7 +336,7 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                     {phase === 'integrand' && (
                         <FadeInView style={styles.interactionPanel}>
                             <Text style={styles.panelTitle}>Etapa 2: Monte o Integrando da Área</Text>
-                            <Text style={styles.panelDesc}>Subtraia a função de baixo da função de cima no intervalo $[{question.a}, {question.b}]$.</Text>
+                            <MathText style={styles.panelDesc}>Subtraia a função de baixo da função de cima no intervalo $[{question.a}, {question.b}]$.</MathText>
 
                             <View style={styles.optionsGrid}>
                                 {question.integrandOptions.map((opt, i) => (
@@ -364,7 +364,7 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                     {phase === 'area' && (
                         <FadeInView style={styles.interactionPanel}>
                             <Text style={styles.panelTitle}>Etapa 3: Calcule a Área Integrada</Text>
-                            <Text style={styles.panelDesc}>Use o Teorema Fundamental do Cálculo para computar o valor final da área.</Text>
+                            <MathText style={styles.panelDesc}>Use o Teorema Fundamental do Cálculo para computar o valor final da área.</MathText>
 
                             <View style={styles.optionsGrid}>
                                 {question.areaOptions.map((opt, i) => (

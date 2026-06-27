@@ -3,80 +3,80 @@
     "title": "Aplicações de Derivadas e Integrais",
     "lessons": [
         {
-            "id": "c2-l2-regras",
-            "title": "1. Regras Avançadas de Derivação",
+            "id": "c2-l2-somas",
+            "title": "1. Somas de Riemann e a Definição de Integral",
             "level": "Intermediário",
-            "content": "📌 **Revisando Derivadas Complexas**\n\nNo Cálculo, frequentemente lidamos com funções que são combinações de quocientes e composições. Para estas, usamos duas ferramentas principais:\n\n1. **Regra do Quociente:** Para derivar uma divisão de funções $\\frac{u(x)}{v(x)}$:\n$$ \\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2} $$\n\n2. **Regra da Cadeia:** Para derivar funções compostas $f(g(x))$:\n$$ [f(g(x))]' = f'(g(x)) \\cdot g'(x) $$\n\n📝 **Exemplo Prático**\nPara derivar $f(x) = \\frac{x^2 - 1}{x^2 + 1}$, aplicamos a Regra do Quociente:\n- $u = x^2 - 1 \\implies u' = 2x$\n- $v = x^2 + 1 \\implies v' = 2x$\n$$ f'(x) = \\frac{2x(x^2 + 1) - (x^2 - 1)2x}{(x^2 + 1)^2} = \\frac{2x^3 + 2x - 2x^3 + 2x}{(x^2 + 1)^2} = \\frac{4x}{(x^2 + 1)^2} $$",
+            "content": "📌 **Somas de Riemann**\n\nPara calcular a área sob uma curva $y = f(x)$ no intervalo $[a, b]$, dividimos o intervalo em $n$ subintervalos de largura $\\Delta x = \\frac{b-a}{n}$. A partição é dada por $a = x_0 < x_1 < \\dots < x_n = b$, onde $x_i = a + i\\Delta x$.\n\nA **soma de Riemann** correspondente é a soma das áreas de retângulos aproximados:\n$$ S_n = \\sum_{i=1}^{n} f(x_i^*) \\Delta x $$\nonde $x_i^*$ é um ponto de escolha no subintervalo $[x_{i-1}, x_i]$. Se considerarmos o extremo direito de cada subintervalo, então $x_i^* = x_i$.\n\nÀ medida que o número de subintervalos $n \\to \\infty$, a soma de Riemann converge para a **integral definida**:\n$$ \\lim_{n \\to \\infty} \\sum_{i=1}^{n} f(x_i^*) \\Delta x = \\int_{a}^{b} f(x) \\, dx $$\n\n📝 **Exemplo Prático (Q2)**\nCalcular a soma de Riemann de $f(x) = x + 1$ no intervalo $[0, 3]$ com $n=6$ subintervalos usando o extremo direito:\n- $\\Delta x = \\frac{3-0}{6} = 0.5$\n- Extremos direitos: $x_1=0.5, x_2=1.0, x_3=1.5, x_4=2.0, x_5=2.5, x_6=3.0$\n- $f(x) = x + 1 \\implies f(x_i) = 1.5, 2.0, 2.5, 3.0, 3.5, 4.0$\n- Soma: $S_6 = (1.5 + 2.0 + 2.5 + 3.0 + 3.5 + 4.0) \\cdot 0.5 = 16.5 \\cdot 0.5 = 8.25$.",
             "questions": [
                 {
-                    "q": "Qual é a fórmula da regra do quociente para (u/v)'?",
-                    "a": "(u'v - uv')/v²",
-                    "hint": "Lembre-se: derivada do de cima vezes o de baixo, menos o de cima vezes a derivada do de baixo, tudo sobre o de baixo ao quadrado."
+                    "q": "Se f(x) = x no intervalo [0, 2] com n = 4 subintervalos, qual é o valor de Delta x?",
+                    "a": "0.5",
+                    "hint": "Use a fórmula Delta x = (b - a)/n."
                 }
             ]
         },
         {
-            "id": "c2-l2-tangente",
-            "title": "2. Equação da Reta Tangente",
+            "id": "c2-l2-propriedades-tfc",
+            "title": "2. Propriedades da Integral e o TFC",
             "level": "Básico",
-            "content": "📌 **Interpretação Geométrica da Derivada**\n\nA derivada de uma função $f(x)$ em um ponto $x = x_0$ representa o **coeficiente angular** ($m$) da reta tangente à curva nesse ponto. Ou seja:\n$$ m = f'(x_0) $$\n\nUma vez obtido o coeficiente angular $m$ e conhecendo o ponto de tangência $(x_0, y_0)$ onde $y_0 = f(x_0)$, podemos encontrar a equação da reta utilizando a fórmula fundamental da reta:\n$$ y - y_0 = m(x - x_0) $$\n\n📝 **Exemplo Prático**\nPara encontrar a reta tangente a $y = x^3 - 3x + 2$ no ponto $(2, 4)$:\n- Derivada: $f'(x) = 3x^2 - 3$\n- Inclinação no ponto $x = 2$: $m = f'(2) = 3(2)^2 - 3 = 9$\n- Reta: $y - 4 = 9(x - 2) \\implies y = 9x - 14$.",
+            "content": "📌 **Propriedades da Integral**\n\nSejam $f$ e $g$ funções integráveis no intervalo $[a, b]$ e $k$ uma constante real. Valem as seguintes propriedades:\n\n1. **Linearidade:**\n$$ \\int_{a}^{b} [f(x) + g(x)] \\, dx = \\int_{a}^{b} f(x) \\, dx + \\int_{a}^{b} g(x) \\, dx $$\n$$ \\int_{a}^{b} k \\cdot f(x) \\, dx = k \\int_{a}^{b} f(x) \\, dx $$\n\n2. **Monotonicidade:** Se $f(x) \\ge g(x)$ para todo $x \\in [a, b]$, então:\n$$ \\int_{a}^{b} f(x) \\, dx \\ge \\int_{a}^{b} g(x) \\, dx $$\n\n📌 **Teorema Fundamental do Cálculo (TFC)**\n\nSe $f$ for contínua em $[a, b]$, o TFC estabelece que a integração é o processo inverso da derivação:\n\n**Parte 1:** Se $g(x) = \\int_{a}^{x} f(t) \\, dt$, então $g'(x) = f(x)$.\n**Parte 2:** Se $F$ é qualquer primitiva de $f$ (isto é, $F' = f$), então:\n$$ \\int_{a}^{b} f(x) \\, dx = F(b) - F(a) $$",
             "questions": [
                 {
-                    "q": "Se f'(x0) = 5 e o ponto é (1, 2), qual é a equação da reta tangente?",
-                    "a": "y - 2 = 5(x - 1)",
-                    "hint": "Substitua m = 5, x0 = 1 e y0 = 2 na fórmula y - y0 = m(x - x0)."
+                    "q": "Se F'(x) = f(x), como expressamos a integral definida de f(x) de a até b usando F?",
+                    "a": "F(b) - F(a)",
+                    "hint": "Esta é a segunda parte do Teorema Fundamental do Cálculo."
                 }
             ]
         },
         {
-            "id": "c2-l2-crescimento",
-            "title": "3. Crescimento e Decrescimento de Funções",
+            "id": "c2-l2-substituicao",
+            "title": "3. Regra da Substituição",
             "level": "Intermediário",
-            "content": "📌 **O Teste da Primeira Derivada**\n\nPodemos determinar se uma função está subindo ou descendo analisando o **sinal de sua derivada**:\n\n- Se $f'(x) > 0$ em um intervalo, então $f$ é **crescente** nesse intervalo (a reta tangente tem inclinação positiva).\n- Se $f'(x) < 0$ em um intervalo, então $f$ é **decrescente** nesse intervalo (a reta tangente tem inclinação negativa).\n- Pontos onde $f'(x) = 0$ ou a derivada não existe são os **pontos críticos**.\n\n📝 **Exemplo Prático**\nPara $f(x) = 2x^3 - 3x^2 - 12x + 5$:\n- Derivada: $f'(x) = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x-2)(x+1)$\n- Pontos Críticos: $x = 2$ e $x = -1$\n- Analisando os sinais:\n  - Para $x < -1$: $f'(x) > 0$ (Crescente)\n  - Para $-1 < x < 2$: $f'(x) < 0$ (Decrescente)\n  - Para $x > 2$: $f'(x) > 0$ (Crescente)",
+            "content": "📌 **Mudança de Variável por Substituição**\n\nA Regra da Substituição para a integração corresponde à regra da cadeia para a diferenciação.\nSe $u = g(x)$ é uma função diferenciável cuja imagem é um intervalo $I$ e $f$ é contínua em $I$, então:\n$$ \\int f(g(x)) g'(x) \\, dx = \\int f(u) \\, du $$\n\nPara **integrais definidas**, também mudamos os limites de integração:\n$$ \\int_{a}^{b} f(g(x)) g'(x) \\, dx = \\int_{g(a)}^{g(b)} f(u) \\, du $$\n\n📝 **Exemplo Prático (Q26a)**\nCalcular $\\int_{0}^{1} f(2x - 1) \\, dx$ sabendo que $\\int_{-1}^{1} f(u) \\, du = 5$:\n- Fazemos a substituição $u = 2x - 1 \\implies du = 2 \\, dx \\implies dx = \\frac{du}{2}$.\n- Limites: quando $x=0$, $u = 2(0) - 1 = -1$; quando $x=1$, $u = 2(1) - 1 = 1$.\n- A integral torna-se:\n$$ \\int_{-1}^{1} f(u) \\frac{du}{2} = \\frac{1}{2} \\int_{-1}^{1} f(u) \\, du = \\frac{1}{2} (5) = 2.5 $$",
             "questions": [
                 {
-                    "q": "Se f'(x) = x - 3, em qual intervalo a função f é decrescente?",
-                    "a": "x < 3",
-                    "hint": "Resolva a inequação f'(x) < 0."
+                    "q": "Na substituição u = x² + 1, qual é o diferencial du em termos de dx?",
+                    "a": "2x dx",
+                    "hint": "Derive x² + 1 em relação a x e multiplique por dx."
                 }
             ]
         },
         {
-            "id": "c2-l2-extremos",
-            "title": "4. Valores Máximos e Mínimos Locais",
+            "id": "c2-l2-partes",
+            "title": "4. Integração por Partes",
             "level": "Intermediário",
-            "content": "📌 **Encontrando Extremos de uma Função**\n\nOs pontos de máximo e mínimo locais de uma função derivável sempre ocorrem em seus **pontos críticos** (onde $f'(x) = 0$). Para classificar um ponto crítico $c$, podemos usar o **Teste da Segunda Derivada**:\n\n- Se $f''(c) > 0$, a concavidade é para cima, logo $c$ é um **mínimo local**.\n- Se $f''(c) < 0$, a concavidade é para baixo, logo $c$ é um **máximo local**.\n- Se $f''(c) = 0$, o teste é inconclusivo (use o teste da primeira derivada).\n\n📝 **Exemplo Prático**\nPara $f(x) = x^4 - 4x^3 + 4x^2$:\n- $f'(x) = 4x^3 - 12x^2 + 8x = 4x(x-1)(x-2) \\implies$ Pontos críticos em $x=0$, $x=1$ e $x=2$.\n- Segunda derivada: $f''(x) = 12x^2 - 24x + 8$\n  - $f''(0) = 8 > 0 \\implies x = 0$ é Mínimo Local.\n  - $f''(1) = -4 < 0 \\implies x = 1$ é Máximo Local.\n  - $f''(2) = 8 > 0 \\implies x = 2$ é Mínimo Local.",
+            "content": "📌 **Integração por Partes**\n\nA regra de integração por partes provém diretamente da regra do produto para derivadas. Se $u(x)$ e $v(x)$ são funções diferenciáveis, temos:\n$$ \\int u \\, dv = uv - \\int v \\, du $$\n\nPara **integrais definidas**, a fórmula é aplicada com limites de integração:\n$$ \\int_{a}^{b} u \\, dv = \\left[ u(x)v(x) \\right]_{a}^{b} - \\int_{a}^{b} v \\, du $$\n\n📝 **Exemplo Prático**\nCalcular $\\int_{0}^{1} x e^x \\, dx$:\n- Escolhemos $u = x \\implies du = dx$\n- Escolhemos $dv = e^x \\, dx \\implies v = e^x$\n- Aplicando a fórmula:\n$$ \\int_{0}^{1} x e^x \\, dx = \\left[ x e^x \\right]_0^1 - \\int_{0}^{1} e^x \\, dx = (1e^1 - 0) - [e^x]_0^1 = e - (e - 1) = 1 $$",
             "questions": [
                 {
-                    "q": "Se f'(c) = 0 e f''(c) = -3, o ponto c é um máximo ou mínimo local?",
-                    "a": "Máximo local",
-                    "hint": "Uma segunda derivada negativa indica concavidade voltada para baixo."
+                    "q": "Qual é a fórmula de integração por partes para integral indefinida?",
+                    "a": "int u dv = uv - int v du",
+                    "hint": "Lembre-se do produto de u e v subtraído da integral de v du."
                 }
             ]
         },
         {
-            "id": "c2-l2-area",
-            "title": "5. Área Entre Curvas",
+            "id": "c2-l2-area-volume",
+            "title": "5. Área Entre Curvas e Volume de Sólidos",
             "level": "Avançado",
-            "content": "📌 **Integração Definida como Área**\n\nA área da região limitada pelas curvas $y = f(x)$ e $y = g(x)$ e pelas retas verticais $x = a$ e $x = b$, onde $f(x) \\ge g(x)$ em todo o intervalo $[a, b]$, é dada por:\n$$ A = \\int_{a}^{b} [f(x) - g(x)] \\, dx $$\n\nPara resolver problemas de área, siga estes passos:\n1. Esboce ou visualize as curvas para identificar os pontos de interseção (que serão os limites $a$ e $b$).\n2. Determine qual função fica por cima ($f(x)$) e qual fica por baixo ($g(x)$) no intervalo.\n3. Escreva e calcule a integral de $f(x) - g(x)$.\n\n📝 **Exemplo Prático**\nÁrea entre $y = x$ e $y = x^2$:\n- Interseção: $x^2 = x \\implies x(x-1) = 0 \\implies x=0$ e $x=1$ (limites $[0, 1]$).\n- No intervalo $[0, 1]$, a reta $y=x$ está acima da parábola $y=x^2$.\n$$ A = \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1 = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$",
+            "content": "📌 **Área Entre Curvas**\nA área da região limitada pelas curvas $y = f(x)$ e $y = g(x)$ e pelas retas verticais $x = a$ e $x = b$, onde $f(x) \\ge g(x)$ no intervalo $[a, b]$, é:\n$$ A = \\int_{a}^{b} [f(x) - g(x)] \\, dx $$\n\n📝 **Exemplo: Triângulo Parabólico (Q14)**\nÁrea delimitada por $f(x) = x$ e $g(x) = x^2$ no intervalo $[0, 1]$:\n$$ A = \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1 = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$\n\n📌 **Volume de Sólido de Revolução**\nSe uma região sob a curva $y = f(x)$, de $a$ até $b$, é rotacionada em torno do eixo $x$, o volume do sólido gerado (método dos discos) é:\n$$ V = \\int_{a}^{b} \\pi [f(x)]^2 \\, dx $$\n\n📝 **Volume da Esfera (Q32)**\nRevolucionando o semicírculo $y = \\sqrt{R^2 - x^2}$ de $-R$ a $R$:\n$$ V = \\int_{-R}^{R} \\pi (R^2 - x^2) \\, dx = \\pi \\left[ R^2x - \\frac{x^3}{3} \\right]_{-R}^{R} = \\frac{4}{3}\\pi R^3 $$",
             "questions": [
                 {
-                    "q": "Se g(x) = x² e f(x) = 4 no intervalo [-2, 2], qual integral fornece a área entre as curvas?",
-                    "a": "int_{-2}^{2} (4 - x²) dx",
-                    "hint": "A função superior é a constante f(x)=4."
+                    "q": "Qual integral fornece o volume de rotação da função f(x) de a até b em torno do eixo x?",
+                    "a": "int_{a}^{b} pi [f(x)]² dx",
+                    "hint": "Pense na soma de áreas de discos circulares elementares de raio f(x) e espessura dx."
                 }
             ]
         },
         {
-            "id": "c2-l2-lhopital",
-            "title": "6. Regra de L'Hôpital",
-            "level": "Intermediário",
-            "content": "📌 **Resolvendo Indeterminações de Limites**\n\nA Regra de L'Hôpital é uma técnica que usa derivadas para calcular limites de frações que resultam em indeterminações do tipo $\\frac{0}{0}$ ou $\\frac{\\infty}{\\infty}$.\n\nSe $\\lim_{x \\to c} \\frac{f(x)}{g(x)}$ cai em uma dessas indeterminações, então:\n$$ \\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)} $$\ndesde que o limite do lado direito exista.\n\n⚠️ **Atenção:** Derivamos o numerador e o denominador **separadamente** (isto NÃO é a regra do quociente!).\n\n📝 **Exemplo Prático**\nCalcular $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$:\n- Teste direto: $\\frac{\\sin(0)}{0} = \\frac{0}{0}$ (Indeterminado).\n- Aplicando L'Hôpital:\n$$ \\lim_{x \\to 0} \\frac{[\\sin(x)]'}{[x]'} = \\lim_{x \\to 0} \\frac{\\cos(x)}{1} = \\frac{\\cos(0)}{1} = 1 $$",
+            "id": "c2-l2-comprimento",
+            "title": "6. Comprimento de Arco",
+            "level": "Avançado",
+            "content": "📌 **Dedução do Comprimento de Arco**\n\nSe uma curva suave é definida por $y = f(x)$ no intervalo $[a, b]$, o comprimento $L$ do arco da curva é aproximado pela soma de pequenos segmentos de reta $\\Delta s = \\sqrt{\\Delta x^2 + \\Delta y^2}$. Tomando o limite:\n$$ L = \\int_{a}^{b} \\sqrt{1 + \\left(\\frac{dy}{dx}\\right)^2} \\, dx $$\n\n📌 **Curvas Parametrizadas**\nSe a curva é dada parametricamente por $x = x(t)$ e $y = y(t)$ para $t \\in [t_1, t_2]$, a fórmula se torna:\n$$ L = \\int_{t_1}^{t_2} \\sqrt{\\left(\\frac{dx}{dt}\\right)^2 + \\left(\\frac{dy}{dt}\\right)^2} \\, dt $$\n\n📝 **Exemplo: Comprimento do Círculo (Q11)**\nPara um círculo parametrizado por $x(t) = R\\cos(t)$, $y(t) = R\\sin(t)$ com $t \\in [0, 2\\pi]$:\n- $x'(t) = -R\\sin(t)$ e $y'(t) = R\\cos(t)$\n- Integrando: $\\sqrt{(-R\\sin(t))^2 + (R\\cos(t))^2} = R$\n$$ L = \\int_{0}^{2\\pi} R \\, dt = 2\\pi R $$",
             "questions": [
                 {
-                    "q": "Ao usar a Regra de L'Hôpital para calcular o limite de f(x)/g(x), aplicamos a regra do quociente?",
-                    "a": "Não, derivamos o numerador e o denominador separadamente.",
-                    "hint": "A regra diz para calcular f'(x)/g'(x), não (f/g)'."
+                    "q": "Qual é o comprimento de arco de um círculo de raio 5?",
+                    "a": "10pi",
+                    "hint": "Substitua R = 5 na fórmula do comprimento L = 2pi R."
                 }
             ]
         }

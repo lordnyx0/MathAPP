@@ -6,226 +6,231 @@
         {
             "id": "c2-l2-q1",
             "topicId": "lista-2-calculo-ii",
-            "category": "Derivadas",
-            "title": "Q1: Regras de Derivação Avançadas",
+            "category": "Somas de Riemann",
+            "title": "Q1: Somas de Riemann",
             "difficulty": "Intermediário",
-            "problem": "Calcule a derivada das seguintes funções:\n\na) $f(x) = \\frac{x^2 - 1}{x^2 + 1}$\n\nb) $f(x) = \\sqrt[3]{x^2} \\cdot \\cos(x)$\n\nc) $f(x) = e^{x^2} \\cdot \\ln(x)$\n\nd) $f(x) = \\frac{\\sin(x)}{x^2}$\n\ne) $f(x) = \\tan(x^3 + 2x)$",
-            "finalAnswer": "a) $4x/(x^2+1)^2$; b) $\\frac{2\\cos(x)}{3\\sqrt[3]{x}} - \\sqrt[3]{x^2}\\sin(x)$; c) $e^{x^2}(2x\\ln(x) + 1/x)$; d) $\\frac{x\\cos(x) - 2\\sin(x)}{x^3}$; e) $(3x^2+2)\\sec^2(x^3+2x)$",
+            "problem": "Calcule a soma de Riemann de $f(x) = x + 1$ no intervalo $[0, 3]$, subdividindo-o em 6 subintervalos e considerando o extremo direito de cada subintervalo.",
+            "finalAnswer": "8.25",
             "steps": [
                 {
-                    "title": "Item a) Regra do Quociente",
-                    "explanation": "Aplicar a regra do quociente para derivar a fração.",
-                    "content": "Para $f(x) = \\frac{x^2 - 1}{x^2 + 1}$:\n\nUtilizamos $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$, com $u = x^2-1$ e $v = x^2+1$.\n- $u' = 2x$\n- $v' = 2x$\n\n$$ f'(x) = \\frac{2x(x^2 + 1) - (x^2 - 1)2x}{(x^2 + 1)^2} = \\frac{2x^3 + 2x - 2x^3 + 2x}{(x^2 + 1)^2} = \\frac{4x}{(x^2 + 1)^2} $$"
+                    "title": "Passo 1: Determinar a largura do subintervalo (\\Delta x)",
+                    "explanation": "A largura de cada um dos subintervalos é obtida dividindo a amplitude do intervalo total pelo número de subdivisões.",
+                    "content": "O intervalo é $[a, b] = [0, 3]$ com $n = 6$ subintervalos.\n\n$$ \\Delta x = \\frac{b - a}{n} = \\frac{3 - 0}{6} = 0.5 $$"
                 },
                 {
-                    "title": "Item b) Regra do Produto e Potência Fracionária",
-                    "explanation": "Reescrever a raiz como expoente fracionário e usar a regra do produto.",
-                    "content": "Para $f(x) = x^{2/3} \\cdot \\cos(x)$:\n\nUtilizamos $(u \\cdot v)' = u'v + uv'$.\n- $u = x^{2/3} \\implies u' = \\frac{2}{3}x^{-1/3} = \\frac{2}{3\\sqrt[3]{x}}$\n- $v = \\cos(x) \\implies v' = -\\sin(x)$\n\n$$ f'(x) = \\frac{2}{3\\sqrt[3]{x}} \\cos(x) + x^{2/3} (-\\sin(x)) = \\frac{2\\cos(x)}{3\\sqrt[3]{x}} - \\sqrt[3]{x^2}\\sin(x) $$"
+                    "title": "Passo 2: Identificar os extremos direitos dos subintervalos",
+                    "explanation": "Calculamos as coordenadas dos pontos que delimitam os subintervalos a partir do extremo esquerdo $x_0 = a$.",
+                    "content": "Os pontos da partição são dados por $x_i = a + i \\cdot \\Delta x$:\n- $x_0 = 0$\n- $x_1 = 0.5$\n- $x_2 = 1.0$\n- $x_3 = 1.5$\n- $x_4 = 2.0$\n- $x_5 = 2.5$\n- $x_6 = 3.0$\n\nComo consideramos os extremos direitos para a altura de cada retângulo, usaremos os pontos de escolha $x_i^* = x_i$ para $i$ de $1$ a $6$: $0.5, 1.0, 1.5, 2.0, 2.5, 3.0$."
                 },
                 {
-                    "title": "Item c) Regra do Produto e Regra da Cadeia",
-                    "explanation": "Derivar a exponencial usando a regra da cadeia e aplicar a regra do produto.",
-                    "content": "Para $f(x) = e^{x^2} \\cdot \\ln(x)$:\n\nUtilizamos $(u \\cdot v)' = u'v + uv'$.\n- $u = e^{x^2} \\implies u' = e^{x^2} \\cdot (x^2)' = 2x e^{x^2}$ (pela Regra da Cadeia)\n- $v = \\ln(x) \\implies v' = \\frac{1}{x}$\n\n$$ f'(x) = (2x e^{x^2})\\ln(x) + e^{x^2}\\left(\\frac{1}{x}\\right) = e^{x^2}\\left(2x\\ln(x) + \\frac{1}{x}\\right) $$"
+                    "title": "Passo 3: Avaliar a função nesses pontos",
+                    "explanation": "Substituímos cada um dos extremos direitos na lei da função $f(x) = x + 1$.",
+                    "content": "- $f(x_1) = f(0.5) = 0.5 + 1 = 1.5$\n- $f(x_2) = f(1.0) = 1.0 + 1 = 2.0$\n- $f(x_3) = f(1.5) = 1.5 + 1 = 2.5$\n- $f(x_4) = f(2.0) = 2.0 + 1 = 3.0$\n- $f(x_5) = f(2.5) = 2.5 + 1 = 3.5$\n- $f(x_6) = f(3.0) = 3.0 + 1 = 4.0$"
                 },
                 {
-                    "title": "Item d) Regra do Quociente Simplificada",
-                    "explanation": "Aplicar a regra do quociente na divisão trigonométrica.",
-                    "content": "Para $f(x) = \\frac{\\sin(x)}{x^2}$:\n\nUtilizamos a Regra do Quociente com $u = \\sin(x)$ e $v = x^2$.\n- $u' = \\cos(x)$\n- $v' = 2x$\n\n$$ f'(x) = \\frac{\\cos(x) \\cdot x^2 - \\sin(x) \\cdot 2x}{(x^2)^2} = \\frac{x[x\\cos(x) - 2\\sin(x)]}{x^4} = \\frac{x\\cos(x) - 2\\sin(x)}{x^3} $$"
-                },
-                {
-                    "title": "Item e) Regra da Cadeia para Tangente",
-                    "explanation": "Aplicar a regra da cadeia com a função tangente e o argumento polinomial.",
-                    "content": "Para $f(x) = \\tan(x^3 + 2x)$:\n\nA função externa é $g(u) = \\tan(u) \\implies g'(u) = \\sec^2(u)$.\nA função interna é $u(x) = x^3 + 2x \\implies u'(x) = 3x^2 + 2$.\n\nPela Regra da Cadeia:\n$$ f'(x) = \\sec^2(x^3 + 2x) \\cdot (3x^2 + 2) = (3x^2 + 2)\\sec^2(x^3 + 2x) $$"
+                    "title": "Passo 4: Calcular a soma de Riemann",
+                    "explanation": "A soma de Riemann é a soma dos produtos das alturas dos retângulos pelas suas bases.",
+                    "content": "A soma de Riemann é dada por:\n$$ S_6 = \\sum_{i=1}^{6} f(x_i) \\Delta x = [f(x_1) + f(x_2) + f(x_3) + f(x_4) + f(x_5) + f(x_6)] \\cdot \\Delta x $$\n\nSubstituindo os valores encontrados:\n$$ S_6 = [1.5 + 2.0 + 2.5 + 3.0 + 3.5 + 4.0] \\cdot 0.5 $$\n$$ S_6 = 16.5 \\cdot 0.5 = 8.25 $$"
                 }
             ],
             "tips": [
-                "Lembre-se de reescrever raízes sob a forma de potência fracionária: $\\sqrt[n]{x^m} = x^{m/n}$ antes de derivar.",
-                "Na regra da cadeia, derive a função 'de fora' mantendo o de dentro intacto, e depois multiplique pela derivada 'do de dentro'."
+                "Certifique-se de usar o extremo direito: os pontos começam em $a + \\Delta x$ e terminam em $b$.",
+                "Se o problema pedisse o extremo esquerdo, os pontos começariam em $a$ e terminariam em $b - \\Delta x$."
             ]
         },
         {
             "id": "c2-l2-q2",
             "topicId": "lista-2-calculo-ii",
-            "category": "Aplicações de Derivadas",
-            "title": "Q2: Equação da Reta Tangente",
-            "difficulty": "Básico",
-            "problem": "Encontre a equação da reta tangente à curva $y = x^3 - 3x + 2$ no ponto $(2, 4)$.",
-            "finalAnswer": "$y = 9x - 14$",
+            "category": "Técnicas de Integração",
+            "title": "Q2: Substituição com Limites",
+            "difficulty": "Intermediário",
+            "problem": "Suponha que $f : [-1, 1] \\to \\mathbb{R}$ seja contínua. Calcule $\\int_{0}^{1} f(2x - 1) dx$, sabendo que $\\int_{-1}^{1} f(x) dx = 5$.",
+            "finalAnswer": "2.5",
             "steps": [
                 {
-                    "title": "Passo 1: Encontrar a Derivada",
-                    "explanation": "A derivada nos dá a inclinação genérica em qualquer ponto.",
-                    "content": "Dada a função $f(x) = x^3 - 3x + 2$, derivamos em relação a $x$:\n$$ f'(x) = 3x^2 - 3 $$"
+                    "title": "Passo 1: Definir a substituição de variável",
+                    "explanation": "Identificamos a função composta interna e definimos uma nova variável u, obtendo seu diferencial du.",
+                    "content": "Seja $u = 2x - 1$.\nDerivando ambos os lados em relação a $x$:\n$$ du = 2 \\, dx \\implies dx = \\frac{du}{2} $$"
                 },
                 {
-                    "title": "Passo 2: Calcular o Coeficiente Angular (m)",
-                    "explanation": "Substituir a coordenada x do ponto dado na derivada.",
-                    "content": "O ponto dado é $(2, 4)$, logo $x_0 = 2$.\n$$ m = f'(2) = 3(2)^2 - 3 = 3(4) - 3 = 9 $$"
+                    "title": "Passo 2: Alterar os limites de integração",
+                    "explanation": "Ao mudarmos a variável de integração de x para u, precisamos recalcular os limites inferior e superior usando a relação $u = 2x - 1$.",
+                    "content": "- Para o limite inferior, $x = 0$:\n$$ u = 2(0) - 1 = -1 $$\n- Para o limite superior, $x = 1$:\n$$ u = 2(1) - 1 = 1 $$"
                 },
                 {
-                    "title": "Passo 3: Montar a Equação da Reta",
-                    "explanation": "Usar a fórmula ponto-inclinação da reta tangente.",
-                    "content": "Utilizando a fórmula $y - y_0 = m(x - x_0)$ com $x_0 = 2$, $y_0 = 4$ e $m = 9$:\n$$ y - 4 = 9(x - 2) $$\n$$ y - 4 = 9x - 18 $$\n$$ y = 9x - 14 $$"
+                    "title": "Passo 3: Escrever e calcular a nova integral",
+                    "explanation": "Substituímos o integrando, o diferencial dx e os limites de integração na integral original.",
+                    "content": "Substituindo tudo na integral original:\n$$ \\int_{0}^{1} f(2x - 1) \\, dx = \\int_{-1}^{1} f(u) \\cdot \\frac{du}{2} $$\n\nPodemos retirar a constante $1/2$ para fora da integral por linearidade:\n$$ \\frac{1}{2} \\int_{-1}^{1} f(u) \\, du $$\n\nComo sabemos que $\\int_{-1}^{1} f(x) dx = 5$ (a variável de integração é muda), temos:\n$$ \\frac{1}{2} \\cdot 5 = 2.5 $$"
                 }
             ],
             "tips": [
-                "A derivada avaliada em $x = a$ é exatamente a inclinação da reta tangente naquele ponto.",
-                "Verifique se o ponto pertence à curva antes de tudo: $f(2) = 2^3 - 3(2) + 2 = 8 - 6 + 2 = 4$. Está correto!"
+                "Nunca se esqueça de recalcular os limites de integração ao fazer uma substituição em integrais definidas!",
+                "A variável sob a integral é muda, ou seja, $\\int f(x)dx$ e $\\int f(u)du$ com os mesmos limites têm o mesmo valor."
             ]
         },
         {
             "id": "c2-l2-q3",
             "topicId": "lista-2-calculo-ii",
-            "category": "Aplicações de Derivadas",
-            "title": "Q3: Intervalos de Crescimento e Decrescimento",
-            "difficulty": "Intermediário",
-            "problem": "Determine os intervalos de crescimento e decrescimento da função $f(x) = 2x^3 - 3x^2 - 12x + 5$.",
-            "finalAnswer": "Crescente em $(-\\infty, -1) \\cup (2, \\infty)$ e Decrescente em $(-1, 2)$",
+            "category": "Propriedades da Integral",
+            "title": "Q3: Simetria de Funções Pares e Ímpares",
+            "difficulty": "Básico",
+            "problem": "Determine as seguintes integrais com base nas propriedades de simetria:\n\na) $\\int_{-\\pi/2}^{\\pi/2} \\cos(x) dx$\n\nb) $\\int_{-\\pi}^{\\pi} \\sin(x) dx$",
+            "finalAnswer": "a) 2; b) 0",
             "steps": [
                 {
-                    "title": "Passo 1: Calcular a Primeira Derivada",
-                    "explanation": "Precisamos encontrar $f'(x)$ para determinar o sinal da taxa de crescimento.",
-                    "content": "Dada a função $f(x) = 2x^3 - 3x^2 - 12x + 5$, derivamos:\n$$ f'(x) = 6x^2 - 6x - 12 $$"
+                    "title": "Passo 1: Analisar a paridade das funções",
+                    "explanation": "Verificamos a simetria de cada função sob a transformação $x \\to -x$.",
+                    "content": "Uma função é **par** se $f(-x) = f(x)$ e **ímpar** se $f(-x) = -f(x)$.\n\n- Para $g(x) = \\cos(x)$:\n$$ g(-x) = \\cos(-x) = \\cos(x) \\implies \\text{Função Par} $$\n- Para $f(x) = \\sin(x)$:\n$$ f(-x) = \\sin(-x) = -\\sin(x) \\implies \\text{Função Ímpar} $$"
                 },
                 {
-                    "title": "Passo 2: Encontrar os Pontos Críticos",
-                    "explanation": "Pontos críticos são onde $f'(x) = 0$.",
-                    "content": "Igualando a derivada a zero:\n$$ 6x^2 - 6x - 12 = 0 \\implies 6(x^2 - x - 2) = 0 $$\nFatorando o polinômio:\n$$ 6(x - 2)(x + 1) = 0 $$\nPontos críticos em: $x = 2$ e $x = -1$."
+                    "title": "Passo 2: Resolver a integral da função ímpar (Item b)",
+                    "explanation": "Aproveitamos a propriedade de que a integral de uma função ímpar em um intervalo simétrico $[-a, a]$ é sempre nula.",
+                    "content": "Como $\\sin(x)$ é ímpar e o intervalo $[-\\pi, \\pi]$ é simétrico em relação à origem:\n$$ \\int_{-\\pi}^{\\pi} \\sin(x) \\, dx = 0 $$"
                 },
                 {
-                    "title": "Passo 3: Fazer a Análise de Sinal da Derivada",
-                    "explanation": "Testamos valores nos intervalos definidos pelos pontos críticos para descobrir o sinal de $f'(x)$.",
-                    "content": "Dividimos a reta real em três intervalos:\n\n1. Intervalo $(-\\infty, -1)$: Escolhemos $x = -2$:\n$$ f'(-2) = 6(-2 - 2)(-2 + 1) = 6(-4)(-1) = 24 > 0 \\implies \\text{Crescente} $$\n\n2. Intervalo $(-1, 2)$: Escolhemos $x = 0$:\n$$ f'(0) = 6(0^2 - 0 - 2) = -12 < 0 \\implies \\text{Decrescente} $$\n\n3. Intervalo $(2, \\infty)$: Escolhemos $x = 3$:\n$$ f'(3) = 6(3 - 2)(3 + 1) = 6(1)(4) = 24 > 0 \\implies \\text{Crescente} $$"
+                    "title": "Passo 3: Resolver a integral da função par (Item a)",
+                    "explanation": "Para funções pares em intervalos simétricos $[-a, a]$, a integral é o dobro da integral no intervalo $[0, a]$.",
+                    "content": "Como $\\cos(x)$ é par e o intervalo $[-\\pi/2, \\pi/2]$ é simétrico:\n$$ \\int_{-\\pi/2}^{\\pi/2} \\cos(x) \\, dx = 2 \\int_{0}^{\\pi/2} \\cos(x) \\, dx $$\n\nCalculando a integral:\n$$ 2 \\cdot \\left[ \\sin(x) \\right]_{0}^{\\pi/2} = 2 \\cdot (\\sin(\\pi/2) - \\sin(0)) = 2 \\cdot (1 - 0) = 2 $$"
                 }
             ],
             "tips": [
-                "Fatore a derivada para tornar o estudo dos sinais muito mais simples.",
-                "A função muda de comportamento (crescente para decrescente ou vice-versa) ao passar pelos pontos críticos de multiplicidade ímpar."
+                "Graficamente, a integral de uma função ímpar em $[-a, a]$ cancela as áreas acima e abaixo do eixo x.",
+                "Esta propriedade economiza muito tempo em provas de física e engenharia!"
             ]
         },
         {
             "id": "c2-l2-q4",
             "topicId": "lista-2-calculo-ii",
-            "category": "Aplicações de Derivadas",
-            "title": "Q4: Máximos e Mínimos Locais",
-            "difficulty": "Intermediário",
-            "problem": "Encontre os valores de máximo e mínimo locais da função $f(x) = x^4 - 4x^3 + 4x^2$.",
-            "finalAnswer": "Mínimos locais em $x=0$ (valor: 0) e $x=2$ (valor: 0); Máximo local em $x=1$ (valor: 1)",
+            "category": "Comprimento de Arco",
+            "title": "Q4: Comprimento do Astróide",
+            "difficulty": "Avançado",
+            "problem": "O astróide é definido parametricamente por $x(t) = \\cos^3(t)$ e $y(t) = \\sin^3(t)$ para $t \\in [0, 2\\pi]$. Calcule o seu comprimento total.",
+            "finalAnswer": "6",
             "steps": [
                 {
-                    "title": "Passo 1: Encontrar os Pontos Críticos",
-                    "explanation": "Calcular $f'(x)$ e encontrar onde ela é igual a zero.",
-                    "content": "Dada a função $f(x) = x^4 - 4x^3 + 4x^2$, sua derivada é:\n$$ f'(x) = 4x^3 - 12x^2 + 8x $$\nIgualando a zero para obter os pontos críticos:\n$$ 4x(x^2 - 3x + 2) = 0 \\implies 4x(x - 1)(x - 2) = 0 $$\nPontos críticos em: $x = 0$, $x = 1$ e $x = 2$."
+                    "title": "Passo 1: Calcular as derivadas temporais dx/dt e dy/dt",
+                    "explanation": "Utilizamos a regra da cadeia para encontrar a taxa de variação de x e y em relação ao parâmetro t.",
+                    "content": "- Para $x(t) = \\cos^3(t)$:\n$$ \\frac{dx}{dt} = 3\\cos^2(t) \\cdot (-\\sin(t)) = -3\\cos^2(t)\\sin(t) $$\n- Para $y(t) = \\sin^3(t)$:\n$$ \\frac{dy}{dt} = 3\\sin^2(t) \\cdot (\\cos(t)) = 3\\sin^2(t)\\cos(t) $$"
                 },
                 {
-                    "title": "Passo 2: Calcular a Segunda Derivada",
-                    "explanation": "Utilizar o Teste da Segunda Derivada nos pontos críticos.",
-                    "content": "Calculando a segunda derivada:\n$$ f''(x) = 12x^2 - 24x + 8 $$"
+                    "title": "Passo 2: Simplificar o integrando do comprimento de arco",
+                    "explanation": "Montamos o termo sob a raiz quadrada da fórmula do comprimento de curva paramétrica.",
+                    "content": "O integrando é $\\sqrt{(dx/dt)^2 + (dy/dt)^2}$:\n$$ \\left(\\frac{dx}{dt}\\right)^2 + \\left(\\frac{dy}{dt}\\right)^2 = (-3\\cos^2(t)\\sin(t))^2 + (3\\sin^2(t)\\cos(t))^2 $$\n$$ = 9\\cos^4(t)\\sin^2(t) + 9\\sin^4(t)\\cos^2(t) $$\nFatorando o termo comum $9\\cos^2(t)\\sin^2(t)$:\n$$ = 9\\cos^2(t)\\sin^2(t) (\\cos^2(t) + \\sin^2(t)) $$\nComo $\\cos^2(t) + \\sin^2(t) = 1$, temos:\n$$ = 9\\cos^2(t)\\sin^2(t) $$\n\nTomando a raiz quadrada:\n$$ \\sqrt{9\\cos^2(t)\\sin^2(t)} = 3|\\sin(t)\\cos(t)| $$"
                 },
                 {
-                    "title": "Passo 3: Classificar os Pontos Críticos",
-                    "explanation": "Avaliar o sinal de $f''(x)$ em cada ponto.",
-                    "content": "- Para $x = 0$:\n$$ f''(0) = 8 > 0 \\implies \\text{Mínimo Local} $$\n\n- Para $x = 1$:\n$$ f''(1) = 12(1)^2 - 24(1) + 8 = -4 < 0 \\implies \\text{Máximo Local} $$\n\n- Para $x = 2$:\n$$ f''(2) = 12(2)^2 - 24(2) + 8 = 48 - 48 + 8 = 8 > 0 \\implies \\text{Mínimo Local} $$"
+                    "title": "Passo 3: Usar a simetria da curva",
+                    "explanation": "O astróide é composto por quatro quadrantes idênticos, então integramos no primeiro quadrante $[0, \\pi/2]$ onde $\\sin(t)$ e $\\cos(t)$ são positivos e multiplicamos por 4.",
+                    "content": "O comprimento total $L$ é:\n$$ L = 4 \\int_{0}^{\\pi/2} 3\\sin(t)\\cos(t) \\, dt = 12 \\int_{0}^{\\pi/2} \\sin(t)\\cos(t) \\, dt $$"
                 },
                 {
-                    "title": "Passo 4: Encontrar os Valores da Função",
-                    "explanation": "Substituir os pontos na função original $f(x)$ para obter os extremos locais.",
-                    "content": "- Mínimos locais:\n$$ f(0) = 0^4 - 4(0)^3 + 4(0)^2 = 0 $$\n$$ f(2) = 2^4 - 4(2)^3 + 4(2)^2 = 16 - 32 + 16 = 0 $$\n\n- Máximo local:\n$$ f(1) = 1^4 - 4(1)^3 + 4(1)^2 = 1 - 4 + 4 = 1 $$"
+                    "title": "Passo 4: Resolver a integral definida",
+                    "explanation": "Fazemos a substituição simples $u = \\sin(t) \\implies du = \\cos(t) dt$.",
+                    "content": "Com $u = \\sin(t)$:\n- Limite inferior: $t=0 \\implies u=0$\n- Limite superior: $t=\\pi/2 \\implies u=1$\n\n$$ L = 12 \\int_{0}^{1} u \\, du = 12 \\cdot \\left[ \\frac{u^2}{2} \\right]_{0}^{1} = 12 \\cdot \\left( \\frac{1}{2} - 0 \\right) = 6 $$"
                 }
             ],
             "tips": [
-                "O valor máximo ou mínimo local é o resultado de $f(c)$ (na função original), não de $f'(c)$ ou $f''(c)$.",
-                "O teste da segunda derivada é o mais rápido quando a função é fácil de derivar repetidas vezes."
+                "Lembre-se sempre de que $\\sqrt{u^2} = |u|$. Ignorar o valor absoluto nos limites onde o integrando é negativo levaria a um resultado nulo incorreto devido a cancelamentos.",
+                "A simetria em curvas como o astróide ou a cardioide simplifica muito o cálculo eliminando a necessidade de tratar o módulo."
             ]
         },
         {
             "id": "c2-l2-q5",
             "topicId": "lista-2-calculo-ii",
-            "category": "Integrais",
-            "title": "Q5: Cálculo de Integrais Imediatas",
-            "difficulty": "Básico",
-            "problem": "Calcule as seguintes integrais indefinidas:\n\na) $\\int (3x^2 - 4x + 5) dx$\n\nb) $\\int \\frac{1}{x^2 + 1} dx$\n\nc) $\\int \\sin(2x) dx$\n\nd) $\\int e^{3x} dx$",
-            "finalAnswer": "a) $x^3 - 2x^2 + 5x + C$; b) $\\arctan(x) + C$; c) $-\\frac{1}{2}\\cos(2x) + C$; d) $\\frac{1}{3}e^{3x} + C$",
+            "category": "Aplicações Geométricas",
+            "title": "Q5: Área do Triângulo Parabólico",
+            "difficulty": "Intermediário",
+            "problem": "Encontre a área da região delimitada pelos gráficos das funções $f(x) = x$ e $g(x) = x^2$ no intervalo $[0, 1]$.",
+            "finalAnswer": "1/6",
             "steps": [
                 {
-                    "title": "Item a) Integral Polinomial",
-                    "explanation": "Integrar termo a termo utilizando a regra da potência.",
-                    "content": "Para $\\int (3x^2 - 4x + 5) dx$:\n$$ \\int (3x^2 - 4x + 5) dx = 3\\left(\\frac{x^3}{3}\\right) - 4\\left(\\frac{x^2}{2}\\right) + 5x + C = x^3 - 2x^2 + 5x + C $$"
+                    "title": "Passo 1: Esboçar e definir os limites de integração",
+                    "explanation": "Identificamos os pontos onde as funções se interceptam para delimitar a área da região.",
+                    "content": "Igualamos as equações das duas curvas:\n$$ x^2 = x \\implies x^2 - x = 0 \\implies x(x - 1) = 0 $$\nAs interseções ocorrem nos pontos $x = 0$ e $x = 1$. Portanto, os limites de integração são $a = 0$ e $b = 1$."
                 },
                 {
-                    "title": "Item b) Integral de Fração Trigonométrica Inversa",
-                    "explanation": "Reconhecer a derivada da função arco tangente.",
-                    "content": "Para $\\int \\frac{1}{x^2 + 1} dx$:\n\nEsta integral é imediata da tabela fundamental:\n$$ \\int \\frac{1}{x^2 + 1} dx = \\arctan(x) + C $$"
+                    "title": "Passo 2: Determinar qual função é superior",
+                    "explanation": "Analisamos o valor das funções no intervalo (0, 1) para saber qual está por cima.",
+                    "content": "Escolhendo $x = 0.5$:\n- $f(0.5) = 0.5$\n- $g(0.5) = (0.5)^2 = 0.25$\nComo $f(0.5) > g(0.5)$, a reta $f(x) = x$ está acima da parábola $g(x) = x^2$ no intervalo $[0, 1]$."
                 },
                 {
-                    "title": "Item c) Integral do Seno com Argumento Linear",
-                    "explanation": "Integrar dividindo pela constante angular do argumento.",
-                    "content": "Para $\\int \\sin(2x) dx$:\n\nSabemos que a primitiva de $\\sin(u)$ é $-\\cos(u)$. Pela compensação linear:\n$$ \\int \\sin(2x) dx = -\\frac{\\cos(2x)}{2} + C $$"
-                },
-                {
-                    "title": "Item d) Integral da Exponencial com Constante",
-                    "explanation": "Integrar dividindo pelo multiplicador do expoente.",
-                    "content": "Para $\\int e^{3x} dx$:\n\nSabemos que a primitiva de $e^u$ é $e^u$. Logo, aplicando a divisão pela derivada do expoente:\n$$ \\int e^{3x} dx = \\frac{e^{3x}}{3} + C $$"
+                    "title": "Passo 3: Montar e calcular a integral da área",
+                    "explanation": "A área é a integral da diferença entre a função superior e a inferior.",
+                    "content": "$$ A = \\int_{0}^{1} [f(x) - g(x)] \\, dx = \\int_{0}^{1} (x - x^2) \\, dx $$\n\nCalculando a primitiva:\n$$ A = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_{0}^{1} $$\n\nAplicando os limites de integração:\n$$ A = \\left( \\frac{1^2}{2} - \\frac{1^3}{3} \\right) - (0) = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$"
                 }
             ],
             "tips": [
-                "Não esqueça de adicionar a constante de integração $+C$ ao resolver integrais indefinidas.",
-                "Se o argumento da integral trigonométrica ou exponencial for linear (como $ax+b$), a integral é a primitiva de tabela dividida por $a$."
+                "Se você obtiver um valor negativo para a área, provavelmente inverteu as posições da função superior e inferior.",
+                "Este tipo de região entre uma reta e uma parábola é historicamente chamado de triângulo parabólico."
             ]
         },
         {
             "id": "c2-l2-q6",
             "topicId": "lista-2-calculo-ii",
-            "category": "Área entre Curvas",
-            "title": "Q6: Área Limitada por Curvas",
+            "category": "Técnicas de Integração",
+            "title": "Q6: Integração por Partes Definida",
             "difficulty": "Avançado",
-            "problem": "Determine a área da região limitada pelas curvas $y = x^2$ e $y = x$.",
-            "finalAnswer": "$1/6$",
+            "problem": "Verifique que $\\int_{0}^{1} x \\cdot (1 - x)^2 dx = \\frac{1}{12}$ utilizando a técnica de integração por partes.",
+            "finalAnswer": "1/12",
             "steps": [
                 {
-                    "title": "Passo 1: Encontrar os Pontos de Interseção",
-                    "explanation": "Igualamos as curvas para descobrir os limites de integração.",
-                    "content": "Para $y = x^2$ e $y = x$:\n$$ x^2 = x \\implies x^2 - x = 0 \\implies x(x - 1) = 0 $$\nAs curvas se interceptam em $x = 0$ e $x = 1$. Portanto, os limites de integração são $a = 0$ e $b = 1$."
+                    "title": "Passo 1: Escolher as funções u e dv",
+                    "explanation": "Para a integração por partes $\\int u \\, dv = uv - \\int v \\, du$, escolhemos u para ser simplificado por derivação e dv para ser integrado.",
+                    "content": "Escolhemos:\n- $u = x \\implies du = dx$\n- $dv = (1 - x)^2 \\, dx$\n\nPara achar $v$, integramos $dv$:\n$$ v = \\int (1 - x)^2 \\, dx $$\nFazendo substituição simples $w = 1 - x \\implies dw = -dx$:\n$$ v = -\\int w^2 \\, dw = -\\frac{w^3}{3} = -\\frac{(1 - x)^3}{3} $$"
                 },
                 {
-                    "title": "Passo 2: Determinar a Função Superior",
-                    "explanation": "Escolher um ponto de teste no intervalo $[0, 1]$ para verificar qual função tem maior valor de y.",
-                    "content": "Seja $x = 0,5$:\n- Reta: $y = 0,5$\n- Parábola: $y = (0,5)^2 = 0,25$\nComo $0,5 > 0,25$, a reta $y=x$ está acima da curva $y=x^2$ no intervalo $[0, 1]$.\nO integrando será $f(x) - g(x) = x - x^2$."
+                    "title": "Passo 2: Aplicar a fórmula de integração por partes",
+                    "explanation": "Utilizamos a fórmula para integrais definidas: $\\int_{a}^{b} u \\, dv = [uv]_{a}^{b} - \\int_{a}^{b} v \\, du$.",
+                    "content": "$$ \\int_{0}^{1} x(1 - x)^2 \\, dx = \\left[ x \\cdot \\left( -\\frac{(1-x)^3}{3} \\right) \\right]_{0}^{1} - \\int_{0}^{1} \\left( -\\frac{(1-x)^3}{3} \\right) \\, dx $$"
                 },
                 {
-                    "title": "Passo 3: Escrever e Resolver a Integral Definida",
-                    "explanation": "Montar a integral definindo a área e calcular o resultado.",
-                    "content": "A área $A$ é dada por:\n$$ A = \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1 $$\nAplicando os limites de integração (Teorema Fundamental do Cálculo):\n$$ A = \\left( \\frac{1^2}{2} - \\frac{1^3}{3} \\right) - \\left( \\frac{0^2}{2} - \\frac{0^3}{3} \\right) = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6} $$"
+                    "title": "Passo 3: Avaliar o termo limite e simplificar",
+                    "explanation": "Calculamos o valor do termo $[uv]_0^1$ e simplificamos a integral restante.",
+                    "content": "Para o termo limite:\n- Em $x = 1$: $1 \\cdot (-\\frac{0^3}{3}) = 0$\n- Em $x = 0$: $0 \\cdot (-\\frac{1^3}{3}) = 0$\nO termo limite $[uv]_0^1$ é nulo.\n\nA integral restante simplifica-se para:\n$$ 0 + \\frac{1}{3} \\int_{0}^{1} (1 - x)^3 \\, dx $$"
+                },
+                {
+                    "title": "Passo 4: Resolver a integral restante",
+                    "explanation": "Integramos a função restante usando a regra de potência linear compensada pelo sinal negativo.",
+                    "content": "$$ \\frac{1}{3} \\int_{0}^{1} (1 - x)^3 \\, dx = \\frac{1}{3} \\cdot \\left[ -\\frac{(1-x)^4}{4} \\right]_{0}^{1} $$\n$$ = -\\frac{1}{12} \\cdot \\left[ (1-x)^4 \\right]_{0}^{1} $$\n$$ = -\\frac{1}{12} \\cdot (0^4 - 1^4) = -\\frac{1}{12} \\cdot (-1) = \\frac{1}{12} $$"
                 }
             ],
             "tips": [
-                "Graficamente, as curvas delimitam uma folha no primeiro quadrante.",
-                "Se você inverter a ordem (fazer inferior menos superior), obterá uma área negativa. A área geométrica real é sempre positiva."
+                "A escolha correta de u no início evita termos mais complexos na integral restante.",
+                "Embora também fosse possível resolver este problema expandindo $(1-x)^2 = 1 - 2x + x^2$ e integrando termo a termo, o objetivo do exercício era praticar a técnica de integração por partes."
             ]
         },
         {
             "id": "c2-l2-q7",
             "topicId": "lista-2-calculo-ii",
-            "category": "Limites",
-            "title": "Q7: Limites com Regra de L'Hôpital",
-            "difficulty": "Intermediário",
-            "problem": "Use a regra de L'Hôpital para calcular os limites:\n\na) $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$\n\nb) $\\lim_{x \\to \\infty} \\frac{e^x}{x^2}$",
-            "finalAnswer": "a) 1; b) $\\infty$",
+            "category": "Aplicações Geométricas",
+            "title": "Q7: Volume de uma Esfera de Raio R",
+            "difficulty": "Avançado",
+            "problem": "Calcule o volume de uma esfera de raio $R$ a partir da rotação da região sob a curva semicircular superior $y = \\sqrt{R^2 - x^2}$ em torno do eixo $x$, no intervalo $[-R, R]$.",
+            "finalAnswer": "4/3 * pi * R^3",
             "steps": [
                 {
-                    "title": "Item a) Limite Fundamental Trigonométrico",
-                    "explanation": "Identificar a indeterminação e derivar numerador e denominador.",
-                    "content": "Para $\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$:\n\nSubstituição direta:\n$$ \\frac{\\sin(0)}{0} = \\frac{0}{0} \\quad (\\text{Indeterminado}) $$\nAplicamos a regra de L'Hôpital:\n- Derivada do numerador: $[\\sin(x)]' = \\cos(x)$\n- Derivada do denominador: $[x]' = 1$\n\n$$ \\lim_{x \\to 0} \\frac{\\sin(x)}{x} = \\lim_{x \\to 0} \\frac{\\cos(x)}{1} = \\frac{\\cos(0)}{1} = 1 $$"
+                    "title": "Passo 1: Escrever a integral do volume de rotação",
+                    "explanation": "Utilizamos a fórmula do volume de rotação por discos elementares de raio f(x).",
+                    "content": "Para uma função $y = f(x)$ rotacionada em torno do eixo $x$, o volume $V$ é dado por:\n$$ V = \\int_{a}^{b} \\pi [f(x)]^2 \\, dx $$\n\nCom $f(x) = \\sqrt{R^2 - x^2}$ e limites de $-R$ a $R$:\n$$ V = \\int_{-R}^{R} \\pi \\left( \\sqrt{R^2 - x^2} \\right)^2 \\, dx $$"
                 },
                 {
-                    "title": "Item b) L'Hôpital Repetido",
-                    "explanation": "Aplicar a regra duas vezes pois a primeira ainda resulta em indeterminação.",
-                    "content": "Para $\\lim_{x \\to \\infty} \\frac{e^x}{x^2}$:\n\nSubstituição direta:\n$$ \\frac{e^\\infty}{\\infty^2} = \\frac{\\infty}{\\infty} \\quad (\\text{Indeterminado}) $$\nAplicamos a regra de L'Hôpital pela 1ª vez:\n- Numerador: $[e^x]' = e^x$\n- Denominador: $[x^2]' = 2x$\n\n$$ \\lim_{x \\to \\infty} \\frac{e^x}{x^2} = \\lim_{x \\to \\infty} \\frac{e^x}{2x} = \\frac{\\infty}{\\infty} \\quad (\\text{Ainda indeterminado}) $$\nAplicamos a regra de L'Hôpital pela 2ª vez:\n- Numerador: $[e^x]' = e^x$\n- Denominador: $[2x]' = 2$\n\n$$ \\lim_{x \\to \\infty} \\frac{e^x}{2x} = \\lim_{x \\to \\infty} \\frac{e^x}{2} = \\frac{\\infty}{2} = \\infty $$"
+                    "title": "Passo 2: Simplificar o integrando",
+                    "explanation": "Elevamos a raiz ao quadrado e retiramos a constante pi para fora da integral.",
+                    "content": "$$ V = \\pi \\int_{-R}^{R} (R^2 - x^2) \\, dx $$"
+                },
+                {
+                    "title": "Passo 3: Integrar os termos",
+                    "explanation": "Integramos cada termo do polinômio em relação a x (tratando R como constante).",
+                    "content": "$$ V = \\pi \\left[ R^2 x - \\frac{x^3}{3} \\right]_{-R}^{R} $$"
+                },
+                {
+                    "title": "Passo 4: Avaliar os limites de integração",
+                    "explanation": "Substituímos os limites superior R e inferior -R para obter a fórmula do volume.",
+                    "content": "$$ V = \\pi \\left[ \\left( R^2(R) - \\frac{R^3}{3} \\right) - \\left( R^2(-R) - \\frac{(-R)^3}{3} \\right) \\right] $$\n$$ V = \\pi \\left[ \\left( R^3 - \\frac{R^3}{3} \\right) - \\left( -R^3 + \\frac{R^3}{3} \\right) \\right] $$\n$$ V = \\pi \\left[ \\frac{2}{3}R^3 - \\left( -\\frac{2}{3}R^3 \\right) \\right] = \\pi \\cdot \\frac{4}{3}R^3 = \\frac{4}{3}\\pi R^3 $$"
                 }
             ],
             "tips": [
-                "Antes de aplicar L'Hôpital, sempre verifique se o limite realmente é indeterminado. Aplicá-lo em limites definidos levará a resultados errados.",
-                "Você pode aplicar a regra de L'Hôpital consecutivamente quantas vezes forem necessárias, desde que persista a indeterminação $\\frac{0}{0}$ ou $\\frac{\\infty}{\\infty}$."
+                "Como o integrando $(R^2 - x^2)$ é uma função par, você poderia ter integrado de $0$ a $R$ e duplicado o resultado: $V = 2\\pi \\int_{0}^{R} (R^2 - x^2)dx$.",
+                "Esta é a dedução rigorosa por cálculo clássico da fórmula do volume da esfera aprendida na geometria espacial."
             ]
         }
     ]

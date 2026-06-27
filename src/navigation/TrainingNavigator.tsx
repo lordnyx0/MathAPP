@@ -13,13 +13,15 @@ import TrigSprintScreen from '../screens/TrigSprintScreen';
 import TVMLabScreen from '../screens/TVMLabScreen';
 import RecurrenceBuilderScreen from '../screens/RecurrenceBuilderScreen';
 import AreaLabScreen from '../screens/AreaLabScreen';
+import SymmetrySprintScreen from '../screens/SymmetrySprintScreen';
+import PartialFractionsLabScreen from '../screens/PartialFractionsLabScreen';
 
 // ============================================================
 // TYPES
 // ============================================================
 
 type TrainingScreen = 'hub' | 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals' 
-    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab';
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab' | 'symmetrysprint' | 'fracoeslab';
 
 // Screen component map for cleaner rendering
 const SCREEN_MAP: Record<Exclude<TrainingScreen, 'hub'>, React.ComponentType<{ onBack: () => void }>> = {
@@ -34,6 +36,8 @@ const SCREEN_MAP: Record<Exclude<TrainingScreen, 'hub'>, React.ComponentType<{ o
     tvmlab: TVMLabScreen,
     recurrence: RecurrenceBuilderScreen,
     arealab: AreaLabScreen,
+    symmetrysprint: SymmetrySprintScreen,
+    fracoeslab: PartialFractionsLabScreen,
 };
 
 // ============================================================

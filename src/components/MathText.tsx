@@ -66,18 +66,6 @@ export const latexToUnicode = (text: string): string => {
         '\\frac{': '(', '}{': ')/(', '}': ')', '\\sqrt{': '√(', '\\,': ' ', '\\ ': ' '
     };
 
-    // Replace Greek letters
-    for (const [latex, unicode] of Object.entries(greekLetters)) {
-        const escaped = latex.replace(/\\/g, '\\\\');
-        result = result.replace(new RegExp(escaped, 'g'), unicode);
-    }
-
-    // Replace math symbols
-    for (const [latex, unicode] of Object.entries(mathSymbols)) {
-        const escaped = latex.replace(/\\/g, '\\\\');
-        result = result.replace(new RegExp(escaped, 'g'), unicode);
-    }
-
     // Handle _{...} subscripts
     result = result.replace(/_\{([^}]+)\}/g, (_, content: string) => {
         return content.split('').map(c => subscripts[c] || c).join('');
@@ -93,6 +81,18 @@ export const latexToUnicode = (text: string): string => {
 
     // Handle single char superscript ^x
     result = result.replace(/\^([0-9a-z+-])/g, (_, c: string) => superscripts[c] || `^${c}`);
+
+    // Replace Greek letters
+    for (const [latex, unicode] of Object.entries(greekLetters)) {
+        const escaped = latex.replace(/\\/g, '\\\\');
+        result = result.replace(new RegExp(escaped, 'g'), unicode);
+    }
+
+    // Replace math symbols
+    for (const [latex, unicode] of Object.entries(mathSymbols)) {
+        const escaped = latex.replace(/\\/g, '\\\\');
+        result = result.replace(new RegExp(escaped, 'g'), unicode);
+    }
 
     // Handle \log and \ln (sometimes useful if they aren't explicitly in mathSymbols with backslash)
     result = result.replace(/\\(log|ln|exp|lim)/g, '$1');

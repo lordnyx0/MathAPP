@@ -21,9 +21,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm1',
         title: 'Estimar \\sqrt{x}',
-        description: 'Usando o TVM na função f(x) = \\sqrt{x} no intervalo [0, 4].',
+        description: 'Usando o TVM na função $f(x) = \\sqrt{x}$ no intervalo $[0, 4]$.',
         functionEquation: 'f(x) = \\sqrt{x}',
-        derivativeEquation: 'f\\\'(x) = \\frac{1}{2\\sqrt{x}}',
+        derivativeEquation: "f'(x) = \\frac{1}{2\\sqrt{x}}",
         a: 0,
         b: 4,
         expectedC: 1, // slope = (2-0)/4 = 0.5. 1/(2sqrt(c)) = 0.5 => sqrt(c) = 1 => c = 1
@@ -39,9 +39,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm2',
         title: 'Parábola Padrão',
-        description: 'Encontre o ponto c garantido pelo Teorema de Rolle/TVM para f(x) = x^2 - 4x.',
+        description: 'Encontre o ponto $c$ garantido pelo Teorema de Rolle/TVM para $f(x) = x^2 - 4x$.',
         functionEquation: 'f(x) = x^2 - 4x',
-        derivativeEquation: 'f\\\'(x) = 2x - 4',
+        derivativeEquation: "f'(x) = 2x - 4",
         a: 0,
         b: 4,
         expectedC: 2, // Rolle, slope = 0 => 2c-4=0 => c=2
@@ -57,9 +57,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm3',
         title: 'Função Cúbica',
-        description: 'TVM para f(x) = x^3 - x no intervalo [0, 2].',
+        description: 'TVM para $f(x) = x^3 - x$ no intervalo $[0, 2]$.',
         functionEquation: 'f(x) = x^3 - x',
-        derivativeEquation: 'f\\\'(x) = 3x^2 - 1',
+        derivativeEquation: "f'(x) = 3x^2 - 1",
         a: 0,
         b: 2,
         expectedC: Math.sqrt(4/3), // f(2)=6, f(0)=0. slope=3. 3c^2-1=3 => 3c^2=4 => c=sqrt(4/3) ~ 1.15
@@ -75,9 +75,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm4',
         title: 'Tangente Cubica',
-        description: 'Sintonize a reta tangente de f(x) = x^3 - 3x + 2 no intervalo [0, 2] para achar c.',
+        description: 'Sintonize a reta tangente de $f(x) = x^3 - 3x + 2$ no intervalo $[0, 2]$ para achar $c$.',
         functionEquation: 'f(x) = x^3 - 3x + 2',
-        derivativeEquation: 'f\\\'(x) = 3x^2 - 3',
+        derivativeEquation: "f'(x) = 3x^2 - 3",
         a: 0,
         b: 2,
         expectedC: 2 / Math.sqrt(3), // slope = (4-2)/2 = 1. 3c^2-3=1 => 3c^2=4 => c=sqrt(4/3) ~ 1.15
@@ -93,9 +93,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm5',
         title: 'Crescimento e TVM',
-        description: 'Sintonize c para f(x) = 2x^3 - 3x^2 - 12x + 5 no intervalo [-2, 3].',
+        description: 'Sintonize $c$ para $f(x) = 2x^3 - 3x^2 - 12x + 5$ no intervalo $[-2, 3]$.',
         functionEquation: 'f(x) = 2x^3 - 3x^2 - 12x + 5',
-        derivativeEquation: 'f\\\'(x) = 6x^2 - 6x - 12',
+        derivativeEquation: "f'(x) = 6x^2 - 6x - 12",
         a: -2,
         b: 3,
         expectedC: 0.5 + (5 * Math.sqrt(3)) / 6, // slope = -1. 6c^2-6c-12=-1 => 6c^2-6c-11=0 => c = 0.5 + 5sqrt(3)/6 ~ 1.943375...
@@ -111,9 +111,9 @@ export const tvmQuestions: TVMLevel[] = [
     {
         id: 'tvm6',
         title: 'Rolle e Extremos',
-        description: 'Ache c para f(x) = x^4 - 4x^3 + 4x^2 no intervalo [0, 2] onde a reta tangente e horizontal.',
+        description: 'Ache $c$ para $f(x) = x^4 - 4x^3 + 4x^2$ no intervalo $[0, 2]$ onde a reta tangente é horizontal.',
         functionEquation: 'f(x) = x^4 - 4x^3 + 4x^2',
-        derivativeEquation: 'f\\\'(x) = 4x^3 - 12x^2 + 8x',
+        derivativeEquation: "f'(x) = 4x^3 - 12x^2 + 8x",
         a: 0,
         b: 2,
         expectedC: 1.0, // Rolle, slope = 0 => 4c(c-1)(c-2)=0 => c=1 in (0,2)

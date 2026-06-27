@@ -237,7 +237,9 @@ export const generateWrongAnswers = (
     const correctIntegral = correct.integral;
 
     const addDistractor = (distractor: string) => {
-        const cleaned = distractor.trim();
+        let cleaned = distractor.trim();
+        // Clean up 1x and -1x coefficients (e.g. 1x^3 -> x^3, -1x^3 -> -x^3)
+        cleaned = cleaned.replace(/(?<!\d)1x/g, 'x');
         if (cleaned && cleaned !== correctIntegral) {
             wrongAnswers.add(cleaned);
         }
@@ -266,29 +268,47 @@ export const generateWrongAnswers = (
             }
             break;
 
-        case 'sin':
-            addDistractor(withConstant(correctIntegral.replace('-cos', 'cos')));
-            addDistractor(withConstant(correctIntegral.replace('-cos', 'sin')));
+        case 'sin': {
+            const cleanCos = correctIntegral.replace('cos', 'sin');
+            const noMinus = correctIntegral.replace('-', '');
+            const noMinusCleanCos = noMinus.replace('cos', 'sin');
+            addDistractor(withConstant(cleanCos));
+            addDistractor(withConstant(noMinus));
+            addDistractor(withConstant(noMinusCleanCos));
             addDistractor(stripConstantTerm(correctIntegral));
             break;
+        }
 
-        case 'cos':
-            addDistractor(withConstant(correctIntegral.replace('sin', '-sin')));
-            addDistractor(withConstant(correctIntegral.replace('sin', '-cos')));
+        case 'cos': {
+            const negSin = flipLeadingSign(correctIntegral);
+            const posCos = correctIntegral.replace('sin', 'cos');
+            const negCos = flipLeadingSign(posCos);
+            addDistractor(withConstant(negSin));
+            addDistractor(withConstant(posCos));
+            addDistractor(withConstant(negCos));
             addDistractor(stripConstantTerm(correctIntegral));
             break;
+        }
 
-        case 'inverse':
-            addDistractor('1/x² + C');
-            addDistractor('x + C');
-            addDistractor('ln|x|');
+        case 'inverse': {
+            const coeff = correct.function.replace('/x', '');
+            const coeffDisplay = coeff === '1' ? '' : coeff;
+            const termForSquare = coeff === '1' ? '1' : coeff;
+            addDistractor(`${termForSquare}/x² + C`);
+            addDistractor(`${coeffDisplay}x + C`);
+            addDistractor(`${coeffDisplay}ln|x|`);
             break;
+        }
 
-        case 'exp':
-            addDistractor('xeˣ + C');
+        case 'exp': {
+            const coeff = correct.function.replace('e\u1d6a', '');
+            const coeffDisplay = coeff === '1' || coeff === '' ? '' : coeff;
+            const termForXe = coeff === '1' || coeff === '' ? '' : coeff;
+            addDistractor(`${termForXe}xe\u1d6a + C`);
             addDistractor(withConstant(flipLeadingSign(correctIntegral)));
             addDistractor(stripConstantTerm(correctIntegral));
             break;
+        }
 
         default:
             addDistractor(stripConstantTerm(correctIntegral));

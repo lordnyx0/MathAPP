@@ -45,6 +45,8 @@ import calculoIILessonData1 from '../content/lessons/lista-1-calculo-ii.json';
 import calculoIIExerciseData1 from '../content/exercises/lista-1-calculo-ii.json';
 import calculoIILessonData2 from '../content/lessons/lista-2-calculo-ii.json';
 import calculoIIExerciseData2 from '../content/exercises/lista-2-calculo-ii.json';
+import calculoIILessonData3 from '../content/lessons/lista-3-calculo-ii.json';
+import calculoIIExerciseData3 from '../content/exercises/lista-3-calculo-ii.json';
 
 // =============================================================================
 // EXTRACT ARRAYS - Maintain backward compatibility
@@ -82,6 +84,8 @@ const calculoIILessons1 = calculoIILessonData1.lessons;
 const calculoIIExercises1 = calculoIIExerciseData1.exercises;
 const calculoIILessons2 = calculoIILessonData2.lessons;
 const calculoIIExercises2 = calculoIIExerciseData2.exercises;
+const calculoIILessons3 = calculoIILessonData3.lessons;
+const calculoIIExercises3 = calculoIIExerciseData3.exercises;
 
 // =============================================================================
 // FACTORY FUNCTIONS - DRY principle
@@ -259,6 +263,15 @@ export const topicRegistry = {
         lessons: calculoIILessons2,
         mcq: null,
     }),
+    'lista-3-calculo-ii': createTopic({
+        id: 'lista-3-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'Métodos Avançados (Lista 3)',
+        icon: '∫',
+        color: colors.success,
+        lessons: calculoIILessons3,
+        mcq: null,
+    }),
 };
 
 // =============================================================================
@@ -424,6 +437,14 @@ export const exerciseRegistry = {
         icon: '📝',
         color: colors.success,
         exercises: calculoIIExercises2,
+    }),
+    'lista-3-calculo-ii': createExerciseTopic({
+        id: 'lista-3-calculo-ii',
+        mainCategory: 'calculo-ii',
+        title: 'Lista 3 - Integrais por Partes e Avançado',
+        icon: '📝',
+        color: colors.success,
+        exercises: calculoIIExercises3,
     }),
 };
 

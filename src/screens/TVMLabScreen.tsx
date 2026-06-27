@@ -127,10 +127,10 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
                         <Text style={styles.scoreText}>Pts: {score}</Text>
                     </View>
 
-                    <Text style={styles.instruction}>{level.description}</Text>
+                    <MathText style={styles.instruction}>{level.description}</MathText>
 
                     <AnimatedCard borderColor={colors.primary}>
-                        <MathText style={styles.functionText} size="large">{level.functionEquation}</MathText>
+                        <MathText formula style={styles.functionText} size="large">{level.functionEquation}</MathText>
                         <Text style={styles.boundsText}>Intervalo: [{level.a}, {level.b}]</Text>
                     </AnimatedCard>
 
@@ -211,8 +211,8 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
                         <FadeInView style={styles.successBox}>
                             <Text style={styles.successTitle}>TVM Alcançado!</Text>
                             <Text style={styles.successDesc}>As retas estão paralelas.</Text>
-                            <DisplayMath>{`f\\\'(c) = \\frac{f(b) - f(a)}{b - a}`}</DisplayMath>
-                            <DisplayMath>{`f\\\'(${level.expectedC.toFixed(2)}) = ${mSecant.toFixed(2)}`}</DisplayMath>
+                            <DisplayMath>{`f'(c) = \\frac{f(b) - f(a)}{b - a}`}</DisplayMath>
+                            <DisplayMath>{`f'(${level.expectedC.toFixed(2)}) = ${mSecant.toFixed(2)}`}</DisplayMath>
                             <TouchableOpacity style={styles.nextButton} onPress={startNextLevel}>
                                 <Text style={styles.nextButtonText}>Próximo Lab</Text>
                             </TouchableOpacity>

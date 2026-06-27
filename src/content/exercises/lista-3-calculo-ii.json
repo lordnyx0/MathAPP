@@ -1,0 +1,250 @@
+{
+    "$schema": "../schemas/exercise-file.schema.json",
+    "topicId": "lista-3-calculo-ii",
+    "title": "Lista 3: Integrais por Partes e Métodos Avançados",
+    "exercises": [
+        {
+            "id": "c2-l3-q1",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Frações Parciais",
+            "title": "Q1: Frações Parciais com Fatores Lineares Distintos",
+            "difficulty": "Intermediário",
+            "problem": "Calcule a integral indefinida: $\\int \\frac{2x}{x^2 - 5x + 6} dx$.",
+            "finalAnswer": "6*ln|x - 3| - 4*ln|x - 2| + C",
+            "steps": [
+                {
+                    "title": "Passo 1: Fatorar o denominador",
+                    "explanation": "Precisamos encontrar as raízes do polinômio de segundo grau no denominador para fatorá-lo.",
+                    "content": "O polinômio é $x^2 - 5x + 6$.\nProcuramos dois números cuja soma é $5$ e cujo produto é $6$. Esses números são $2$ e $3$.\nPortanto:\n$$ x^2 - 5x + 6 = (x-2)(x-3) $$"
+                },
+                {
+                    "title": "Passo 2: Escrever a decomposição em frações parciais",
+                    "explanation": "Como o denominador possui fatores lineares distintos, decompomos em uma soma de duas frações simples.",
+                    "content": "Escrevemos:\n$$ \\frac{2x}{(x-2)(x-3)} = \\frac{A}{x-2} + \\frac{B}{x-3} $$"
+                },
+                {
+                    "title": "Passo 3: Resolver o sistema de equações para A e B",
+                    "explanation": "Multiplicamos ambos os lados pelo denominador comum e encontramos A e B substituindo os valores das raízes.",
+                    "content": "Multiplicando tudo por $(x-2)(x-3)$:\n$$ 2x = A(x-3) + B(x-2) $$\n\n- Para anular o termo com B, avaliamos em $x=2$:\n$$ 2(2) = A(2-3) + B(0) \\implies 4 = -A \\implies A = -4 $$\n- Para anular o termo com A, avaliamos em $x=3$:\n$$ 2(3) = A(0) + B(3-2) \\implies 6 = B \\implies B = 6 $$"
+                },
+                {
+                    "title": "Passo 4: Integrar termo a termo",
+                    "explanation": "Substituímos os coeficientes A e B na integral e integramos as frações simples que resultam em logaritmos naturais.",
+                    "content": "$$ \\int \\frac{2x}{x^2 - 5x + 6} \\, dx = \\int \\left( \\frac{-4}{x-2} + \\frac{6}{x-3} \\right) dx $$\n$$ = -4 \\int \\frac{1}{x-2} \\, dx + 6 \\int \\frac{1}{x-3} \\, dx $$\n$$ = -4\\ln|x-2| + 6\\ln|x-3| + C $$\n$$ = 6\\ln|x-3| - 4\\ln|x-2| + C $$"
+                }
+            ],
+            "tips": [
+                "Você pode reescrever a solução final usando as propriedades dos logaritmos: $\\ln\\frac{(x-3)^6}{(x-2)^4} + C$.",
+                "A substituição de valores para as raízes ($x=2$ e $x=3$) é o método mais rápido, mas você também pode expandir o lado direito e igualar os coeficientes do sistema linear."
+            ]
+        },
+        {
+            "id": "c2-l3-q2",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Comprimento de Arco",
+            "title": "Q2: Comprimento de Curva Parametrizada",
+            "difficulty": "Intermediário",
+            "problem": "Calcule o comprimento da curva dada pelas equações paramétricas $x = 3t$ e $y = 2t^{3/2}$ no intervalo $0 \\le t \\le 1$.",
+            "finalAnswer": "2*(2*sqrt(2) - 1)",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar as derivadas temporais dx/dt e dy/dt",
+                    "explanation": "Calculamos a derivada de x(t) e y(t) em relação a t para usar na fórmula de comprimento de arco paramétrico.",
+                    "content": "- Para $x(t) = 3t$:\n$$ \\frac{dx}{dt} = 3 $$\n- Para $y(t) = 2t^{3/2}$:\n$$ \\frac{dy}{dt} = 2 \\cdot \\frac{3}{2} t^{1/2} = 3\\sqrt{t} $$"
+                },
+                {
+                    "title": "Passo 2: Montar o integrando do comprimento de arco",
+                    "explanation": "Elevamos as derivadas ao quadrado e somamos sob a raiz quadrada.",
+                    "content": "O termo do integrando é $\\sqrt{(dx/dt)^2 + (dy/dt)^2}$:\n$$ \\left(\\frac{dx}{dt}\\right)^2 + \\left(\\frac{dy}{dt}\\right)^2 = (3)^2 + (3\\sqrt{t})^2 = 9 + 9t = 9(1 + t) $$\n\nTomando a raiz quadrada:\n$$ \\sqrt{9(1 + t)} = 3\\sqrt{1 + t} $$"
+                },
+                {
+                    "title": "Passo 3: Escrever e calcular a integral definida",
+                    "explanation": "Integramos o termo resultante de $t=0$ até $t=1$ usando substituição simples.",
+                    "content": "$$ L = \\int_{0}^{1} 3\\sqrt{1 + t} \\, dt $$\n\nFazendo a substituição $u = 1 + t \\implies du = dt$:\n- Se $t=0 \\implies u=1$\n- Se $t=1 \\implies u=2$\n\n$$ L = 3 \\int_{1}^{2} u^{1/2} \\, du = 3 \\cdot \\left[ \\frac{2}{3}u^{3/2} \\right]_{1}^{2} = 2 \\cdot \\left[ u\\sqrt{u} \\right]_{1}^{2} $$\n$$ L = 2(2\\sqrt{2} - 1\\sqrt{1}) = 2(2\\sqrt{2} - 1) $$"
+                }
+            ],
+            "tips": [
+                "Lembre-se da fórmula clássica para derivar potências fracionárias: $(t^n)' = n t^{n-1}$.",
+                "Substituir os limites da integral antes de voltar para a variável original ajuda a poupar tempo em integrais definidas."
+            ]
+        },
+        {
+            "id": "c2-l3-q3",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Coordenadas Polares",
+            "title": "Q3: Comprimento de Circunferência Polar",
+            "difficulty": "Intermediário",
+            "problem": "Determine o comprimento da curva dada pela equação polar $\\rho = 2a\\cos(\\theta)$ no intervalo $-\\pi/2 \\le \\theta \\le \\pi/2$, onde $a > 0$ é uma constante real.",
+            "finalAnswer": "2*pi*a",
+            "steps": [
+                {
+                    "title": "Passo 1: Calcular a derivada d\\rho/d\\theta",
+                    "explanation": "Calculamos a derivada de rho em relação a theta.",
+                    "content": "Para $\\rho(\\theta) = 2a\\cos(\\theta)$:\n$$ \\frac{d\\rho}{d\\theta} = -2a\\sin(\\theta) $$"
+                },
+                {
+                    "title": "Passo 2: Simplificar o integrando polar",
+                    "explanation": "Utilizamos a identidade trigonométrica fundamental para simplificar a raiz da fórmula do comprimento em polares.",
+                    "content": "O termo sob a raiz na fórmula do comprimento é $\\rho^2 + (d\\rho/d\\theta)^2$:\n$$ [2a\\cos(\\theta)]^2 + [-2a\\sin(\\theta)]^2 = 4a^2\\cos^2(\\theta) + 4a^2\\sin^2(\\theta) $$\n$$ = 4a^2(\\cos^2(\\theta) + \\sin^2(\\theta)) $$\nComo $\\cos^2(\\theta) + \\sin^2(\\theta) = 1$, temos:\n$$ = 4a^2 $$\n\nTomando a raiz quadrada:\n$$ \\sqrt{4a^2} = 2a $$ (pois $a > 0$)"
+                },
+                {
+                    "title": "Passo 3: Resolver a integral definida",
+                    "explanation": "Integramos o termo constante $2a$ no intervalo $[-\\pi/2, \\pi/2]$.",
+                    "content": "$$ L = \\int_{-\\pi/2}^{\\pi/2} 2a \\, d\\theta = 2a \\cdot [\\theta]_{-\\pi/2}^{\\pi/2} $$\n$$ L = 2a \\cdot \\left( \\frac{\\pi}{2} - \\left( -\\frac{\\pi}{2} \\right) \\right) = 2a \\cdot \\pi = 2\\pi a $$"
+                }
+            ],
+            "tips": [
+                "Geometricamente, a curva $\\rho = 2a\\cos(\\theta)$ representa um círculo de raio $a$ centrado no eixo x em $(a, 0)$.",
+                "O resultado $2\\pi a$ é exatamente o perímetro desse círculo, confirmando que a fórmula funciona de forma idêntica."
+            ]
+        },
+        {
+            "id": "c2-l3-q4",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Coordenadas Polares",
+            "title": "Q4: Área Delimitada por Cardióide",
+            "difficulty": "Avançado",
+            "problem": "Determine a área total da região delimitada pela cardióide $\\rho = 1 + \\cos(\\theta)$ no intervalo $[0, 2\\pi]$.",
+            "finalAnswer": "3*pi/2",
+            "steps": [
+                {
+                    "title": "Passo 1: Escrever a integral da área polar",
+                    "explanation": "Montamos a integral clássica para área em coordenadas polares com a cardióide como limite.",
+                    "content": "A fórmula da área é $A = \\frac{1}{2} \\int_{\\alpha}^{\\beta} \\rho^2 \\, d\\theta$.\nSubstituindo os limites e $\\rho$:\n$$ A = \\frac{1}{2} \\int_{0}^{2\\pi} (1 + \\cos(\\theta))^2 \\, d\\theta $$"
+                },
+                {
+                    "title": "Passo 2: Expandir o integrando",
+                    "explanation": "Desenvolvemos o produto notável sob a integral.",
+                    "content": "$$ (1 + \\cos(\\theta))^2 = 1 + 2\\cos(\\theta) + \\cos^2(\\theta) $$\nPortanto:\n$$ A = \\frac{1}{2} \\int_{0}^{2\\pi} (1 + 2\\cos(\\theta) + \\cos^2(\\theta)) \\, d\\theta $$"
+                },
+                {
+                    "title": "Passo 3: Usar a identidade do cosseno ao quadrado",
+                    "explanation": "Substituímos $\\cos^2(\\theta)$ por seu equivalente linear para podermos integrar.",
+                    "content": "Lembramos da identidade trigonométrica de redução de potência:\n$$ \\cos^2(\\theta) = \\frac{1 + \\cos(2\\theta)}{2} = \\frac{1}{2} + \\frac{\\cos(2\\theta)}{2} $$\n\nSubstituindo na expressão total:\n$$ 1 + 2\\cos(\\theta) + \\cos^2(\\theta) = 1 + 2\\cos(\\theta) + \\frac{1}{2} + \\frac{\\cos(2\\theta)}{2} = \\frac{3}{2} + 2\\cos(\\theta) + \\frac{\\cos(2\\theta)}{2} $$"
+                },
+                {
+                    "title": "Passo 4: Resolver a integral termo a termo",
+                    "explanation": "Integramos cada termo. As integrais de cossenos puros em períodos completos se anulam.",
+                    "content": "$$ A = \\frac{1}{2} \\int_{0}^{2\\pi} \\left( \\frac{3}{2} + 2\\cos(\\theta) + \\frac{\\cos(2\\theta)}{2} \\right) d\\theta $$\n$$ A = \\frac{1}{2} \\left[ \\frac{3}{2}\\theta + 2\\sin(\\theta) + \\frac{\\sin(2\\theta)}{4} \\right]_{0}^{2\\pi} $$\n\nAvaliado nos limites:\n- Limite superior $2\\pi$: $\\frac{3}{2}(2\\pi) + 2\\sin(2\\pi) + \\frac{\\sin(4\\pi)}{4} = 3\\pi + 0 + 0 = 3\\pi$\n- Limite inferior $0$: $0 + 0 + 0 = 0$\n\nMultiplicando pela constante externa $1/2$:\n$$ A = \\frac{1}{2} \\cdot 3\\pi = \\frac{3\\pi}{2} $$"
+                }
+            ],
+            "tips": [
+                "Sempre simplifique integrais trigonométricas sobre múltiplos de $2\\pi$. As funções seno e cosseno têm valor médio nulo nesses períodos.",
+                "Graficamente, a cardióide é uma curva em forma de coração que possui perfeita simetria horizontal."
+            ]
+        },
+        {
+            "id": "c2-l3-q5",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Centro de Massa",
+            "title": "Q5: Centro de Massa de Região Plana",
+            "difficulty": "Avançado",
+            "problem": "Determine o centro de massa da figura plana homogênea $A$ limitada pela reta $y = 1$ e pela parábola $y = x^2$.",
+            "finalAnswer": "(0, 3/5)",
+            "steps": [
+                {
+                    "title": "Passo 1: Encontrar os limites e a área da região A",
+                    "explanation": "Igualamos as curvas para encontrar as interseções e integramos para achar a área.",
+                    "content": "As interseções ocorrem onde $x^2 = 1 \\implies x = -1$ e $x = 1$.\nA reta superior é $g(x) = 1$ e a parábola inferior é $f(x) = x^2$.\n\n$$ A = \\int_{-1}^{1} (1 - x^2) \\, dx = \\left[ x - \\frac{x^3}{3} \\right]_{-1}^{1} = \\left(1 - \\frac{1}{3}\\right) - \\left(-1 + \\frac{1}{3}\\right) = \\frac{2}{3} - \\left(-\\frac{2}{3}\\right) = \\frac{4}{3} $$"
+                },
+                {
+                    "title": "Passo 2: Calcular a coordenada x_c",
+                    "explanation": "Utilizamos a simetria da figura plana para obter x_c de forma direta.",
+                    "content": "Como a parábola $y=x^2$ e a reta $y=1$ são simétricas em relação ao eixo $y$ (funções pares), o centro de massa deve estar sobre o eixo $y$.\nPortanto:\n$$ x_c = 0 $$"
+                },
+                {
+                    "title": "Passo 3: Calcular a coordenada y_c",
+                    "explanation": "Aplicamos a fórmula da integral de centroide para y_c usando as equações da reta e da parábola.",
+                    "content": "A fórmula é:\n$$ y_c = \\frac{1}{2\\text{Área}(A)} \\int_{a}^{b} [g^2(x) - f^2(x)] \\, dx $$\n\nSubstituindo os valores conhecidos:\n$$ y_c = \\frac{1}{2(4/3)} \\int_{-1}^{1} (1^2 - (x^2)^2) \\, dx = \\frac{3}{8} \\int_{-1}^{1} (1 - x^4) \\, dx $$\n$$ y_c = \\frac{3}{8} \\left[ x - \\frac{x^5}{5} \\right]_{-1}^{1} = \\frac{3}{8} \\left[ \\left(1 - \\frac{1}{5}\\right) - \\left(-1 + \\frac{1}{5}\\right) \\right] $$\n$$ y_c = \\frac{3}{8} \\left[ \\frac{4}{5} - \\left(-\\frac{4}{5}\\right) \\right] = \\frac{3}{8} \\cdot \\frac{8}{5} = \\frac{3}{5} = 0.6 $$"
+                }
+            ],
+            "tips": [
+                "Você sempre pode verificar se a coordenada y_c faz sentido: como o limite superior é 1 e o inferior é 0 (onde a parábola encosta em x=0), o centro de massa deve estar um pouco acima do ponto médio 0.5 porque a região é mais larga no topo. E de fato, $0.6 > 0.5$!"
+            ]
+        },
+        {
+            "id": "c2-l3-q6",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Integrais Impróprias",
+            "title": "Q6: Área sob Curva Exponencial Infinita",
+            "difficulty": "Intermediário",
+            "problem": "Calcule a área da região sob a curva $y = x e^{-x^2}$ no primeiro quadrante ($x \\ge 0$).",
+            "finalAnswer": "1/2",
+            "steps": [
+                {
+                    "title": "Passo 1: Escrever a integral imprópria",
+                    "explanation": "No primeiro quadrante com $x \\ge 0$, o intervalo de integração vai de $0$ até $+\\infty$.",
+                    "content": "A área é dada pela integral imprópria:\n$$ A = \\int_{0}^{+\\infty} x e^{-x^2} \\, dx = \\lim_{t \\to +\\infty} \\int_{0}^{t} x e^{-x^2} \\, dx $$"
+                },
+                {
+                    "title": "Passo 2: Calcular a integral indefinida por substituição",
+                    "explanation": "Escolhemos $u$ como o expoente da exponencial para aplicar substituição simples.",
+                    "content": "Seja $u = -x^2 \\implies du = -2x \\, dx \\implies x \\, dx = -\\frac{du}{2}$.\n\nSubstituindo na integral:\n$$ \\int x e^{-x^2} \\, dx = \\int e^u \\left( -\\frac{du}{2} \\right) = -\\frac{1}{2} e^u = -\\frac{1}{2} e^{-x^2} $$"
+                },
+                {
+                    "title": "Passo 3: Aplicar os limites de integração e calcular o limite impróprio",
+                    "explanation": "Calculamos a integral de 0 a t e aplicamos o limite de t tendendo a infinito.",
+                    "content": "$$ \\int_{0}^{t} x e^{-x^2} \\, dx = \\left[ -\\frac{1}{2} e^{-x^2} \\right]_{0}^{t} = -\\frac{1}{2} e^{-t^2} - \\left( -\\frac{1}{2} e^{0} \\right) = -\\frac{1}{2} e^{-t^2} + \\frac{1}{2} $$\n\nTomando o limite quando $t \\to +\\infty$:\n$$ \\lim_{t \\to +\\infty} \\left( -\\frac{1}{2 e^{t^2}} + \\frac{1}{2} \\right) = 0 + \\frac{1}{2} = \\frac{1}{2} $$"
+                }
+            ],
+            "tips": [
+                "Como $e^{-t^2} = 1/e^{t^2}$, quando t cresce infinitamente, o denominador cresce extremamente rápido fazendo a fração tender a zero.",
+                "Sempre que vir um termo como $x \\, dx$ multiplicando uma função de $x^2$, pense imediatamente em substituição simples."
+            ]
+        },
+        {
+            "id": "c2-l3-q7",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Transformadas de Laplace",
+            "title": "Q7: Transformada com Deslocamento em s",
+            "difficulty": "Intermediário",
+            "problem": "Determine a Transformada de Laplace de $g(t) = e^{3t} \\sin(t)$.",
+            "finalAnswer": "1 / ((s - 3)^2 + 1)",
+            "steps": [
+                {
+                    "title": "Passo 1: Identificar a função base e sua transformada",
+                    "explanation": "Identificamos a função sem o fator de amortecimento exponencial e encontramos sua transformada na tabela.",
+                    "content": "A função base é $f(t) = \\sin(t)$ (ou $\\sin(mt)$ com $m = 1$).\nPela tabela das transformadas clássicas:\n$$ \\mathcal{L}\\{\\sin(t)\\} = F(s) = \\frac{1}{s^2 + 1^2} = \\frac{1}{s^2 + 1} $$"
+                },
+                {
+                    "title": "Passo 2: Aplicar o Teorema do Transporte (ou Translação)",
+                    "explanation": "O Teorema afirma que multiplicar por $e^{at}$ equivale a deslocar o argumento $s$ por $s-a$ na transformada.",
+                    "content": "O Teorema estabelece:\n$$ \\mathcal{L}\\{e^{at} f(t)\\} = F(s - a) $$\n\nAqui temos $a = 3$, logo substituiremos toda variável $s$ por $s - 3$ na função $F(s)$."
+                },
+                {
+                    "title": "Passo 3: Escrever a resposta final",
+                    "explanation": "Fazemos a substituição direta na equação do Passo 1.",
+                    "content": "Substituindo $s \\to s - 3$ em $F(s) = \\frac{1}{s^2 + 1}$:\n$$ \\mathcal{L}\\{e^{3t} \\sin(t)\\} = \\frac{1}{(s - 3)^2 + 1} $$"
+                }
+            ],
+            "tips": [
+                "Você pode expandir o denominador como $s^2 - 6s + 10$, mas mantê-lo na forma de quadrado perfeito $(s-3)^2 + 1$ é a convenção usual pois ajuda na Transformada Inversa."
+            ]
+        },
+        {
+            "id": "c2-l3-q8",
+            "topicId": "lista-3-calculo-ii",
+            "category": "Probabilidade",
+            "title": "Q8: Constante de Normalização de PDF",
+            "difficulty": "Básico",
+            "problem": "Determine o valor da constante $k$ para que a função $f(x) = kx$ se $0 \\le x \\le 2$ (e $0$ caso contrário) seja uma função densidade de probabilidade.",
+            "finalAnswer": "1/2",
+            "steps": [
+                {
+                    "title": "Passo 1: Aplicar a condição de normalização da PDF",
+                    "explanation": "Para que f(x) seja uma PDF, a sua integral de menos infinito a mais infinito precisa ser igual a 1.",
+                    "content": "A condição matemática é:\n$$ \\int_{-\\infty}^{+\\infty} f(x) \\, dx = 1 $$\nComo a função é nula fora do intervalo $[0, 2]$, integramos apenas neste intervalo:\n$$ \\int_{0}^{2} kx \\, dx = 1 $$"
+                },
+                {
+                    "title": "Passo 2: Integrar e resolver para k",
+                    "explanation": "Calculamos a integral em relação a x e isolamos k.",
+                    "content": "$$ k \\int_{0}^{2} x \\, dx = 1 $$\n$$ k \\left[ \\frac{x^2}{2} \\right]_{0}^{2} = 1 $$\n$$ k \\left( \\frac{2^2}{2} - 0 \\right) = 1 $$\n$$ k(2) = 1 \\implies k = \\frac{1}{2} $$"
+                }
+            ],
+            "tips": [
+                "Lembre-se de verificar que com $k=1/2$, a função $f(x) = x/2 \\ge 0$ em $[0, 2]$, satisfazendo também a primeira condição das PDFs.",
+                "Geometricamente, a integral representa a área de um triângulo retângulo de base 2 e altura $2k$. A área do triângulo é $\\text{base} \\times \\text{altura} / 2 = 2 \\times 2k / 2 = 2k$. Como a área deve ser 1, temos $2k = 1 \\implies k = 1/2$."
+            ]
+        }
+    ]
+}

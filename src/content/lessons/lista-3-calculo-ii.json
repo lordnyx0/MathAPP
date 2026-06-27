@@ -1,0 +1,97 @@
+{
+    "topic": "lista-3-calculo-ii",
+    "title": "Técnicas de Integração e Tópicos Avançados",
+    "lessons": [
+        {
+            "id": "c2-l3-fracoes-parciais",
+            "title": "1. Decomposição em Frações Parciais",
+            "level": "Intermediário",
+            "content": "📌 **Decomposição em Frações Parciais**\n\nEsta técnica é utilizada para integrar funções racionais $P(x)/Q(x)$ onde o grau de $P(x)$ é menor que o de $Q(x)$. A ideia é dividir a fração em termos mais simples, cujas primitivas são conhecidas (geralmente logaritmos ou arcotangentes).\n\n**Caso 1: Fatores lineares distintos**\nSe $Q(x) = (x-\\alpha)(x-\\beta)$ com $\\alpha \\neq \\beta$:\n$$ \\frac{mx+n}{(x-\\alpha)(x-\\beta)} = \\frac{A}{x-\\alpha} + \\frac{B}{x-\\beta} $$\n\n**Caso 2: Fatores lineares repetidos**\nSe $Q(x) = (x-\\alpha)^2$:\n$$ \\frac{mx+n}{(x-\\alpha)^2} = \\frac{A}{x-\\alpha} + \\frac{B}{(x-\\alpha)^2} $$\n\n📝 **Exemplo Prático (Q2a)**\nCalcular $\\int \\frac{2x}{x^2-5x+6} \\, dx$:\n1. Fatoramos o denominador: $x^2-5x+6 = (x-2)(x-3)$.\n2. Decompomos em frações parciais:\n$$ \\frac{2x}{(x-2)(x-3)} = \\frac{A}{x-2} + \\frac{B}{x-3} $$\n3. Multiplicando tudo por $(x-2)(x-3)$:\n$$ 2x = A(x-3) + B(x-2) $$\n4. Encontrando os coeficientes:\n- Para $x=3$: $2(3) = B(3-2) \\implies B=6$.\n- Para $x=2$: $2(2) = A(2-3) \\implies A=-4$.\n5. Integrando:\n$$ \\int \\left(\\frac{-4}{x-2} + \\frac{6}{x-3}\\right) dx = -4\\ln|x-2| + 6\\ln|x-3| + C $$.",
+            "questions": [
+                {
+                    "q": "Se decompusermos a fração 1/((x-1)(x-2)) em A/(x-1) + B/(x-2), qual será o valor de B?",
+                    "a": "1",
+                    "hint": "Multiplique a equação pelo denominador comum e avalie em x=2."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-comprimento-arco",
+            "title": "2. Comprimento de Arco Parametrizado e Polar",
+            "level": "Avançado",
+            "content": "📌 **Comprimento de Arco Parametrizado**\n\nSe uma curva suave é definida pelas equações paramétricas $x = x(t)$ e $y = y(t)$ para $t \\in [t_1, t_2]$, seu comprimento $L$ é dado por:\n$$ L = \\int_{t_1}^{t_2} \\sqrt{\\left(\\frac{dx}{dt}\\right)^2 + \\left(\\frac{dy}{dt}\\right)^2} \\, dt $$\n\n📌 **Comprimento em Coordenadas Polares**\n\nSe a curva é dada pela equação polar $\\rho = \\rho(\\theta)$ com $\\theta \\in [\\alpha, \\beta]$:\n$$ L = \\int_{\\alpha}^{\\beta} \\sqrt{\\rho^2 + \\left(\\frac{d\\rho}{d\\theta}\\right)^2} \\, d\\theta $$\n\n📝 **Exemplo: Circunferência Polar (Q13)**\nPara a curva $\\rho = 2a\\cos(\\theta)$ no intervalo $[-\\pi/2, \\pi/2]$:\n- $\\frac{d\\rho}{d\\theta} = -2a\\sin(\\theta)$.\n- Termo sob a raiz: $\\rho^2 + (d\\rho/d\\theta)^2 = 4a^2\\cos^2(\\theta) + 4a^2\\sin^2(\\theta) = 4a^2$.\n- Integral: $L = \\int_{-\\pi/2}^{\\pi/2} \\sqrt{4a^2} \\, d\\theta = \\int_{-\\pi/2}^{\\pi/2} 2a \\, d\\theta = 2a [\\pi/2 - (-\\pi/2)] = 2a\\pi$.",
+            "questions": [
+                {
+                    "q": "Qual é o comprimento da curva paramétrica x=2t+1, y=t-1 no intervalo [1, 2]?",
+                    "a": "sqrt(5)",
+                    "hint": "Calcule dx/dt = 2 e dy/dt = 1, depois integre sqrt(2^2 + 1^2) dt de 1 a 2."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-area-polar",
+            "title": "3. Área em Coordenadas Polares",
+            "level": "Avançado",
+            "content": "📌 **Área em Coordenadas Polares**\n\nA área da região delimitada por uma curva contínua $\\rho = \\rho(\\theta)$ e pelos raios $\\theta = \\alpha$ e $\\theta = \\beta$, com $\\beta - \\alpha \\le 2\\pi$, é obtida somando as áreas de infinitos setores circulares de raio $\\rho$ e ângulo infinitesimal $d\\theta$:\n$$ A = \\frac{1}{2} \\int_{\\alpha}^{\\beta} [\\rho(\\theta)]^2 \\, d\\theta $$\n\n📝 **Exemplo: Área da Cardióide (Q16)**\nPara a cardióide $\\rho = 1 + \\cos(\\theta)$ no intervalo $[0, 2\\pi]$:\n$$ A = \\frac{1}{2} \\int_{0}^{2\\pi} (1 + \\cos(\\theta))^2 \\, d\\theta = \\frac{1}{2} \\int_{0}^{2\\pi} (1 + 2\\cos(\\theta) + \\cos^2(\\theta)) \\, d\\theta $$\n- Como $\\cos^2(\\theta) = \\frac{1 + \\cos(2\\theta)}{2}$, temos:\n$$ A = \\frac{1}{2} \\int_{0}^{2\\pi} \\left( \\frac{3}{2} + 2\\cos(\\theta) + \\frac{\\cos(2\\theta)}{2} \\right) d\\theta $$\n- As integrais de $\\cos(\\theta)$ e $\\cos(2\\theta)$ em um período completo $[0, 2\\pi]$ são iguais a zero. Resta:\n$$ A = \\frac{1}{2} \\cdot \\frac{3}{2} \\cdot 2\\pi = \\frac{3\\pi}{2} $$.",
+            "questions": [
+                {
+                    "q": "Qual é a fórmula da área de uma região polar delimitada por rho(theta) de alpha a beta?",
+                    "a": "1/2 * int_{alpha}^{beta} [rho(theta)]² dtheta",
+                    "hint": "Esta fórmula provém da soma das áreas de pequenos setores circulares dA = 1/2 * r² * dtheta."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-centro-massa",
+            "title": "4. Centro de Massa (Centroides)",
+            "level": "Avançado",
+            "content": "📌 **Centro de Massa de uma Região Plana**\n\nPara uma região plana $A$ de densidade uniforme delimitada por $f(x) \\le y \\le g(x)$ em $[a, b]$, o centro de massa (ou centroide) $(\\bar{x}, \\bar{y})$ representa o ponto geométrico de equilíbrio:\n$$ \\bar{x} = \\frac{1}{\\text{Área}(A)} \\int_{a}^{b} x[g(x) - f(x)] \\, dx $$\n$$ \\bar{y} = \\frac{1}{2\\text{Área}(A)} \\int_{a}^{b} [g(x) + f(x)][g(x) - f(x)] \\, dx = \\frac{1}{2\\text{Área}(A)} \\int_{a}^{b} [g^2(x) - f^2(x)] \\, dx $$\n\n📝 **Exemplo: Centroide de Região Parabólica (Q18)**\nRegião entre a reta $y = 1$ (superior) e a parábola $y = x^2$ (inferior). Intersecções em $x = -1$ e $x = 1$.\n- Área: $A = \\int_{-1}^{1} (1 - x^2) \\, dx = [x - x^3/3]_{-1}^1 = 4/3$.\n- Coordenada $\\bar{x}$: Por simetria em relação ao eixo $y$, $\\bar{x} = 0$.\n- Coordenada $\\bar{y}$:\n$$ \\bar{y} = \\frac{1}{2(4/3)} \\int_{-1}^{1} (1^2 - (x^2)^2) \\, dx = \\frac{3}{8} \\int_{-1}^{1} (1 - x^4) \\, dx = \\frac{3}{8} \\left[ x - \\frac{x^5}{5} \\right]_{-1}^1 = \\frac{3}{8} \\left( \\frac{8}{5} \\right) = \\frac{3}{5} = 0.6 $$.\nO centro de massa é $(0, 0.6)$.",
+            "questions": [
+                {
+                    "q": "Se uma região plana é perfeitamente simétrica em relação ao eixo y, qual é o valor da coordenada x do seu centro de massa?",
+                    "a": "0",
+                    "hint": "A simetria em relação a uma reta garante que o centro de massa deve estar sobre essa reta."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-integrais-improprias",
+            "title": "5. Integrais Impróprias",
+            "level": "Intermediário",
+            "content": "📌 **Definição de Integral Imprópria**\n\nSão integrais definidas em intervalos infinitos ou onde a função possui descontinuidade infinita no intervalo:\n$$ \\int_{a}^{+\\infty} f(x) \\, dx = \\lim_{t \\to +\\infty} \\int_{a}^{t} f(x) \\, dx $$\nSe o limite existe e é finito, a integral é **convergente**. Caso contrário, é **divergente**.\n\n📌 **A P-Integral de Referência**\n$$ \\int_{1}^{+\\infty} \\frac{1}{x^p} \\, dx = \\frac{1}{p-1} \\text{ se } p > 1 \\quad (\\text{Converge}) $$\n$$ \\text{Diverge se } p \\le 1 $$\n\n📌 **Critério de Comparação**\nSejam $0 \\le f(x) \\le g(x)$ para $x \\ge a$:\n1. Se $\\int_{a}^{\\infty} g(x) \\, dx$ converge, então $\\int_{a}^{\\infty} f(x) \\, dx$ também converge.\n2. Se $\\int_{a}^{\\infty} f(x) \\, dx$ diverge, então $\\int_{a}^{\\infty} g(x) \\, dx$ também diverge.",
+            "questions": [
+                {
+                    "q": "A integral de 1 até infinito de 1/x² converge ou diverge?",
+                    "a": "converge",
+                    "hint": "Compare com a p-integral de referência onde p = 2 (que é > 1)."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-laplace",
+            "title": "6. Transformadas de Laplace",
+            "level": "Avançado",
+            "content": "📌 **O que é a Transformada de Laplace?**\n\nÉ um operador linear que transforma uma função do tempo $f(t)$ em uma função do plano complexo $F(s)$, muito usada para resolver equações diferenciais lineares:\n$$ \\mathcal{L}\\{f(t)\\} = F(s) = \\int_{0}^{\\infty} f(t)e^{-st} \\, dt $$\n\n📌 **Transformadas Comuns**\n- $\\mathcal{L}\\{1\\} = \\frac{1}{s}$\n- $\\mathcal{L}\\{t\\} = \\frac{1}{s^2}$\n- $\\mathcal{L}\\{e^{at}\\} = \\frac{1}{s-a}$\n- $\\mathcal{L}\\{\\sin(mt)\\} = \\frac{m}{s^2 + m^2}$\n- $\\mathcal{L}\\{\\cos(mt)\\} = \\frac{s}{s^2 + m^2}$\n\n📌 **Teorema da Translação (ou do Transporte)**\nSe $\\mathcal{L}\\{f(t)\\} = F(s)$, então para qualquer constante real $a$:\n$$ \\mathcal{L}\\{e^{at}f(t)\\} = F(s - a) $$\n\n📝 **Exemplo Prático (Q28a)**\nCalcular $\\mathcal{L}\\{e^{3t}\\sin(t)\\}$:\n- A função base é $f(t) = \\sin(t)$, cuja transformada é $F(s) = \\frac{1}{s^2 + 1}$.\n- Pelo Teorema da Translação com $a=3$, deslocamos $s$ por $s-3$:\n$$ \\mathcal{L}\\{e^{3t}\\sin(t)\\} = F(s - 3) = \\frac{1}{(s - 3)^2 + 1} $$.",
+            "questions": [
+                {
+                    "q": "Se L{f(t)} = F(s), qual é a transformada de L{e^{-2t} f(t)}?",
+                    "a": "F(s + 2)",
+                    "hint": "Substitua a por -2 no Teorema da Translação F(s - a)."
+                }
+            ]
+        },
+        {
+            "id": "c2-l3-probabilidade",
+            "title": "7. Funções de Densidade de Probabilidade (PDF)",
+            "level": "Intermediário",
+            "content": "📌 **Densidade de Probabilidade (PDF)**\n\nUma função contínua $f(x)$ é chamada **função densidade de probabilidade (PDF)** se satisfizer:\n1. $f(x) \\ge 0$ para todo $x \\in \\mathbb{R}$.\n2. A área sob a curva total é igual a 1:\n$$ \\int_{-\\infty}^{+\\infty} f(x) \\, dx = 1 $$\n\n📌 **Cálculo de Probabilidade**\nA probabilidade de a variável aleatória contínua $x$ cair no intervalo $[a, b]$ é a integral definida da PDF:\n$$ P(a < x < b) = \\int_{a}^{b} f(x) \\, dx $$\n\n📝 **Exemplo Prático (Q33)**\nDeterminar a constante $k$ para que $f(x) = kx$ em $[0, 2]$ (e $0$ caso contrário) seja uma PDF:\n$$ \\int_{0}^{2} kx \\, dx = 1 \\implies k \\left[ \\frac{x^2}{2} \\right]_{0}^2 = 1 \\implies k(2 - 0) = 1 \\implies 2k = 1 \\implies k = \\frac{1}{2} $$.",
+            "questions": [
+                {
+                    "q": "Qual é a probabilidade P(x > a) expressa como uma integral se f(x) é a PDF?",
+                    "a": "int_{a}^{+infty} f(x) dx",
+                    "hint": "A probabilidade de ser maior que 'a' corresponde à área sob a PDF de 'a' até o infinito positivo."
+                }
+            ]
+        }
+    ]
+}

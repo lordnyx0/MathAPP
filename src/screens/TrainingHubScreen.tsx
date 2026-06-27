@@ -26,7 +26,7 @@ const CARD_PADDING = spacing.lg;
 // ============================================================
 
 type MinigameId = 'quadrants' | 'symbols' | 'functions' | 'derivatives' | 'integrals'
-    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab';
+    | 'liate' | 'substitution' | 'trigsprint' | 'tvmlab' | 'recurrence' | 'arealab' | 'symmetrysprint' | 'fracoeslab';
 
 type IoniconName = ComponentProps<typeof Ionicons>['name'];
 type MciIconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -172,6 +172,45 @@ const minigames: Minigame[] = [
         iconName: 'shape-outline',
         tag: 'Aplicações',
     },
+    {
+        id: 'symmetrysprint',
+        name: 'Corrida Simetria',
+        description: 'Paridade de funções e simetria de intervalos de cabeça',
+        gradient: ['#10B981', '#059669'],
+        darkGradient: ['#34D399', '#10B981'],
+        iconLib: 'mci',
+        iconName: 'mirror',
+        tag: 'Cálculo',
+    },
+    {
+        id: 'fracoeslab',
+        name: 'Frações Parciais Lab',
+        description: 'Domine a decomposição e integre frações parciais',
+        gradient: ['#06B6D4', '#0891B2'],
+        darkGradient: ['#22D3EE', '#06B6D4'],
+        iconLib: 'mci',
+        iconName: 'division',
+        tag: 'Cálculo II',
+    },
+];
+
+// Grouping definitions by discipline
+const disciplines = [
+    {
+        name: 'Matemática Elementar',
+        icon: 'book-outline',
+        gameIds: ['quadrants', 'symbols', 'functions', 'trigsprint'],
+    },
+    {
+        name: 'Cálculo I',
+        icon: 'trending-up-outline',
+        gameIds: ['derivatives', 'tvmlab', 'symmetrysprint'],
+    },
+    {
+        name: 'Cálculo II',
+        icon: 'flask-outline',
+        gameIds: ['integrals', 'liate', 'substitution', 'recurrence', 'arealab', 'fracoeslab'],
+    },
 ];
 
 // ============================================================
@@ -261,19 +300,35 @@ const TrainingHubScreen: React.FC<TrainingHubScreenProps> = ({ onSelectMinigame 
                         icon="🎮"
                     />
 
-                    {/* Minigame Grid */}
-                    <View style={[styles2.grid, isCompact && styles2.gridCompact]}>
-                        {minigames.map((game, index) => (
-                            <FadeInView key={game.id} delay={index * 60}>
-                                <MinigameCard
-                                    game={game}
-                                    onPress={() => onSelectMinigame(game.id)}
-                                    cardWidth={cardWidth}
-                                    compact={isCompact}
-                                />
-                            </FadeInView>
-                        ))}
-                    </View>
+                    {/* Minigames grouped by discipline */}
+                    {disciplines.map((discipline, dIndex) => {
+                        const disciplineGames = minigames.filter(g => discipline.gameIds.includes(g.id));
+                        if (disciplineGames.length === 0) return null;
+
+                        return (
+                            <View key={discipline.name} style={styles2.disciplineSection}>
+                                <View style={styles2.disciplineHeader}>
+                                    <Ionicons name={discipline.icon as any} size={20} color={colors.textPrimary} style={{ marginRight: spacing.xs }} />
+                                    <Text style={[styles2.disciplineTitle, { color: colors.textPrimary }]}>
+                                        {discipline.name}
+                                    </Text>
+                                    <View style={[styles2.disciplineDivider, { backgroundColor: colors.border }]} />
+                                </View>
+                                <View style={[styles2.grid, isCompact && styles2.gridCompact]}>
+                                    {disciplineGames.map((game, index) => (
+                                        <FadeInView key={game.id} delay={(dIndex * 4 + index) * 60}>
+                                            <MinigameCard
+                                                game={game}
+                                                onPress={() => onSelectMinigame(game.id)}
+                                                cardWidth={cardWidth}
+                                                compact={isCompact}
+                                            />
+                                        </FadeInView>
+                                    ))}
+                                </View>
+                            </View>
+                        );
+                    })}
 
                     <View style={styles2.bottomPadding} />
                 </ScrollView>
@@ -401,6 +456,26 @@ const createPageStyles = (colors: import('../contexts/ThemeContext').ThemeColors
         },
         bottomPadding: {
             height: TAB_BAR_CLEARANCE,
+        },
+        disciplineSection: {
+            marginTop: spacing.md,
+            marginBottom: spacing.sm,
+        },
+        disciplineHeader: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: CARD_PADDING,
+            marginBottom: spacing.md,
+            marginTop: spacing.sm,
+        },
+        disciplineTitle: {
+            fontSize: fontSize.md,
+            fontWeight: '700',
+        },
+        disciplineDivider: {
+            flex: 1,
+            height: 1,
+            marginLeft: spacing.sm,
         },
     });
 
