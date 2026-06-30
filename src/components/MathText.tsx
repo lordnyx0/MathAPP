@@ -1,7 +1,7 @@
 // MathText Component - Renders LaTeX mathematical expressions
 // Uses a simple HTML approach that works on web and native
 import React, { useMemo, ReactNode } from 'react';
-import { View, Text, StyleSheet, Platform, TextStyle, ViewStyle, StyleProp } from 'react-native';
+import { View, Text, StyleSheet, Platform, PixelRatio, TextStyle, ViewStyle, StyleProp } from 'react-native';
 import { fontSize as themeFontSize } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { MathJaxSvg } from 'react-native-mathjax-html-to-svg';
@@ -212,16 +212,24 @@ const MathText: React.FC<MathTextProps> = ({
 
         // No web (agora evitado), tentariamos escalar
         const webScaleFix = Platform.OS === ('web' as string) ? 2 : (sizeStyle.fontSize as number);
+        // MathJaxSvg renders math as SVG, which does not pick up the OS
+        // accessibility font-size setting on its own (unlike <Text>, which
+        // scales by default). Apply the user's font scale manually, capped
+        // so very large accessibility settings don't break fixed-size
+        // layouts (badges, pills, etc.) that host formulas.
+        const accessibilityFontScale = Math.min(PixelRatio.getFontScale(), 1.3);
+        const scaledFontSize = Math.round((webScaleFix as number) * accessibilityFontScale);
+        const scaledTextStyleFontSize = Math.round((sizeStyle.fontSize as number) * accessibilityFontScale);
 
         return (
             <View style={[style as ViewStyle, { overflow: 'hidden', maxWidth: '100%' }]}>
                 {paragraphs.map((paragraph, index) => (
                     <View key={index} style={{ marginTop: index > 0 && paragraph.trim() === '' ? 8 : 0 }}>
                         <MathJaxSvg
-                            fontSize={webScaleFix}
+                            fontSize={scaledFontSize}
                             color={textColor}
                             fontCache={false}
-                            textStyle={{ fontSize: sizeStyle.fontSize as number }}
+                            textStyle={{ fontSize: scaledTextStyleFontSize }}
                         >
                             {paragraph}
                         </MathJaxSvg>

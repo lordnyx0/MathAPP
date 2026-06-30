@@ -171,7 +171,8 @@ export const symmetryQuestions: SymmetryQuestion[] = [
 ];
 
 export const getRandomSymmetryQuestion = (excludeList: SymmetryQuestion[] = []): SymmetryQuestion => {
-    const available = symmetryQuestions.filter(q => !excludeList.some(ex => ex.id === q.id));
+    const excludeIds = new Set(excludeList.map(ex => ex.id));
+    const available = symmetryQuestions.filter(q => !excludeIds.has(q.id));
     const list = available.length > 0 ? available : symmetryQuestions;
     return list[Math.floor(Math.random() * list.length)];
 };

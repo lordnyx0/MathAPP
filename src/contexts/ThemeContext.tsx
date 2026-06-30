@@ -1,5 +1,5 @@
 // Theme Context - Manages app theme (light, dark, oled, sepia)
-import React, { createContext, useState, useContext, useEffect, useMemo, ReactNode } from 'react';
+import React, { createContext, useState, useContext, useEffect, useMemo, useCallback, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../constants';
 import { useColorScheme } from 'react-native';
@@ -86,6 +86,8 @@ export const THEMES = {
 } as const;
 
 export type ThemeType = typeof THEMES[keyof typeof THEMES];
+
+const AVAILABLE_THEMES = Object.values(THEMES);
 
 // ============================================================
 // THEME DEFINITIONS
@@ -325,24 +327,24 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }, [resolvedTheme]);
 
     // Set theme function
-    const setTheme = async (newTheme: ThemeType): Promise<void> => {
+    const setTheme = useCallback(async (newTheme: ThemeType): Promise<void> => {
         try {
             await AsyncStorage.setItem(STORAGE_KEYS.USER_THEME, newTheme);
             setThemeSetting(newTheme);
         } catch (error) {
             console.error('Failed to save theme:', error);
         }
-    };
+    }, []);
 
-    const value: ThemeContextValue = {
+    const value: ThemeContextValue = useMemo(() => ({
         theme: themeSetting,
         resolvedTheme,
         colors,
         isDark,
         setTheme,
         isLoading,
-        availableThemes: Object.values(THEMES),
-    };
+        availableThemes: AVAILABLE_THEMES,
+    }), [themeSetting, resolvedTheme, colors, isDark, setTheme, isLoading]);
 
     return (
         <ThemeContext.Provider value={value}>

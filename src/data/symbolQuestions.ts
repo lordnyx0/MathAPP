@@ -1,6 +1,8 @@
 // Symbol Questions - Data for the Symbol Sprint minigame
 // Covers: Sets, Numeric sets, Logic, and Analysis symbols
 
+import { shuffle } from './generators/core/utils';
+
 // ============================================================
 // TYPES
 // ============================================================
@@ -477,7 +479,7 @@ export const getWrongAnswers = (
     count: number = 3
 ): MathSymbol[] => {
     const others = mathSymbols.filter(s => s.id !== correct.id);
-    const shuffled = [...others].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(others);
     return shuffled.slice(0, count);
 };
 

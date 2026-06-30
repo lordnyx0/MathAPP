@@ -21,6 +21,7 @@ import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
+import strings, { t } from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
@@ -35,6 +36,7 @@ import {
     getRuleById,
     DERIVATIVE_TRAINER_STATS_KEY,
 } from '../data/derivativeQuestions';
+import { shuffle } from '../data/generators/core/utils';
 
 // ============================================================
 // TYPES
@@ -92,7 +94,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
     const saveHighScore = async (newScore: number) => {
         if (newScore > highScore) {
             setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
+            showToast(t(strings.newRecordMessage, { score: newScore }), 'success');
             try {
                 await AsyncStorage.setItem(
                     DERIVATIVE_TRAINER_STATS_KEY,
@@ -100,6 +102,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                 );
             } catch (error) {
                 logError('DerivativeTrainerScreen.saveHighScore', error);
+                showToast(strings.errors.saveFailedMessage, 'error');
             }
         }
     };
@@ -146,7 +149,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
         });
 
         const wrongAnswers = getWrongDerivatives(question, 3);
-        const allOptions = [question.derivative, ...wrongAnswers].sort(() => Math.random() - 0.5);
+        const allOptions = shuffle([question.derivative, ...wrongAnswers]);
 
         setCurrentQuestion(question);
         setOptions(allOptions);
@@ -241,6 +244,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                         <TouchableOpacity
                             style={[styles.modeCard, { borderLeftColor: '#6366F1' }]}
                             onPress={() => startPractice(undefined)}
+                            accessibilityLabel="Praticar todas as regras de derivação"
+                            accessibilityRole="button"
                         >
                             <View style={[styles.modeIconWrapper, { backgroundColor: '#6366F120' }]}>
                                 <Text style={styles.modeIcon}>🎯</Text>
@@ -256,6 +261,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                         <TouchableOpacity
                             style={[styles.modeCard, { borderLeftColor: '#10B981' }]}
                             onPress={() => startPractice('basico')}
+                            accessibilityLabel="Praticar dificuldade básica"
+                            accessibilityRole="button"
                         >
                             <View style={[styles.modeIconWrapper, { backgroundColor: '#10B98120' }]}>
                                 <Text style={styles.modeIcon}>🌱</Text>
@@ -271,6 +278,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                         <TouchableOpacity
                             style={[styles.modeCard, { borderLeftColor: '#F59E0B' }]}
                             onPress={() => startPractice('intermediario')}
+                            accessibilityLabel="Praticar dificuldade intermediária"
+                            accessibilityRole="button"
                         >
                             <View style={[styles.modeIconWrapper, { backgroundColor: '#F59E0B20' }]}>
                                 <Text style={styles.modeIcon}>⚡</Text>
@@ -286,6 +295,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                         <TouchableOpacity
                             style={[styles.modeCard, { borderLeftColor: '#EF4444' }]}
                             onPress={() => startPractice('avancado')}
+                            accessibilityLabel="Praticar dificuldade avançada"
+                            accessibilityRole="button"
                         >
                             <View style={[styles.modeIconWrapper, { backgroundColor: '#EF444420' }]}>
                                 <Text style={styles.modeIcon}>🔥</Text>
@@ -303,6 +314,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                         <TouchableOpacity
                             style={[styles.modeCard, { borderLeftColor: '#8B5CF6' }]}
                             onPress={() => setMode('rules')}
+                            accessibilityLabel="Ver fórmulas de derivação"
+                            accessibilityRole="button"
                         >
                             <View style={[styles.modeIconWrapper, { backgroundColor: '#8B5CF620' }]}>
                                 <Text style={styles.modeIcon}>📚</Text>
@@ -392,7 +405,12 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                                 {streak >= 3 ? '🔥' : ''}{streak}
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.endButton} onPress={endPractice}>
+                        <TouchableOpacity
+                            style={styles.endButton}
+                            onPress={endPractice}
+                            accessibilityLabel="Encerrar prática"
+                            accessibilityRole="button"
+                        >
                             <Text style={styles.endButtonText}>Encerrar</Text>
                         </TouchableOpacity>
                     </View>
@@ -419,6 +437,9 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                                     style={[styles.optionButton, getOptionStyle(option)]}
                                     onPress={() => checkAnswer(option)}
                                     disabled={showResult}
+                                    accessibilityLabel={`Selecionar resposta: f linha de x igual a ${option}`}
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: showResult }}
                                 >
                                     <MathText style={styles.optionText}>f'(x) = {option}</MathText>
                                 </TouchableOpacity>
@@ -450,6 +471,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                                 <TouchableOpacity
                                     style={styles.nextButton}
                                     onPress={() => nextQuestion()}
+                                    accessibilityLabel="Próxima pergunta"
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.nextButtonText}>Próxima →</Text>
                                 </TouchableOpacity>

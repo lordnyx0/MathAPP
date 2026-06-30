@@ -134,6 +134,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onPress, label = '← Vo
             onPress={onPress}
             accessibilityLabel="Voltar para tela anterior"
             accessibilityRole="button"
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
             <Text style={styles.backButtonText}>{label}</Text>
         </TouchableOpacity>

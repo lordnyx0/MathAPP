@@ -138,12 +138,14 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                 key={`chunk-${idx}`}
                 disabled={disabled}
                 onPress={() => handleChunkTap(chunk.id)}
+                accessibilityLabel={`Selecionar termo como u: ${chunk.text}`}
+                accessibilityRole="button"
+                accessibilityState={{ disabled, selected: isSelected }}
             >
                 <Animated.View
                     style={[
                         styles.chunkPill,
                         isSelected && styles.chunkPillSelected,
-                        isSelected && { transform: [{ scale: pulseAnim }] },
                         (phase !== 'scan' && chunk.id === question.correctUId) && styles.chunkPillSuccess,
                         isSelected && { transform: [{ scale: pulseAnim }, { translateX: shakeAnim }] }
                     ]}
@@ -212,10 +214,13 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
 
                     {phase === 'scan' && (
                         <FadeInView delay={300} style={styles.actionContainer}>
-                            <TouchableOpacity 
-                                style={[styles.actionButton, !selectedChunk && styles.disabledBtn]} 
+                            <TouchableOpacity
+                                style={[styles.actionButton, !selectedChunk && styles.disabledBtn]}
                                 onPress={confirmU}
                                 disabled={!selectedChunk}
+                                accessibilityLabel="Confirmar u"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedChunk }}
                             >
                                 <Text style={styles.actionButtonText}>Confirmar u</Text>
                             </TouchableOpacity>
@@ -246,7 +251,12 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                             <MathText style={[styles.duPanelMath, { color: colors.warning }]}>{`du = ${question.duText}`}</MathText>
                                         </View>
                                         
-                                        <TouchableOpacity style={styles.actionButton} onPress={confirmDu}>
+                                        <TouchableOpacity
+                                            style={styles.actionButton}
+                                            onPress={confirmDu}
+                                            accessibilityLabel="Substituir e simplificar"
+                                            accessibilityRole="button"
+                                        >
                                             <Text style={styles.actionButtonText}>Substituir e Simplificar</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -279,7 +289,12 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                                     <DisplayMath>{question.finalUIntegral}</DisplayMath>
                                 </AnimatedCard>
 
-                                <TouchableOpacity style={[styles.actionButton, styles.nextBtn]} onPress={nextQuestion}>
+                                <TouchableOpacity
+                                    style={[styles.actionButton, styles.nextBtn]}
+                                    onPress={nextQuestion}
+                                    accessibilityLabel="Ir para o próximo desafio"
+                                    accessibilityRole="button"
+                                >
                                     <Text style={styles.actionButtonText}>Próximo Desafio</Text>
                                 </TouchableOpacity>
                             </FadeInView>

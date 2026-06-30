@@ -20,6 +20,7 @@ import { FadeInView } from '../components/AnimatedCard';
 import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';
 import { TrigSprintLevel, getRandomTrigSprintLevel } from '../data/trigSprintQuestions';
+import { shuffle } from '../data/generators/core/utils';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { notifySuccess, notifyError, notifyWarning } from '../utils/haptics';
 
@@ -48,7 +49,7 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
     const startNextLevel = () => {
         const nextLv = getRandomTrigSprintLevel();
         // shuffle options
-        const shuffled = [...nextLv.options].sort(() => Math.random() - 0.5);
+        const shuffled = shuffle(nextLv.options);
         nextLv.options = shuffled;
         
         setLevel(nextLv);
@@ -169,7 +170,12 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                         <FadeInView style={styles.resultBox}>
                             <Text style={styles.successTitle}>Resolvido!</Text>
                             <DisplayMath>{`${level.fallingExpression} = ${level.simplifiedResult}`}</DisplayMath>
-                            <TouchableOpacity style={styles.nextButton} onPress={startNextLevel}>
+                            <TouchableOpacity
+                                style={styles.nextButton}
+                                onPress={startNextLevel}
+                                accessibilityLabel="Próximo sprint"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.nextButtonText}>Próximo Sprint</Text>
                             </TouchableOpacity>
                         </FadeInView>
@@ -181,9 +187,14 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                             <Text style={styles.failDesc}>A expressão era:</Text>
                             <DisplayMath>{level.fallingExpression}</DisplayMath>
                             <Text style={styles.failDesc}>
-                                A identidade correta seria "{level.options.find(o => o.id === level.correctCardId)?.label}".
+                                A identidade correta seria "{level.options.find(o => o.id === level.correctCardId)?.label ?? '—'}".
                             </Text>
-                            <TouchableOpacity style={styles.nextButton} onPress={startNextLevel}>
+                            <TouchableOpacity
+                                style={styles.nextButton}
+                                onPress={startNextLevel}
+                                accessibilityLabel="Tentar novamente"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.nextButtonText}>Tentar Novamente</Text>
                             </TouchableOpacity>
                         </FadeInView>
@@ -201,6 +212,9 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                             ]}
                             disabled={gameState !== 'falling'}
                             onPress={() => handleCardPlay(card.id)}
+                            accessibilityLabel={`Selecionar identidade: ${card.label}`}
+                            accessibilityRole="button"
+                            accessibilityState={{ disabled: gameState !== 'falling' }}
                         >
                             <Text style={styles.cardLabel} numberOfLines={2} adjustsFontSizeToFit>{card.label}</Text>
                             <View style={styles.cardMathBox}>

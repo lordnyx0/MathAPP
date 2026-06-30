@@ -15,7 +15,7 @@ import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
-import strings from '../i18n/strings';
+import strings, { t } from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
@@ -28,6 +28,7 @@ import {
     getCategoriesWithCounts,
     SYMBOL_SPRINT_STATS_KEY,
 } from '../data/symbolQuestions';
+import { shuffle } from '../data/generators/core/utils';
 
 // ============================================================
 // TYPES
@@ -84,7 +85,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
     const saveHighScore = async (newScore: number) => {
         if (newScore > highScore) {
             setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
+            showToast(t(strings.newRecordMessage, { score: newScore }), 'success');
             try {
                 await AsyncStorage.setItem(
                     SYMBOL_SPRINT_STATS_KEY,
@@ -92,6 +93,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                 );
             } catch (error) {
                 logError('SymbolSprintScreen.saveHighScore', error);
+                showToast(strings.errors.saveFailedMessage, 'error');
             }
         }
     };
@@ -110,7 +112,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
     const nextQuestion = (category: SymbolCategory | null = selectedCategory) => {
         const symbol = getRandomSymbol(category ?? undefined);
         const wrongAnswers = getWrongAnswers(symbol, 3);
-        const allOptions = [symbol, ...wrongAnswers].sort(() => Math.random() - 0.5);
+        const allOptions = shuffle([symbol, ...wrongAnswers]);
 
         setCurrentSymbol(symbol);
         setOptions(allOptions);
@@ -194,6 +196,8 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                         <TouchableOpacity
                             style={styles.playAllButton}
                             onPress={() => startPractice(null)}
+                            accessibilityLabel="Jogar com todos os símbolos"
+                            accessibilityRole="button"
                         >
                             <Text style={styles.playAllIcon}>🎯</Text>
                             <View style={styles.playAllInfo}>
@@ -213,6 +217,8 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                                         { borderLeftColor: cat.color },
                                     ]}
                                     onPress={() => startPractice(cat.id)}
+                                    accessibilityLabel={`Selecionar categoria: ${cat.name}`}
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.categoryIcon}>{cat.icon}</Text>
                                     <View style={styles.categoryInfo}>
@@ -254,7 +260,12 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                                 {streak >= 3 ? '🔥' : ''}{streak}
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.endButton} onPress={endPractice}>
+                        <TouchableOpacity
+                            style={styles.endButton}
+                            onPress={endPractice}
+                            accessibilityLabel="Encerrar treino"
+                            accessibilityRole="button"
+                        >
                             <Text style={styles.endButtonText}>Encerrar</Text>
                         </TouchableOpacity>
                     </View>
@@ -286,6 +297,9 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                                 style={[styles.optionButton, getOptionStyle(option.id)]}
                                 onPress={() => checkAnswer(option.id)}
                                 disabled={showResult}
+                                accessibilityLabel={`Selecionar opção: ${option.name}`}
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: showResult }}
                             >
                                 <Text style={styles.optionName}>{option.name}</Text>
                                 {showResult && option.id === currentSymbol.id && (
@@ -317,6 +331,8 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                             <TouchableOpacity
                                 style={styles.nextButton}
                                 onPress={() => nextQuestion()}
+                                accessibilityLabel="Próxima pergunta"
+                                accessibilityRole="button"
                             >
                                 <Text style={styles.nextButtonText}>Próximo →</Text>
                             </TouchableOpacity>

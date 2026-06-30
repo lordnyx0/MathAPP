@@ -320,6 +320,7 @@ import {
     GeneratedFunctionQuestion,
     FunctionQuizQuestion as GeneratedQuizQuestion,
 } from './generators/function/functionGenerator';
+import { shuffle } from './generators/core/utils';
 
 /**
  * Get functions by difficulty (from static list)
@@ -428,7 +429,7 @@ export const generateQuestion = (
     }
 
     // Shuffle and pick 3 wrong answers
-    const shuffledWrong = wrongOptions.sort(() => Math.random() - 0.5).slice(0, 3);
+    const shuffledWrong = shuffle(wrongOptions).slice(0, 3);
 
     return {
         type,

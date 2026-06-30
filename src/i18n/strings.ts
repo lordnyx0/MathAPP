@@ -105,6 +105,7 @@ export interface Strings {
     incorrect: string;
     almostCorrect: string;
     tryAgain: string;
+    newRecordMessage: string;
     // Progress
     lessonsComplete: string;
     exercisesComplete: string;
@@ -138,6 +139,7 @@ export const strings: Strings = {
     incorrect: '✗ Incorreto',
     almostCorrect: 'Quase! Sua resposta está próxima.',
     tryAgain: 'Tente novamente',
+    newRecordMessage: '🏆 Novo recorde! {score} pontos',
 
     // Progress
     lessonsComplete: '{count}/{total} lições completas',

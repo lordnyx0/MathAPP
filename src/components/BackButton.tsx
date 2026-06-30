@@ -35,6 +35,7 @@ const BackButton: React.FC<BackButtonProps> = ({
                 activeOpacity={0.7}
                 accessibilityLabel="Voltar"
                 accessibilityRole="button"
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >
                 <View style={styles.iconContainer}>
                     <Ionicons name="chevron-back" size={17} color={colors.textWhite} />

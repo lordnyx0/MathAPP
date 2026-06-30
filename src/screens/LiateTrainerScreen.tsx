@@ -17,6 +17,7 @@ import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import { LiateQuestion, getRandomLiateQuestion } from '../data/liateQuestions';
+import { shuffle } from '../data/generators/core/utils';
 
 type Phase = 'pick_u_dv' | 'pick_du_v' | 'result';
 
@@ -83,7 +84,7 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
         // Setup options for second phase
         const fakeDu = q.du.includes('dx$') ? q.du.replace('dx$', 'x dx$') : '$-1 dx$';
         const fakeV = q.v.startsWith('$') ? q.v.replace('$', '$-') : `-${q.v}`;
-        setOptionsPhase2([q.du, q.v, fakeDu, fakeV].sort(() => Math.random() - 0.5));
+        setOptionsPhase2(shuffle([q.du, q.v, fakeDu, fakeV]));
         setDuInput('');
         setVInput('');
         setSelectedPhase2Target(null);
@@ -148,11 +149,11 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
     const checkPhase2 = () => {
         if (!question) return;
         if (duInput === question.du && vInput === question.v) {
-            playCorrect();
+            playCorrect(); notifySuccess();
             setScore(s => s + 15);
             setPhase('result');
         } else {
-            playIncorrect();
+            playIncorrect(); notifyError();
             setDuInput('');
             setVInput('');
         }
@@ -183,10 +184,12 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                             
                             <View style={styles.pool}>
                                 {unassignedParts.map((p, i) => (
-                                    <TouchableOpacity 
-                                        key={`pool-${i}`} 
+                                    <TouchableOpacity
+                                        key={`pool-${i}`}
                                         style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'pool' && styles.partPillSelected]}
                                         onPress={() => handlePartTap(p, 'pool')}
+                                        accessibilityLabel={`Selecionar parte: ${p}`}
+                                        accessibilityRole="button"
                                     >
                                         <MathText style={styles.partPillText}>{p}</MathText>
                                     </TouchableOpacity>
@@ -195,32 +198,40 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                             </View>
 
                             <View style={styles.boxesContainer}>
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     style={[styles.targetBox, { borderColor: colors.info }]}
                                     onPress={() => handleBoxTap('u')}
+                                    accessibilityLabel="Mover parte selecionada para a caixa u, derivar"
+                                    accessibilityRole="button"
                                 >
                                     <MathText style={[styles.boxLabel, { color: colors.info }]}>$u$ (Derivar)</MathText>
                                     {uParts.map((p, i) => (
-                                        <TouchableOpacity 
-                                            key={`u-${i}`} 
+                                        <TouchableOpacity
+                                            key={`u-${i}`}
                                             style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'u' && styles.partPillSelected]}
                                             onPress={() => handlePartTap(p, 'u')}
+                                            accessibilityLabel={`Parte em u: ${p}`}
+                                            accessibilityRole="button"
                                         >
                                             <MathText style={styles.partPillText}>{p}</MathText>
                                         </TouchableOpacity>
                                     ))}
                                 </TouchableOpacity>
 
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     style={[styles.targetBox, { borderColor: colors.warning }]}
                                     onPress={() => handleBoxTap('dv')}
+                                    accessibilityLabel="Mover parte selecionada para a caixa dv, integrar"
+                                    accessibilityRole="button"
                                 >
                                     <MathText style={[styles.boxLabel, { color: colors.warning }]}>$dv$ (Integrar)</MathText>
                                     {dvParts.map((p, i) => (
-                                        <TouchableOpacity 
-                                            key={`dv-${i}`} 
+                                        <TouchableOpacity
+                                            key={`dv-${i}`}
                                             style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'dv' && styles.partPillSelected]}
                                             onPress={() => handlePartTap(p, 'dv')}
+                                            accessibilityLabel={`Parte em dv: ${p}`}
+                                            accessibilityRole="button"
                                         >
                                             <MathText style={styles.partPillText}>{p}</MathText>
                                         </TouchableOpacity>
@@ -228,10 +239,13 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 </TouchableOpacity>
                             </View>
 
-                            <TouchableOpacity 
-                                style={[styles.actionButton, unassignedParts.length > 0 && styles.disabledBtn]} 
+                            <TouchableOpacity
+                                style={[styles.actionButton, unassignedParts.length > 0 && styles.disabledBtn]}
                                 onPress={checkPhase1}
                                 disabled={unassignedParts.length > 0}
+                                accessibilityLabel="Verificar u e dv"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: unassignedParts.length > 0 }}
                             >
                                 <MathText style={styles.actionButtonText}>Verificar $u$ e $dv$</MathText>
                             </TouchableOpacity>
@@ -251,9 +265,11 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                             <View style={styles.boxesContainer}>
                                 <View style={styles.readonlyBox}>
                                     <MathText style={styles.boxLabel}>{`u = ${question.correctU.join(' ')}`}</MathText>
-                                    <TouchableOpacity 
+                                    <TouchableOpacity
                                         style={[styles.inputBox, selectedPhase2Target === 'du' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('du')}
+                                        accessibilityLabel={duInput ? `Caixa du preenchida com ${duInput}, tocar para selecionar` : 'Selecionar caixa du'}
+                                        accessibilityRole="button"
                                     >
                                         {duInput ? <MathText style={styles.inputText}>du = {duInput}</MathText> : <MathText style={styles.placeholderText}>Selecione $du$</MathText>}
                                     </TouchableOpacity>
@@ -261,9 +277,11 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
 
                                 <View style={styles.readonlyBox}>
                                     <MathText style={styles.boxLabel}>{`dv = ${question.correctDv.join(' ')}`}</MathText>
-                                    <TouchableOpacity 
+                                    <TouchableOpacity
                                         style={[styles.inputBox, selectedPhase2Target === 'v' && styles.inputBoxSelected]}
                                         onPress={() => setSelectedPhase2Target('v')}
+                                        accessibilityLabel={vInput ? `Caixa v preenchida com ${vInput}, tocar para selecionar` : 'Selecionar caixa v'}
+                                        accessibilityRole="button"
                                     >
                                         {vInput ? <MathText style={styles.inputText}>v = {vInput}</MathText> : <MathText style={styles.placeholderText}>Selecione $v$</MathText>}
                                     </TouchableOpacity>
@@ -272,21 +290,27 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
 
                             <View style={styles.pool}>
                                 {optionsPhase2.map((opt, i) => (
-                                    <TouchableOpacity 
-                                        key={`opt-${i}`} 
+                                    <TouchableOpacity
+                                        key={`opt-${i}`}
                                         style={[styles.partPill]}
                                         onPress={() => handlePhase2OptionTap(opt)}
                                         disabled={!selectedPhase2Target}
+                                        accessibilityLabel={`Selecionar valor: ${opt}`}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: !selectedPhase2Target }}
                                     >
                                         <MathText style={[styles.partPillText, !selectedPhase2Target && {opacity: 0.5}]}>{opt}</MathText>
                                     </TouchableOpacity>
                                 ))}
                             </View>
 
-                            <TouchableOpacity 
-                                style={[styles.actionButton, (!duInput || !vInput) && styles.disabledBtn]} 
+                            <TouchableOpacity
+                                style={[styles.actionButton, (!duInput || !vInput) && styles.disabledBtn]}
                                 onPress={checkPhase2}
                                 disabled={!duInput || !vInput}
+                                accessibilityLabel="Montar fórmula"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !duInput || !vInput }}
                             >
                                 <Text style={styles.actionButtonText}>Montar Fórmula</Text>
                             </TouchableOpacity>
@@ -304,7 +328,12 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                 </View>
                             </AnimatedCard>
                             
-                            <TouchableOpacity style={styles.actionButton} onPress={() => nextQuestion()}>
+                            <TouchableOpacity
+                                style={styles.actionButton}
+                                onPress={() => nextQuestion()}
+                                accessibilityLabel="Próximo desafio"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.actionButtonText}>Próximo Desafio</Text>
                             </TouchableOpacity>
                         </FadeInView>
