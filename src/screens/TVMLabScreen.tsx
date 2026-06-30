@@ -197,10 +197,24 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
                         <MathText style={styles.cValueText}>c = {c.toFixed(2)}</MathText>
                         
                         <View style={styles.sliderMock}>
-                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(-1)} disabled={isSuccess}>
+                            <TouchableOpacity
+                                style={styles.tuneButton}
+                                onPress={() => handleMoveC(-1)}
+                                disabled={isSuccess}
+                                accessibilityLabel="Mover ponto c para a esquerda"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: isSuccess }}
+                            >
                                 <Text style={styles.tuneButtonText}>◀ Mover Esquerda</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(1)} disabled={isSuccess}>
+                            <TouchableOpacity
+                                style={styles.tuneButton}
+                                onPress={() => handleMoveC(1)}
+                                disabled={isSuccess}
+                                accessibilityLabel="Mover ponto c para a direita"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: isSuccess }}
+                            >
                                 <Text style={styles.tuneButtonText}>Mover Direita ▶</Text>
                             </TouchableOpacity>
                         </View>
@@ -213,7 +227,12 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
                             <Text style={styles.successDesc}>As retas estão paralelas.</Text>
                             <DisplayMath>{`f'(c) = \\frac{f(b) - f(a)}{b - a}`}</DisplayMath>
                             <DisplayMath>{`f'(${level.expectedC.toFixed(2)}) = ${mSecant.toFixed(2)}`}</DisplayMath>
-                            <TouchableOpacity style={styles.nextButton} onPress={startNextLevel}>
+                            <TouchableOpacity
+                                style={styles.nextButton}
+                                onPress={startNextLevel}
+                                accessibilityLabel="Próximo laboratório"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.nextButtonText}>Próximo Lab</Text>
                             </TouchableOpacity>
                         </FadeInView>

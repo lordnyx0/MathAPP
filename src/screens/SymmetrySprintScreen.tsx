@@ -54,6 +54,14 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
     const [history, setHistory] = useState<AnswerRecord[]>([]);
     const [selectedAnswer, setSelectedAnswer] = useState<'zero' | 'double' | 'neither' | 'timeout' | null>(null);
 
+    // Refs mirroring the latest phase/question, so the setInterval timeout
+    // callback always reads live values instead of the stale closure
+    // captured when startTimer() ran (before setPhase/setQuestion applied).
+    const phaseRef = useRef(phase);
+    const questionRef = useRef(question);
+    useEffect(() => { phaseRef.current = phase; }, [phase]);
+    useEffect(() => { questionRef.current = question; }, [question]);
+
     useEffect(() => {
         initAudio();
         startNewRound();
@@ -109,17 +117,18 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
     };
 
     const handleAnswer = (choice: 'zero' | 'double' | 'neither' | 'timeout') => {
-        if (phase !== 'playing' || !question) return;
-        
+        const currentQuestion = questionRef.current;
+        if (phaseRef.current !== 'playing' || !currentQuestion) return;
+
         stopTimer();
         setSelectedAnswer(choice);
         setPhase('feedback');
 
-        const isCorrect = choice === question.correctAnswer;
-        
+        const isCorrect = choice === currentQuestion.correctAnswer;
+
         // Save to round history
         setHistory(prev => [...prev, {
-            question,
+            question: currentQuestion,
             userChoice: choice,
             isCorrect,
         }]);
@@ -267,11 +276,21 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
                             ))}
 
                             <View style={styles.summaryActions}>
-                                <TouchableOpacity style={[styles.actionBtn, {backgroundColor: colors.primary}]} onPress={startNewRound}>
+                                <TouchableOpacity
+                                    style={[styles.actionBtn, {backgroundColor: colors.primary}]}
+                                    onPress={startNewRound}
+                                    accessibilityLabel="Jogar novamente"
+                                    accessibilityRole="button"
+                                >
                                     <Text style={styles.actionBtnText}>Jogar Novamente</Text>
                                 </TouchableOpacity>
                                 {onBack && (
-                                    <TouchableOpacity style={[styles.actionBtn, styles.secondaryActionBtn, {borderColor: colors.border}]} onPress={onBack}>
+                                    <TouchableOpacity
+                                        style={[styles.actionBtn, styles.secondaryActionBtn, {borderColor: colors.border}]}
+                                        onPress={onBack}
+                                        accessibilityLabel="Voltar ao treino"
+                                        accessibilityRole="button"
+                                    >
                                         <Text style={[styles.actionBtnText, {color: colors.textPrimary}]}>Voltar ao Treino</Text>
                                     </TouchableOpacity>
                                 )}
@@ -320,30 +339,39 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
 
                             {/* BUTTON OPTIONS */}
                             <View style={styles.optionsContainer}>
-                                <TouchableOpacity 
-                                    style={getOptionStyle('zero')} 
+                                <TouchableOpacity
+                                    style={getOptionStyle('zero')}
                                     onPress={() => handleAnswer('zero')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityLabel="Selecionar opção: Zero (Ímpar)"
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('zero') }]}>
                                         Zero (Ímpar)
                                     </Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity 
-                                    style={getOptionStyle('double')} 
+                                <TouchableOpacity
+                                    style={getOptionStyle('double')}
                                     onPress={() => handleAnswer('double')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityLabel="Selecionar opção: Dobro (Par)"
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('double') }]}>
                                         Dobro (Par)
                                     </Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity 
-                                    style={getOptionStyle('neither')} 
+                                <TouchableOpacity
+                                    style={getOptionStyle('neither')}
                                     onPress={() => handleAnswer('neither')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityLabel="Selecionar opção: Nenhum (Sem Simetria)"
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('neither') }]}>
                                         Nenhum (Sem Simetria)
@@ -397,9 +425,11 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
                                             {question.explanation}
                                         </Text>
 
-                                        <TouchableOpacity 
-                                            style={[styles.actionBtn, { backgroundColor: colors.primary, marginTop: spacing.md }]} 
+                                        <TouchableOpacity
+                                            style={[styles.actionBtn, { backgroundColor: colors.primary, marginTop: spacing.md }]}
                                             onPress={handleContinue}
+                                            accessibilityLabel={questionIndex >= QUESTION_LIMIT ? 'Ver resultados' : 'Continuar para a próxima questão'}
+                                            accessibilityRole="button"
                                         >
                                             <Text style={styles.actionBtnText}>
                                                 {questionIndex >= QUESTION_LIMIT ? 'Ver Resultados' : 'Continuar'}

@@ -195,6 +195,8 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                             style={[styles.modeCard, styles.modeCardInterleaved]}
                             onPress={() => startSession('interleaved')}
                             activeOpacity={0.85}
+                            accessibilityLabel="Iniciar prática intercalada: mistura de todos os tópicos"
+                            accessibilityRole="button"
                         >
                             <Text style={styles.modeIcon}>🔀</Text>
                             <View style={styles.modeContent}>
@@ -208,6 +210,8 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                             style={[styles.modeCard, styles.modeCardAdaptive]}
                             onPress={() => startSession('adaptive')}
                             activeOpacity={0.85}
+                            accessibilityLabel="Iniciar prática adaptativa: foco nos seus pontos fracos"
+                            accessibilityRole="button"
                         >
                             <Text style={styles.modeIcon}>🎯</Text>
                             <View style={styles.modeContent}>
@@ -283,6 +287,9 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !showResult && setSelectedOption(option.id)}
                                         disabled={showResult}
+                                        accessibilityLabel={`Selecionar opção ${option.id}: ${option.text}`}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: showResult, selected: selectedOption === option.id }}
                                     >
                                         <View style={styles.optionHeader}>
                                             <Text style={[
@@ -327,6 +334,9 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                                     ]}
                                     onPress={handleAnswer}
                                     disabled={!selectedOption || !confidence}
+                                    accessibilityLabel="Confirmar resposta"
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: !selectedOption || !confidence }}
                                 >
                                     <Text style={styles.actionButtonText}>Confirmar Resposta</Text>
                                 </TouchableOpacity>
@@ -334,6 +344,8 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                                 <TouchableOpacity
                                     style={styles.actionButton}
                                     onPress={nextQuestion}
+                                    accessibilityLabel={currentIndex < questions.length - 1 ? 'Ir para a próxima questão' : 'Ver resultados'}
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.actionButtonText}>
                                         {currentIndex < questions.length - 1 ? 'Próxima →' : 'Ver Resultados'}
@@ -392,6 +404,8 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                         <TouchableOpacity
                             style={styles.actionButton}
                             onPress={() => setMode('menu')}
+                            accessibilityLabel="Voltar ao menu"
+                            accessibilityRole="button"
                         >
                             <Text style={styles.actionButtonText}>Voltar ao Menu</Text>
                         </TouchableOpacity>

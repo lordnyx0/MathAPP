@@ -97,13 +97,15 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
     const xScale = (x: number) => {
         if (!question) return 0;
         const [xMin, xMax] = question.graphDomain;
-        return padding.left + ((x - xMin) / (xMax - xMin)) * graphWidth;
+        const safeXSpan = xMax - xMin === 0 ? 1 : (xMax - xMin);
+        return padding.left + ((x - xMin) / safeXSpan) * graphWidth;
     };
 
     const yScale = (y: number) => {
         if (!question) return 0;
         const [yMin, yMax] = question.graphImage;
-        return padding.top + graphHeight - ((y - yMin) / (yMax - yMin)) * graphHeight;
+        const safeYSpan = yMax - yMin === 0 ? 1 : (yMax - yMin);
+        return padding.top + graphHeight - ((y - yMin) / safeYSpan) * graphHeight;
     };
 
     const pathDataF = useMemo(() => {
@@ -151,7 +153,8 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
         const [xMin, xMax] = question.graphDomain;
         const [yMin, yMax] = question.graphImage;
 
-        const xStep = (xMax - xMin) / 4;
+        const safeXSpan = xMax - xMin === 0 ? 1 : (xMax - xMin);
+        const xStep = safeXSpan / 4;
         for (let x = xMin; x <= xMax; x += xStep) {
             lines.push({
                 x1: xScale(x),
@@ -163,7 +166,8 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
             });
         }
 
-        const yStep = (yMax - yMin) / 4;
+        const safeYSpan = yMax - yMin === 0 ? 1 : (yMax - yMin);
+        const yStep = safeYSpan / 4;
         for (let y = yMin; y <= yMax; y += yStep) {
             lines.push({
                 x1: padding.left,
@@ -316,6 +320,8 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedBounds === opt && styles.optionSelected]}
                                         onPress={() => setSelectedBounds(opt)}
+                                        accessibilityLabel={`Selecionar limites: ${opt}`}
+                                        accessibilityRole="button"
                                     >
                                         <MathText style={selectedBounds === opt ? styles.optTextSelected : styles.optText}>{opt}</MathText>
                                     </TouchableOpacity>
@@ -326,6 +332,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                 style={[styles.confirmBtn, !selectedBounds && styles.disabledBtn]}
                                 disabled={!selectedBounds}
                                 onPress={handleConfirmBounds}
+                                accessibilityLabel="Confirmar limites"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedBounds }}
                             >
                                 <Text style={styles.confirmBtnText}>Confirmar Limites</Text>
                             </TouchableOpacity>
@@ -344,6 +353,8 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedIntegrand === opt && styles.optionSelected]}
                                         onPress={() => setSelectedIntegrand(opt)}
+                                        accessibilityLabel={`Selecionar integrando: ${opt}`}
+                                        accessibilityRole="button"
                                     >
                                         <MathText style={selectedIntegrand === opt ? styles.optTextSelected : styles.optText}>{`\\int_{${question.a}}^{${question.b}} (${opt}) dx`}</MathText>
                                     </TouchableOpacity>
@@ -354,6 +365,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                 style={[styles.confirmBtn, !selectedIntegrand && styles.disabledBtn]}
                                 disabled={!selectedIntegrand}
                                 onPress={handleConfirmIntegrand}
+                                accessibilityLabel="Confirmar integrando"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedIntegrand }}
                             >
                                 <Text style={styles.confirmBtnText}>Confirmar Integrando</Text>
                             </TouchableOpacity>
@@ -372,6 +386,8 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedArea === opt && styles.optionSelected]}
                                         onPress={() => setSelectedArea(opt)}
+                                        accessibilityLabel={`Selecionar valor da área: ${opt}`}
+                                        accessibilityRole="button"
                                     >
                                         <MathText style={selectedArea === opt ? styles.optTextSelected : styles.optText}>{opt}</MathText>
                                     </TouchableOpacity>
@@ -382,6 +398,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                 style={[styles.confirmBtn, !selectedArea && styles.disabledBtn]}
                                 disabled={!selectedArea}
                                 onPress={handleConfirmArea}
+                                accessibilityLabel="Confirmar valor da área"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedArea }}
                             >
                                 <Text style={styles.confirmBtnText}>Confirmar Valor da Área</Text>
                             </TouchableOpacity>
@@ -395,7 +414,12 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                             <DisplayMath>{`\\text{Área} = \\int_{${question.a}}^{${question.b}} (${question.correctIntegrand}) dx = ${question.correctArea}`}</DisplayMath>
                             <Text style={styles.successDesc}>{question.explanation}</Text>
 
-                            <TouchableOpacity style={styles.nextBtn} onPress={nextQuestion}>
+                            <TouchableOpacity
+                                style={styles.nextBtn}
+                                onPress={nextQuestion}
+                                accessibilityLabel="Próximo desafio"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.nextBtnText}>Próximo Desafio</Text>
                             </TouchableOpacity>
                         </FadeInView>

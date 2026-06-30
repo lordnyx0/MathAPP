@@ -299,6 +299,8 @@ const DomainBuilder: React.FC<DomainBuilderProps> = ({
                         ]}
                         onPress={() => onSelect('closed')}
                         disabled={disabled}
+                        accessibilityLabel={`${label}: intervalo fechado (${side === 'left' ? '[' : ']'})`}
+                        accessibilityRole="button"
                     >
                         <Text
                             style={[
@@ -316,6 +318,8 @@ const DomainBuilder: React.FC<DomainBuilderProps> = ({
                         ]}
                         onPress={() => onSelect('open')}
                         disabled={disabled}
+                        accessibilityLabel={`${label}: intervalo aberto (${side === 'left' ? '(' : ')'})`}
+                        accessibilityRole="button"
                     >
                         <Text
                             style={[

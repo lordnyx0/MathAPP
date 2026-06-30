@@ -193,6 +193,9 @@ const SettingsScreen = () => {
                                         ]}
                                         onPress={() => handleThemeChange(option.id)}
                                         disabled={theme === THEMES.SYSTEM}
+                                        accessibilityLabel={`Selecionar tema ${option.label}`}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: theme === THEMES.SYSTEM, selected: isSelected }}
                                     >
                                         {/* Color swatch */}
                                         <View style={[styles.themeSwatch, { backgroundColor: option.swatch }]} />
@@ -282,6 +285,9 @@ const SettingsScreen = () => {
                             style={[styles.resetButton, dynamicStyles.border]}
                             onPress={resetMCQData}
                             disabled={isResetting}
+                            accessibilityLabel="Redefinir dados de SRS e metacognição"
+                            accessibilityRole="button"
+                            accessibilityState={{ disabled: isResetting }}
                         >
                             <View style={[styles.resetIconWrap, { backgroundColor: colors.warning + '18' }]}>
                                 <Ionicons name="refresh" size={18} color={colors.warning} />
@@ -302,6 +308,9 @@ const SettingsScreen = () => {
                             style={[styles.resetButton, dynamicStyles.border]}
                             onPress={resetLearningProgress}
                             disabled={isResetting}
+                            accessibilityLabel="Redefinir lições e exercícios"
+                            accessibilityRole="button"
+                            accessibilityState={{ disabled: isResetting }}
                         >
                             <View style={[styles.resetIconWrap, { backgroundColor: colors.info + '18' }]}>
                                 <Ionicons name="book" size={18} color={colors.info} />
@@ -322,6 +331,9 @@ const SettingsScreen = () => {
                             style={[styles.resetButton, styles.resetButtonDanger]}
                             onPress={resetAllData}
                             disabled={isResetting}
+                            accessibilityLabel="Redefinir todos os dados do aplicativo"
+                            accessibilityRole="button"
+                            accessibilityState={{ disabled: isResetting }}
                         >
                             <View style={[styles.resetIconWrap, { backgroundColor: colors.error + '25' }]}>
                                 <Ionicons name="warning" size={18} color={colors.error} />

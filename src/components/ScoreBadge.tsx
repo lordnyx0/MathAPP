@@ -53,10 +53,11 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({
         <View style={styles.container}>
             <Animated.Text
                 style={[styles.value, { transform: [{ scale: scaleAnim }] }]}
+                maxFontSizeMultiplier={1.3}
             >
                 {score}
             </Animated.Text>
-            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.label} maxFontSizeMultiplier={1.3}>{label}</Text>
         </View>
     );
 };

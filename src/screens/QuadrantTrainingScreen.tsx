@@ -22,7 +22,7 @@ import { quadrantQuestions, quadrantInfo, halvesReference, getRandomQuestionNoRe
 import { logError, createAsyncCleanup } from '../utils';
 import { STORAGE_KEYS } from '../constants';
 import { showToast } from '../components/Toast';
-import strings from '../i18n/strings';
+import strings, { t } from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 
@@ -69,7 +69,7 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
     const saveHighScore = async (newScore: number) => {
         if (newScore > highScore) {
             setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
+            showToast(t(strings.newRecordMessage, { score: newScore }), 'success');
             try {
                 await AsyncStorage.setItem(STORAGE_KEYS.QUADRANT_STATS, newScore.toString());
             } catch (error) {

@@ -20,6 +20,7 @@ import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';
 import { RecurrenceProof, getRandomRecurrenceProof, RecurrenceLine } from '../data/recurrenceQuestions';
+import { shuffle } from '../data/generators/core/utils';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 
 interface RecurrenceBuilderScreenProps {
@@ -79,7 +80,7 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
     const startNextProof = () => {
         const nextProof = { ...getRandomRecurrenceProof() };
         // shuffle pool
-        nextProof.pool = [...nextProof.pool].sort(() => Math.random() - 0.5);
+        nextProof.pool = shuffle(nextProof.pool);
         setProof(nextProof);
         setCurrentLineIdx(0);
         setFilledBlanks({});
@@ -215,14 +216,18 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                             key={`blank-${i}`}
                             style={{ transform: [{ translateX: shakeAnims[globalBlankId] }] }}
                         >
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={[
-                                    styles.emptyBlank, 
+                                    styles.emptyBlank,
                                     isActive && selectedPieceId && styles.emptyBlankTargetable,
                                     !isActive && styles.emptyBlankDisabled
                                 ]}
                                 disabled={!isActive || !selectedPieceId}
                                 onPress={() => handleBlankTap(line.id, blankInfo.id, blankInfo.correctPieceId, isActive)}
+                                accessibilityLabel="Encaixar peça selecionada nesta lacuna"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !isActive || !selectedPieceId }}
+                                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                             >
                                 <Text style={styles.emptyBlankHint}>?</Text>
                             </TouchableOpacity>
@@ -270,7 +275,12 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                             </View>
                             <Text style={styles.successTitle}>Demonstração Concluída!</Text>
                             <Text style={styles.successSubtitle}>Você dominou esta recorrência.</Text>
-                            <TouchableOpacity style={styles.nextButton} onPress={startNextProof}>
+                            <TouchableOpacity
+                                style={styles.nextButton}
+                                onPress={startNextProof}
+                                accessibilityLabel="Ir para o próximo desafio"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.nextButtonText}>Próximo Desafio</Text>
                             </TouchableOpacity>
                         </FadeInView>
@@ -293,11 +303,14 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                             {proof.pool.map((piece) => {
                                 const isSelected = selectedPieceId === piece.id;
                                 return (
-                                    <TouchableOpacity 
-                                        key={piece.id} 
+                                    <TouchableOpacity
+                                        key={piece.id}
                                         activeOpacity={0.7}
                                         style={[styles.pieceContainer]}
                                         onPress={() => handlePieceTap(piece.id)}
+                                        accessibilityLabel={`Selecionar peça: ${piece.math}`}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: isSelected }}
                                     >
                                         <Animated.View 
                                             style={[

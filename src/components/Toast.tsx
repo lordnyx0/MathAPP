@@ -91,6 +91,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                     onPress={() => setVisible(false)}
                     accessibilityLabel="Fechar notificação"
                     accessibilityRole="button"
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                 >
                     <Text style={styles.close}>✕</Text>
                 </TouchableOpacity>

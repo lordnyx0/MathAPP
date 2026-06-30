@@ -16,6 +16,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { domainsAreEquivalent } from '../utils/domainUtils';
 import { showToast } from '../components/Toast';
+import strings, { t } from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import MathText from '../components/MathText';
@@ -31,6 +32,7 @@ import {
     getExplanation,
     FUNCTION_LAB_STATS_KEY,
 } from '../data/functionQuestions';
+import { shuffle } from '../data/generators/core/utils';
 
 // ============================================================
 // TYPES
@@ -99,7 +101,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
     const saveHighScore = async (newScore: number) => {
         if (newScore > highScore) {
             setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
+            showToast(t(strings.newRecordMessage, { score: newScore }), 'success');
             try {
                 await AsyncStorage.setItem(
                     FUNCTION_LAB_STATS_KEY,
@@ -107,6 +109,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                 );
             } catch (error) {
                 logError('FunctionLabScreen.saveHighScore', error);
+                showToast(strings.errors.saveFailedMessage, 'error');
             }
         }
     };
@@ -205,8 +208,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
         }
 
         const question = generateQuestion(fn, questionType);
-        const allOptions = [question.correctAnswer, ...question.wrongAnswers]
-            .sort(() => Math.random() - 0.5);
+        const allOptions = shuffle([question.correctAnswer, ...question.wrongAnswers]);
 
         setCurrentQuestion(question);
         setOptions(allOptions);
@@ -300,6 +302,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                             <TouchableOpacity
                                 style={[styles.modeCard, { borderLeftColor: '#10B981' }]}
                                 onPress={() => startGame('identify')}
+                                accessibilityLabel="Modo Identificar Partes"
+                                accessibilityRole="button"
                             >
                                 <View style={[styles.modeIconWrapper, { backgroundColor: '#10B98120' }]}>
                                     <Text style={styles.modeIcon}>🎯</Text>
@@ -315,6 +319,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                             <TouchableOpacity
                                 style={[styles.modeCard, { borderLeftColor: '#8B5CF6' }]}
                                 onPress={() => startGame('match')}
+                                accessibilityLabel="Modo Encontrar Função"
+                                accessibilityRole="button"
                             >
                                 <View style={[styles.modeIconWrapper, { backgroundColor: '#8B5CF620' }]}>
                                     <Text style={styles.modeIcon}>🔗</Text>
@@ -330,6 +336,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                             <TouchableOpacity
                                 style={[styles.modeCard, { borderLeftColor: '#F59E0B' }]}
                                 onPress={() => startGame('classifier')}
+                                accessibilityLabel="Modo Classificador"
+                                accessibilityRole="button"
                             >
                                 <View style={[styles.modeIconWrapper, { backgroundColor: '#F59E0B20' }]}>
                                     <Text style={styles.modeIcon}>🔍</Text>
@@ -345,6 +353,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                             <TouchableOpacity
                                 style={[styles.modeCard, { borderLeftColor: '#EC4899' }]}
                                 onPress={() => startGame('buildDomain')}
+                                accessibilityLabel="Modo Construir Domínio"
+                                accessibilityRole="button"
                             >
                                 <View style={[styles.modeIconWrapper, { backgroundColor: '#EC489920' }]}>
                                     <Text style={styles.modeIcon}>🛠️</Text>
@@ -401,7 +411,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         {streak >= 3 ? '🔥' : ''}{streak}
                                     </Text>
                                 </View>
-                                <TouchableOpacity style={styles.endButton} onPress={endGame}>
+                                <TouchableOpacity
+                                    style={styles.endButton}
+                                    onPress={endGame}
+                                    accessibilityLabel="Encerrar jogo"
+                                    accessibilityRole="button"
+                                >
                                     <Text style={styles.endButtonText}>Encerrar</Text>
                                 </TouchableOpacity>
                             </View>
@@ -455,6 +470,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                 <TouchableOpacity
                                     style={styles.nextButton}
                                     onPress={checkBuildDomainAnswer}
+                                    accessibilityLabel="Verificar domínio construído"
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.nextButtonText}>Verificar</Text>
                                 </TouchableOpacity>
@@ -467,6 +484,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                     <TouchableOpacity
                                         style={styles.nextButton}
                                         onPress={nextBuildDomainQuestion}
+                                        accessibilityLabel="Próxima pergunta"
+                                        accessibilityRole="button"
                                     >
                                         <Text style={styles.nextButtonText}>Próxima →</Text>
                                     </TouchableOpacity>
@@ -508,7 +527,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         {streak >= 3 ? '🔥' : ''}{streak}
                                     </Text>
                                 </View>
-                                <TouchableOpacity style={styles.endButton} onPress={endGame}>
+                                <TouchableOpacity
+                                    style={styles.endButton}
+                                    onPress={endGame}
+                                    accessibilityLabel="Encerrar jogo"
+                                    accessibilityRole="button"
+                                >
                                     <Text style={styles.endButtonText}>Encerrar</Text>
                                 </TouchableOpacity>
                             </View>
@@ -558,6 +582,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setInjectiveAnswer(true)}
                                         disabled={classifierShowResult}
+                                        accessibilityLabel="Responder Sim: função é injetora"
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: classifierShowResult, selected: injectiveAnswer === true }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -575,6 +602,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setInjectiveAnswer(false)}
                                         disabled={classifierShowResult}
+                                        accessibilityLabel="Responder Não: função não é injetora"
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: classifierShowResult, selected: injectiveAnswer === false }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -602,6 +632,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setSurjectiveAnswer(true)}
                                         disabled={classifierShowResult}
+                                        accessibilityLabel="Responder Sim: função é sobrejetora"
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: classifierShowResult, selected: surjectiveAnswer === true }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -619,6 +652,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setSurjectiveAnswer(false)}
                                         disabled={classifierShowResult}
+                                        accessibilityLabel="Responder Não: função não é sobrejetora"
+                                        accessibilityRole="button"
+                                        accessibilityState={{ disabled: classifierShowResult, selected: surjectiveAnswer === false }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -638,6 +674,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         { opacity: injectiveAnswer !== null && surjectiveAnswer !== null ? 1 : 0.5 }
                                     ]}
                                     onPress={checkClassifierAnswer}
+                                    accessibilityLabel="Verificar classificação"
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.nextButtonText}>Verificar</Text>
                                 </TouchableOpacity>
@@ -668,6 +706,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                     <TouchableOpacity
                                         style={styles.nextButton}
                                         onPress={nextClassifierQuestion}
+                                        accessibilityLabel="Próxima pergunta"
+                                        accessibilityRole="button"
                                     >
                                         <Text style={styles.nextButtonText}>Próxima →</Text>
                                     </TouchableOpacity>
@@ -707,7 +747,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                     {streak >= 3 ? '🔥' : ''}{streak}
                                 </Text>
                             </View>
-                            <TouchableOpacity style={styles.endButton} onPress={endGame}>
+                            <TouchableOpacity
+                                style={styles.endButton}
+                                onPress={endGame}
+                                accessibilityLabel="Encerrar jogo"
+                                accessibilityRole="button"
+                            >
                                 <Text style={styles.endButtonText}>Encerrar</Text>
                             </TouchableOpacity>
                         </View>
@@ -754,6 +799,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                     style={[styles.optionButton, getOptionStyle(option)]}
                                     onPress={() => checkAnswer(option)}
                                     disabled={showResult}
+                                    accessibilityLabel={`Selecionar opção: ${option}`}
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: showResult }}
                                 >
                                     <MathText style={styles.optionText}>{option}</MathText>
                                 </TouchableOpacity>
@@ -784,6 +832,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                 <TouchableOpacity
                                     style={styles.nextButton}
                                     onPress={() => nextQuestion()}
+                                    accessibilityLabel="Próxima pergunta"
+                                    accessibilityRole="button"
                                 >
                                     <Text style={styles.nextButtonText}>Próxima →</Text>
                                 </TouchableOpacity>

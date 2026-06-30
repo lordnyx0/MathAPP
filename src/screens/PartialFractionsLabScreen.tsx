@@ -144,6 +144,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                 { borderColor: colors.border, backgroundColor: colors.surface },
                                                 isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                             ]}
+                                            accessibilityLabel={`Selecionar modelo de decomposição: ${opt}`}
+                                            accessibilityRole="button"
+                                            accessibilityState={{ selected: isSelected }}
                                         >
                                             <MathText>{opt}</MathText>
                                         </TouchableOpacity>
@@ -160,6 +163,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                     { backgroundColor: colors.primary },
                                     !selectedTemplate && { backgroundColor: colors.border }
                                 ]}
+                                accessibilityLabel="Confirmar modelo"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedTemplate }}
                             >
                                 <Text style={styles.confirmButtonText}>Confirmar Modelo</Text>
                             </TouchableOpacity>
@@ -189,6 +195,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                         { borderColor: colors.border, backgroundColor: colors.surface },
                                                         isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                                     ]}
+                                                    accessibilityLabel={`Selecionar coeficiente A: ${opt}`}
+                                                    accessibilityRole="button"
+                                                    accessibilityState={{ selected: isSelected }}
                                                 >
                                                     <Text style={[styles.coeffOptionText, { color: isSelected ? colors.primary : colors.textPrimary }]}>{opt}</Text>
                                                 </TouchableOpacity>
@@ -212,6 +221,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                         { borderColor: colors.border, backgroundColor: colors.surface },
                                                         isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                                     ]}
+                                                    accessibilityLabel={`Selecionar coeficiente B: ${opt}`}
+                                                    accessibilityRole="button"
+                                                    accessibilityState={{ selected: isSelected }}
                                                 >
                                                     <Text style={[styles.coeffOptionText, { color: isSelected ? colors.primary : colors.textPrimary }]}>{opt}</Text>
                                                 </TouchableOpacity>
@@ -230,6 +242,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                     { backgroundColor: colors.primary },
                                     (!selectedCoeffA || !selectedCoeffB) && { backgroundColor: colors.border }
                                 ]}
+                                accessibilityLabel="Confirmar coeficientes"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedCoeffA || !selectedCoeffB }}
                             >
                                 <Text style={styles.confirmButtonText}>Confirmar Coeficientes</Text>
                             </TouchableOpacity>
@@ -256,6 +271,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                 { borderColor: colors.border, backgroundColor: colors.surface },
                                                 isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                             ]}
+                                            accessibilityLabel={`Selecionar resultado da integral: ${opt}`}
+                                            accessibilityRole="button"
+                                            accessibilityState={{ selected: isSelected }}
                                         >
                                             <MathText>{opt}</MathText>
                                         </TouchableOpacity>
@@ -272,6 +290,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                     { backgroundColor: colors.primary },
                                     !selectedIntegral && { backgroundColor: colors.border }
                                 ]}
+                                accessibilityLabel="Confirmar integral"
+                                accessibilityRole="button"
+                                accessibilityState={{ disabled: !selectedIntegral }}
                             >
                                 <Text style={styles.confirmButtonText}>Confirmar Integral</Text>
                             </TouchableOpacity>
@@ -297,6 +318,8 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                 activeOpacity={0.8}
                                 onPress={nextQuestion}
                                 style={[styles.confirmButton, { backgroundColor: colors.success }]}
+                                accessibilityLabel="Ir para a próxima integral"
+                                accessibilityRole="button"
                             >
                                 <Text style={styles.confirmButtonText}>Próxima Integral</Text>
                             </TouchableOpacity>

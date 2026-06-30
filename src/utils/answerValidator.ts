@@ -120,7 +120,7 @@ export const compareAnswers = (
     if (userNum !== null && correctNum !== null) {
         // Use relative tolerance for larger numbers
         const relTolerance = Math.max(tolerance, Math.abs(correctNum) * 0.01);
-        return Math.abs(userNum - correctNum) < relTolerance;
+        return Math.abs(userNum - correctNum) <= relTolerance;
     }
 
     // Check if user answer is contained in correct (for partial matches)
