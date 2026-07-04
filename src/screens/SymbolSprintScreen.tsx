@@ -289,6 +289,9 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                                 style={[styles.optionButton, getOptionStyle(option.id)]}
                                 onPress={() => checkAnswer(option.id)}
                                 disabled={showResult}
+                                accessibilityRole="button"
+                                accessibilityLabel={option.name}
+                                accessibilityState={{ disabled: showResult }}
                             >
                                 <Text style={styles.optionName}>{option.name}</Text>
                                 {showResult && option.id === currentSymbol.id && (

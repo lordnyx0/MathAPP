@@ -24,7 +24,7 @@ import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText from '../components/MathText';
+import MathText, { latexToUnicode } from '../components/MathText';
 import {
     DerivativeQuestion,
     DifficultyLevel,
@@ -422,6 +422,9 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                                     style={[styles.optionButton, getOptionStyle(option)]}
                                     onPress={() => checkAnswer(option)}
                                     disabled={showResult}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={latexToUnicode(`f'(x) = ${option}`)}
+                                    accessibilityState={{ disabled: showResult }}
                                 >
                                     <MathText style={styles.optionText}>f'(x) = {option}</MathText>
                                 </TouchableOpacity>

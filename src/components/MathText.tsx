@@ -5,17 +5,9 @@ import { View, Text, StyleSheet, Platform, TextStyle, ViewStyle, StyleProp } fro
 import { fontSize as themeFontSize } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import { MathJaxSvg } from 'react-native-mathjax-html-to-svg';
-
-let katexCssInjected = false;
-const injectKatexCss = () => {
-    if (Platform.OS === ('web' as string) && typeof document !== 'undefined' && !katexCssInjected) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
-        document.head.appendChild(link);
-        katexCssInjected = true;
-    }
-};
+// KaTeX stylesheet: bundled locally on web (platform-specific module), no-op on
+// native which renders via MathJaxSvg. Removes the runtime CDN dependency.
+import './katexStyles';
 
 type MathTextSize = 'small' | 'normal' | 'large' | 'xlarge';
 
@@ -156,7 +148,6 @@ const MathText: React.FC<MathTextProps> = ({
 
     if (isComplexMath) {
         if (Platform.OS === ('web' as string)) {
-            injectKatexCss();
             const { InlineMath, BlockMath } = require('react-katex');
 
             // Força a marcação em $$ caso explicitly exigido mas sem delimitadores originais

@@ -24,7 +24,7 @@ import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText from '../components/MathText';
+import MathText, { latexToUnicode } from '../components/MathText';
 import {
     IntegralQuestion,
     DifficultyLevel,
@@ -407,6 +407,9 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
                                     style={[styles.optionButton, getOptionStyle(option)]}
                                     onPress={() => checkAnswer(option)}
                                     disabled={showResult}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={latexToUnicode(option)}
+                                    accessibilityState={{ disabled: showResult }}
                                 >
                                     <MathText style={styles.optionText}>{option}</MathText>
                                 </TouchableOpacity>
