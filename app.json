@@ -31,6 +31,10 @@
       "translucent": true,
       "barStyle": "light-content"
     },
+    "androidNavigationBar": {
+      "visible": "sticky-immersive",
+      "backgroundColor": "#00000000"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },

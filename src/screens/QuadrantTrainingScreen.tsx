@@ -7,7 +7,6 @@ import {
     StyleSheet,
     SafeAreaView,
     Animated,
-    Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,7 +17,7 @@ import ScreenHeader from '../components/ScreenHeader';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import QuadrantCircle from '../components/QuadrantCircle';
 import MathText from '../components/MathText';
-import { quadrantQuestions, quadrantInfo, halvesReference, getRandomQuestionNoRepeat, QuadrantQuestion, isIntervalQuestion, isBaseQuestion } from '../data/quadrantQuestions';
+import { quadrantInfo, halvesReference, getRandomQuestionNoRepeat, QuadrantQuestion, isIntervalQuestion, isBaseQuestion } from '../data/quadrantQuestions';
 import { logError, createAsyncCleanup } from '../utils';
 import { STORAGE_KEYS } from '../constants';
 import { showToast } from '../components/Toast';
@@ -339,6 +338,10 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
                             <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
                                 {streak >= 3 ? '🔥' : ''}{streak}
                             </Text>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statLabel}>{strings.quadrant.questions}</Text>
+                            <Text style={styles.statValue}>{questionsAnswered}</Text>
                         </View>
                         <TouchableOpacity
                             style={styles.endButton}

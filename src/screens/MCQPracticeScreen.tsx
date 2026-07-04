@@ -14,11 +14,9 @@ import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import ConfidenceSlider from '../components/ConfidenceSlider';
-import { AnimatedCard, FadeInView } from '../components/AnimatedCard';
-import { showToast } from '../components/Toast';
+import { FadeInView } from '../components/AnimatedCard';
 import { playCorrect, playIncorrect } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
-import strings from '../i18n/strings';
 import MathText from '../components/MathText';
 import BackButton from '../components/BackButton';
 import type { MCQ } from '../types';
@@ -26,7 +24,7 @@ import type { MCQ } from '../types';
 // Learning modules
 import { createInterleavedSession, createAdaptiveSession } from '../learning/interleaving';
 import { createEntry, getCalibrationFeedback, loadEntries, saveEntries, MetacognitionEntry, CalibrationType } from '../learning/metacognition';
-import { createCard, calculateNextReview, Quality, loadCards, saveCards, getOrCreateCard, getStats, SRSCard, SRSStats } from '../learning/srs';
+import { calculateNextReview, Quality, loadCards, saveCards, getOrCreateCard, getStats, SRSCard, SRSStats } from '../learning/srs';
 
 interface SessionResult {
     question: MCQ;
@@ -274,7 +272,7 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
 
                             {/* Options */}
                             <View style={styles.optionsContainer}>
-                                {currentQuestion.options.map((option, index) => (
+                                {currentQuestion.options.map((option) => (
                                     <TouchableOpacity
                                         key={option.id}
                                         style={[

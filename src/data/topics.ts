@@ -1,8 +1,6 @@
 // Topics - Main categories and exercise topics
 // Now sourced from JSON via registry
 
-import type { Exercise } from '../types';
-
 export interface MainCategory {
     id: string;
     title: string;

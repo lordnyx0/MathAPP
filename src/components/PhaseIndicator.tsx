@@ -7,7 +7,7 @@
  */
 import React, { useRef, useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
-import { spacing, borderRadius, fontSize } from '../styles/theme';
+import { spacing } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 
 interface Phase {

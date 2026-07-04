@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 import MathText from './MathText';

@@ -25,6 +25,7 @@ export interface QuadrantStrings {
     practice: string;
     points: string;
     streak: string;
+    questions: string;
     record: string;
     showHint: string;
     nextQuestion: string;
@@ -169,6 +170,7 @@ export const strings: Strings = {
         practice: 'Praticar',
         points: 'Pontos',
         streak: 'Sequência',
+        questions: 'Questões',
         record: '🏆 Recorde',
         showHint: '💡 Mostrar dica (-5 pts)',
         nextQuestion: 'Próxima Pergunta →',

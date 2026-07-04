@@ -54,8 +54,8 @@ const formatPowerTerm = (coefficient: number, exponent: number): string => {
  */
 const generateExplanation = (
     rule: DerivativeRuleType,
-    func: string,
-    deriv: string
+    _func: string,
+    _deriv: string
 ): string => {
     const explanations: Record<DerivativeRuleType, string> = {
         constant: `A derivada de qualquer constante é 0.`,
@@ -112,9 +112,6 @@ export const generatePowerQuestion = (): DerivativeQuestion => {
     const a = hasCoefficient ? randomInt(2, 9) : 1;
     const n = randomInt(2, 7);
 
-    // Build expression for mathjs
-    const expr = hasCoefficient ? `${a}*x^${n}` : `x^${n}`;
-
     // Calculate derivative
     const derivCoeff = n * a;
     const newExp = n - 1;
@@ -156,7 +153,6 @@ export const generateSumQuestion = (): DerivativeQuestion => {
     const isAddition = Math.random() > 0.5;
     const op = isAddition ? '+' : '-';
 
-    const expr = `${a}*x^${n} ${op} ${b}*x^${m}`;
     const funcDisplay = `${a}x${toSuperscript(n)} ${op} ${b}x${toSuperscript(m)}`;
 
     // Calculate derivative terms

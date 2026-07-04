@@ -27,7 +27,6 @@ import BackButton from '../components/BackButton';
 import MathText from '../components/MathText';
 import {
     DerivativeQuestion,
-    DerivativeRule,
     DifficultyLevel,
     derivativeRules,
     getRandomQuestion,
@@ -391,6 +390,10 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                             <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
                                 {streak >= 3 ? '🔥' : ''}{streak}
                             </Text>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statLabel}>Questões</Text>
+                            <Text style={styles.statValue}>{questionsAnswered}</Text>
                         </View>
                         <TouchableOpacity style={styles.endButton} onPress={endPractice}>
                             <Text style={styles.endButtonText}>Encerrar</Text>

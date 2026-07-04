@@ -15,7 +15,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
+import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';

@@ -3,7 +3,7 @@
 import React, { ReactNode, ErrorInfo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { spacing, borderRadius, fontSize } from '../styles/theme';
-import ThemeContext, { ThemeColors, ThemeContextValue } from '../contexts/ThemeContext';
+import ThemeContext, { ThemeContextValue } from '../contexts/ThemeContext';
 
 interface ErrorBoundaryProps {
     children: ReactNode;

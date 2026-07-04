@@ -157,7 +157,6 @@ const MathText: React.FC<MathTextProps> = ({
     if (isComplexMath) {
         if (Platform.OS === ('web' as string)) {
             injectKatexCss();
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             const { InlineMath, BlockMath } = require('react-katex');
 
             // Força a marcação em $$ caso explicitly exigido mas sem delimitadores originais

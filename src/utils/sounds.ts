@@ -96,7 +96,7 @@ export const unloadSounds = async (): Promise<void> => {
     for (const player of playerCache.values()) {
         try {
             player.remove();
-        } catch (error) {
+        } catch {
             // Ignore cleanup errors
         }
     }

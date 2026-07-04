@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme, THEMES, ThemeType } from '../contexts/ThemeContext';
 import { STORAGE_KEYS } from '../constants';
-import { spacing, borderRadius, fontSize, shadows, colors } from '../styles/theme';
+import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { showToast } from '../components/Toast';
 import ScreenHeader from '../components/ScreenHeader';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
@@ -23,7 +23,7 @@ import { isHapticsEnabled, setHapticsEnabled } from '../utils/haptics';
 import strings from '../i18n/strings';
 
 const SettingsScreen = () => {
-    const { theme, colors, setTheme, isDark } = useTheme();
+    const { theme, colors, setTheme } = useTheme();
     const [isResetting, setIsResetting] = useState(false);
     const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled());
 
@@ -67,7 +67,7 @@ const SettingsScreen = () => {
                                 STORAGE_KEYS.METACOGNITION,
                             ]);
                             showToast(strings.settings.resetSuccess, 'success');
-                        } catch (error) {
+                        } catch {
                             showToast(strings.errors.genericError, 'error');
                         } finally {
                             setIsResetting(false);
@@ -96,7 +96,7 @@ const SettingsScreen = () => {
                                 STORAGE_KEYS.EXERCISE_PROGRESS,
                             ]);
                             showToast(strings.settings.resetSuccess, 'success');
-                        } catch (error) {
+                        } catch {
                             showToast(strings.errors.genericError, 'error');
                         } finally {
                             setIsResetting(false);
@@ -128,7 +128,7 @@ const SettingsScreen = () => {
                                 STORAGE_KEYS.QUADRANT_STATS,
                             ]);
                             showToast(strings.settings.resetSuccess, 'success');
-                        } catch (error) {
+                        } catch {
                             showToast(strings.errors.genericError, 'error');
                         } finally {
                             setIsResetting(false);

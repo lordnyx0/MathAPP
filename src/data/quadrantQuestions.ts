@@ -166,11 +166,8 @@ export const halvesReference: HalvesReferenceItem[] = [
 // ============================================================
 
 import {
-    generateAngleQuestion,
-    generateIntervalQuestion,
     generateRandomQuestion as generateProceduralQuestion,
     generateDistractors,
-    GeneratedQuadrantQuestion,
     GeneratedIntervalQuestion,
     GeneratedQuestion,
 } from './generators/quadrant/quadrantGenerator';

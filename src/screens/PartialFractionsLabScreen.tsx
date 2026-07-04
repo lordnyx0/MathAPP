@@ -120,7 +120,7 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                         <DisplayMath>{`\\int ${question.expressionText} \\, dx`}</DisplayMath>
                         <View style={[styles.divider, { backgroundColor: colors.border }]} />
                         <Text style={[styles.mathCardSub, { color: colors.textSecondary }]}>
-                            Denominador Fatorado: <MathText>{question.denominatorFactored}</MathText>
+                            Denominador Fatorado: <MathText formula>{question.denominatorFactored}</MathText>
                         </Text>
                     </AnimatedCard>
 
@@ -145,7 +145,7 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                 isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                             ]}
                                         >
-                                            <MathText>{opt}</MathText>
+                                            <MathText formula>{opt}</MathText>
                                         </TouchableOpacity>
                                     );
                                 })}
@@ -190,7 +190,13 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                         isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                                     ]}
                                                 >
-                                                    <Text style={[styles.coeffOptionText, { color: isSelected ? colors.primary : colors.textPrimary }]}>{opt}</Text>
+                                                    <MathText
+                                                        formula
+                                                        color={isSelected ? colors.primary : colors.textPrimary}
+                                                        style={styles.coeffOptionText}
+                                                    >
+                                                        {opt}
+                                                    </MathText>
                                                 </TouchableOpacity>
                                             );
                                         })}
@@ -213,7 +219,13 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                         isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                                     ]}
                                                 >
-                                                    <Text style={[styles.coeffOptionText, { color: isSelected ? colors.primary : colors.textPrimary }]}>{opt}</Text>
+                                                    <MathText
+                                                        formula
+                                                        color={isSelected ? colors.primary : colors.textPrimary}
+                                                        style={styles.coeffOptionText}
+                                                    >
+                                                        {opt}
+                                                    </MathText>
                                                 </TouchableOpacity>
                                             );
                                         })}
@@ -257,7 +269,7 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                 isSelected && { borderColor: colors.primary, backgroundColor: colors.primary + '12' }
                                             ]}
                                         >
-                                            <MathText>{opt}</MathText>
+                                            <MathText formula>{opt}</MathText>
                                         </TouchableOpacity>
                                     );
                                 })}

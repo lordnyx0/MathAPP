@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     View,
     Text,
@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
-    RefreshControl,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,9 +15,6 @@ import { exercises, exerciseTopics, mainCategories, getExercisesByTopic } from '
 import StepCard from '../components/StepCard';
 import MathText, { latexToUnicode } from '../components/MathText';
 import BackButton from '../components/BackButton';
-import { logError } from '../utils';
-import { CardSkeleton, LessonListSkeleton } from '../components/Skeleton';
-import EmptyState from '../components/EmptyState';
 import ScreenHeader from '../components/ScreenHeader';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import strings from '../i18n/strings';
@@ -43,30 +39,6 @@ const ExercisesScreen = () => {
     const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
     const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
     const [revealedSteps, setRevealedSteps] = useState<number[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
-
-    // Simulate initial data load
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 500);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // Cleanup refresh timer on unmount
-    useEffect(() => {
-        return () => {
-            if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current);
-        };
-    }, []);
-
-    // Pull-to-refresh handler
-    const onRefresh = useCallback(() => {
-        setRefreshing(true);
-        // Simulate refresh
-        refreshTimerRef.current = setTimeout(() => setRefreshing(false), 800);
-    }, []);
 
     const toggleStep = (stepIndex: number) => {
         if (revealedSteps.includes(stepIndex)) {

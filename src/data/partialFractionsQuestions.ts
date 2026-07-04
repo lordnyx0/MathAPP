@@ -74,9 +74,9 @@ export const partialFractionsQuestions: PartialFractionsQuestion[] = [
         ],
         correctTemplate: '\\frac{A}{x-2} + \\frac{B}{x+2}',
         coeffRootsText: 'x = 2 e x = -2',
-        correctCoeffs: { A: '1/4', B: '-1/4' },
-        coeffOptionsA: ['1/4', '-1/4', '1/2', '-1/2'],
-        coeffOptionsB: ['-1/4', '1/4', '-1/2', '1/2'],
+        correctCoeffs: { A: '\\frac{1}{4}', B: '-\\frac{1}{4}' },
+        coeffOptionsA: ['\\frac{1}{4}', '-\\frac{1}{4}', '\\frac{1}{2}', '-\\frac{1}{2}'],
+        coeffOptionsB: ['-\\frac{1}{4}', '\\frac{1}{4}', '-\\frac{1}{2}', '\\frac{1}{2}'],
         integralOptions: [
             '\\frac{1}{4}\\ln|x-2| - \\frac{1}{4}\\ln|x+2| + C',
             '\\frac{1}{4}\\ln|x+2| - \\frac{1}{4}\\ln|x-2| + C',

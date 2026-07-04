@@ -1,4 +1,3 @@
-import { GraphPoint } from './functionQuestions';
 
 export interface AreaQuestion {
     id: string;
@@ -77,7 +76,7 @@ export const areaQuestions: AreaQuestion[] = [
         graphDomain: [-3, 3],
         graphImage: [-1, 5],
         f: (x) => 4 - x * x,
-        g: (x) => 0,
+        g: (_x) => 0,
     },
     {
         id: 'area4',

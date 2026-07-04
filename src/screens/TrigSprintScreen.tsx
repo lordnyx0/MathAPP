@@ -21,7 +21,7 @@ import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';
 import { TrigSprintLevel, getRandomTrigSprintLevel } from '../data/trigSprintQuestions';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
-import { notifySuccess, notifyError, notifyWarning } from '../utils/haptics';
+import { notifySuccess, notifyError } from '../utils/haptics';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 

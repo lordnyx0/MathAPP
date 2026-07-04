@@ -1,7 +1,7 @@
 // EmptyState - Reusable empty state component
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { spacing, fontSize, borderRadius } from '../styles/theme';
+import { Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { spacing, fontSize } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 import { AnimatedButton, FadeInView } from './AnimatedCard';
 

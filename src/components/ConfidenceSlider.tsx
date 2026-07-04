@@ -1,6 +1,6 @@
 // Confidence Slider Component - For metacognition tracking
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme, ThemeColors } from '../contexts/ThemeContext';
 import { ConfidenceLabels } from '../learning/metacognition';

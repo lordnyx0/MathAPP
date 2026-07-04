@@ -302,7 +302,6 @@ export const generateWrongAnswers = (
 
         case 'exp': {
             const coeff = correct.function.replace('e\u1d6a', '');
-            const coeffDisplay = coeff === '1' || coeff === '' ? '' : coeff;
             const termForXe = coeff === '1' || coeff === '' ? '' : coeff;
             addDistractor(`${termForXe}xe\u1d6a + C`);
             addDistractor(withConstant(flipLeadingSign(correctIntegral)));

@@ -7,7 +7,6 @@ import {
     StyleSheet,
     SafeAreaView,
     Animated,
-    Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';

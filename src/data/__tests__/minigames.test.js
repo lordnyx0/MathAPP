@@ -4,6 +4,7 @@ import { trigSprintQuestions, getRandomTrigSprintLevel } from '../trigSprintQues
 import { tvmQuestions, getRandomTVMLevel } from '../tvmQuestions';
 import { recurrenceQuestions, getRandomRecurrenceProof } from '../recurrenceQuestions';
 import { areaQuestions, getRandomAreaQuestion } from '../areaQuestions';
+import { partialFractionsQuestions, getRandomPartialFractionsQuestion } from '../partialFractionsQuestions';
 
 describe('Minigames Data Validation', () => {
 
@@ -37,6 +38,12 @@ describe('Minigames Data Validation', () => {
         }
       });
     });
+
+    it('should fetch a random substitution question', () => {
+      const q = getRandomSubstitutionQuestion();
+      expect(q).toBeDefined();
+      expect(q.id).toBeDefined();
+    });
   });
 
   describe('Trig Sprint Dataset', () => {
@@ -45,6 +52,12 @@ describe('Minigames Data Validation', () => {
         const correctCard = q.options.find(c => c.id === q.correctCardId);
         expect(correctCard).toBeDefined();
       });
+    });
+
+    it('should fetch a random trig sprint level', () => {
+      const level = getRandomTrigSprintLevel();
+      expect(level).toBeDefined();
+      expect(level.id).toBeDefined();
     });
   });
 
@@ -69,6 +82,12 @@ describe('Minigames Data Validation', () => {
             expect(q.expectedC).toBeLessThanOrEqual(q.b);
         });
     });
+
+    it('should fetch a random tvm level', () => {
+      const level = getRandomTVMLevel();
+      expect(level).toBeDefined();
+      expect(level.id).toBeDefined();
+    });
   });
 
   describe('Recurrence Formula Dataset', () => {
@@ -83,6 +102,12 @@ describe('Minigames Data Validation', () => {
         });
       });
     });
+
+    it('should fetch a random recurrence proof', () => {
+      const proof = getRandomRecurrenceProof();
+      expect(proof).toBeDefined();
+      expect(proof.id).toBeDefined();
+    });
   });
 
   describe('Area Lab Dataset', () => {
@@ -96,6 +121,23 @@ describe('Minigames Data Validation', () => {
 
     it('should fetch a random area question', () => {
       const q = getRandomAreaQuestion();
+      expect(q).toBeDefined();
+      expect(q.id).toBeDefined();
+    });
+  });
+
+  describe('Partial Fractions Dataset', () => {
+    it('should have options containing the correct answer', () => {
+      partialFractionsQuestions.forEach(q => {
+        expect(q.templateOptions).toContain(q.correctTemplate);
+        expect(q.coeffOptionsA).toContain(q.correctCoeffs.A);
+        expect(q.coeffOptionsB).toContain(q.correctCoeffs.B);
+        expect(q.integralOptions).toContain(q.correctIntegral);
+      });
+    });
+
+    it('should fetch a random partial fractions question', () => {
+      const q = getRandomPartialFractionsQuestion();
       expect(q).toBeDefined();
       expect(q.id).toBeDefined();
     });

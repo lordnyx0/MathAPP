@@ -15,7 +15,6 @@ import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { logError, createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
-import strings from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
@@ -253,6 +252,10 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                             <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
                                 {streak >= 3 ? '🔥' : ''}{streak}
                             </Text>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statLabel}>Questões</Text>
+                            <Text style={styles.statValue}>{questionsAnswered}</Text>
                         </View>
                         <TouchableOpacity style={styles.endButton} onPress={endPractice}>
                             <Text style={styles.endButtonText}>Encerrar</Text>

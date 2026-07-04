@@ -26,7 +26,7 @@ import { showToast } from '../components/Toast';
 import { CardSkeleton } from '../components/Skeleton';
 import MathText from '../components/MathText';
 import BackButton from '../components/BackButton';
-import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
+import { playCorrect, playIncorrect } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import strings from '../i18n/strings';
 

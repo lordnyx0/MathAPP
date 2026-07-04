@@ -7,7 +7,7 @@ import {
     StyleSheet,
     SafeAreaView,
 } from 'react-native';
-import Svg, { Path, Line, Text as SvgText, Circle, G } from 'react-native-svg';
+import Svg, { Path, Line, Text as SvgText, G } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
@@ -25,7 +25,7 @@ import { AreaQuestion, getRandomAreaQuestion } from '../data/areaQuestions';
 type PhaseId = 'bounds' | 'integrand' | 'area' | 'done';
 
 export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
-    const { colors, isDark } = useTheme();
+    const { colors } = useTheme();
     const styles = useMemo(() => createStyles(colors), [colors]);
 
     const [question, setQuestion] = useState<AreaQuestion | null>(null);
