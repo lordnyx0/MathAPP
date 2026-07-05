@@ -157,6 +157,28 @@ import {
 
 ---
 
+## 🏆 utils/highScore.ts
+
+Persistência de recorde compartilhada pelos treinos. Cada treino guarda seu recorde sob a própria chave do AsyncStorage no formato JSON `{ highScore }`.
+
+```typescript
+import { loadHighScore, persistHighScore } from './utils/highScore';
+
+// Carrega o recorde (0 se não houver). Aceita também o formato legado
+// de número cru, preservando recordes antigos.
+const highScore = await loadHighScore(STORAGE_KEY);
+
+// Persiste apenas se `score` superar `currentHighScore`.
+// Retorna o recorde resultante (inalterado se não for recorde).
+const updated = await persistHighScore(STORAGE_KEY, score, highScore);
+if (updated > highScore) {
+    setHighScore(updated);
+    showToast('🏆 Novo recorde!', 'success');
+}
+```
+
+---
+
 ## 🔔 components/Toast.js
 
 ```javascript

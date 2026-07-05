@@ -202,9 +202,39 @@ import { Button, BackButton, CardButton } from '../components/Button';
 
 ---
 
+## 📊 TrainerStatsBar
+
+Cabeçalho de pontuação compartilhado pelos treinos e labs (derivadas, integrais, Symbol Sprint, Function Lab, Quadrantes). Mostra pontos, sequência e questões respondidas, mais um botão "Encerrar" acessível. Constrói os próprios estilos a partir do tema.
+
+```jsx
+import TrainerStatsBar from '../components/TrainerStatsBar';
+
+<TrainerStatsBar
+    score={score}
+    streak={streak}
+    questionsAnswered={questionsAnswered}
+    onEnd={endPractice}
+    labels={{                      // opcional — sobrepõe os rótulos (i18n)
+        points: strings.quadrant.points,
+        streak: strings.quadrant.streak,
+        questions: strings.quadrant.questions,
+        end: strings.quadrant.end,
+    }}
+/>
+```
+
+**Detalhes:**
+- `streak >= 3` destaca a sequência com 🔥 e cor de erro.
+- Rótulos padrão: Pontos / Sequência / Questões / Encerrar.
+- O botão "Encerrar" expõe `accessibilityRole="button"` e `accessibilityLabel`.
+
+---
+
 ## Acessibilidade
 
 Todos os componentes seguem:
 - `accessibilityLabel` em elementos interativos
 - `accessibilityRole="button"` onde apropriado
 - Cores contrastantes para legibilidade
+
+Os botões de resposta/opção dos treinos e labs expõem `accessibilityRole="button"`, um rótulo legível (fórmulas convertidas via `latexToUnicode`) e `accessibilityState` (`selected`/`disabled`) para leitores de tela.

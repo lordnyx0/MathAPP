@@ -40,6 +40,7 @@ src/
 │   ├── QuadrantCircle.tsx   # Círculo trigonométrico
 │   ├── Skeleton.tsx         # Loading skeleton
 │   ├── StepCard.tsx         # Cards de passos
+│   ├── TrainerStatsBar.tsx  # Barra de score dos treinos
 │   └── Toast.tsx            # Notificações
 │
 ├── screens/                 # Telas principais (.tsx)
@@ -75,6 +76,7 @@ src/
 ├── utils/
 │   ├── index.ts             # Utilitários gerais
 │   ├── sounds.ts            # Efeitos sonoros
+│   ├── highScore.ts         # Persistência de recorde dos treinos
 │   └── answerValidator.ts   # Validação de respostas
 │
 ├── i18n/

@@ -237,6 +237,8 @@ export const mainCategories = [
 
 O aplicativo suporta LaTeX avançado nativamente, com uma **abordagem híbrida** de alta performance: usa **MathJax** via SVG integrado para instâncias Nativas (Android/iOS) e injeta **KaTeX** fidedignamente no DOM em instâncias da **Web**, mitigando quaisquer bugs de dimensão e caixas pretas na interface do navegador.
 
+> Na Web, o CSS do KaTeX é empacotado localmente (via `components/katexStyles.web.ts`, que importa `katex/dist/katex.min.css`) em vez de ser buscado de um CDN — funciona offline e fica travado na versão instalada do `katex`. No nativo, `katexStyles.ts` é um no-op.
+
 Para utilizar fórmulas no JSON, você precisa escapar corretamente as barras invertidas (`\`) com uma barra extra, pois o JSON as interpreta como caracteres de escape.
 
 **Exemplo Simples:**
