@@ -13,8 +13,12 @@ export const loadHighScore = async (storageKey: string): Promise<number> => {
     try {
         const saved = await AsyncStorage.getItem(storageKey);
         if (saved) {
-            const stats: TrainerStats = JSON.parse(saved);
-            return stats.highScore || 0;
+            const stats: TrainerStats | number = JSON.parse(saved);
+            // Accept both the current { highScore } shape and the legacy
+            // raw-number format some trainers persisted, so existing records
+            // survive the migration to this util.
+            const value = typeof stats === 'number' ? stats : stats.highScore;
+            return value || 0;
         }
     } catch (error) {
         logError('loadHighScore', error);

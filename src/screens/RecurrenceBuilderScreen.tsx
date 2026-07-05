@@ -298,6 +298,8 @@ export default function RecurrenceBuilderScreen({ onBack }: RecurrenceBuilderScr
                                         activeOpacity={0.7}
                                         style={[styles.pieceContainer]}
                                         onPress={() => handlePieceTap(piece.id)}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: isSelected }}
                                     >
                                         <Animated.View 
                                             style={[

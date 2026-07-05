@@ -14,7 +14,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath } from '../components/MathText';
+import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';
@@ -139,6 +139,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                             key={idx}
                                             activeOpacity={0.7}
                                             onPress={() => setSelectedTemplate(opt)}
+                                            accessibilityRole="button"
+                                            accessibilityLabel={latexToUnicode(opt)}
+                                            accessibilityState={{ selected: isSelected }}
                                             style={[
                                                 styles.optionButton,
                                                 { borderColor: colors.border, backgroundColor: colors.surface },
@@ -184,6 +187,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                     key={idx}
                                                     activeOpacity={0.7}
                                                     onPress={() => setSelectedCoeffA(opt)}
+                                                    accessibilityRole="button"
+                                                    accessibilityLabel={latexToUnicode(opt)}
+                                                    accessibilityState={{ selected: isSelected }}
                                                     style={[
                                                         styles.optionButtonCompact,
                                                         { borderColor: colors.border, backgroundColor: colors.surface },
@@ -213,6 +219,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                                     key={idx}
                                                     activeOpacity={0.7}
                                                     onPress={() => setSelectedCoeffB(opt)}
+                                                    accessibilityRole="button"
+                                                    accessibilityLabel={latexToUnicode(opt)}
+                                                    accessibilityState={{ selected: isSelected }}
                                                     style={[
                                                         styles.optionButtonCompact,
                                                         { borderColor: colors.border, backgroundColor: colors.surface },
@@ -263,6 +272,9 @@ export default function PartialFractionsLabScreen({ onBack }: { onBack?: () => v
                                             key={idx}
                                             activeOpacity={0.7}
                                             onPress={() => setSelectedIntegral(opt)}
+                                            accessibilityRole="button"
+                                            accessibilityLabel={latexToUnicode(opt)}
+                                            accessibilityState={{ selected: isSelected }}
                                             style={[
                                                 styles.optionButton,
                                                 { borderColor: colors.border, backgroundColor: colors.surface },

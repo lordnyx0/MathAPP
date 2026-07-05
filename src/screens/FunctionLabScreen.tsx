@@ -9,16 +9,16 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadHighScore, persistHighScore } from '../utils/highScore';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
-import { logError, createAsyncCleanup } from '../utils';
+import { createAsyncCleanup } from '../utils';
 import { domainsAreEquivalent } from '../utils/domainUtils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
-import MathText from '../components/MathText';
+import MathText, { latexToUnicode } from '../components/MathText';
 import FunctionGraph from '../components/FunctionGraph';
 import DomainBuilder from '../components/DomainBuilder';
 import BackButton from '../components/BackButton';
@@ -78,36 +78,19 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
     useEffect(() => {
         const { isMounted, cleanup } = createAsyncCleanup();
 
-        const loadData = async () => {
-            try {
-                const saved = await AsyncStorage.getItem(FUNCTION_LAB_STATS_KEY);
-                if (isMounted() && saved) {
-                    const stats = JSON.parse(saved);
-                    setHighScore(stats.highScore || 0);
-                }
-            } catch (error) {
-                logError('FunctionLabScreen.loadStats', error);
-            }
-        };
-
-        loadData();
+        loadHighScore(FUNCTION_LAB_STATS_KEY).then(hs => {
+            if (isMounted()) setHighScore(hs);
+        });
         initAudio();
         return cleanup;
     }, []);
 
     // Save high score
     const saveHighScore = async (newScore: number) => {
-        if (newScore > highScore) {
-            setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
-            try {
-                await AsyncStorage.setItem(
-                    FUNCTION_LAB_STATS_KEY,
-                    JSON.stringify({ highScore: newScore })
-                );
-            } catch (error) {
-                logError('FunctionLabScreen.saveHighScore', error);
-            }
+        const updated = await persistHighScore(FUNCTION_LAB_STATS_KEY, newScore, highScore);
+        if (updated > highScore) {
+            setHighScore(updated);
+            showToast('🏆 Novo recorde! ' + updated + ' pontos', 'success');
         }
     };
 
@@ -566,6 +549,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setInjectiveAnswer(true)}
                                         disabled={classifierShowResult}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: injectiveAnswer === true, disabled: classifierShowResult }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -583,6 +568,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setInjectiveAnswer(false)}
                                         disabled={classifierShowResult}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: injectiveAnswer === false, disabled: classifierShowResult }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -610,6 +597,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setSurjectiveAnswer(true)}
                                         disabled={classifierShowResult}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: surjectiveAnswer === true, disabled: classifierShowResult }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -627,6 +616,8 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !classifierShowResult && setSurjectiveAnswer(false)}
                                         disabled={classifierShowResult}
+                                        accessibilityRole="button"
+                                        accessibilityState={{ selected: surjectiveAnswer === false, disabled: classifierShowResult }}
                                     >
                                         <Text style={[
                                             styles.toggleButtonText,
@@ -766,6 +757,9 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                                     style={[styles.optionButton, getOptionStyle(option)]}
                                     onPress={() => checkAnswer(option)}
                                     disabled={showResult}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={latexToUnicode(option)}
+                                    accessibilityState={{ disabled: showResult }}
                                 >
                                     <MathText style={styles.optionText}>{option}</MathText>
                                 </TouchableOpacity>

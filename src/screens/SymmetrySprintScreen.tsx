@@ -324,6 +324,8 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
                                     style={getOptionStyle('zero')} 
                                     onPress={() => handleAnswer('zero')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing', selected: selectedAnswer === 'zero' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('zero') }]}>
                                         Zero (Ímpar)
@@ -334,6 +336,8 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
                                     style={getOptionStyle('double')} 
                                     onPress={() => handleAnswer('double')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing', selected: selectedAnswer === 'double' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('double') }]}>
                                         Dobro (Par)
@@ -344,6 +348,8 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
                                     style={getOptionStyle('neither')} 
                                     onPress={() => handleAnswer('neither')}
                                     disabled={phase !== 'playing'}
+                                    accessibilityRole="button"
+                                    accessibilityState={{ disabled: phase !== 'playing', selected: selectedAnswer === 'neither' }}
                                 >
                                     <Text style={[styles.optionText, { color: getOptionTextColor('neither') }]}>
                                         Nenhum (Sem Simetria)

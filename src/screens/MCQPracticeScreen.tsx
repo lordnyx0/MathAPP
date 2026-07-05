@@ -17,7 +17,7 @@ import ConfidenceSlider from '../components/ConfidenceSlider';
 import { FadeInView } from '../components/AnimatedCard';
 import { playCorrect, playIncorrect } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
-import MathText from '../components/MathText';
+import MathText, { latexToUnicode } from '../components/MathText';
 import BackButton from '../components/BackButton';
 import type { MCQ } from '../types';
 
@@ -281,6 +281,9 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                                         ]}
                                         onPress={() => !showResult && setSelectedOption(option.id)}
                                         disabled={showResult}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`${option.id}. ${latexToUnicode(option.text)}`}
+                                        accessibilityState={{ selected: selectedOption === option.id, disabled: showResult }}
                                     >
                                         <View style={styles.optionHeader}>
                                             <Text style={[

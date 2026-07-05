@@ -14,7 +14,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath } from '../components/MathText';
+import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import StepCard from '../components/StepCard';
 import ScreenHeader from '../components/ScreenHeader';
@@ -137,6 +137,9 @@ export default function SubstitutionScannerScreen({ onBack }: SubstitutionScanne
                 key={`chunk-${idx}`}
                 disabled={disabled}
                 onPress={() => handleChunkTap(chunk.id)}
+                accessibilityRole="button"
+                accessibilityLabel={latexToUnicode(chunk.text)}
+                accessibilityState={{ selected: isSelected, disabled }}
             >
                 <Animated.View
                     style={[

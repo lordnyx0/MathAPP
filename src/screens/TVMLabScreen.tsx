@@ -197,10 +197,10 @@ export default function TVMLabScreen({ onBack }: TVMLabScreenProps) {
                         <MathText style={styles.cValueText}>c = {c.toFixed(2)}</MathText>
                         
                         <View style={styles.sliderMock}>
-                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(-1)} disabled={isSuccess}>
+                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(-1)} disabled={isSuccess} accessibilityRole="button" accessibilityLabel="Mover c para a esquerda" accessibilityState={{ disabled: isSuccess }}>
                                 <Text style={styles.tuneButtonText}>◀ Mover Esquerda</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(1)} disabled={isSuccess}>
+                            <TouchableOpacity style={styles.tuneButton} onPress={() => handleMoveC(1)} disabled={isSuccess} accessibilityRole="button" accessibilityLabel="Mover c para a direita" accessibilityState={{ disabled: isSuccess }}>
                                 <Text style={styles.tuneButtonText}>Mover Direita ▶</Text>
                             </TouchableOpacity>
                         </View>

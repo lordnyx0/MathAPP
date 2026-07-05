@@ -15,7 +15,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath } from '../components/MathText';
+import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import ScreenHeader from '../components/ScreenHeader';
 import ScoreBadge from '../components/ScoreBadge';
@@ -316,6 +316,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedBounds === opt && styles.optionSelected]}
                                         onPress={() => setSelectedBounds(opt)}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={latexToUnicode(opt)}
+                                        accessibilityState={{ selected: selectedBounds === opt }}
                                     >
                                         <MathText style={selectedBounds === opt ? styles.optTextSelected : styles.optText}>{opt}</MathText>
                                     </TouchableOpacity>
@@ -344,6 +347,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedIntegrand === opt && styles.optionSelected]}
                                         onPress={() => setSelectedIntegrand(opt)}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={latexToUnicode(opt)}
+                                        accessibilityState={{ selected: selectedIntegrand === opt }}
                                     >
                                         <MathText style={selectedIntegrand === opt ? styles.optTextSelected : styles.optText}>{`\\int_{${question.a}}^{${question.b}} (${opt}) dx`}</MathText>
                                     </TouchableOpacity>
@@ -372,6 +378,9 @@ export default function AreaLabScreen({ onBack }: { onBack?: () => void }) {
                                         key={i}
                                         style={[styles.optionCard, selectedArea === opt && styles.optionSelected]}
                                         onPress={() => setSelectedArea(opt)}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={latexToUnicode(opt)}
+                                        accessibilityState={{ selected: selectedArea === opt }}
                                     >
                                         <MathText style={selectedArea === opt ? styles.optTextSelected : styles.optText}>{opt}</MathText>
                                     </TouchableOpacity>

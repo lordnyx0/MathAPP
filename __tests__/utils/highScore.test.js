@@ -43,4 +43,9 @@ describe('highScore util', () => {
         await AsyncStorage.setItem('trainer', 'not-json');
         expect(await loadHighScore('trainer')).toBe(0);
     });
+
+    it('reads the legacy raw-number format', async () => {
+        await AsyncStorage.setItem('legacy', '7');
+        expect(await loadHighScore('legacy')).toBe(7);
+    });
 });

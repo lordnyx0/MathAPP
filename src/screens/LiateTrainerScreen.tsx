@@ -14,7 +14,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import BackButton from '../components/BackButton';
-import MathText, { DisplayMath } from '../components/MathText';
+import MathText, { DisplayMath, latexToUnicode } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
 import { LiateQuestion, getRandomLiateQuestion } from '../data/liateQuestions';
 
@@ -187,6 +187,9 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                         key={`pool-${i}`} 
                                         style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'pool' && styles.partPillSelected]}
                                         onPress={() => handlePartTap(p, 'pool')}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={latexToUnicode(p)}
+                                        accessibilityState={{ selected: selectedPart?.id === p && selectedPart?.source === 'pool' }}
                                     >
                                         <MathText style={styles.partPillText}>{p}</MathText>
                                     </TouchableOpacity>
@@ -205,6 +208,9 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                             key={`u-${i}`} 
                                             style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'u' && styles.partPillSelected]}
                                             onPress={() => handlePartTap(p, 'u')}
+                                            accessibilityRole="button"
+                                            accessibilityLabel={latexToUnicode(p)}
+                                            accessibilityState={{ selected: selectedPart?.id === p && selectedPart?.source === 'u' }}
                                         >
                                             <MathText style={styles.partPillText}>{p}</MathText>
                                         </TouchableOpacity>
@@ -221,6 +227,9 @@ export default function LiateTrainerScreen({ onBack }: LiateTrainerScreenProps) 
                                             key={`dv-${i}`} 
                                             style={[styles.partPill, selectedPart?.id === p && selectedPart?.source === 'dv' && styles.partPillSelected]}
                                             onPress={() => handlePartTap(p, 'dv')}
+                                            accessibilityRole="button"
+                                            accessibilityLabel={latexToUnicode(p)}
+                                            accessibilityState={{ selected: selectedPart?.id === p && selectedPart?.source === 'dv' }}
                                         >
                                             <MathText style={styles.partPillText}>{p}</MathText>
                                         </TouchableOpacity>

@@ -201,6 +201,9 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
                             ]}
                             disabled={gameState !== 'falling'}
                             onPress={() => handleCardPlay(card.id)}
+                            accessibilityRole="button"
+                            accessibilityLabel={card.label}
+                            accessibilityState={{ disabled: gameState !== 'falling' }}
                         >
                             <Text style={styles.cardLabel} numberOfLines={2} adjustsFontSizeToFit>{card.label}</Text>
                             <View style={styles.cardMathBox}>

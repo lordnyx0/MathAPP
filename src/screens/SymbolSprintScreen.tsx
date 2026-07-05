@@ -9,11 +9,11 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadHighScore, persistHighScore } from '../utils/highScore';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
-import { logError, createAsyncCleanup } from '../utils';
+import { createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
@@ -62,36 +62,19 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
     useEffect(() => {
         const { isMounted, cleanup } = createAsyncCleanup();
 
-        const loadData = async () => {
-            try {
-                const saved = await AsyncStorage.getItem(SYMBOL_SPRINT_STATS_KEY);
-                if (isMounted() && saved) {
-                    const stats = JSON.parse(saved);
-                    setHighScore(stats.highScore || 0);
-                }
-            } catch (error) {
-                logError('SymbolSprintScreen.loadStats', error);
-            }
-        };
-
-        loadData();
+        loadHighScore(SYMBOL_SPRINT_STATS_KEY).then(hs => {
+            if (isMounted()) setHighScore(hs);
+        });
         initAudio();
         return cleanup;
     }, []);
 
     // Save high score
     const saveHighScore = async (newScore: number) => {
-        if (newScore > highScore) {
-            setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
-            try {
-                await AsyncStorage.setItem(
-                    SYMBOL_SPRINT_STATS_KEY,
-                    JSON.stringify({ highScore: newScore })
-                );
-            } catch (error) {
-                logError('SymbolSprintScreen.saveHighScore', error);
-            }
+        const updated = await persistHighScore(SYMBOL_SPRINT_STATS_KEY, newScore, highScore);
+        if (updated > highScore) {
+            setHighScore(updated);
+            showToast('🏆 Novo recorde! ' + updated + ' pontos', 'success');
         }
     };
 

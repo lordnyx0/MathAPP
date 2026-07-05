@@ -9,7 +9,7 @@ import {
     Animated,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadHighScore, persistHighScore } from '../utils/highScore';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import BackButton from '../components/BackButton';
@@ -18,7 +18,7 @@ import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import QuadrantCircle from '../components/QuadrantCircle';
 import MathText from '../components/MathText';
 import { quadrantInfo, halvesReference, getRandomQuestionNoRepeat, QuadrantQuestion, isIntervalQuestion, isBaseQuestion } from '../data/quadrantQuestions';
-import { logError, createAsyncCleanup } from '../utils';
+import { createAsyncCleanup } from '../utils';
 import { STORAGE_KEYS } from '../constants';
 import { showToast } from '../components/Toast';
 import strings from '../i18n/strings';
@@ -49,32 +49,18 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
     useEffect(() => {
         const { isMounted, cleanup } = createAsyncCleanup();
 
-        const loadData = async () => {
-            try {
-                const saved = await AsyncStorage.getItem(STORAGE_KEYS.QUADRANT_STATS);
-                if (isMounted() && saved) {
-                    setHighScore(parseInt(saved) || 0);
-                }
-            } catch (error) {
-                logError('QuadrantScreen.loadHighScore', error);
-            }
-        };
-
-        loadData();
+        loadHighScore(STORAGE_KEYS.QUADRANT_STATS).then(hs => {
+            if (isMounted()) setHighScore(hs);
+        });
         initAudio(); // Initialize audio system
         return cleanup;
     }, []);
 
     const saveHighScore = async (newScore: number) => {
-        if (newScore > highScore) {
-            setHighScore(newScore);
-            showToast('🏆 Novo recorde! ' + newScore + ' pontos', 'success');
-            try {
-                await AsyncStorage.setItem(STORAGE_KEYS.QUADRANT_STATS, newScore.toString());
-            } catch (error) {
-                logError('QuadrantScreen.saveHighScore', error);
-                showToast(strings.errors.saveFailedMessage, 'error');
-            }
+        const updated = await persistHighScore(STORAGE_KEYS.QUADRANT_STATS, newScore, highScore);
+        if (updated > highScore) {
+            setHighScore(updated);
+            showToast('🏆 Novo recorde! ' + updated + ' pontos', 'success');
         }
     };
 
