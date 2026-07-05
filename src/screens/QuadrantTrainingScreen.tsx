@@ -13,6 +13,7 @@ import { loadHighScore, persistHighScore } from '../utils/highScore';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
 import BackButton from '../components/BackButton';
+import TrainerStatsBar from '../components/TrainerStatsBar';
 import ScreenHeader from '../components/ScreenHeader';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import QuadrantCircle from '../components/QuadrantCircle';
@@ -314,30 +315,18 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
             >
                 <View style={styles.practiceContainer}>
                     {/* Stats Bar */}
-                    <View style={styles.statsBar}>
-                        <View style={styles.statItem}>
-                            <Text style={styles.statLabel}>{strings.quadrant.points}</Text>
-                            <Text style={styles.statValue}>{score}</Text>
-                        </View>
-                        <View style={styles.statItem}>
-                            <Text style={styles.statLabel}>{strings.quadrant.streak}</Text>
-                            <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
-                                {streak >= 3 ? '🔥' : ''}{streak}
-                            </Text>
-                        </View>
-                        <View style={styles.statItem}>
-                            <Text style={styles.statLabel}>{strings.quadrant.questions}</Text>
-                            <Text style={styles.statValue}>{questionsAnswered}</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.endButton}
-                            onPress={endPractice}
-                            accessibilityLabel={strings.quadrant.end}
-                            accessibilityRole="button"
-                        >
-                            <Text style={styles.endButtonText}>{strings.quadrant.end}</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TrainerStatsBar
+                        score={score}
+                        streak={streak}
+                        questionsAnswered={questionsAnswered}
+                        onEnd={endPractice}
+                        labels={{
+                            points: strings.quadrant.points,
+                            streak: strings.quadrant.streak,
+                            questions: strings.quadrant.questions,
+                            end: strings.quadrant.end,
+                        }}
+                    />
 
                     {/* Question */}
                     <View style={styles.questionCard}>
@@ -682,36 +671,6 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         flex: 1,
         padding: spacing.xl,
         marginBottom: TAB_BAR_CLEARANCE, // Clear TabBar
-    },
-    statsBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: spacing.lg,
-    },
-    statItem: {
-        flex: 1,
-    },
-    statLabel: {
-        fontSize: fontSize.xs,
-        color: colors.textTertiary,
-    },
-    statValue: {
-        fontSize: fontSize.xl,
-        fontWeight: '700',
-        color: colors.textPrimary,
-    },
-    streakHot: {
-        color: colors.error,
-    },
-    endButton: {
-        backgroundColor: colors.surfaceAlt,
-        paddingVertical: spacing.sm,
-        paddingHorizontal: spacing.lg,
-        borderRadius: borderRadius.md,
-    },
-    endButtonText: {
-        fontSize: fontSize.sm,
-        color: colors.textSecondary,
     },
     questionCard: {
         backgroundColor: colors.surface,

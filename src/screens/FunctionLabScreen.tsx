@@ -22,6 +22,7 @@ import MathText, { latexToUnicode } from '../components/MathText';
 import FunctionGraph from '../components/FunctionGraph';
 import DomainBuilder from '../components/DomainBuilder';
 import BackButton from '../components/BackButton';
+import TrainerStatsBar from '../components/TrainerStatsBar';
 import {
     MathFunction,
     FunctionQuestion,
@@ -373,25 +374,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.gameContainer}>
                             {/* Stats Bar */}
-                            <View style={styles.statsBar}>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Pontos</Text>
-                                    <Text style={styles.statValue}>{score}</Text>
-                                </View>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Sequência</Text>
-                                    <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
-                                        {streak >= 3 ? '🔥' : ''}{streak}
-                                    </Text>
-                                </View>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Questões</Text>
-                                    <Text style={styles.statValue}>{questionsAnswered}</Text>
-                                </View>
-                                <TouchableOpacity style={styles.endButton} onPress={endGame}>
-                                    <Text style={styles.endButtonText}>Encerrar</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <TrainerStatsBar
+                                score={score}
+                                streak={streak}
+                                questionsAnswered={questionsAnswered}
+                                onEnd={endGame}
+                            />
 
                             {/* Function Card */}
                             <View style={styles.functionCard}>
@@ -484,25 +472,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.gameContainer}>
                             {/* Stats Bar */}
-                            <View style={styles.statsBar}>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Pontos</Text>
-                                    <Text style={styles.statValue}>{score}</Text>
-                                </View>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Sequência</Text>
-                                    <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
-                                        {streak >= 3 ? '🔥' : ''}{streak}
-                                    </Text>
-                                </View>
-                                <View style={styles.statItem}>
-                                    <Text style={styles.statLabel}>Questões</Text>
-                                    <Text style={styles.statValue}>{questionsAnswered}</Text>
-                                </View>
-                                <TouchableOpacity style={styles.endButton} onPress={endGame}>
-                                    <Text style={styles.endButtonText}>Encerrar</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <TrainerStatsBar
+                                score={score}
+                                streak={streak}
+                                questionsAnswered={questionsAnswered}
+                                onEnd={endGame}
+                            />
 
                             {/* Function Card */}
                             <View style={styles.functionCard}>
@@ -695,25 +670,12 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.gameContainer}>
                         {/* Stats Bar */}
-                        <View style={styles.statsBar}>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statLabel}>Pontos</Text>
-                                <Text style={styles.statValue}>{score}</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statLabel}>Sequência</Text>
-                                <Text style={[styles.statValue, streak >= 3 && styles.streakHot]}>
-                                    {streak >= 3 ? '🔥' : ''}{streak}
-                                </Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statLabel}>Questões</Text>
-                                <Text style={styles.statValue}>{questionsAnswered}</Text>
-                            </View>
-                            <TouchableOpacity style={styles.endButton} onPress={endGame}>
-                                <Text style={styles.endButtonText}>Encerrar</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TrainerStatsBar
+                            score={score}
+                            streak={streak}
+                            questionsAnswered={questionsAnswered}
+                            onEnd={endGame}
+                        />
 
                         {/* Function Card */}
                         <View style={styles.functionCard}>
@@ -925,36 +887,6 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
         // Game screen
         gameContainer: {
             padding: spacing.lg,
-        },
-        statsBar: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: spacing.lg,
-        },
-        statItem: {
-            flex: 1,
-        },
-        statLabel: {
-            fontSize: fontSize.xs,
-            color: colors.textTertiary,
-        },
-        statValue: {
-            fontSize: fontSize.xl,
-            fontWeight: '700',
-            color: colors.textPrimary,
-        },
-        streakHot: {
-            color: colors.error,
-        },
-        endButton: {
-            backgroundColor: colors.surfaceAlt,
-            paddingVertical: spacing.sm,
-            paddingHorizontal: spacing.lg,
-            borderRadius: borderRadius.md,
-        },
-        endButtonText: {
-            fontSize: fontSize.sm,
-            color: colors.textSecondary,
         },
         functionCard: {
             backgroundColor: colors.surface,
