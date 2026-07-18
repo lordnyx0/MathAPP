@@ -388,6 +388,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
             marginBottom: spacing.lg,
         },
         optionButton: {
+            minHeight: 48,
             padding: spacing.md,
             borderRadius: borderRadius.md,
             borderWidth: 1.5,

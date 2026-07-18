@@ -938,6 +938,8 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
             gap: spacing.sm,
         },
         optionButton: {
+            minHeight: 48,
+            justifyContent: 'center',
             backgroundColor: colors.surface,
             borderRadius: borderRadius.md,
             padding: spacing.md,

@@ -497,7 +497,7 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
 
     // Options
     optionsContainer: { marginHorizontal: spacing.xl },
-    optionButton: { padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, marginBottom: spacing.md, borderWidth: 2, borderColor: colors.border, ...shadows.sm },
+    optionButton: { minHeight: 48, padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, marginBottom: spacing.md, borderWidth: 2, borderColor: colors.border, ...shadows.sm },
     optionSelected: { borderColor: colors.primary, backgroundColor: colors.primary + '10' },
     optionCorrect: { borderColor: colors.success, backgroundColor: colors.success },
     optionWrong: { borderColor: colors.error, backgroundColor: colors.error },

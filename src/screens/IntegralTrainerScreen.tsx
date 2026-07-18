@@ -24,6 +24,7 @@ import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import { recordTopicAnswer } from '../learning/topicMastery';
+import AnswerOption from '../components/AnswerOption';
 import BackButton from '../components/BackButton';
 import TrainerStatsBar from '../components/TrainerStatsBar';
 import MathText, { latexToUnicode } from '../components/MathText';
@@ -167,20 +168,6 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
     const endPractice = () => {
         saveHighScore(score);
         setMode('menu');
-    };
-
-    // Get option style
-    const getOptionStyle = (option: string) => {
-        if (!showResult) {
-            return { borderColor: colors.border };
-        }
-        if (option === currentQuestion?.integral) {
-            return { borderColor: colors.success, backgroundColor: colors.successLight };
-        }
-        if (option === selectedAnswer && option !== currentQuestion?.integral) {
-            return { borderColor: colors.error, backgroundColor: colors.errorLight };
-        }
-        return { borderColor: colors.border };
     };
 
     // Get difficulty color
@@ -374,19 +361,26 @@ const IntegralTrainerScreen: React.FC<IntegralTrainerScreenProps> = ({ onBack })
                     {/* Answer Options */}
                     <ScrollView style={styles.optionsScroll} showsVerticalScrollIndicator={false}>
                         <View style={styles.optionsContainer}>
-                            {options.map((option, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    style={[styles.optionButton, getOptionStyle(option)]}
-                                    onPress={() => checkAnswer(option)}
-                                    disabled={showResult}
-                                    accessibilityRole="button"
-                                    accessibilityLabel={latexToUnicode(option)}
-                                    accessibilityState={{ disabled: showResult }}
-                                >
-                                    <MathText style={styles.optionText}>{option}</MathText>
-                                </TouchableOpacity>
-                            ))}
+                            {options.map((option, index) => {
+                                const state = !showResult
+                                    ? 'idle'
+                                    : option === currentQuestion?.integral
+                                        ? 'correct'
+                                        : option === selectedAnswer
+                                            ? 'wrong'
+                                            : 'idle';
+                                return (
+                                    <AnswerOption
+                                        key={index}
+                                        state={state}
+                                        onPress={() => checkAnswer(option)}
+                                        disabled={showResult}
+                                        accessibilityLabel={latexToUnicode(option)}
+                                    >
+                                        <MathText style={styles.optionText}>{option}</MathText>
+                                    </AnswerOption>
+                                );
+                            })}
                         </View>
 
                         {/* Result & Explanation */}
@@ -604,14 +598,6 @@ const createStyles = (colors: ThemeColors) =>
         },
         optionsContainer: {
             gap: spacing.sm,
-        },
-        optionButton: {
-            backgroundColor: colors.surface,
-            borderRadius: borderRadius.md,
-            padding: spacing.md,
-            borderWidth: 2,
-            alignItems: 'center',
-            ...shadows.sm,
         },
         optionText: {
             fontSize: fontSize.lg,

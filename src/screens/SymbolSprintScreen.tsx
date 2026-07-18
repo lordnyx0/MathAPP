@@ -264,7 +264,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
                                 disabled={showResult}
                                 accessibilityRole="button"
                                 accessibilityLabel={option.name}
-                                accessibilityState={{ disabled: showResult }}
+                                accessibilityState={{ selected: selectedAnswer === option.id, disabled: showResult }}
                             >
                                 <Text style={styles.optionName}>{option.name}</Text>
                                 {showResult && option.id === currentSymbol.id && (
@@ -470,6 +470,8 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
             gap: spacing.sm,
         },
         optionButton: {
+            minHeight: 48,
+            justifyContent: 'center',
             backgroundColor: colors.surface,
             borderRadius: borderRadius.md,
             padding: spacing.md,
