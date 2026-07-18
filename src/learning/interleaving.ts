@@ -5,6 +5,7 @@
 import { getAllMCQ } from '../data/registry';
 import type { MCQ } from '../types';
 import type { MetacognitionEntry } from './metacognition';
+import type { SRSCard } from './srs';
 
 /**
  * Get all available MCQ questions from registry
@@ -115,6 +116,31 @@ export const createAdaptiveSession = (
 };
 
 /**
+ * Create a spaced-repetition review session from due SRS cards.
+ *
+ * Pass the cards already prioritised by `getDueCards` (most-overdue first); this
+ * maps each card back to its MCQ, drops any whose question no longer exists in
+ * the registry, and keeps at most `count` questions in due-priority order.
+ */
+export const createReviewSession = (
+    dueCards: SRSCard[],
+    count: number = 10
+): MCQ[] => {
+    const byId = new Map(getAllMCQ().map(q => [q.id, q]));
+    const questions: MCQ[] = [];
+
+    for (const card of dueCards) {
+        const question = byId.get(card.questionId);
+        if (question) {
+            questions.push(question);
+            if (questions.length >= count) break;
+        }
+    }
+
+    return questions;
+};
+
+/**
  * Get topic distribution for a session
  */
 export const getSessionDistribution = (questions: MCQ[]): TopicDistribution => {
@@ -133,6 +159,7 @@ export interface InterleavingAPI {
     getAllMCQ: typeof getAllMCQ;
     createInterleavedSession: typeof createInterleavedSession;
     createAdaptiveSession: typeof createAdaptiveSession;
+    createReviewSession: typeof createReviewSession;
     getSessionDistribution: typeof getSessionDistribution;
 }
 
@@ -140,6 +167,7 @@ const interleaving: InterleavingAPI = {
     getAllMCQ,
     createInterleavedSession,
     createAdaptiveSession,
+    createReviewSession,
     getSessionDistribution,
 };
 

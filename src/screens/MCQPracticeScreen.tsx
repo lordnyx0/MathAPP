@@ -22,9 +22,9 @@ import BackButton from '../components/BackButton';
 import type { MCQ } from '../types';
 
 // Learning modules
-import { createInterleavedSession, createAdaptiveSession } from '../learning/interleaving';
+import { createInterleavedSession, createAdaptiveSession, createReviewSession } from '../learning/interleaving';
 import { createEntry, getCalibrationFeedback, loadEntries, saveEntries, MetacognitionEntry, CalibrationType } from '../learning/metacognition';
-import { calculateNextReview, Quality, loadCards, saveCards, getOrCreateCard, getStats, SRSCard, SRSStats } from '../learning/srs';
+import { calculateNextReview, Quality, loadCards, saveCards, getOrCreateCard, getStats, getDueCards, SRSCard, SRSStats } from '../learning/srs';
 
 interface SessionResult {
     question: MCQ;
@@ -59,18 +59,17 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
             const entries = await loadEntries();
             setSrsCards(cards);
             setMetaEntries(entries);
-            setSrsStats(getStats(cards));
         };
         loadData();
     }, []);
 
-    const startSession = useCallback((type = 'interleaved') => {
-        let sessionQuestions;
-        if (type === 'adaptive') {
-            sessionQuestions = createAdaptiveSession(metaEntries, 10);
-        } else {
-            sessionQuestions = createInterleavedSession(10);
-        }
+    // Keep stats (due count, streak, accuracy) in sync with the cards so the
+    // menu reflects reviews completed during the current session.
+    useEffect(() => {
+        setSrsStats(getStats(srsCards));
+    }, [srsCards]);
+
+    const beginSession = useCallback((sessionQuestions: MCQ[]) => {
         setQuestions(sessionQuestions);
         setCurrentIndex(0);
         setSelectedOption(null);
@@ -78,7 +77,22 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
         setShowResult(false);
         setSessionResults([]);
         setMode('practice');
-    }, [metaEntries]);
+    }, []);
+
+    const startSession = useCallback((type = 'interleaved') => {
+        const sessionQuestions = type === 'adaptive'
+            ? createAdaptiveSession(metaEntries, 10)
+            : createInterleavedSession(10);
+        beginSession(sessionQuestions);
+    }, [metaEntries, beginSession]);
+
+    const startReviewSession = useCallback(() => {
+        const dueCards = getDueCards(srsCards);
+        const sessionQuestions = createReviewSession(dueCards, 10);
+        if (sessionQuestions.length > 0) {
+            beginSession(sessionQuestions);
+        }
+    }, [srsCards, beginSession]);
 
     const currentQuestion = questions[currentIndex];
 
@@ -182,11 +196,34 @@ const MCQPracticeScreen: React.FC<MCQPracticeScreenProps> = ({ onBack }) => {
                                         <Text style={styles.statLabel}>Acurácia</Text>
                                     </View>
                                     <View style={styles.statItem}>
-                                        <Text style={styles.statValue}>{srsStats.due}</Text>
-                                        <Text style={styles.statLabel}>Para Revisar</Text>
+                                        <Text style={styles.statValue}>🔥 {srsStats.streak}</Text>
+                                        <Text style={styles.statLabel}>Sequência</Text>
                                     </View>
                                 </View>
                             </View>
+                        )}
+
+                        {srsStats && srsStats.due > 0 && (
+                            <TouchableOpacity
+                                style={styles.reviewCard}
+                                onPress={startReviewSession}
+                                activeOpacity={0.9}
+                                accessibilityRole="button"
+                                accessibilityLabel={`Revisão de hoje: ${srsStats.due} ${srsStats.due === 1 ? 'questão pendente' : 'questões pendentes'}`}
+                            >
+                                <View style={styles.reviewBadge}>
+                                    <Text style={styles.reviewBadgeText}>{srsStats.due}</Text>
+                                </View>
+                                <View style={styles.reviewContent}>
+                                    <Text style={styles.reviewTitle}>Revisão de Hoje</Text>
+                                    <Text style={styles.reviewDesc}>
+                                        {srsStats.due === 1
+                                            ? '1 questão no ponto ideal de revisão'
+                                            : `${srsStats.due} questões no ponto ideal de revisão`}
+                                    </Text>
+                                </View>
+                                <Ionicons name="arrow-forward-circle" size={28} color={colors.textWhite} />
+                            </TouchableOpacity>
                         )}
 
                         <TouchableOpacity
@@ -424,6 +461,14 @@ const createStyles = (colors: import('../contexts/ThemeContext').ThemeColors) =>
     statItem: { alignItems: 'center' },
     statValue: { fontSize: fontSize.xxl, fontWeight: '700', color: colors.primary },
     statLabel: { fontSize: fontSize.sm, color: colors.textSecondary },
+
+    // Review-today Card (spaced repetition due queue)
+    reviewCard: { flexDirection: 'row', alignItems: 'center', marginHorizontal: spacing.xl, marginTop: 0, marginBottom: spacing.md, padding: spacing.lg, backgroundColor: colors.primary, borderRadius: borderRadius.lg, ...shadows.md },
+    reviewBadge: { minWidth: 44, height: 44, paddingHorizontal: spacing.sm, borderRadius: borderRadius.full, backgroundColor: colors.textWhite + '30', alignItems: 'center', justifyContent: 'center', marginRight: spacing.md },
+    reviewBadgeText: { fontSize: fontSize.xl, fontWeight: '700', color: colors.textWhite },
+    reviewContent: { flex: 1 },
+    reviewTitle: { fontSize: fontSize.lg, fontWeight: '700', color: colors.textWhite },
+    reviewDesc: { fontSize: fontSize.sm, color: colors.textWhite, opacity: 0.9, marginTop: 2 },
 
     // Mode Cards
     modeCard: { flexDirection: 'row', alignItems: 'center', margin: spacing.xl, marginTop: 0, marginBottom: spacing.md, padding: spacing.lg, backgroundColor: colors.surface, borderRadius: borderRadius.lg, ...shadows.md, borderLeftWidth: 4 },

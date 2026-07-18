@@ -78,8 +78,14 @@ import {
     getAllMCQ,             // () => mcq[] (from registry)
     createInterleavedSession, // (count, topics?, difficulties?) => mcq[]
     createAdaptiveSession, // (metaEntries, count) => mcq[]
+    createReviewSession,   // (dueCards[], count?) => mcq[]  — spaced-repetition due queue
     getSessionDistribution,// (questions[]) => { topic: count }
 } from './learning/interleaving';
+
+// createReviewSession maps SRS cards that are due back to their MCQ, in
+// due-priority order. Pair it with srs.getDueCards() to power the
+// "Revisão de Hoje" card on the MCQ screen:
+//   const session = createReviewSession(getDueCards(srsCards), 10);
 ```
 
 ---
