@@ -25,6 +25,7 @@ import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import { recordTopicAnswer } from '../learning/topicMastery';
 import AnswerOption from '../components/AnswerOption';
+import { useAdaptiveDifficulty } from '../hooks/useAdaptiveDifficulty';
 import BackButton from '../components/BackButton';
 import TrainerStatsBar from '../components/TrainerStatsBar';
 import MathText, { latexToUnicode } from '../components/MathText';
@@ -68,6 +69,8 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
     const [highScore, setHighScore] = useState(0);
     const [recentQuestions, setRecentQuestions] = useState<DerivativeQuestion[]>([]);
+    // In "misto" mode (no pinned difficulty) the level adapts to the learner.
+    const adaptive = useAdaptiveDifficulty('basico');
 
     // Load high score on mount
     useEffect(() => {
@@ -97,6 +100,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
         setStreak(0);
         setQuestionsAnswered(0);
         setRecentQuestions([]);
+        if (!diff) adaptive.reset('basico');
         nextQuestion(diff, []);
     };
 
@@ -106,12 +110,14 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
         historyOverride?: DerivativeQuestion[]
     ) => {
         const history = historyOverride !== undefined ? historyOverride : recentQuestions;
+        // Misto mode (no pinned difficulty) follows the adaptive level.
+        const effectiveDiff = diff ?? adaptive.difficulty;
         let question: DerivativeQuestion;
         let attempts = 0;
         const historyLimit = 4;
 
         do {
-            question = getRandomQuestion(diff);
+            question = getRandomQuestion(effectiveDiff);
             attempts++;
             const isExactRepeat = history.some(q => q.function === question.function);
             const isConsecutiveRuleRepeat = history.length > 0 && history[history.length - 1].rule === question.rule;
@@ -162,6 +168,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
         }
         setQuestionsAnswered(prev => prev + 1);
         recordTopicAnswer('derivadas', isCorrect, isCorrect ? streak + 1 : 0);
+        if (!difficulty) adaptive.register(isCorrect); // adapt only in misto mode
     };
 
     // End practice
@@ -218,9 +225,9 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
                                 <Text style={styles.modeIcon}>🎯</Text>
                             </View>
                             <View style={styles.modeInfo}>
-                                <Text style={styles.modeName}>Todas as Regras</Text>
+                                <Text style={styles.modeName}>Adaptativo</Text>
                                 <Text style={styles.modeDescription}>
-                                    Mix aleatório de dificuldades
+                                    A dificuldade se ajusta ao seu desempenho
                                 </Text>
                             </View>
                         </TouchableOpacity>
