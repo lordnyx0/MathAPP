@@ -5,10 +5,10 @@ import {
     ScrollView,
     TouchableOpacity,
     StyleSheet,
-    SafeAreaView,
     Animated,
     Easing,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { spacing, borderRadius, fontSize, shadows } from '../styles/theme';
 import { useTheme } from '../contexts/ThemeContext';
