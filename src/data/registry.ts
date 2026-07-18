@@ -22,6 +22,8 @@ import algebraLinearLessonsData from '../content/lessons/algebra-linear.json';
 // MCQ
 import logaritmosMCQData from '../content/mcq/logaritmos.json';
 import quadrantesMCQData from '../content/mcq/quadrantes.json';
+import limitesMCQData from '../content/mcq/limites.json';
+import derivadasMCQData from '../content/mcq/derivadas.json';
 
 // Exercises
 import matElemAP1Data from '../content/exercises/mat-elem-ap1.json';
@@ -62,6 +64,8 @@ const algebraLinearLessons = algebraLinearLessonsData.lessons;
 
 const logaritmosMCQ = logaritmosMCQData.questions;
 const quadrantesMCQ = quadrantesMCQData.questions;
+const limitesMCQ = limitesMCQData.questions;
+const derivadasMCQ = derivadasMCQData.questions;
 
 const matElemAP1Exercises = matElemAP1Data.exercises;
 const matElemAP2Exercises = matElemAP2Data.exercises;
@@ -208,7 +212,7 @@ export const topicRegistry = {
         icon: '🎯',
         color: colors.limites,
         lessons: calculoLimitesLessons,
-        mcq: null,
+        mcq: limitesMCQ,
     }),
     derivadas: createTopic({
         id: 'derivadas',
@@ -217,7 +221,7 @@ export const topicRegistry = {
         icon: '📈',
         color: colors.derivadas,
         lessons: calculoDerivadasLessons,
-        mcq: null,
+        mcq: derivadasMCQ,
     }),
     revisao: createTopic({
         id: 'revisao',

@@ -1,0 +1,119 @@
+{
+    "$schema": "./schemas/mcq-file.schema.json",
+    "topic": "limites",
+    "title": "MCQ - Limites",
+    "questions": [
+        {
+            "id": "mcq-lim-1",
+            "question": "Calcule $\\lim_{x \\to 2} (3x + 1)$",
+            "topic": "limites",
+            "difficulty": "basico",
+            "options": [
+                { "id": "A", "text": "5", "explanation": "Incorreto. Substitua $x = 2$: $3(2) + 1 = 7$, não 5." },
+                { "id": "B", "text": "7", "explanation": "Correto! A função é contínua, então basta substituir: $3(2) + 1 = 7$." },
+                { "id": "C", "text": "6", "explanation": "Incorreto. Você calculou $3 \\cdot 2$ e esqueceu de somar 1." },
+                { "id": "D", "text": "Não existe", "explanation": "Incorreto. Polinômios são contínuos em toda parte; o limite sempre existe." }
+            ],
+            "correctAnswer": "B",
+            "concept": "Limite de função contínua: basta substituir o valor."
+        },
+        {
+            "id": "mcq-lim-2",
+            "question": "Calcule $\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$",
+            "topic": "limites",
+            "difficulty": "intermediario",
+            "options": [
+                { "id": "A", "text": "0", "explanation": "Incorreto. A forma $0/0$ é indeterminada — não vale 0. Fatore antes." },
+                { "id": "B", "text": "6", "explanation": "Correto! $\\frac{(x-3)(x+3)}{x-3} = x+3 \\to 3+3 = 6$." },
+                { "id": "C", "text": "3", "explanation": "Incorreto. Após simplificar sobra $x+3$, avaliado em 3 dá 6, não 3." },
+                { "id": "D", "text": "Não existe", "explanation": "Incorreto. A descontinuidade é removível; o limite existe e vale 6." }
+            ],
+            "correctAnswer": "B",
+            "concept": "Indeterminação 0/0: fatore e cancele o fator comum."
+        },
+        {
+            "id": "mcq-lim-3",
+            "question": "Calcule $\\lim_{x \\to \\infty} \\dfrac{2x^2 + 1}{x^2 + 5}$",
+            "topic": "limites",
+            "difficulty": "intermediario",
+            "options": [
+                { "id": "A", "text": "2", "explanation": "Correto! Mesmo grau no numerador e denominador: o limite é a razão dos coeficientes líderes, $2/1 = 2$." },
+                { "id": "B", "text": "0", "explanation": "Incorreto. O numerador teria de ter grau menor que o denominador para o limite ser 0." },
+                { "id": "C", "text": "$\\infty$", "explanation": "Incorreto. O numerador precisaria ter grau maior. Aqui os graus são iguais." },
+                { "id": "D", "text": "1", "explanation": "Incorreto. A razão é dos coeficientes líderes ($2$ e $1$), não $1$." }
+            ],
+            "correctAnswer": "A",
+            "concept": "Limite no infinito de racional: compare os graus; graus iguais → razão dos líderes."
+        },
+        {
+            "id": "mcq-lim-4",
+            "question": "Calcule $\\lim_{x \\to 0} \\dfrac{\\sin x}{x}$",
+            "topic": "limites",
+            "difficulty": "intermediario",
+            "options": [
+                { "id": "A", "text": "0", "explanation": "Incorreto. Apesar de $\\sin 0 = 0$, a forma é $0/0$; o limite fundamental vale 1." },
+                { "id": "B", "text": "1", "explanation": "Correto! É o limite trigonométrico fundamental: $\\lim_{x\\to 0}\\frac{\\sin x}{x} = 1$." },
+                { "id": "C", "text": "$\\infty$", "explanation": "Incorreto. A razão se aproxima de 1, não cresce sem limite." },
+                { "id": "D", "text": "Não existe", "explanation": "Incorreto. Este é um dos limites mais importantes do cálculo e vale 1." }
+            ],
+            "correctAnswer": "B",
+            "concept": "Limite trigonométrico fundamental: sin(x)/x → 1 quando x → 0."
+        },
+        {
+            "id": "mcq-lim-5",
+            "question": "Sobre $\\lim_{x \\to 0} \\dfrac{1}{x}$, é correto afirmar:",
+            "topic": "limites",
+            "difficulty": "avancado",
+            "options": [
+                { "id": "A", "text": "Vale 0", "explanation": "Incorreto. Perto de 0 a função cresce em módulo sem limite, não tende a 0." },
+                { "id": "B", "text": "Vale $\\infty$", "explanation": "Incorreto. Pela direita tende a $+\\infty$, mas pela esquerda a $-\\infty$." },
+                { "id": "C", "text": "Não existe (limites laterais diferentes)", "explanation": "Correto! $\\lim_{x\\to 0^+} = +\\infty$ e $\\lim_{x\\to 0^-} = -\\infty$, então o limite bilateral não existe." },
+                { "id": "D", "text": "Vale 1", "explanation": "Incorreto. Não há valor finito; os limites laterais divergem em sinais opostos." }
+            ],
+            "correctAnswer": "C",
+            "concept": "Limite existe apenas se os limites laterais coincidem."
+        },
+        {
+            "id": "mcq-lim-6",
+            "question": "Calcule $\\lim_{x \\to 4} \\dfrac{\\sqrt{x} - 2}{x - 4}$",
+            "topic": "limites",
+            "difficulty": "avancado",
+            "options": [
+                { "id": "A", "text": "$\\dfrac{1}{4}$", "explanation": "Correto! Racionalize: $\\frac{\\sqrt{x}-2}{(\\sqrt{x}-2)(\\sqrt{x}+2)} = \\frac{1}{\\sqrt{x}+2} \\to \\frac{1}{4}$." },
+                { "id": "B", "text": "0", "explanation": "Incorreto. A forma é $0/0$; racionalizando obtém-se $1/4$." },
+                { "id": "C", "text": "$\\dfrac{1}{2}$", "explanation": "Incorreto. O denominador após racionalizar é $\\sqrt{x}+2 = 4$, então $1/4$." },
+                { "id": "D", "text": "Não existe", "explanation": "Incorreto. Após racionalizar o limite existe e vale $1/4$." }
+            ],
+            "correctAnswer": "A",
+            "concept": "Indeterminação com raiz: multiplique pelo conjugado."
+        },
+        {
+            "id": "mcq-lim-7",
+            "question": "Para a função $f(x) = \\dfrac{x^2 - 1}{x - 1}$, o valor de $\\lim_{x \\to 1} f(x)$ é:",
+            "topic": "limites",
+            "difficulty": "basico",
+            "options": [
+                { "id": "A", "text": "2", "explanation": "Correto! $\\frac{(x-1)(x+1)}{x-1} = x+1 \\to 2$. O limite não depende de $f(1)$ estar definido." },
+                { "id": "B", "text": "1", "explanation": "Incorreto. Após simplificar sobra $x+1 \\to 2$, não 1." },
+                { "id": "C", "text": "0", "explanation": "Incorreto. A indeterminação $0/0$ some ao fatorar; o resultado é 2." },
+                { "id": "D", "text": "Indefinido", "explanation": "Incorreto. Embora $f(1)$ não exista, o LIMITE existe e vale 2." }
+            ],
+            "correctAnswer": "A",
+            "concept": "O limite descreve o comportamento perto do ponto, não o valor no ponto."
+        },
+        {
+            "id": "mcq-lim-8",
+            "question": "Calcule $\\lim_{x \\to \\infty} \\dfrac{5x + 3}{x^2 + 1}$",
+            "topic": "limites",
+            "difficulty": "intermediario",
+            "options": [
+                { "id": "A", "text": "5", "explanation": "Incorreto. Isso valeria se os graus fossem iguais; aqui o denominador tem grau maior." },
+                { "id": "B", "text": "0", "explanation": "Correto! Grau do numerador (1) menor que o do denominador (2), então o limite é 0." },
+                { "id": "C", "text": "$\\infty$", "explanation": "Incorreto. O denominador cresce mais rápido, então a fração tende a 0." },
+                { "id": "D", "text": "3", "explanation": "Incorreto. Constantes não determinam o limite no infinito; comparam-se os graus." }
+            ],
+            "correctAnswer": "B",
+            "concept": "Grau do numerador menor que o do denominador → limite no infinito é 0."
+        }
+    ]
+}
