@@ -18,6 +18,7 @@ import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import { recordTopicAnswer } from '../learning/topicMastery';
+import { celebrateStreak } from '../utils/celebrate';
 import BackButton from '../components/BackButton';
 import TrainerStatsBar from '../components/TrainerStatsBar';
 import {
@@ -116,6 +117,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
             playCorrect(); notifySuccess();
+            celebrateStreak(streak + 1);
         } else {
             setStreak(0);
             playIncorrect(); notifyError();

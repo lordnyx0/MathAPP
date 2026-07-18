@@ -19,6 +19,7 @@ import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import { recordTopicAnswer } from '../learning/topicMastery';
+import { celebrateStreak } from '../utils/celebrate';
 import MathText, { latexToUnicode } from '../components/MathText';
 import FunctionGraph from '../components/FunctionGraph';
 import DomainBuilder from '../components/DomainBuilder';
@@ -140,6 +141,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
             playCorrect(); notifySuccess();
+            celebrateStreak(streak + 1);
         } else {
             setStreak(0);
             playIncorrect(); notifyError();
@@ -170,6 +172,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
             playCorrect(); notifySuccess();
+            celebrateStreak(streak + 1);
         } else {
             setStreak(0);
             playIncorrect(); notifyError();
@@ -215,6 +218,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
             setScore(prev => prev + points);
             setStreak(prev => prev + 1);
             playCorrect(); notifySuccess();
+            celebrateStreak(streak + 1);
         } else {
             setStreak(0);
             playIncorrect(); notifyError();

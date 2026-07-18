@@ -26,6 +26,7 @@ import strings from '../i18n/strings';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
 import { recordTopicAnswer } from '../learning/topicMastery';
+import { celebrateStreak } from '../utils/celebrate';
 
 interface QuadrantTrainingScreenProps {
     onBack?: () => void;
@@ -96,6 +97,7 @@ const QuadrantTrainingScreen: React.FC<QuadrantTrainingScreenProps> = ({ onBack 
             setStreak(prev => prev + 1);
             playCorrect();
             notifySuccess();
+            celebrateStreak(streak + 1);
         } else {
             setStreak(0);
             playIncorrect();
