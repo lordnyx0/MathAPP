@@ -9,6 +9,7 @@ import ExercisesScreen from '../screens/ExercisesScreen';
 import LearningScreen from '../screens/LearningScreen';
 import TrainingNavigator from './TrainingNavigator';
 import MCQPracticeScreen from '../screens/MCQPracticeScreen';
+import ProgressScreen from '../screens/ProgressScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 type TabParamList = {
@@ -16,6 +17,7 @@ type TabParamList = {
     Aprender: undefined;
     MCQ: undefined;
     Treino: undefined;
+    Progresso: undefined;
     Config: undefined;
 };
 
@@ -84,6 +86,14 @@ const TabIcon: React.FC<TabIconProps> = ({ label, focused, colors }) => {
                 return (
                     <Ionicons
                         name={focused ? 'game-controller' : 'game-controller-outline'}
+                        size={iconSize}
+                        color={iconColor}
+                    />
+                );
+            case 'Progresso':
+                return (
+                    <Ionicons
+                        name={focused ? 'stats-chart' : 'stats-chart-outline'}
                         size={iconSize}
                         color={iconColor}
                     />
@@ -197,6 +207,14 @@ const TabNavigator: React.FC = () => {
                 options={{
                     tabBarIcon: ({ focused }) => <TabIcon label="Treino" focused={focused} colors={colors} />,
                     tabBarAccessibilityLabel: 'Aba de Treino. Minigames para praticar conceitos matemáticos.',
+                }}
+            />
+            <Tab.Screen
+                name="Progresso"
+                component={ProgressScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => <TabIcon label="Progresso" focused={focused} colors={colors} />,
+                    tabBarAccessibilityLabel: 'Aba de Progresso. Veja seu domínio por tópico, revisões e calibração.',
                 }}
             />
             <Tab.Screen
