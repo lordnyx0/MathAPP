@@ -20,12 +20,14 @@ import { showToast } from '../components/Toast';
 import ScreenHeader from '../components/ScreenHeader';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { isHapticsEnabled, setHapticsEnabled } from '../utils/haptics';
+import { isSoundEnabled, setSoundEnabled } from '../utils/sounds';
 import strings from '../i18n/strings';
 
 const SettingsScreen = () => {
     const { theme, colors, setTheme } = useTheme();
     const [isResetting, setIsResetting] = useState(false);
     const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled());
+    const [soundOn, setSoundOn] = useState(isSoundEnabled());
 
     // Theme options for picker
     const themeOptions: Array<{ id: ThemeType; label: string; icon: ComponentProps<typeof Ionicons>['name']; swatch: string }> = [
@@ -248,6 +250,26 @@ const SettingsScreen = () => {
                         <View style={[styles.settingRow, dynamicStyles.border]}>
                             <View style={styles.settingInfo}>
                                 <Text style={[styles.settingLabel, dynamicStyles.text]}>
+                                    Efeitos sonoros
+                                </Text>
+                                <Text style={[styles.settingDescription, dynamicStyles.textSecondary]}>
+                                    Tocar sons ao acertar/errar questões
+                                </Text>
+                            </View>
+                            <Switch
+                                value={soundOn}
+                                onValueChange={(val) => {
+                                    setSoundOn(val);
+                                    setSoundEnabled(val);
+                                }}
+                                trackColor={{ false: colors.border, true: colors.primaryLight }}
+                                thumbColor={soundOn ? colors.primary : colors.surfaceAlt}
+                            />
+                        </View>
+
+                        <View style={[styles.settingRow, dynamicStyles.border]}>
+                            <View style={styles.settingInfo}>
+                                <Text style={[styles.settingLabel, dynamicStyles.text]}>
                                     Vibração hapática
                                 </Text>
                                 <Text style={[styles.settingDescription, dynamicStyles.textSecondary]}>
@@ -330,7 +352,7 @@ const SettingsScreen = () => {
                                 <Text style={[styles.resetLabel, { color: colors.error }]}>
                                     {strings.settings.resetAll}
                                 </Text>
-                                <Text style={[styles.resetDescription, { color: '#F87171' }]}>
+                                <Text style={[styles.resetDescription, { color: colors.error }]}>
                                     Todos os dados
                                 </Text>
                             </View>

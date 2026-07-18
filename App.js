@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,6 +15,8 @@ import TabNavigator from './src/navigation/TabNavigator';
 import { ToastProvider } from './src/components/Toast';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+import { initAudio, loadSoundPreference } from './src/utils/sounds';
+import { loadHapticsPreference } from './src/utils/haptics';
 
 // Inner component to access theme context
 const AppContent = () => {
@@ -49,6 +51,13 @@ export default function App() {
     Inter_600SemiBold,
     Inter_700Bold,
   });
+
+  // Load persisted UX preferences and initialise audio once on boot
+  useEffect(() => {
+    loadSoundPreference();
+    loadHapticsPreference();
+    initAudio();
+  }, []);
 
   // Show minimal loading state while fonts load
   if (!fontsLoaded) {

@@ -120,14 +120,22 @@ spacing.xxl   // 32
 
 ### Typography
 ```javascript
-import { typography } from './styles/theme';
+import { typography, fontFamily } from './styles/theme';
 
-typography.h1     // { fontSize: 32, fontWeight: '700', color }
-typography.h2     // { fontSize: 24, fontWeight: '700', color }
-typography.h3     // { fontSize: 20, fontWeight: '600', color }
-typography.body   // { fontSize: 15, fontWeight: '400', color }
-typography.caption// { fontSize: 13, color }
-typography.small  // { fontSize: 11, color }
+// Each preset now carries a `fontFamily` (Inter) so text renders in the
+// bundled Inter weights instead of the platform default font.
+typography.h1     // { fontSize: 32, fontWeight: '700', fontFamily: 'Inter_700Bold', color }
+typography.h2     // { fontSize: 24, fontWeight: '700', fontFamily: 'Inter_700Bold', color }
+typography.h3     // { fontSize: 20, fontWeight: '600', fontFamily: 'Inter_600SemiBold', color }
+typography.body   // { fontSize: 15, fontWeight: '400', fontFamily: 'Inter_400Regular', color }
+typography.caption// { fontSize: 13, fontFamily: 'Inter_400Regular', color }
+typography.small  // { fontSize: 11, fontFamily: 'Inter_500Medium', color }
+
+// Raw family names for custom styles
+fontFamily.regular // 'Inter_400Regular'
+fontFamily.medium  // 'Inter_500Medium'
+fontFamily.semibold// 'Inter_600SemiBold'
+fontFamily.bold    // 'Inter_700Bold'
 ```
 
 ### Animation
@@ -145,15 +153,40 @@ animation.slow    // 500ms
 
 ```javascript
 import {
-    playCorrect,      // async () => void
-    playIncorrect,    // async () => void
-    playClick,        // async () => void
-    setSoundEnabled,  // (boolean) => void
-    isSoundEnabled,   // () => boolean
-    initAudio,        // async () => void
-    unloadSounds,     // async () => void
+    playCorrect,          // async () => void
+    playIncorrect,        // async () => void
+    playClick,            // async () => void
+    setSoundEnabled,      // (boolean) => void  — persists to AsyncStorage
+    isSoundEnabled,       // () => boolean
+    loadSoundPreference,  // async () => void   — call once on boot
+    initAudio,            // async () => void
+    unloadSounds,         // async () => void
 } from './utils/sounds';
 ```
+
+The sound preference is persisted under `STORAGE_KEYS.SOUND_ENABLED`. Call
+`loadSoundPreference()` on app boot (done in `App.js`) so the toggle survives
+restarts; `setSoundEnabled` writes the change through automatically.
+
+---
+
+## 📳 utils/haptics.js
+
+```javascript
+import {
+    tapLight, tapMedium, tapHeavy,          // async () => void
+    notifySuccess, notifyError, notifyWarning, // async () => void
+    selectionTick,                          // async () => void
+    setHapticsEnabled,                      // (boolean) => void — persists to AsyncStorage
+    isHapticsEnabled,                       // () => boolean
+    loadHapticsPreference,                  // async () => void  — call once on boot
+} from './utils/haptics';
+```
+
+The haptics preference is persisted under `STORAGE_KEYS.HAPTICS_ENABLED`. Call
+`loadHapticsPreference()` on app boot (done in `App.js`); `setHapticsEnabled`
+writes the change through automatically. Both sound and haptics have toggles in
+the Settings screen.
 
 ---
 
@@ -199,6 +232,13 @@ showToast('Error!', 'error');
 ```javascript
 import { STORAGE_KEYS } from './constants';
 
-STORAGE_KEYS.COMPLETED_LESSONS  // '@math_app_completed_lessons'
-STORAGE_KEYS.HIGH_SCORES        // '@math_app_high_scores'
+STORAGE_KEYS.LEARNING_PROGRESS  // 'learning_progress'
+STORAGE_KEYS.EXERCISE_PROGRESS  // 'exercise_progress'
+STORAGE_KEYS.QUADRANT_STATS     // 'quadrant_stats'
+STORAGE_KEYS.SRS_CARDS          // '@math_app_srs_cards'
+STORAGE_KEYS.METACOGNITION      // '@math_app_metacognition'
+STORAGE_KEYS.USER_THEME         // '@math_app_user_theme'
+STORAGE_KEYS.SOUND_ENABLED      // '@math_app_sound_enabled'
+STORAGE_KEYS.HAPTICS_ENABLED    // '@math_app_haptics_enabled'
+STORAGE_KEYS.DATA_VERSION       // '@math_app_data_version'
 ```

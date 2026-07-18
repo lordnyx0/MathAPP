@@ -66,6 +66,8 @@ export const STORAGE_KEYS = Object.freeze({
     SRS_CARDS: '@math_app_srs_cards',
     METACOGNITION: '@math_app_metacognition',
     USER_THEME: '@math_app_user_theme',
+    SOUND_ENABLED: '@math_app_sound_enabled',
+    HAPTICS_ENABLED: '@math_app_haptics_enabled',
     DATA_VERSION: '@math_app_data_version',  // For migrations
 } as const);
 

@@ -4,19 +4,37 @@
  */
 import * as Haptics from 'expo-haptics';
 import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '../constants';
 
 // Haptics are only available on iOS and Android
 const isSupported = Platform.OS === 'ios' || Platform.OS === 'android';
 
 let hapticsEnabled = true;
 
-/** Enable or disable haptic feedback globally */
+/** Enable or disable haptic feedback globally (persisted across launches) */
 export const setHapticsEnabled = (enabled: boolean): void => {
     hapticsEnabled = enabled;
+    // Persist; fire-and-forget since this is a UX preference, not critical state
+    AsyncStorage.setItem(STORAGE_KEYS.HAPTICS_ENABLED, JSON.stringify(enabled)).catch(() => {
+        // Silent fail — preference will simply revert to default next launch
+    });
 };
 
 /** Check if haptics are currently enabled */
 export const isHapticsEnabled = (): boolean => hapticsEnabled;
+
+/** Load the persisted haptics preference. Call once on app boot. */
+export const loadHapticsPreference = async (): Promise<void> => {
+    try {
+        const stored = await AsyncStorage.getItem(STORAGE_KEYS.HAPTICS_ENABLED);
+        if (stored !== null) {
+            hapticsEnabled = JSON.parse(stored);
+        }
+    } catch {
+        // Keep default (enabled) on failure
+    }
+};
 
 // ============================================================
 // FEEDBACK FUNCTIONS
@@ -102,4 +120,5 @@ export default {
     selectionTick,
     setHapticsEnabled,
     isHapticsEnabled,
+    loadHapticsPreference,
 };

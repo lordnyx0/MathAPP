@@ -2,6 +2,8 @@
 // Uses expo-audio for native mobile support with local assets
 
 import { createAudioPlayer, setAudioModeAsync, AudioPlayer } from 'expo-audio';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '../constants';
 
 type SoundKey = 'correct' | 'incorrect' | 'click';
 
@@ -19,16 +21,34 @@ let soundEnabled = true;
 const playerCache: Map<SoundKey, AudioPlayer> = new Map();
 
 /**
- * Enable or disable all sounds
+ * Enable or disable all sounds (persisted across launches)
  */
 export const setSoundEnabled = (enabled: boolean): void => {
     soundEnabled = enabled;
+    // Persist; fire-and-forget since this is a UX preference, not critical state
+    AsyncStorage.setItem(STORAGE_KEYS.SOUND_ENABLED, JSON.stringify(enabled)).catch(() => {
+        // Silent fail — preference will simply revert to default next launch
+    });
 };
 
 /**
  * Check if sounds are enabled
  */
 export const isSoundEnabled = (): boolean => soundEnabled;
+
+/**
+ * Load the persisted sound preference. Call once on app boot.
+ */
+export const loadSoundPreference = async (): Promise<void> => {
+    try {
+        const stored = await AsyncStorage.getItem(STORAGE_KEYS.SOUND_ENABLED);
+        if (stored !== null) {
+            soundEnabled = JSON.parse(stored);
+        }
+    } catch {
+        // Keep default (enabled) on failure
+    }
+};
 
 /**
  * Initialize audio settings
@@ -109,6 +129,7 @@ export interface SoundsAPI {
     playClick: typeof playClick;
     setSoundEnabled: typeof setSoundEnabled;
     isSoundEnabled: typeof isSoundEnabled;
+    loadSoundPreference: typeof loadSoundPreference;
     initAudio: typeof initAudio;
     unloadSounds: typeof unloadSounds;
 }
@@ -119,6 +140,7 @@ const sounds: SoundsAPI = {
     playClick,
     setSoundEnabled,
     isSoundEnabled,
+    loadSoundPreference,
     initAudio,
     unloadSounds,
 };

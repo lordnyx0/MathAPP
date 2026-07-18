@@ -226,6 +226,7 @@ export const fontWeight: FontWeight = {
 export interface TypographyStyle {
     fontSize: number;
     fontWeight: string;
+    fontFamily: string;
     color: string;
 }
 
@@ -239,40 +240,56 @@ export interface Typography {
     small: TypographyStyle;
 }
 
+// Inter font family names (mirrors `fontFamily` below; kept as literals so the
+// typography presets can reference them before that const is declared).
+const INTER = {
+    regular: 'Inter_400Regular',
+    medium: 'Inter_500Medium',
+    semibold: 'Inter_600SemiBold',
+    bold: 'Inter_700Bold',
+} as const;
+
 export const typography: Typography = {
     h1: {
         fontSize: fontSize.xxxl,
         fontWeight: fontWeight.bold,
+        fontFamily: INTER.bold,
         color: colors.textPrimary,
     },
     h2: {
         fontSize: fontSize.xxl,
         fontWeight: fontWeight.bold,
+        fontFamily: INTER.bold,
         color: colors.textPrimary,
     },
     h3: {
         fontSize: fontSize.xl,
         fontWeight: fontWeight.semibold,
+        fontFamily: INTER.semibold,
         color: colors.textPrimary,
     },
     body: {
         fontSize: fontSize.md,
         fontWeight: fontWeight.normal,
+        fontFamily: INTER.regular,
         color: colors.textPrimary,
     },
     bodyBold: {
         fontSize: fontSize.md,
         fontWeight: fontWeight.semibold,
+        fontFamily: INTER.semibold,
         color: colors.textPrimary,
     },
     caption: {
         fontSize: fontSize.sm,
         fontWeight: fontWeight.normal,
+        fontFamily: INTER.regular,
         color: colors.textSecondary,
     },
     small: {
         fontSize: fontSize.xs,
         fontWeight: fontWeight.medium,
+        fontFamily: INTER.medium,
         color: colors.textTertiary,
     },
 };
@@ -384,10 +401,7 @@ export const zIndex = {
 // ============================================================
 
 export const fontFamily = {
-    regular: 'Inter_400Regular',
-    medium: 'Inter_500Medium',
-    semibold: 'Inter_600SemiBold',
-    bold: 'Inter_700Bold',
+    ...INTER,
     /** Fallback to system fonts when custom fonts haven't loaded */
     system: undefined as string | undefined,
 } as const;

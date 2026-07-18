@@ -132,7 +132,7 @@ const themeColors: Record<string, ThemeColors> = {
         borderDark: '#CBD5E1',
         textPrimary: '#1E293B',
         textSecondary: '#64748B',
-        textTertiary: '#94A3B8',
+        textTertiary: '#6B7280', // WCAG AA on white surfaces (≥4.5:1)
         textWhite: '#FFFFFF',
         gradientPrimary: ['#6366F1', '#8B5CF6'] as const,
         gradientBackground: ['#F8FAFC', '#EEF2FF', '#F5F3FF'] as const,
