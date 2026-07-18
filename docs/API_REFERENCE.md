@@ -72,6 +72,30 @@ import {
 } from './learning/metacognition';
 ```
 
+### Topic Mastery (trainer aggregation)
+```javascript
+import {
+    recordTopicAnswer,     // async (topic, isCorrect, streak?) => void  — call from trainers
+    loadMastery,           // async () => MasteryMap
+    getMasteryLevels,      // (map) => MasteryLevel[]  (sorted by volume)
+    applyAnswer,           // (map, topic, isCorrect, streak?) => MasteryMap  (pure)
+    toMasteryLevel,        // (TopicMastery) => { accuracy, level, ... }
+} from './learning/topicMastery';
+```
+Trainers with a single correct/incorrect per question call `recordTopicAnswer`;
+the Progresso dashboard reads it. Levels: novato → aprendiz → competente → mestre.
+
+### Adaptive Difficulty (hook)
+```javascript
+import { useAdaptiveDifficulty, advance } from './hooks/useAdaptiveDifficulty';
+
+const adaptive = useAdaptiveDifficulty('basico');
+adaptive.difficulty;          // current level
+adaptive.register(isCorrect); // 3 correct → up, 2 wrong → down; returns new level
+adaptive.reset('basico');     // e.g. on new session
+// `advance(state, isCorrect)` is the pure transition (unit-tested).
+```
+
 ### Interleaving
 ```javascript
 import {
@@ -246,5 +270,7 @@ STORAGE_KEYS.METACOGNITION      // '@math_app_metacognition'
 STORAGE_KEYS.USER_THEME         // '@math_app_user_theme'
 STORAGE_KEYS.SOUND_ENABLED      // '@math_app_sound_enabled'
 STORAGE_KEYS.HAPTICS_ENABLED    // '@math_app_haptics_enabled'
+STORAGE_KEYS.TOPIC_MASTERY      // '@math_app_topic_mastery'
+STORAGE_KEYS.ONBOARDING_DONE    // '@math_app_onboarding_done'
 STORAGE_KEYS.DATA_VERSION       // '@math_app_data_version'
 ```

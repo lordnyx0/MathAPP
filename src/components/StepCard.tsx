@@ -46,6 +46,11 @@ const StepCard: React.FC<StepCardProps> = ({ step, index, isRevealed, onToggle, 
                         <MathText style={styles.stepExplanation} numberOfLines={isRevealed ? undefined : 2}>
                             {step.explanation}
                         </MathText>
+                        {!isRevealed && (
+                            <Text style={[styles.recallPrompt, { color: accentColor }]}>
+                                🤔 Tente prever este passo antes de revelar
+                            </Text>
+                        )}
                     </View>
                 </View>
                 <Text style={styles.chevron}>{isRevealed ? '▼' : '▶'}</Text>
@@ -109,6 +114,12 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
         fontSize: fontSize.sm,
         color: colors.textSecondary,
         lineHeight: 18,
+    },
+    recallPrompt: {
+        fontSize: fontSize.xs,
+        fontWeight: '600',
+        marginTop: spacing.xs,
+        fontStyle: 'italic',
     },
     chevron: {
         fontSize: fontSize.sm,

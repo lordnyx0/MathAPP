@@ -29,19 +29,23 @@ npx tsc --noEmit
 
 ## 📱 Features
 
-- **📝 Exercícios** - Exercícios resolvidos passo a passo
+- **🚀 Onboarding** - Introdução ao método + diagnóstico de nível na primeira abertura
+- **📝 Exercícios** - Exercícios resolvidos passo a passo (com prompt de autoexplicação)
 - **📚 Aprender** - Lições interativas por tópico
-- **🧠 MCQ** - Prática inteligente com spaced repetition
-- **🎯 Treino** - Treino de quadrantes trigonométricos
+- **🧠 MCQ** - Prática inteligente com spaced repetition, incluindo **Revisão de Hoje** (fila de cartões vencidos)
+- **🎯 Treino** - 13 minigames; os treinos alimentam o domínio por tópico e têm dificuldade adaptativa
+- **📈 Progresso** - Dashboard de domínio por tópico, revisões pendentes, streak e calibração
 
 ## 🧠 Learning Psychology Features
 
 | Feature | Descrição | Impacto |
 |---------|-----------|---------|
-| **SRS** | Spaced Repetition System | +30-50% retenção |
-| **MCQ Smart** | Distratores inteligentes | +15-25% retenção |
-| **Metacognição** | Tracking de confiança | Autoconsciência |
-| **Interleaving** | Prática intercalada | +40-50% transferência |
+| **SRS** | Spaced Repetition System + fila de revisão diária | +30-50% retenção |
+| **MCQ Smart** | Distratores inteligentes (Logaritmos, Trig, Limites, Derivadas) | +15-25% retenção |
+| **Metacognição** | Tracking de confiança e calibração | Autoconsciência |
+| **Interleaving** | Prática intercalada e adaptativa | +40-50% transferência |
+| **Dificuldade adaptativa** | Sobe após 3 acertos, desce após 2 erros | Zona de desenvolvimento proximal |
+| **Domínio por tópico** | Treinos alimentam o painel de Progresso | Visão de lacunas |
 
 ## 📂 Estrutura do Projeto
 
