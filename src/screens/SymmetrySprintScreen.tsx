@@ -15,6 +15,7 @@ import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { useTheme } from '../contexts/ThemeContext';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
+import { recordTopicAnswer } from '../learning/topicMastery';
 import BackButton from '../components/BackButton';
 import MathText, { DisplayMath } from '../components/MathText';
 import AnimatedCard, { FadeInView } from '../components/AnimatedCard';
@@ -134,6 +135,7 @@ export default function SymmetrySprintScreen({ onBack }: SymmetrySprintScreenPro
             playIncorrect();
             notifyError();
         }
+        recordTopicAnswer('simetria', isCorrect);
     };
 
     const handleContinue = () => {

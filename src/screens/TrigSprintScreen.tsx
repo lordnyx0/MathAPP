@@ -22,6 +22,7 @@ import ScoreBadge from '../components/ScoreBadge';
 import { TrigSprintLevel, getRandomTrigSprintLevel } from '../data/trigSprintQuestions';
 import { TAB_BAR_CLEARANCE } from '../constants/layout';
 import { notifySuccess, notifyError } from '../utils/haptics';
+import { recordTopicAnswer } from '../learning/topicMastery';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -72,7 +73,8 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
     const handleCardPlay = (cardId: string) => {
         if (gameState !== 'falling' || !level) return;
 
-        if (cardId === level.correctCardId) {
+        const isCorrect = cardId === level.correctCardId;
+        if (isCorrect) {
             fallAnim.stopAnimation();
             playCorrect();
             notifySuccess();
@@ -85,6 +87,7 @@ export default function TrigSprintScreen({ onBack }: TrigSprintScreenProps) {
             notifyError();
             setGameState('gameover');
         }
+        recordTopicAnswer('trig-identidades', isCorrect);
     };
 
     const translateY = fallAnim.interpolate({

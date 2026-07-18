@@ -23,6 +23,7 @@ import { loadHighScore, persistHighScore } from '../utils/highScore';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
+import { recordTopicAnswer } from '../learning/topicMastery';
 import BackButton from '../components/BackButton';
 import TrainerStatsBar from '../components/TrainerStatsBar';
 import MathText, { latexToUnicode } from '../components/MathText';
@@ -159,6 +160,7 @@ const DerivativeTrainerScreen: React.FC<DerivativeTrainerScreenProps> = ({ onBac
             playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
+        recordTopicAnswer('derivadas', isCorrect, isCorrect ? streak + 1 : 0);
     };
 
     // End practice

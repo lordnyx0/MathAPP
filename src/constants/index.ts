@@ -68,6 +68,8 @@ export const STORAGE_KEYS = Object.freeze({
     USER_THEME: '@math_app_user_theme',
     SOUND_ENABLED: '@math_app_sound_enabled',
     HAPTICS_ENABLED: '@math_app_haptics_enabled',
+    TOPIC_MASTERY: '@math_app_topic_mastery',
+    ONBOARDING_DONE: '@math_app_onboarding_done',
     DATA_VERSION: '@math_app_data_version',  // For migrations
 } as const);
 

@@ -18,6 +18,7 @@ import { domainsAreEquivalent } from '../utils/domainUtils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
+import { recordTopicAnswer } from '../learning/topicMastery';
 import MathText, { latexToUnicode } from '../components/MathText';
 import FunctionGraph from '../components/FunctionGraph';
 import DomainBuilder from '../components/DomainBuilder';
@@ -144,6 +145,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
             playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
+        recordTopicAnswer('funcoes', isFullyCorrect, isFullyCorrect ? streak + 1 : 0);
     };
 
     // Next build domain question
@@ -173,6 +175,7 @@ const FunctionLabScreen: React.FC<FunctionLabScreenProps> = ({ onBack }) => {
             playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
+        recordTopicAnswer('funcoes', isCorrect, isCorrect ? streak + 1 : 0);
     };
 
     // Next question

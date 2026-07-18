@@ -17,6 +17,7 @@ import { createAsyncCleanup } from '../utils';
 import { showToast } from '../components/Toast';
 import { playCorrect, playIncorrect, initAudio } from '../utils/sounds';
 import { notifySuccess, notifyError } from '../utils/haptics';
+import { recordTopicAnswer } from '../learning/topicMastery';
 import BackButton from '../components/BackButton';
 import TrainerStatsBar from '../components/TrainerStatsBar';
 import {
@@ -120,6 +121,7 @@ const SymbolSprintScreen: React.FC<SymbolSprintScreenProps> = ({ onBack }) => {
             playIncorrect(); notifyError();
         }
         setQuestionsAnswered(prev => prev + 1);
+        recordTopicAnswer('simbolos', isCorrect, isCorrect ? streak + 1 : 0);
     };
 
     // End practice
