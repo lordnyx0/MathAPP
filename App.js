@@ -11,16 +11,33 @@ import {
   Inter_700Bold,
 } from '@expo-google-fonts/inter';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import TabNavigator from './src/navigation/TabNavigator';
+import OnboardingScreen from './src/screens/OnboardingScreen';
 import { ToastProvider } from './src/components/Toast';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+import { STORAGE_KEYS } from './src/constants';
 import { initAudio, loadSoundPreference } from './src/utils/sounds';
 import { loadHapticsPreference } from './src/utils/haptics';
 
 // Inner component to access theme context
 const AppContent = () => {
   const { isDark, colors } = useTheme();
+  // null = still checking storage; true/false = onboarding completed or not.
+  const [onboardingDone, setOnboardingDone] = React.useState(null);
+
+  React.useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEYS.ONBOARDING_DONE)
+      .then((value) => setOnboardingDone(value === 'true'))
+      .catch(() => setOnboardingDone(true)); // fail open — never trap the user
+  }, []);
+
+  const completeOnboarding = React.useCallback(() => {
+    setOnboardingDone(true);
+    AsyncStorage.setItem(STORAGE_KEYS.ONBOARDING_DONE, 'true').catch(() => {});
+  }, []);
 
   // Build a navigation theme that matches our app theme to prevent
   // the white flash that occurs when switching tabs.
@@ -35,6 +52,24 @@ const AppContent = () => {
       notification: colors.primary,
     },
   };
+
+  // Avoid flashing the app before we know whether to onboard.
+  if (onboardingDone === null) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  if (!onboardingDone) {
+    return (
+      <>
+        <StatusBar style={isDark ? 'light' : 'dark'} hidden={true} />
+        <OnboardingScreen onComplete={completeOnboarding} />
+      </>
+    );
+  }
 
   return (
     <NavigationContainer theme={navigationTheme}>
